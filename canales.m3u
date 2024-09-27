@@ -125,10 +125,10 @@ https://7.innovatestream.pe:19360/cctvchupaca/cctvchupaca.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="ONDA DIGITAL TV" tvg-logo="https://ondadigitaltv.com/wp-content/uploads/2019/05/cropped-cropped-LOGO-2019-1-2-1.png" group-title="Nacional", Onda Digital TV
 https://v4.tustreaming.cl/ondadigitaltv/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX" tvg-logo="https://claroperupoc.vtexassets.com/arquivos/ids/1667923/liga-1-max.png" group-title="Deportes", Liga 1 Max
+#EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX Not Found" tvg-logo="https://claroperupoc.vtexassets.com/arquivos/ids/1667923/liga-1-max.png" group-title="Deportes", Liga 1 Max
 https://cxvpy2s.la10tv.com/liga1max/tracks-v1a1/mono.m3u8?remote=45.177.197.182&token=5665f5161d2c1c5771cf3229a53ec9ba0d0cf0c2-a86c87adb39ed0c769dbbc7ec1a0db0c-1724377284-1724341284
 
-#EXTINF:-1 tvg-id="" tvg-name="GOL PERU" tvg-logo="https://golperu.pe/wp-content/uploads/2023/04/png_golperu_logo.png" group-title="Deportes", Gol Perú
+#EXTINF:-1 tvg-id="" tvg-name="GOL PERU Not Found" tvg-logo="https://golperu.pe/wp-content/uploads/2023/04/png_golperu_logo.png" group-title="Deportes", Gol Perú
 https://dglvz29s.la10tv.com/golperu/tracks-v1a1/mono.m3u8?remote=45.177.197.182&token=ed499274633380ca540fe5808d8c1cbd16cb40be-25e81090183f4651a26ac7c121c6fb51-1724377447-1724341447
 
 #EXTINF:-1 tvg-id="" tvg-name="TEVESUR LIVE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/27/04/1719437849977/b4205070afdb_480_270.jpg" group-title="Nacional", Tv Sur Live
