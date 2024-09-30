@@ -1,105 +1,337 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="rdmultiservicios">
-    <meta name="generator" content="rdmultiservicios 0.0.1">
-    <title>RD | Facturación</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App - Boost Theme</title>
+  <meta name="description" content="Boost is a clean and accessible theme for Bootstrap.">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/jumbotron/">
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/favicon.png">
 
-    
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> 
 
-    <!-- Bootstrap core CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">  
+  <!-- Goole fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,700;1,400&amp;family=Merriweather:wght@400;700&amp;display=swap" rel="stylesheet">
 
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#7952b3">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="assets/css/icons.css">
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+  <!-- JS -->
+  <!-- <script src="assets/js/bootstrap.js" defer></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</head>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
-  </head>
-  <body>
-    
-<main>
-  <div class="container py-4">
-    <header class="pb-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-receipt-cutoff me-2" viewBox="0 0 16 16">
-          <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5M11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
-          <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118z"/>
-        </svg>
-        <span class="fs-4">RD | Facturación & Ventas</span>
+<body>
+<header>
+  <a href="#main" class="visually-hidden-focusable">Skip to main content</a>
+  <nav class="navbar navbar-expand-lg py-3" aria-label="Main">
+    <div class="container">
+      <a class='navbar-brand' href='/'>
+        <img src="assets/img/logo-boost.svg" alt="Boost Theme">
       </a>
-    </header>
-
-    <!-- <div class="p-5 mb-4 bg-light rounded-3">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
-      </div>
-    </div> -->
-
-    <div class="px-4 pt-5 my-5 text-center border-bottom">
-      <h1 class="display-4 fw-bold">Facturación electrónica SUNAT</h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Software de ventas con facturación electrónica para pymes en Perú.</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-          <a type="button" href="https://drcmultiservicios.soy.pe/pos/" target="_blank" class="btn btn-primary btn-lg px-4 me-sm-3">Probar demo GRATIS</a>
-          <a type="button" href="https://wa.me/51939975800?text=Hola, estoy interesado en el sistema de facturación, quiero más información. Vengo desde la web." target="_blank" class="btn btn-outline-secondary btn-lg px-4">Hablar con ventas</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav my-3 my-lg-0 ms-auto">
+          <a class='nav-link px-lg-3' href='/pages'>Pages</a>
+          <a class='nav-link px-lg-3' href='/style'>Style</a>
+          <a class='nav-link px-lg-3' href='/docs/intro'>Docs</a>
         </div>
-      </div>
-      <div class="overflow-hidden" style="max-height: 30vh;">
-        <div class="container px-5">
-          <img src="tumi-pos.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Sunat image" width="700" height="500" loading="lazy">
-        </div>
+        <a class="btn btn-primary btn-sm rounded-pill ms-lg-3" href="https://themes.getbootstrap.com/product/boost/">Buy now</a>
       </div>
     </div>
+  </nav>
+</header>
 
-    <div class="row align-items-md-stretch">
-      <div class="col-md-12">
-        <div class="h-100 p-5 text-white bg-dark rounded-3">
-          <h2>Acceso al sistema</h2>
-          <p>Use la cuenta demo</p>
-          <p>Usuario: demo</p>
-          <p>Contraseña: 123456</p>
-          <button class="btn btn-outline-light" type="button">Solicitar acceso</button>
+<main id="main">
+  <!-- Hero -->
+  <div class="container py-5">
+    <div class="row align-items-lg-center">
+      <div class="col-lg text-center text-lg-start">
+        <h1 class="display-3 mb-4">Showcase your amazing app</h1>
+        <p class="lead text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+          <a class="btn btn-primary rounded-pill" href="#">
+            <i class="fab fa-apple fs-4 me-1" aria-hidden="true"></i>
+            <span>App Store</span>
+          </a>
+          <a class="btn btn-primary rounded-pill" href="#">
+            <i class="fab fa-google-play fs-4 me-1" aria-hidden="true"></i>
+            <span>Google Play</span>
+          </a>
         </div>
       </div>
+      <div class="col-lg">
+        <img src="assets/img/holding-phone.svg" class="img-fluid d-none d-lg-block" alt="">
+      </div>
     </div>
-
-    <footer class="pt-3 mt-4 text-muted border-top">
-      &copy; 2024
-    </footer>
   </div>
+
+  <div class="bg-skew bg-skew-light">
+
+    <!-- Features -->
+    <div class="container py-5">
+      <h2 class="visually-hidden">Features</h2>
+      <div class="row align-items-center gy-6">
+        <div class="col-lg-4">
+          <div class="iphone-x mx-auto mx-lg-0">
+            <img src="assets/img/screenshot.png" alt="" class="screen" width="500" height="1060">
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="row gy-4">
+            <div class="col-sm-6 mb-4">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <span class="icon icon-primary me-3">
+                    <i class="fas fa-universal-access m-auto" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h5 mb-2">Accessible</h3>
+                  <p class="mb-0">Built with accessibility in mind and following best practices.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-4">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <span class="icon icon-primary me-3">
+                    <i class="fas fa-mobile-alt m-auto" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h5 mb-2">Mobile First</h3>
+                  <p class="mb-0">Mobile-first flexbox grid to build layouts of all shapes and sizes.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-4">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <span class="icon icon-primary me-3">
+                    <i class="fab fa-font-awesome-flag m-auto" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h5 mb-2">Font Awesome</h3>
+                  <p class="mb-0">More than 1600 vector icons from the web's most popular icon set.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-4">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <span class="icon icon-primary me-3">
+                    <i class="fas fa-code m-auto" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h5 mb-2">Valid Code</h3>
+                  <p class="mb-0">W3C valid code to ensure the site works properly on all major browsers.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-4">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <span class="icon icon-primary me-3">
+                    <i class="fab fa-sass m-auto" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h5 mb-2">Sass Files</h3>
+                  <p class="mb-0">Easily customize your site by modifying the source scss files.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-4">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <span class="icon icon-primary me-3">
+                    <i class="fab fa-npm m-auto" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h5 mb-2">Npm</h3>
+                  <p class="mb-0">Automated workflow for your development tasks.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider mx-auto"></div>
+
+    <!-- Testimonials -->
+    <div class="container py-5">
+      <h2 class="text-center mb-5">What our customers are saying</h2>
+      <div class="row">
+        <div class="col-md">
+          <blockquote class="bg-white rounded shadow mb-4 p-4 p-lg-5 text-center">
+            <img class="avatar avatar-lg mb-4" src="assets/img/leo-gill.jpg" alt="Leo Gill" width="128" height="128">
+            <p class="text-secondary">This app is incredible! We've seen excellent results already.</p>
+            <cite class="small text-uppercase">Leo Gill</cite>
+          </blockquote>
+        </div>
+        <div class="col-md">
+          <blockquote class="bg-white rounded shadow mb-4 p-4 p-lg-5 text-center">
+            <img class="avatar avatar-lg mb-4" src="assets/img/renee-sims.jpg" alt="Renee Sims" width="128" height="128">
+            <p class="text-secondary">It really saves me time and effort. This app is exactly what our business has been lacking.</p>
+            <cite class="small text-uppercase">Renee Sims</cite>
+          </blockquote>
+        </div>
+        <div class="col-md">
+          <blockquote class="bg-white rounded shadow mb-4 p-4 p-lg-5 text-center">
+            <img class="avatar avatar-lg mb-4" src="assets/img/dallas-kwok.jpg" alt="Dallas Kwok" width="128" height="128">
+            <p class="text-secondary">This app impressed me on multiple levels.</p>
+            <cite class="small text-uppercase">Dallas Kwok</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider mx-auto"></div>
+
+    <!-- Pricing cards -->
+    <div class="container py-5">
+      <h2 class="text-center mb-5">Simple pricing</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5 col-xl-4">
+          <div class="card text-center px-2 mb-4">
+            <div class="card-header bg-white border-bottom py-4">
+              <h3 class="h4 fw-normal">Starter</h3>
+              <div class="d-flex justify-content-center">
+                <span class="h2">Free</span>
+              </div>
+              <span class="text-secondary">forever</span>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled fw-light mb-0">
+                <li class="py-2">
+                  <i class="far fa-check-circle text-primary me-2" aria-hidden="true"></i>Feature #1
+                </li>
+                <li class="py-2">
+                  <i class="far fa-check-circle text-primary me-2" aria-hidden="true"></i>Feature #2
+                </li>
+                <li class="py-2">
+                  <i class="far fa-check-circle text-primary me-2" aria-hidden="true"></i>Feature #3
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-5 col-xl-4">
+          <div class="card text-center px-2 mb-4">
+            <div class="card-header bg-white border-bottom py-4">
+              <h3 class="h4 fw-normal">Professional</h3>
+              <div class="d-flex justify-content-center">
+                <span class="fs-5 mt-1">$</span>
+                <span class="h2">9</span>
+              </div>
+              <span class="text-secondary">per month</span>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled fw-light mb-0">
+                <li class="py-2">
+                  <i class="far fa-check-circle text-primary me-2" aria-hidden="true"></i>Feature #1
+                </li>
+                <li class="py-2"><i class="far fa-check-circle text-primary me-2" aria-hidden="true"></i>Feature #2
+                </li>
+                <li class="py-2"><i class="far fa-check-circle text-primary me-2" aria-hidden="true"></i>Feature #3
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider mx-auto"></div>
+
+    <!-- Call to action -->
+    <div class="container text-center py-5">
+      <h2 class="h3 mb-4">Download now</h2>
+      <div class="d-flex flex-column flex-sm-row justify-content-center g-3 mb-3">
+        <a class="btn btn-primary rounded-pill m-2" href="#">
+          <i class="fab fa-apple fs-4 me-1" aria-hidden="true"></i>
+          <span>App Store</span>
+        </a>
+        <a class="btn btn-primary rounded-pill m-2" href="#">
+          <i class="fab fa-google-play fs-4 me-1" aria-hidden="true"></i>
+          <span>Google Play</span>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- end bg-skew -->
 </main>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>    
-  </body>
+<footer class="pt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-3">
+        <h2 class="h5">Boost Theme</h2>
+        <p class="fw-light">Boost is a responsive theme based on Bootstrap 5.</p>
+      </div>
+      <div class="col-6 col-md-3 offset-lg-1 col-lg-2">
+        <h2 class="h5">About</h2>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">About Us</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Team</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 col-lg-2">
+        <h2 class="h5">Services</h2>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Design</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Themes</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Branding</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 col-lg-2">
+        <h2 class="h5">Help</h2>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">FAQ</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Docs</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Tutorials</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 col-lg-2">
+        <h2 class="h5">Contact</h2>
+        <ul class="list-unstyled mb-4">
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Contact</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Email</a></li>
+          <li class="mb-2"><a href="#" class="link-secondary text-decoration-none">Chat</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-center gap-3 border-top py-3">
+      <div class="small">&copy; Made by <a href="https://webvy.xyz/" target="_blank" rel="noopener">webvy</a></div>
+      <ul class="list-inline mb-0">
+        <li class="list-inline-item">
+          <a class="icon icon-sm icon-secondary" href="#"><i class="fab fa-twitter m-auto" aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+        </li>
+        <li class="list-inline-item">
+          <a class="icon icon-sm icon-secondary" href="#"><i class="fab fa-facebook-f m-auto" aria-hidden="true"></i><span class="sr-only">Facebook</span></a>
+        </li>
+        <li class="list-inline-item">
+          <a class="icon icon-sm icon-secondary" href="#"><i class="fab fa-linkedin-in m-auto" aria-hidden="true"></i><span class="sr-only">Linkedin</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
 </html>
