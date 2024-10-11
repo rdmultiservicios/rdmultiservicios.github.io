@@ -1,1279 +1,742 @@
 <!DOCTYPE html>
-<html lang="en" dir="">
-<head>
-  <!-- Required Meta Tags Always Come First -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Title -->
-  <title>Software Punto de Venta para Tiendas | POS</title>
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="./favicon.ico">
-
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Icons Bootstrap -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-  <!-- CSS Implementing Plugins -->
-  <link rel="stylesheet" href="vendor.min.css">
-
-  <!-- CSS Space Template -->
-  <link rel="stylesheet" href="theme.min.css?v=1.0">
-</head>
-
-<body>
-  <!-- ========== HEADER ========== -->
-  <header id="header" class="navbar navbar-expand-lg navbar-end navbar-absolute-top navbar-light">
-    <div class="container">
-      <nav class="js-mega-menu navbar-nav-wrap">
-        <!-- Default Logo -->
-        <!-- <a class="navbar-brand" href="./index.html" aria-label="Space">
-          <img class="navbar-brand-logo" src="./assets/svg/logos/logo.svg" alt="Image Description">
-        </a> -->
-        <!-- End Default Logo -->
-
-        <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-default">
-            <i class="bi-list"></i>
-          </span>
-          <span class="navbar-toggler-toggled">
-            <i class="bi-x"></i>
-          </span>
-        </button>
-        <!-- End Toggler -->
-
-        <!-- Collapse -->
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <div class="navbar-absolute-top-scroller">
-            <ul class="navbar-nav">
-              <!-- Recursos -->
-              <li class="hs-has-sub-menu nav-item">
-                <a id="blogMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#" role="button" aria-expanded="false">Recursos</a>
-
-                <!-- Mega Menu -->
-                <div class="hs-sub-menu dropdown-menu" aria-labelledby="blogMegaMenu" style="min-width: 12rem;">
-                  <a class="dropdown-item " href="./blog-classic.html">Classic</a>
-                  <a class="dropdown-item " href="./blog-article.html">Article</a>
-                  <a class="dropdown-item " href="./blog-author-profile.html">Author Profile</a>
-                </div>
-                <!-- End Mega Menu -->
-              </li>
-              <!-- End Recursos -->
-
-              <!-- Tipo de negocios -->
-              <li class="hs-has-sub-menu nav-item">
-                <a id="blogMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#" role="button" aria-expanded="false">Tipos de Negocios</a>
-
-                <!-- Mega Menu -->
-                <div class="hs-sub-menu dropdown-menu" aria-labelledby="blogMegaMenu" style="min-width: 12rem;">
-                  <a class="dropdown-item " href="./blog-classic.html">Classic</a>
-                  <a class="dropdown-item " href="./blog-article.html">Article</a>
-                  <a class="dropdown-item " href="./blog-author-profile.html">Author Profile</a>
-                </div>
-                <!-- End Mega Menu -->
-              </li>
-              <!-- End Tipo de negocios -->
-
-              <!-- Planes y precios -->
-              <li class="hs-has-sub-menu nav-item">
-                <a id="blogMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#" role="button" aria-expanded="false">Planes y Precios</a>
-
-                <!-- Mega Menu -->
-                <div class="hs-sub-menu dropdown-menu" aria-labelledby="blogMegaMenu" style="min-width: 12rem;">
-                  <a class="dropdown-item " href="./blog-classic.html">Classic</a>
-                  <a class="dropdown-item " href="./blog-article.html">Article</a>
-                  <a class="dropdown-item " href="./blog-author-profile.html">Author Profile</a>
-                </div>
-                <!-- End Mega Menu -->
-              </li>
-              <!-- End Planes y precios -->
-
-              <!-- Docs -->
-              <li class="hs-has-mega-menu nav-item" data-hs-mega-menu-item-options='{
-                      "desktop": {
-                        "maxWidth": "20rem"
-                      }
-                    }'>
-                <a id="docsMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#" role="button" aria-expanded="false">Docs</a>
-
-                <!-- Mega Menu -->
-                <div class="hs-mega-menu hs-position-right dropdown-menu" aria-labelledby="docsMegaMenu" style="min-width: 20rem;">
-                  <!-- Link -->
-                  <a class="navbar-dropdown-menu-media-link" href="./documentation/index.html">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0">
-                        <span class="svg-icon svg-icon-sm text-primary">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M4.85714 1H11.7364C12.0911 1 12.4343 1.12568 12.7051 1.35474L17.4687 5.38394C17.8057 5.66895 18 6.08788 18 6.5292V19.0833C18 20.8739 17.9796 21 16.1429 21H4.85714C3.02045 21 3 20.8739 3 19.0833V2.91667C3 1.12612 3.02045 1 4.85714 1ZM7 13C7 12.4477 7.44772 12 8 12H15C15.5523 12 16 12.4477 16 13C16 13.5523 15.5523 14 15 14H8C7.44772 14 7 13.5523 7 13ZM8 16C7.44772 16 7 16.4477 7 17C7 17.5523 7.44772 18 8 18H11C11.5523 18 12 17.5523 12 17C12 16.4477 11.5523 16 11 16H8Z" fill="#035A4B" />
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.85714 3H14.7364C15.0911 3 15.4343 3.12568 15.7051 3.35474L20.4687 7.38394C20.8057 7.66895 21 8.08788 21 8.5292V21.0833C21 22.8739 20.9796 23 19.1429 23H6.85714C5.02045 23 5 22.8739 5 21.0833V4.91667C5 3.12612 5.02045 3 6.85714 3ZM7 13C7 12.4477 7.44772 12 8 12H15C15.5523 12 16 12.4477 16 13C16 13.5523 15.5523 14 15 14H8C7.44772 14 7 13.5523 7 13ZM8 16C7.44772 16 7 16.4477 7 17C7 17.5523 7.44772 18 8 18H11C11.5523 18 12 17.5523 12 17C12 16.4477 11.5523 16 11 16H8Z" fill="#035A4B" />
-                          </svg>
-
-                        </span>
-                      </div>
-
-                      <div class="flex-grow-1 ms-3">
-                        <span class="navbar-dropdown-menu-media-title">Documentation <span class="badge bg-primary rounded-pill ms-1">v2.3.1</span></span>
-                        <p class="navbar-dropdown-menu-media-desc">Development guides for building projects with Space</p>
-                      </div>
-                    </div>
-                  </a>
-                  <!-- End Link -->
-
-                  <div class="dropdown-divider"></div>
-
-                  <!-- Link -->
-                  <a class="navbar-dropdown-menu-media-link" href="./snippets/index.html">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0">
-                        <span class="svg-icon svg-icon-sm text-primary">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.3" d="M21 2H13C12.4 2 12 2.4 12 3V13C12 13.6 12.4 14 13 14H21C21.6 14 22 13.6 22 13V3C22 2.4 21.6 2 21 2ZM15.7 8L14 10.1V5.80005L15.7 8ZM15.1 4H18.9L17 6.40002L15.1 4ZM17 9.59998L18.9 12H15.1L17 9.59998ZM18.3 8L20 5.90002V10.2L18.3 8ZM9 2H3C2.4 2 2 2.4 2 3V21C2 21.6 2.4 22 3 22H9C9.6 22 10 21.6 10 21V3C10 2.4 9.6 2 9 2ZM4.89999 12L4 14.8V9.09998L4.89999 12ZM4.39999 4H7.60001L6 8.80005L4.39999 4ZM6 15.2L7.60001 20H4.39999L6 15.2ZM7.10001 12L8 9.19995V14.9L7.10001 12Z" fill="#035A4B" />
-                            <path d="M21 18H13C12.4 18 12 17.6 12 17C12 16.4 12.4 16 13 16H21C21.6 16 22 16.4 22 17C22 17.6 21.6 18 21 18ZM19 21C19 20.4 18.6 20 18 20H13C12.4 20 12 20.4 12 21C12 21.6 12.4 22 13 22H18C18.6 22 19 21.6 19 21Z" fill="#035A4B" />
-                          </svg>
-
-                        </span>
-                      </div>
-
-                      <div class="flex-grow-1 ms-3">
-                        <span class="navbar-dropdown-menu-media-title">Snippets</span>
-                        <p class="navbar-dropdown-menu-media-desc">Move quickly with copy-to-clipboard feature</p>
-                      </div>
-                    </div>
-                  </a>
-                  <!-- End Link -->
-                </div>
-                <!-- End Mega Menu -->
-              </li>
-              <!-- End Docs -->
-
-              <li class="nav-divider"></li>
-
-              <!-- Log in -->
-              <li class="nav-item">
-                <a class="js-animation-link btn btn-ghost-secondary btn-no-focus me-2 me-lg-0" href="javascript:;" role="button" data-bs-toggle="modal" data-bs-target="#signupModal" data-hs-show-animation-options='{
-                             "targetSelector": "#signupModalFormLogin",
-                             "groupName": "idForm"
-                           }'>Log in</a>
-
-                <a class="js-animation-link d-lg-none btn btn-primary" href="javascript:;" role="button" data-bs-toggle="modal" data-bs-target="#signupModal" data-hs-show-animation-options='{
-                             "targetSelector": "#signupModalFormSignup",
-                             "groupName": "idForm"
-                           }'>
-                  <i class="bi-person-circle me-1"></i> Sign up
-                </a>
-              </li>
-              <!-- End Log in -->
-
-              <!-- Sign up -->
-              <li class="nav-item">
-                <a class="js-animation-link d-none d-lg-inline-block btn btn-primary" href="javascript:;" role="button" data-bs-toggle="modal" data-bs-target="#signupModal" data-hs-show-animation-options='{
-                             "targetSelector": "#signupModalFormSignup",
-                             "groupName": "idForm"
-                           }'>
-                  <i class="bi-person-circle me-1"></i> Sign up
-                </a>
-              </li>
-              <!-- End Sign up -->
-            </ul>
-          </div>
-        </div>
-        <!-- End Collapse -->
-      </nav>
-    </div>
-  </header>
-  <!-- ========== END HEADER ========== -->
-
-  <!-- ========== MAIN CONTENT ========== -->
-  <main id="content" role="main">
-    <!-- Hero -->
-    <div class="bg-soft-warning overflow-hidden">
-      <div class="container content-space-t-2 content-space-t-md-3">
-        <div class="w-lg-65 text-center mx-lg-auto mb-7">
-          <h1 class="display-3 text-primary">Software Punto de Venta Completo y <span class="text-warning">Simple</span></h1>
-          <p class="lead">¡POS es la forma más simple de vender en la tienda y en línea! Sistema de venta con módulos avanzados para la gestión de pequeños negocios.</p>
-        </div>
-
-        <!-- Mockup -->
-        <div class="position-relative">
-          <div class="position-relative zi-1">
-            <!-- Devices -->
-            <div class="devices">
-              <!-- Mobile Device -->
-              <figure class="device-mobile rotated-3d-right">
-                <div class="device-mobile-frame">
-                  <img class="device-mobile-img" src="tumi-pos-movil.jpeg" alt="Image Description">
-                </div>
-              </figure>
-              <!-- End Mobile Device -->
-
-              <!-- Browser Device -->
-              <figure class="device-browser">
-                <div class="device-browser-header">
-                  <div class="device-browser-header-btn-list">
-                    <span class="device-browser-header-btn-list-btn"></span>
-                    <span class="device-browser-header-btn-list-btn"></span>
-                    <span class="device-browser-header-btn-list-btn"></span>
-                  </div>
-                  <div class="device-browser-header-browser-bar">www.drcmultiservicios.soy.pe.com/pos/</div>
-                </div>
-
-                <div class="device-browser-frame">
-                  <img class="device-browser-img" src="tumi-pos.png" alt="Image Description">
-                </div>
-              </figure>
-              <!-- End Browser Device -->
-            </div>
-            <!-- End Devices -->
-          </div>
-
-          <!-- Background Shapes -->
-          <!-- <div class="position-absolute top-0" style="left: -9rem;">
-            <img src="./assets/svg/components/shape-1.svg" alt="SVG" width="500" style="width: 12rem;">
-          </div>
-          <div class="position-absolute" style="bottom: -5rem; right: -7rem;">
-            <img src="./assets/svg/components/shape-7.svg" alt="SVG" width="150">
-          </div> -->
-          <!-- End Background Shapes -->
-        </div>
-        <!-- End Mockup -->
-      </div>
-    </div>
-    <!-- End Hero -->
-
-    <!-- Stats -->
-    <div class="container content-space-t-1">
-      <div class="w-lg-85 mx-lg-auto">
-        <div class="row align-items-md-center col-md-divider">
-          <div class="col-md-4">
-            <div class="pe-lg-5">
-              <div class="d-flex align-items-end">
-                <span class="display-4 text-primary">92%</span>
-                <span class="badge bg-soft-primary-light text-primary mb-2 ms-2">
-                  <i class="bi-patch-check-fill"></i> +7% this month
-                </span>
-              </div>
-              <p>of U.S. adults have bought from businesses using Space</p>
-            </div>
-          </div>
-          <!-- End Col -->
-
-          <div class="col-md-8 pt-5 pt-md-0">
-            <div class="ps-lg-5">
-              <div class="row">
-                <div class="col-sm">
-                  <span class="h3 text-primary">1M+</span>
-                  <p>businesses using Space</p>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm">
-                  <span class="h3 text-primary">2M+</span>
-                  <p>daily active users</p>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm">
-                  <span class="h3 text-primary">$150B+</span>
-                  <p>sold with Space</p>
-                </div>
-                <!-- End Col -->
-              </div>
-              <!-- End Row -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Row -->
-    </div>
-    <!-- End Stats -->
-
-    <!-- Cards -->
-    <div class="container content-space-1 content-space-md-3">
-      <!-- Heading -->
-      <div class="w-lg-65 text-center mx-lg-auto mb-7">
-        <h3>The backbone for internet business</h3>
-        <p class="fs-6">A technology-first approach to payments and finance</p>
-      </div>
-      <!-- End Heading -->
-
-      <div class="row">
-        <div class="col-sm-6 col-md-4 mb-3 mb-sm-5 mb-md-7">
-          <!-- Card -->
-          <a class="card card-lg card-transition bg-soft-primary-light shadow-none h-100" href="./documentation/index.html">
-            <div class="card-header">
-              <h5 class="card-title text-inherit">Documentation</h5>
-              <p class="card-text text-body">Discover how to build and maintain coding systems.</p>
-            </div>
-            <div class="card-body">
-              <img class="card-img" src="./assets/svg/illustrations/frame-docs.svg" alt="Image Description">
-            </div>
-          </a>
-          <!-- End Card -->
-        </div>
-        <!-- End Cole -->
-
-        <div class="col-sm-6 col-md-4 mb-3 mb-sm-5 mb-md-7">
-          <!-- Card -->
-          <a class="card card-lg card-transition bg-soft-warning shadow-none h-100" href="./snippets/index.html">
-            <div class="card-header">
-              <h5 class="card-title text-inherit">Snippets</h5>
-              <p class="card-text text-body">Start browsing our snippets pages to match Bootstrap's level of quality.</p>
-            </div>
-            <div class="card-body">
-              <img class="card-img" src="./assets/svg/illustrations/frame-snippets.svg" alt="Image Description">
-            </div>
-          </a>
-          <!-- End Card -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col-sm-6 col-md-4 mb-3 mb-sm-5 mb-md-7">
-          <!-- Card -->
-          <a class="card card-lg card-transition bg-soft-success shadow-none h-100" href="#">
-            <div class="card-header">
-              <div class="d-flex align-items-center">
-                <h5 class="card-title text-inherit mb-0">Demos</h5>
-                <span class="badge bg-soft-secondary text-secondary rounded-pill ms-1">Coming soon</span>
-              </div>
-              <p class="card-text text-body">Apart from 30+ HTML-pages, the theme comes with several demos.</p>
-            </div>
-            <div class="card-body">
-              <img class="card-img" src="./assets/svg/illustrations/frame-layouts.svg" alt="Image Description">
-            </div>
-          </a>
-          <!-- End Card -->
-        </div>
-        <!-- End Col -->
-      </div>
-      <!-- End Row -->
-
-      <!-- Info -->
-      <div class="text-center">
-        <p class="mb-0">Have a question?</p>
-        <a class="link" href="./page-contacts.html">Contact our sales team <i class="bi-chevron-right small ms-1"></i></a>
-      </div>
-      <!-- End Info -->
-    </div>
-    <!-- End Cards -->
-
-    <!-- Features -->
-    <div class="bg-soft-warning">
-      <div class="container content-space-1 content-space-md-3">
-        <div class="row">
-          <div class="col-md-4 mb-5 mb-md-0">
-            <span class="text-cap">Global scale</span>
-            <h3>The features you need to build an engaged customer community</h3>
-            <p>Tools to take you further.</p>
-          </div>
-          <!-- End Col -->
-
-          <div class="col-md-8">
-            <div class="ps-lg-5">
-              <div class="row">
-                <div class="col-sm-6 mb-7">
-                  <span class="svg-icon text-primary mb-3">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path opacity="0.3" d="M8.70001 6C8.10001 5.7 7.39999 5.40001 6.79999 5.10001C7.79999 4.00001 8.90001 3 10.1 2.2C10.7 2.1 11.4 2 12 2C12.7 2 13.3 2.1 13.9 2.2C12 3.2 10.2 4.5 8.70001 6ZM12 8.39999C13.9 6.59999 16.2 5.30001 18.7 4.60001C18.1 4.00001 17.4 3.6 16.7 3.2C14.4 4.1 12.2 5.40001 10.5 7.10001C11 7.50001 11.5 7.89999 12 8.39999Z" fill="#035A4B" />
-                      <path d="M7 20C7 20.2 7 20.4 7 20.6C6.2 20.1 5.49999 19.6 4.89999 19C4.59999 18 4.00001 17.2 3.20001 16.6C2.80001 15.8 2.49999 15 2.29999 14.1C4.99999 14.7 7 17.1 7 20ZM10.6 9.89995C8.70001 8.09995 6.39999 6.89996 3.79999 6.29996C3.39999 6.89996 2.99999 7.49995 2.79999 8.19995C5.39999 8.59995 7.7 9.79996 9.5 11.6C9.8 10.9 10.2 10.3999 10.6 9.89995ZM2.20001 10.1C2.10001 10.7 2 11.4 2 12C2 12 2 12 2 12.1C4.3 12.4 6.40001 13.7 7.60001 15.6C7.80001 14.8 8.09999 14.0999 8.39999 13.3999C6.89999 11.5999 4.70001 10.4 2.20001 10.1ZM11 20C11 14 15.4 8.99996 21.2 8.09996C20.9 7.39996 20.6 6.79995 20.2 6.19995C13.8 7.49995 9 13.0999 9 19.8999C9 20.3999 9.00001 21 9.10001 21.5C9.80001 21.7 10.5 21.7999 11.2 21.8999C11.1 21.2999 11 20.7 11 20ZM19.1 19C19.4 18 20 17.2 20.8 16.6C21.2 15.8 21.5 15 21.7 14.1C19 14.7 16.9 17.1 16.9 20C16.9 20.2 16.9 20.4 16.9 20.6C17.8 20.2 18.5 19.6 19.1 19ZM15 20C15 15.9 18.1 12.6 22 12.1C22 12.1 22 12.1 22 12C22 11.3 21.9 10.7 21.8 10.1C16.8 10.7 13 14.9 13 20C13 20.7 13.1 21.2999 13.2 21.8999C13.9 21.7999 14.5 21.7 15.2 21.5C15.1 21 15 20.5 15 20Z" fill="#035A4B" />
-                    </svg>
-
-                  </span>
-
-                  <h5>Less routine - more creativity</h5>
-                  <p>Now that we've aligned the details, it's time to get things mapped out and organized.</p>
-
-                  <a class="link" href="./page-services.html">Learn about our services <i class="bi-chevron-right small ms-1"></i></a>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm-6 mb-7">
-                  <span class="svg-icon text-primary mb-3">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path opacity="0.3" d="M3.20001 5.91897L16.9 3.01895C17.4 2.91895 18 3.219 18.1 3.819L19.2 9.01895L3.20001 5.91897Z" fill="#035A4B" />
-                      <path opacity="0.3" d="M13 13.9189C13 12.2189 14.3 10.9189 16 10.9189H21C21.6 10.9189 22 11.3189 22 11.9189V15.9189C22 16.5189 21.6 16.9189 21 16.9189H16C14.3 16.9189 13 15.6189 13 13.9189ZM16 12.4189C15.2 12.4189 14.5 13.1189 14.5 13.9189C14.5 14.7189 15.2 15.4189 16 15.4189C16.8 15.4189 17.5 14.7189 17.5 13.9189C17.5 13.1189 16.8 12.4189 16 12.4189Z" fill="#035A4B" />
-                      <path d="M13 13.9189C13 12.2189 14.3 10.9189 16 10.9189H21V7.91895C21 6.81895 20.1 5.91895 19 5.91895H3C2.4 5.91895 2 6.31895 2 6.91895V20.9189C2 21.5189 2.4 21.9189 3 21.9189H19C20.1 21.9189 21 21.0189 21 19.9189V16.9189H16C14.3 16.9189 13 15.6189 13 13.9189Z" fill="#035A4B" />
-                    </svg>
-
-                  </span>
-
-                  <h5>Scale budget efficiently</h5>
-                  <p>Now that we've aligned the details, it's time to get things mapped out and organized.</p>
-
-                  <a class="link" href="./page-services.html">Learn about our services <i class="bi-chevron-right small ms-1"></i></a>
-                </div>
-                <!-- End Col -->
-              </div>
-              <!-- End Row -->
-
-              <div class="row">
-                <div class="col-sm-6 mb-7 mb-sm-0">
-                  <span class="svg-icon text-primary mb-3">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path opacity="0.3" d="M10.9607 12.9128H18.8607C19.4607 12.9128 19.9607 13.4128 19.8607 14.0128C19.2607 19.0128 14.4607 22.7128 9.26068 21.7128C5.66068 21.0128 2.86071 18.2128 2.16071 14.6128C1.16071 9.31284 4.96069 4.61281 9.86069 4.01281C10.4607 3.91281 10.9607 4.41281 10.9607 5.01281V12.9128V12.9128Z" fill="#035A4B" />
-                      <path d="M12.9607 10.9128V3.01281C12.9607 2.41281 13.4607 1.91281 14.0607 2.01281C16.0607 2.21281 17.8607 3.11284 19.2607 4.61284C20.6607 6.01284 21.5607 7.91285 21.8607 9.81285C21.9607 10.4129 21.4607 10.9128 20.8607 10.9128H12.9607V10.9128Z" fill="#035A4B" />
-                    </svg>
-
-                  </span>
-
-                  <h5>Smart dashboards</h5>
-                  <p>This is where we really begin to visualize your napkin sketches and make them into beautiful pixels.</p>
-
-                  <a class="link" href="./page-services.html">Learn about our services <i class="bi-chevron-right small ms-1"></i></a>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-sm-6">
-                  <span class="svg-icon text-primary mb-3">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path opacity="0.3" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#035A4B" />
-                      <path d="M19 10.4C19 10.3 19 10.2 19 10C19 8.9 18.1 8 17 8H16.9C15.6 6.2 14.6 4.29995 13.9 2.19995C13.3 2.09995 12.6 2 12 2C11.9 2 11.8 2 11.7 2C12.4 4.6 13.5 7.10005 15.1 9.30005C15 9.50005 15 9.7 15 10C15 11.1 15.9 12 17 12C17.1 12 17.3 12 17.4 11.9C18.6 13 19.9 14 21.4 14.8C21.4 14.8 21.5 14.8 21.5 14.9C21.7 14.2 21.8 13.5 21.9 12.7C20.9 12.1 19.9 11.3 19 10.4Z" fill="#035A4B" />
-                      <path d="M12 15C11 13.1 10.2 11.2 9.60001 9.19995C9.90001 8.89995 10 8.4 10 8C10 7.1 9.40001 6.39998 8.70001 6.09998C8.40001 4.99998 8.20001 3.90005 8.00001 2.80005C7.30001 3.10005 6.70001 3.40002 6.20001 3.90002C6.40001 4.80002 6.50001 5.6 6.80001 6.5C6.40001 6.9 6.10001 7.4 6.10001 8C6.10001 9 6.80001 9.8 7.80001 10C8.30001 11.6 9.00001 13.2 9.70001 14.7C7.10001 13.2 4.70001 11.5 2.40001 9.5C2.20001 10.3 2.10001 11.1 2.10001 11.9C4.60001 13.9 7.30001 15.7 10.1 17.2C10.2 18.2 11 19 12 19C12.6 20 13.2 20.9 13.9 21.8C14.6 21.7 15.3 21.5 15.9 21.2C15.4 20.5 14.9 19.8 14.4 19.1C15.5 19.5 16.5 19.9 17.6 20.2C18.3 19.8 18.9 19.2 19.4 18.6C17.6 18.1 15.7 17.5 14 16.7C13.9 15.8 13.1 15 12 15Z" fill="#035A4B" />
-                    </svg>
-
-                  </span>
-
-                  <h5>Control center</h5>
-                  <p>We strive to embrace and drive change in our industry which allows us to keep our clients relevant.</p>
-
-                  <a class="link" href="./page-services.html">Learn about our services <i class="bi-chevron-right small ms-1"></i></a>
-                </div>
-                <!-- End Col -->
-              </div>
-              <!-- End Row -->
-            </div>
-          </div>
-          <!-- End Col -->
-        </div>
-        <!-- End Row -->
-      </div>
-    </div>
-    <!-- End Features -->
-
-    <!-- Pricing -->
-    <div class="container content-space-1 content-space-md-3">
-      <!-- Heading -->
-      <div class="w-lg-65 text-center mx-lg-auto mb-7">
-        <h3>Find the right plan for your team</h3>
-        <p class="fs-6">Pay as you go service, cancel anytime.</p>
-      </div>
-      <!-- End Heading -->
-
-      <div class="w-md-75 w-lg-65 mx-md-auto mb-7">
-        <!-- Table -->
-        <div class="table-responsive-sm">
-          <table class="table table-lg">
-            <thead>
-              <tr class="table-align-middle">
-                <th scope="col">Total users</th>
-                <th scope="col" class="table-text-center">
-                  <img class="avatar avatar-4x3 me-2" src="./assets/svg/illustrations/oc-money-profits.svg" alt="Image Description">
-                  Price per user
-                </th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr class="js-form-check-row-select form-check-row-select table-align-middle">
-                <th scope="row" style="min-width: 10rem;">
-                  <div class="form-check form-check-custom">
-                    <input class="form-check-input" type="radio" name="pricingRadio" id="pricingRadio1">
-                    <label class="form-check-label" for="pricingRadio1">
-                      1-10
-                    </label>
-                  </div>
-                </th>
-                <td class="table-text-center">$29 / user</td>
-                <td class="text-end">
-                  <button type="button" class="btn btn-outline-primary">Select plan</button>
-                </td>
-              </tr>
-
-              <tr class="js-form-check-row-select form-check-row-select table-align-middle checked">
-                <th scope="row" style="min-width: 10rem;">
-                  <div class="form-check form-check-custom">
-                    <input class="form-check-input" type="radio" name="pricingRadio" id="pricingRadio2" checked>
-                    <label class="form-check-label" for="pricingRadio2">
-                      11-50 <span class="badge bg-warning text-dark rounded-pill ms-1">Popular</span>
-                    </label>
-                  </div>
-                </th>
-                <td class="table-text-center">$79 / user</td>
-                <td class="text-end">
-                  <button type="button" class="btn btn-outline-primary">Select plan</button>
-                </td>
-              </tr>
-
-              <tr class="js-form-check-row-select form-check-row-select table-align-middle">
-                <th scope="row" style="min-width: 10rem;">
-                  <div class="form-check form-check-custom">
-                    <input class="form-check-input" type="radio" name="pricingRadio" id="pricingRadio3">
-                    <label class="form-check-label" for="pricingRadio3">
-                      51-100
-                    </label>
-                  </div>
-                </th>
-                <td class="table-text-center">$129 / user</td>
-                <td class="text-end">
-                  <button type="button" class="btn btn-outline-primary">Select plan</button>
-                </td>
-              </tr>
-
-              <tr class="js-form-check-row-select form-check-row-select table-align-middle">
-                <th scope="row" style="min-width: 10rem;">
-                  <div class="form-check form-check-custom">
-                    <input class="form-check-input" type="radio" name="pricingRadio" id="pricingRadio4">
-                    <label class="form-check-label" for="pricingRadio4">
-                      100+
-                    </label>
-                  </div>
-                </th>
-                <td class="table-text-center">Enterprise pricing</td>
-                <td class="text-end">
-                  <button type="button" class="btn btn-outline-primary">Select plan</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- End Table -->
-      </div>
-
-      <!-- Info -->
-      <div class="text-center">
-        <p class="mb-0">Need bigger plan?</p>
-        <a class="link" href="./page-contacts.html">Contact our sales team <i class="bi-chevron-right small ms-1"></i></a>
-      </div>
-      <!-- End Info -->
-    </div>
-    <!-- End Pricing -->
-
-    <!-- Testimonials -->
-    <div class="bg-soft-warning">
-      <div class="container content-space-1 content-space-md-3">
-        <!-- Heading -->
-        <div class="w-lg-65 text-center mx-lg-auto mb-7">
-          <h3>Space powers ambitious entrepreneurs all over the world</h3>
-        </div>
-        <!-- End Heading -->
-
-        <!-- Swiper Slider -->
-        <div class="js-swiper swiper swiper-equal-height">
-          <div class="swiper-wrapper">
-            <!-- Slide -->
-            <div class="swiper-slide">
-              <!-- Card -->
-              <div class="card">
-                <div class="card-body">
-                  <img class="avatar avatar-lg avatar-4x3 mb-4" src="./assets/svg/brands/mailchimp-primary.svg" alt="Logo">
-                  <blockquote class="blockquote blockquote-sm">“ This is a beautiful template with exciting components and endless features. ”</blockquote>
-                </div>
-
-                <div class="card-footer">
-                  <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                      <img class="avatar avatar-circle" src="./assets/img/160x160/img10.jpg" alt="Image Description">
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-0">Andrea</h6>
-                      <span class="d-block">Product Manager | Mailchimp</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Slide -->
-
-            <!-- Slide -->
-            <div class="swiper-slide">
-              <!-- Card -->
-              <div class="card">
-                <div class="card-body">
-                  <img class="avatar avatar-lg avatar-4x3 mb-4" src="./assets/svg/brands/vidados-primary.svg" alt="Logo">
-                  <blockquote class="blockquote blockquote-sm">“ I plan to use Space in many more projects, and almost want to keep it to myself ”</blockquote>
-                </div>
-
-                <div class="card-footer">
-                  <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                      <img class="avatar avatar-circle" src="./assets/img/160x160/img3.jpg" alt="Image Description">
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-0">John</h6>
-                      <span class="d-block">Director of Sales | Vidados</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Slide -->
-
-            <!-- Slide -->
-            <div class="swiper-slide">
-              <!-- Card -->
-              <div class="card">
-                <div class="card-body">
-                  <img class="avatar avatar-lg avatar-4x3 mb-4" src="./assets/svg/brands/capsule-primary.svg" alt="Logo">
-                  <blockquote class="blockquote blockquote-sm">“ Great design and thorough documentation, all backed with amazing support. ”</blockquote>
-                </div>
-
-                <div class="card-footer">
-                  <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                      <img class="avatar avatar-circle" src="./assets/img/160x160/img6.jpg" alt="Image Description">
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-0">Alex</h6>
-                      <span class="d-block">Product Designer | Capsule</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Slide -->
-
-            <!-- Slide -->
-            <div class="swiper-slide">
-              <!-- Card -->
-              <div class="card">
-                <div class="card-body">
-                  <img class="avatar avatar-lg avatar-4x3 mb-4" src="./assets/svg/brands/shopify-primary.svg" alt="Logo">
-                  <blockquote class="blockquote blockquote-sm">“ It has many landing page variations to choose from, which one is always a big advantage. ”</blockquote>
-                </div>
-
-                <div class="card-footer">
-                  <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                      <img class="avatar avatar-circle" src="./assets/img/160x160/img9.jpg" alt="Image Description">
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-0">Marcel</h6>
-                      <span class="d-block">HR | Shopify</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Slide -->
-
-            <!-- Slide -->
-            <div class="swiper-slide">
-              <!-- Card -->
-              <div class="card">
-                <div class="card-body">
-                  <img class="avatar avatar-lg avatar-4x3 mb-4" src="./assets/svg/brands/amazon-primary.svg" alt="Logo">
-                  <blockquote class="blockquote blockquote-sm">“ It is a breeze to work with and really love the snippets to pick out what you want in your design. ”</blockquote>
-                </div>
-
-                <div class="card-footer">
-                  <div class="d-flex align-items-center">
-                    <div class="flex-shrink-0">
-                      <img class="avatar avatar-circle" src="./assets/img/160x160/img5.jpg" alt="Image Description">
-                    </div>
-                    <div class="flex-grow-1 ms-3">
-                      <h6 class="mb-0">Sebastien</h6>
-                      <span class="d-block">Lead Developer | amazon</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Slide -->
-          </div>
-
-          <!-- Pagination -->
-          <div class="js-swiper-pagination swiper-pagination"></div>
-
-          <!-- Preloader -->
-          <div class="js-swiper-preloader swiper-preloader">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <!-- End Preloader -->
-        </div>
-        <!-- End Swiper Slider -->
-      </div>
-    </div>
-    <!-- End Testimonials -->
-
-    <!-- CTA -->
-    <div class="container content-space-1">
-      <div class="row align-items-md-center">
-        <div class="col-md-5 col-lg-6 mb-5 mb-lg-0">
-          <div class="text-center">
-            <img class="img-fluid" src="./assets/svg/illustrations/oc-unlock.svg" alt="Image Description" style="max-width: 17rem;">
-          </div>
-        </div>
-        <!-- End Col -->
-
-        <div class="col-md-7 col-lg-6">
-          <div class="mb-4">
-            <h4>Your data privacy and security are a top concern for us.</h4>
-          </div>
-
-          <div class="row mb-4">
-            <div class="col py-3">
-              <img class="avatar avatar-lg avatar-4x3" src="./assets/svg/brands/capsule-primary.svg" alt="Logo">
-            </div>
-            <!-- End Col -->
-
-            <div class="col py-3">
-              <img class="avatar avatar-lg avatar-4x3" src="./assets/svg/brands/fitbit-primary.svg" alt="Logo">
-            </div>
-            <!-- End Col -->
-
-            <div class="col py-3">
-              <img class="avatar avatar-lg avatar-4x3" src="./assets/svg/brands/vidados-primary.svg" alt="Logo">
-            </div>
-            <!-- End Col -->
-          </div>
-          <!-- End Row -->
-
-          <a class="link" href="#">Learn more <i class="bi-chevron-right small ms-1"></i></a>
-        </div>
-        <!-- End Col -->
-      </div>
-      <!-- End Row -->
-    </div>
-    <!-- End CTA -->
-  </main>
-  <!-- ========== END MAIN CONTENT ========== -->
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="bg-primary-dark border-top border-white-10">
-    <div class="container">
-      <div class="row content-space-1">
-        <div class="col-lg-3 mb-7 mb-lg-0">
-          <!-- Logo -->
-          <div class="mb-5">
-            <a class="navbar-brand" href="./index.html" aria-label="Space">
-              <img class="navbar-brand-logo" src="./assets/svg/logos/logo-white.svg" alt="Image Description">
-            </a>
-          </div>
-          <!-- End Logo -->
-
-          <span class="d-block">
-            <label for="selectLanguage" class="form-label text-white">Choose language</label>
-          </span>
-
-          <!-- Button Group -->
-          <div class="btn-group">
-            <button type="button" class="btn btn-soft-light btn-sm dropdown-toggle" id="selectLanguage" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="d-flex align-items-center">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/us.svg" alt="Image description" width="16" />
-                <span>English (US)</span>
-              </span>
-            </button>
-
-            <div class="dropdown-menu">
-              <a class="dropdown-item d-flex align-items-center active" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/us.svg" alt="Image description" width="16" />
-                <span>English (US)</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/gb.svg" alt="Image description" width="16" />
-                <span>English (UK)</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/de.svg" alt="Image description" width="16" />
-                <span>Deutsch</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/dk.svg" alt="Image description" width="16" />
-                <span>Dansk</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/es.svg" alt="Image description" width="16" />
-                <span>Español</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/nl.svg" alt="Image description" width="16" />
-                <span>Nederlands</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/it.svg" alt="Image description" width="16" />
-                <span>Italiano</span>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <img class="avatar avatar-xss avatar-circle me-2" src="./assets/vendor/flag-icon-css/flags/1x1/cn.svg" alt="Image description" width="16" />
-                <span>中文 (繁體)</span>
-              </a>
-            </div>
-          </div>
-          <!-- End Button Group -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col-sm mb-7 mb-sm-0">
-          <span class="text-cap text-primary-light">Resources</span>
-
-          <!-- List -->
-          <ul class="list-unstyled list-py-1 mb-0">
-            <li><a class="link-sm link-light" href="#">Blog</a></li>
-            <li><a class="link-sm link-light" href="#">Guidance</a></li>
-            <li><a class="link-sm link-light" href="#">Customer Stories</a></li>
-            <li><a class="link-sm link-light" href="#">Support <i class="bi-box-arrow-up-right ms-1"></i></a></li>
-            <li><a class="link-sm link-light" href="#">API</a></li>
-            <li><a class="link-sm link-light" href="#">Packages</a></li>
-          </ul>
-          <!-- End List -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col-sm mb-7 mb-sm-0">
-          <span class="text-cap text-primary-light">Company</span>
-
-          <!-- List -->
-          <ul class="list-unstyled list-py-1 mb-0">
-            <li><a class="link-sm link-light" href="#">Belonging <i class="bi-box-arrow-up-right ms-1"></i></a></li>
-            <li><a class="link-sm link-light" href="#">Company</a></li>
-            <li><a class="link-sm link-light" href="#">Careers <span class="badge bg-warning text-dark rounded-pill ms-2">We're hiring</span></a></li>
-            <li><a class="link-sm link-light" href="#">Contacts</a></li>
-            <li><a class="link-sm link-light" href="#">Security</a></li>
-          </ul>
-          <!-- End List -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col-sm">
-          <span class="text-cap text-primary-light">Platform</span>
-
-          <!-- List -->
-          <ul class="list-unstyled list-py-1 mb-0">
-            <li><a class="link-sm link-light" href="#">Web</a></li>
-            <li><a class="link-sm link-light" href="#">Mobile</a></li>
-            <li><a class="link-sm link-light" href="#">iOS</a></li>
-            <li><a class="link-sm link-light" href="#">Android</a></li>
-            <li><a class="link-sm link-light" href="#">Figma Importing</a></li>
-          </ul>
-          <!-- End List -->
-        </div>
-        <!-- End Col -->
-
-        <div class="col-sm">
-          <span class="text-cap text-primary-light">Legal</span>
-
-          <!-- List -->
-          <ul class="list-unstyled list-py-1 mb-5">
-            <li><a class="link-sm link-light" href="#">Terms of use</a></li>
-            <li><a class="link-sm link-light" href="#">Privacy policy <i class="bi-box-arrow-up-right ms-1"></i></a></li>
-          </ul>
-          <!-- End List -->
-
-          <span class="text-cap text-primary-light">Docs</span>
-
-          <!-- List -->
-          <ul class="list-unstyled list-py-1 mb-0">
-            <li><a class="link-sm link-light" href="#">Documentation</a></li>
-            <li><a class="link-sm link-light" href="#">Snippets</a></li>
-          </ul>
-          <!-- End List -->
-        </div>
-        <!-- End Col -->
-      </div>
-      <!-- End Row -->
-
-      <div class="border-top border-white-10"></div>
-
-      <div class="row align-items-md-end py-5">
-        <div class="col-md mb-3 mb-md-0">
-          <p class="text-white mb-0">© Space. 2021 Htmlstream. All rights reserved.</p>
-        </div>
-
-        <div class="col-md d-md-flex justify-content-md-end">
-          <!-- Socials -->
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item">
-              <a class="btn btn-icon btn-sm btn-soft-light rounded-circle" href="#">
-                <i class="bi-facebook"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn btn-icon btn-sm btn-soft-light rounded-circle" href="#">
-                <i class="bi-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn btn-icon btn-sm btn-soft-light rounded-circle" href="#">
-                <i class="bi-github"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a class="btn btn-icon btn-sm btn-soft-light rounded-circle" href="#">
-                <i class="bi-slack"></i>
-              </a>
-            </li>
-          </ul>
-          <!-- End Socials -->
-        </div>
-      </div>
-    </div>
-  </footer>
-  <!-- ========== END FOOTER ========== -->
-
-  <!-- ========== SECONDARY CONTENTS ========== -->
-  <!-- Sign Up -->
-  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <!-- Header -->
-        <div class="modal-close">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <!-- End Header -->
-
-        <!-- Body -->
-        <div class="modal-body p-sm-5">
-          <!-- Log in -->
-          <div id="signupModalFormLogin" style="display: none; opacity: 0;">
-            <!-- Heading -->
-            <div class="text-center mb-7">
-              <h4>Log in</h4>
-              <p>Don't have an account yet?
-                <a class="js-animation-link" href="javascript:;" role="button" data-hs-show-animation-options='{
-                           "targetSelector": "#signupModalFormSignup",
-                           "groupName": "idForm"
-                         }'>Sign up here</a>
-              </p>
-            </div>
-            <!-- End Heading -->
-
-            <div class="d-grid gap-2">
-              <a class="btn btn-white btn-lg" href="#">
-                <span class="d-flex justify-content-center align-items-center">
-                  <img class="avatar avatar-xss me-2" src="./assets/svg/brands/google-icon.svg" alt="Image Description">
-                  Log in with Google
-                </span>
-              </a>
-
-              <a class="js-animation-link btn btn-primary btn-lg" href="#" data-hs-show-animation-options='{
-                         "targetSelector": "#signupModalFormLoginWithEmail",
-                         "groupName": "idForm"
-                       }'>Log in with Email</a>
-            </div>
-          </div>
-          <!-- End Log in -->
-
-          <!-- Log in with Modal -->
-          <div id="signupModalFormLoginWithEmail" style="display: none; opacity: 0;">
-            <!-- Heading -->
-            <div class="text-center mb-7">
-              <h4>Log in</h4>
-              <p>Don't have an account yet?
-                <a class="js-animation-link" href="javascript:;" role="button" data-hs-show-animation-options='{
-                           "targetSelector": "#signupModalFormSignup",
-                           "groupName": "idForm"
-                         }'>Sign up here</a>
-              </p>
-            </div>
-            <!-- End Heading -->
-
-            <form class="js-validate needs-validation" novalidate>
-              <!-- Form -->
-              <div class="mb-3">
-                <label class="form-label" for="signupModalFormLoginEmail">Your email</label>
-                <input type="email" class="form-control form-control-lg" name="email" id="signupModalFormLoginEmail" placeholder="email@site.com" aria-label="email@site.com" required>
-                <span class="invalid-feedback">Please enter a valid email address.</span>
-              </div>
-              <!-- End Form -->
-
-              <!-- Form -->
-              <div class="mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                  <label class="form-label" for="signupModalFormLoginPassword">Password</label>
-
-                  <a class="js-animation-link form-label-link" href="javascript:;" data-hs-show-animation-options='{
-                         "targetSelector": "#signupModalFormResetPassword",
-                         "groupName": "idForm"
-                       }'>Forgot Password?</a>
-                </div>
-
-                <input type="password" class="form-control form-control-lg" name="password" id="signupModalFormLoginPassword" placeholder="8+ characters required" aria-label="8+ characters required" required minlength="8">
-                <span class="invalid-feedback">Please enter a valid password.</span>
-              </div>
-              <!-- End Form -->
-
-              <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-primary btn-lg">Log in</button>
-              </div>
-            </form>
-          </div>
-          <!-- End Log in with Modal -->
-
-          <!-- Sign up -->
-          <div id="signupModalFormSignup">
-            <!-- Heading -->
-            <div class="text-center mb-7">
-              <h4>Sign up</h4>
-              <p>Already have an account?
-                <a class="js-animation-link" href="javascript:;" role="button" data-hs-show-animation-options='{
-                           "targetSelector": "#signupModalFormLogin",
-                           "groupName": "idForm"
-                         }'>Log in here</a>
-              </p>
-            </div>
-            <!-- End Heading -->
-
-            <div class="d-grid gap-3">
-              <a class="btn btn-white btn-lg" href="#">
-                <span class="d-flex justify-content-center align-items-center">
-                  <img class="avatar avatar-xss me-2" src="./assets/svg/brands/google-icon.svg" alt="Image Description">
-                  Sign up with Google
-                </span>
-              </a>
-
-              <a class="js-animation-link btn btn-primary btn-lg" href="#" data-hs-show-animation-options='{
-                         "targetSelector": "#signupModalFormSignupWithEmail",
-                         "groupName": "idForm"
-                       }'>Sign up with Email</a>
-
-              <div class="text-center">
-                <p class="small mb-0">By continuing you agree to our <a href="./page-terms.html">Terms and Conditions</a></p>
-              </div>
-            </div>
-          </div>
-          <!-- End Sign up -->
-
-          <!-- Sign up with Modal -->
-          <div id="signupModalFormSignupWithEmail" style="display: none; opacity: 0;">
-            <!-- Heading -->
-            <div class="text-center mb-7">
-              <h4>Sign up</h4>
-              <p>Already have an account?
-                <a class="js-animation-link" href="javascript:;" role="button" data-hs-show-animation-options='{
-                           "targetSelector": "#signupModalFormLogin",
-                           "groupName": "idForm"
-                         }'>Log in here</a>
-              </p>
-            </div>
-            <!-- End Heading -->
-
-            <form class="js-validate need-validate" novalidate>
-              <!-- Form -->
-              <div class="mb-3">
-                <label class="form-label" for="signupModalFormSignupEmail">Your email</label>
-                <input type="email" class="form-control form-control-lg" name="email" id="signupModalFormSignupEmail" placeholder="email@site.com" aria-label="email@site.com" required>
-                <span class="invalid-feedback">Please enter a valid email address.</span>
-              </div>
-              <!-- End Form -->
-
-              <!-- Form -->
-              <div class="mb-3">
-                <label class="form-label" for="signupModalFormSignupPassword">Password</label>
-                <input type="password" class="form-control form-control-lg" name="password" id="signupModalFormSignupPassword" placeholder="8+ characters required" aria-label="8+ characters required" required>
-                <span class="invalid-feedback">Your password is invalid. Please try again.</span>
-              </div>
-              <!-- End Form -->
-
-              <!-- Form -->
-              <div class="mb-3" data-hs-validation-validate-class>
-                <label class="form-label" for="signupModalFormSignupConfirmPassword">Confirm password</label>
-                <input type="password" class="form-control form-control-lg" name="confirmPassword" id="signupModalFormSignupConfirmPassword" placeholder="8+ characters required" aria-label="8+ characters required" required data-hs-validation-equal-field="#signupModalFormSignupPassword">
-                <span class="invalid-feedback">Password does not match the confirm password.</span>
-              </div>
-              <!-- End Form -->
-
-              <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
-              </div>
-
-              <div class="text-center">
-                <p class="small mb-0">By continuing you agree to our <a href="#">Terms and Conditions</a></p>
-              </div>
-            </form>
-          </div>
-          <!-- End Sign up with Modal -->
-
-          <!-- Reset Password -->
-          <div id="signupModalFormResetPassword" style="display: none; opacity: 0;">
-            <!-- Heading -->
-            <div class="text-center mb-7">
-              <h4>Forgot password?</h4>
-              <p>Enter the email address you used when you joined and we'll send you instructions to reset your password.</p>
-            </div>
-            <!-- En dHeading -->
-
-            <form class="js-validate need-validate" novalidate>
-              <div class="mb-3">
-                <!-- Form -->
-                <div class="d-flex justify-content-between align-items-center">
-                  <label class="form-label" for="signupModalFormResetPasswordEmail" tabindex="0">Your email</label>
-
-                  <a class="js-animation-link form-label-link" href="javascript:;" data-hs-show-animation-options='{
-                           "targetSelector": "#signupModalFormLogin",
-                           "groupName": "idForm"
-                         }'>
-                    <i class="bi-chevron-left small me-1"></i> Back to Log in
-                  </a>
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="mb-3">
-                  <input type="email" class="form-control form-control-lg" name="email" id="signupModalFormResetPasswordEmail" tabindex="1" placeholder="Enter your email address" aria-label="Enter your email address" required>
-                  <span class="invalid-feedback">Please enter a valid email address.</span>
-                </div>
-                <!-- End Form -->
-
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- End Reset Password -->
-        </div>
-        <!-- End Body -->
-
-        <!-- Footer -->
-        <div class="modal-footer d-block text-center py-sm-5">
-          <small class="text-cap mb-4">Trusted by the world's best teams</small>
-
-          <div class="w-85 mx-auto">
-            <div class="row justify-content-between">
-              <div class="col">
-                <img class="img-fluid" src="./assets/svg/brands/gitlab-gray.svg" alt="Logo">
-              </div>
-              <!-- End Col -->
-
-              <div class="col">
-                <img class="img-fluid" src="./assets/svg/brands/fitbit-gray.svg" alt="Logo">
-              </div>
-              <!-- End Col -->
-
-              <div class="col">
-                <img class="img-fluid" src="./assets/svg/brands/flow-xo-gray.svg" alt="Logo">
-              </div>
-              <!-- End Col -->
-
-              <div class="col">
-                <img class="img-fluid" src="./assets/svg/brands/layar-gray.svg" alt="Logo">
-              </div>
-              <!-- End Col -->
-            </div>
-          </div>
-          <!-- End Row -->
-        </div>
-        <!-- End Footer -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Go To -->
-  <a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;" data-hs-go-to-options='{
-         "offsetTop": 700,
-         "position": {
-           "init": {
-             "right": "2rem"
-           },
-           "show": {
-             "bottom": "2rem"
-           },
-           "hide": {
-             "bottom": "-2rem"
-           }
-         }
-       }'>
-    <i class="bi-chevron-up"></i>
-  </a>
-  <!-- ========== END SECONDARY CONTENTS ========== -->
-
-  <!-- JS Implementing Plugins -->
-  <script src="vendor.min.js"></script>
-
-  <!-- JS Space -->
-  <script src="theme.min.js"></script>
-
-  <!-- JS Plugins Init. -->
-  <script>
-      (function() {
-        // INITIALIZATION OF MEGA MENU
-        // =======================================================
-        const megaMenu = new HSMegaMenu('.js-mega-menu', {
-          desktop: {
-            position: 'left'
-          }
-        })
-
-
-        // INITIALIZATION OF SHOW ANIMATIONS
-        // =======================================================
-        new HSShowAnimation('.js-animation-link')
-
-
-        // INITIALIZATION OF BOOTSTRAP VALIDATION
-        // =======================================================
-        HSBsValidation.init('.js-validate', {
-          onSubmit: data => {
-            data.event.preventDefault()
-            alert('Submited')
-          }
-        })
-
-
-        // INITIALIZATION OF GO TO
-        // =======================================================
-        new HSGoTo('.js-go-to')
-
-
-        // INITIALIZATION OF HEADER
-        // =======================================================
-        new HSHeader('#header').init()
-
-
-        // INITIALIZATION OF PRICING SELECT
-        // =======================================================
-        const pricingRows = document.querySelectorAll('.js-form-check-row-select')
-
-        pricingRows.forEach($row => {
-          $row.addEventListener('click', e => {
-            $row.querySelector('[name="pricingRadio"]').checked = true
-            pricingRows.forEach(row => row.classList.remove('checked'))
-            $row.classList.add('checked')
-          })
-        })
-
-
-        // INITIALIZATION OF SWIPER
-        // =======================================================
-        var swiper = new Swiper('.js-swiper', {
-          preloaderClass: 'custom-swiper-lazy-preloader',
-          pagination: {
-            el: '.js-swiper-pagination',
-            clickable: true,
-          },
-          breakpoints: {
-            580: {
-              slidesPerView: 1,
-              spaceBetween: 15,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 15,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 15,
-            },
-          },
-          on: {
-            'imagesReady': function (swiper) {
-              const preloader = swiper.el.querySelector('.js-swiper-preloader')
-              preloader.parentNode.removeChild(preloader)
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.svg">
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.svg">
+        <link rel="manifest" href="/assets/images/site.webmanifest">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <title>Software Punto de Venta para Tiendas | Market Pos</title>
+        <meta name="description" content="Punto de Venta creado para facilitar la gestión de tu negocio: Control de Stock y Ventas, Caja, Proveedores, Clientes y más. ¡Adquiere ya!">
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="facturación en Perú, facturacion peru, facturación electrónica, ventas, sistema de ventas, punto de venta">
+        <meta name="robots" content="index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
+        <meta name="author" content="rdservices">
+        <meta name="date" content="2023-06-16" scheme="YYYY-MM-DD">
+        <meta property="og:locale" content="es_ES">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Punto de Venta creado para facilitar la gestión de tu negocio: Control de Stock y Ventas, Caja, Proveedores, Clientes y más. ¡Adquiere ya!">
+        <meta property="og:description" content="Punto de Venta creado para facilitar la gestión de tu negocio: Control de Stock y Ventas, Caja, Proveedores, Clientes y más. ¡Adquiere ya!">
+        <meta property="og:url" content=" ">
+        <meta property="og:image" content=" ">
+        <meta property="og:site_name" content="Punto de Venta creado para facilitar la gestión de tu negocio: Control de Stock y Ventas, Caja, Proveedores, Clientes y más. ¡Adquiere ya!">
+        <meta property="twitter:card" content="summary">
+        <meta property="twitter:title" content="Punto de Venta creado para facilitar la gestión de tu negocio: Control de Stock y Ventas, Caja, Proveedores, Clientes y más. ¡Adquiere ya!">
+        <meta property="twitter:description" content="Punto de Venta creado para facilitar la gestión de tu negocio: Control de Stock y Ventas, Caja, Proveedores, Clientes y más. ¡Adquiere ya!">
+        <meta property="twitter:url" content=" ">
+        <meta property="twitter:image" content=" ">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+        <script src="https://www.googletagmanager.com/gtag/js?id=G-W0S26Y7SGQ" type="text/javascript"></script>
+        <script type="text/javascript">
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-W0S26Y7SGQ');
+  
+        </script>
+
+        <style>
+
+            *,*:before,*:after {
+                box-sizing: border-box
             }
-          }
-        })
-      })()
-    </script>
-</body>
+
+            @media (prefers-reduced-motion: no-preference) {
+                :root {
+                    scroll-behavior: smooth
+                }
+            }
+
+            body {
+                margin: 0;
+                font-family: var(--bs-body-font-family);
+                font-size: var(--bs-body-font-size);
+                font-weight: var(--bs-body-font-weight);
+                line-height: var(--bs-body-line-height);
+                color: var(--bs-body-color);
+                text-align: var(--bs-body-text-align);
+                background-color: var(--bs-body-bg);
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: rgba(0,0,0,0)
+            }
+
+            h1 {
+                margin-top: 0;
+                margin-bottom: .5rem;
+                font-weight: 500;
+                line-height: 1.2;
+                color: var(--bs-heading-color)
+            }
+
+            h1 {
+                font-size: calc(1.34375rem + 1.125vw)
+            }
+
+            @media (min-width: 1200px) {
+                h1 {
+                    font-size:2.1875rem
+                }
+            }
+
+            p {
+                margin-top: 0;
+                margin-bottom: 1rem
+            }
+
+            a {
+                color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity, 1));
+                text-decoration: underline
+            }
+
+            a:hover {
+                --bs-link-color-rgb: var(--bs-link-hover-color-rgb)
+            }
+
+            img,svg {
+                vertical-align: middle
+            }
+
+            button {
+                border-radius: 0
+            }
+
+            button:focus:not(:focus-visible) {
+                outline: 0
+            }
+
+            button {
+                margin: 0;
+                font-family: inherit;
+                font-size: inherit;
+                line-height: inherit
+            }
+
+            button {
+                text-transform: none
+            }
+
+            button {
+                -webkit-appearance: button
+            }
+
+            button:not(:disabled) {
+                cursor: pointer
+            }
+
+            :root {
+                --bs-breakpoint-xs: 0;
+                --bs-breakpoint-sm: 576px;
+                --bs-breakpoint-md: 768px;
+                --bs-breakpoint-lg: 992px;
+                --bs-breakpoint-xl: 1024px;
+                --bs-breakpoint-xxl: 1400px
+            }
+
+            .modal {
+                --bs-modal-zindex: 1055;
+                --bs-modal-width: 500px;
+                --bs-modal-padding: 1rem;
+                --bs-modal-margin: .5rem;
+                --bs-modal-color: ;
+                --bs-modal-bg: var(--bs-body-bg);
+                --bs-modal-border-color: var(--bs-border-color-translucent);
+                --bs-modal-border-width: var(--bs-border-width);
+                --bs-modal-border-radius: var(--bs-border-radius-lg);
+                --bs-modal-box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+                --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
+                --bs-modal-header-padding-x: 1rem;
+                --bs-modal-header-padding-y: 1rem;
+                --bs-modal-header-padding: 1rem 1rem;
+                --bs-modal-header-border-color: var(--bs-border-color);
+                --bs-modal-header-border-width: var(--bs-border-width);
+                --bs-modal-title-line-height: 1.9;
+                --bs-modal-footer-gap: .5rem;
+                --bs-modal-footer-bg: ;
+                --bs-modal-footer-border-color: var(--bs-border-color);
+                --bs-modal-footer-border-width: var(--bs-border-width);
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: var(--bs-modal-zindex);
+                display: none;
+                width: 100%;
+                height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                outline: 0
+            }
+
+            .modal-dialog {
+                position: relative;
+                width: auto;
+                margin: var(--bs-modal-margin);
+                pointer-events: none
+            }
+
+            .modal-content {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                color: var(--bs-modal-color);
+                pointer-events: auto;
+                background-color: var(--bs-modal-bg);
+                background-clip: padding-box;
+                border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+                border-radius: var(--bs-modal-border-radius);
+                outline: 0
+            }
+
+            .modal-body {
+                position: relative;
+                flex: 1 1 auto;
+                padding: var(--bs-modal-padding)
+            }
+
+            @media (min-width: 576px) {
+                .modal {
+                    --bs-modal-margin:1.75rem;
+                    --bs-modal-box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15)
+                }
+
+                .modal-dialog {
+                    max-width: var(--bs-modal-width);
+                    margin-right: auto;
+                    margin-left: auto
+                }
+            }
+
+            .title {
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 124%;
+                color: #000
+            }
+
+            body,html {
+                overflow-x: hidden
+            }
+
+            .modal-cookies .modal-dialog {
+                text-align: center;
+                max-width: 820px;
+                display: flex;
+                align-items: flex-end;
+                padding-bottom: 20px
+            }
+
+            .modal-cookies .modal-content {
+                border: none;
+                border-radius: 10px
+            }
+
+            .modal-cookies .modal-body {
+                padding: 20px
+            }
+
+            .modal-cookies a {
+                text-decoration: none
+            }
+
+            @media (max-width: 1024px) {
+                .modal-cookies .modal-dialog {
+                    max-width:600px
+                }
+            }
+
+            @media (max-width: 600px) {
+                .modal-cookies .modal-dialog {
+                    margin-left:1rem;
+                    margin-right: 1rem
+                }
+            }
+
+            @media (max-width: 500px) {
+                .title {
+                    font-size:32px
+                }
+            }
+
+            * {
+                font-family: Inter,sans-serif!important
+            }
+
+            body {
+                background-color: #fff;
+                --ion-background-color: #ffffff
+            }
+
+            button.custom {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18px;
+                border-radius: 5px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                height: 40px;
+                justify-content: center;
+                transition: background-color .3s ease
+            }
+
+            button.custom.primary-btn {
+                background-color: #007bff;
+                color: #fff;
+                border: none
+            }
+
+            button.custom.primary-btn:hover {
+                background-color: #0375f8
+            }
+
+            button.custom.primary-btn:active {
+                background-color: #0b3ade
+            }
+
+            button.custom.secondary-btn {
+                background-color: #fff;
+                color: #000;
+                border: 1px solid #DDDFE3
+            }
+
+            button.custom.secondary-btn:hover {
+                background-color: #f5f5f5
+            }
+
+            button.custom.secondary-btn:active {
+                background-color: #efefef
+            }
+
+        </style>
+
+        
+
+        <style>
+            .content__main {
+                margin-top: 40px;
+                display: grid;
+                grid-template-columns: auto auto;
+                overflow: hidden;
+                max-height: 100vh
+            }
+
+            .content__main .info {
+                margin-left: 16px;
+                margin-right: 24px;
+                max-width: 440px;
+                min-width: 290px
+            }
+
+            .content__main .info .title {
+                margin-top: 40px;
+                color: var(--Text-Primary, #101820);
+                font-size: 43px;
+                font-weight: 500;
+                line-height: 1.2;
+                letter-spacing: -.5px;
+                margin-bottom: 14px!important;
+                font-display: swap span;
+                font-display-display: inline-block;
+                font-display-white-space: nowrap
+            }
+            
+            
+            
+            
+            
+            .content__main .info .subtitle {
+                display: grid;
+                gap: 12px;
+                margin-bottom: 40px;
+                color: var(--Sucess-Shade, #000000);
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18px
+            }
+
+            .content__main .info .subtitle .items {
+                display: flex;
+                gap: 8px;
+                align-items: center
+            }
+            
+            
+
+
+
+            .content__main .info .description {
+                display: grid;
+                gap: 12px;
+                margin-bottom: 40px;
+                color: var(--Sucess-Shade, #247951);
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18px
+            }
+
+            .content__main .info .description .item {
+                display: flex;
+                gap: 8px;
+                align-items: center
+            }
+
+            .content__main .info .description .item svg {
+                width: 21px;
+                height: 21px
+            }
+
+            .content__main .info .description span {
+                display: block
+            }
+
+            .content__main .img__container img {
+                width: auto;
+                min-height: 459px;
+                height: 459px
+            }
+
+            .buttons {
+                display: grid;
+                gap: 8px;
+                margin-top: 20px;
+                grid-template-columns: 1fr 1fr;
+                max-width: 330px
+            }
+
+            footer {
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 280px;
+                row-gap: 9px;
+                column-gap: 16px;
+                position: fixed;
+                left: 16px;
+                bottom: 36px
+            }
+
+            footer a, footer span {
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 16px;
+                color: #000;
+                text-decoration: none
+            }
+
+            footer div {
+                display: flex;
+                gap: 8px
+            }
+
+            @media ((min-width: 744px)) {
+                .content__main .info {
+                    margin-inline:40px;
+                    min-width: 440px
+                }
+
+                .img__container img {
+                    min-height: 681px!important;
+                    height: 681px!important
+                }
+
+                footer {
+                    left: 40px
+                }
+            }
+
+            @media ((min-width: 1280px)) {
+                .content__main {
+                    margin-top:64px;
+                    margin-left: 100px;
+                    height: calc(100vh - 64px)
+                }
+
+                .content__main .info {
+                    min-width: 440px;
+                    margin-right: 100px
+                }
+
+                .content__main footer {
+                    left: 140px
+                }
+
+                .img__container img {
+                    width: 1700px!important;
+                    min-height: 80%!important;
+                    height: 80%!important
+                }
+            }
+
+            @media ((min-width: 2000px)) {
+                .content__main {
+                    margin-top:190px;
+                    height: calc(100vh - 190px);
+                    justify-content: center
+                }
+
+                .content__main .info {
+                    min-width: 440px;
+                    margin-right: 200px
+                }
+
+                .img__container img {
+                    min-height: unset!important;
+                    height: unset!important;
+                    width: 1100px!important
+                }
+
+                footer {
+                    position: unset;
+                    margin-top: 150px
+                }
+            }
+
+            .modal-cookies .modal-content {
+                border-radius: 0!important
+            }
+
+            .modal-cookies .modal-dialog {
+                width: 100vw;
+                max-width: 100vw;
+                padding-bottom: 0;
+                margin-bottom: 0;
+                min-height: calc(100% - 30px);
+                border-radius: 0!important
+            }
+
+            .modal-body {
+                display: flex;
+                align-items: center;
+                padding: 20px 24px;
+                justify-content: center;
+                gap: 20px;
+                box-shadow: 0 0 50px 10px #00000017;
+                border-radius: 5px!important
+            }
+
+            @media ((max-width: 700px)) {
+                .modal-body {
+                    display:grid;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 12px 24px;
+                    justify-content: center;
+                    z-index: 9999
+                }
+
+                .modal-cookies .modal-dialog {
+                    --bs-modal-margin: .5rem;
+                    width: 100vw;
+                    max-width: 100vw;
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                    min-height: calc(100% - 10px)
+                }
+
+                .modal-cookies .modal-dialog {
+                    margin-inline:0px!important}
+            }
+
+            .title-modal {
+                font-size: 28px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 32px;
+                color: #000
+            }
+
+            .modal-container {
+                display: grid;
+                gap: 12px
+            }
+
+            .modal-cookies {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1050;
+                justify-content: center;
+                align-items: center;
+                min-height: 100%!important
+            }
+
+            .modal-cookies.show {
+                display: flex
+            }
+
+            .modal-dialog {
+                border-radius: 5px
+            }
+
+            .modal-container {
+                text-align: center
+            }
+
+            .modal-container p {
+                margin: 0!important
+            }
+
+            .modal-container p.text-modal {
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 18px;
+                color: #000
+            }
+
+            .custom.primary-btn {
+                min-width: 105px
+            }
+        </style>
+
+    </head>
+    <body>
+        
+                <main class="content__main">
+                    <div class="info">
+                        <div>
+                            <!-- <img src="/assets/images/logo.svg" alt="Logo Apps" width="83" height="32"> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+                              <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5M11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
+                              <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118z"/>
+                            </svg>
+                            <h1 class="title">Controla fácilmente tu&nbsp; negocio</h1>
+                            
+                            <div class="subtitle">
+                                <div class="items">
+                                    <span>Con el control de inventario y compras, sabes qué productos se están agotando a tiempo para reabastecerse. ¡Tu tienda no puede parar!</span>
+                                </div>
+                            </div>
+                            
+                            <div class="description">
+                                <div class="item">
+                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.606 4.51733L14.0532 5.94794C16.0514 7.92319 16.0514 11.1257 14.0532 13.101M12.606 4.51733L13.3296 3.80202M12.606 4.51733L5.36985 11.6704M5.36985 11.6704L6.81708 13.101C8.81529 15.0762 12.055 15.0762 14.0532 13.101M5.36985 11.6704L4.64624 12.3857M14.0532 13.101L16.5859 15.6045M5.52382 8.64816L3.35297 6.50225M7.56558 2.37164L9.73643 4.51756" stroke="#247951" stroke-width="1.55073" stroke-linecap="round"></path>
+                                    </svg>
+                                    <span>Acceso desde cualquier lugar</span>
+                                </div>
+                                <div class="item">
+                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.08343 14.1797H8.0917M10.5646 10.0444H10.5729M6.42932 9.21737H6.43759M13.0458 14.1797H13.054M18.0081 10.8715C18.0081 14.9825 14.6756 18.315 10.5646 18.315C6.45367 18.315 3.12109 14.9825 3.12109 10.8715C3.12109 6.76055 6.45367 3.42798 10.5646 3.42798C10.5646 5.71183 12.0458 7.56326 13.8728 7.56326C13.8728 9.39031 15.7243 10.8715 18.0081 10.8715Z" stroke="#247951" stroke-width="1.55073" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    <span>Todos los módulos</span>
+                                </div>
+                                <!-- <div class="item">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.9994 12.4141H14.0084" stroke="#247951" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M9.99159 12.4141H10.0006" stroke="#247951" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.3639 18.3629C15.6144 21.1137 11.5406 21.708 8.20768 20.1666C7.71565 19.9685 4.53102 20.8505 3.84001 20.1603C3.149 19.4692 4.03175 16.2841 3.83368 15.792C2.29156 12.4595 2.8867 8.38434 5.63718 5.63439C9.14832 2.12187 14.8528 2.12187 18.3639 5.63439C21.8823 9.15234 21.8751 14.8512 18.3639 18.3629Z" stroke="#247951" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    <span>Soporte rápido</span>
+                                </div> -->
+                            </div>
+                            <div class="buttons">
+                                <button href="#" onclick="window.open('https://drcmultiservicios.soy.pe/pos', '_blank');" class="custom primary-btn">Prueba Gratis</button>
+                                <button href="#" onclick="window.open('https://wa.me/51939975800?text=Hola! necesito el sistema, vengo desde la web.', '_blank');" class="custom secondary-btn"><i class="bi bi-whatsapp"></i>&nbsp;Contáctanos</button>
+                            </div>
+                        </div>
+                        <footer>
+                            <a href="#">Acerca de</a>
+                            <a href="#">Precios</a>
+                            <a href="#">Legal</a>
+                            <a href="#" onclick="window.open('https://wa.me/51939975800?text=Hola! necesito soporte, vengo desde la web.', '_blank'); return false;">Soporte</a>
+                            <span>© 2024 rdservices. All right reseverd.</span>
+                            <div style="display: flex; gap: 12px;">
+                                <a href="#" target="_blank" aria-label="Visita nuestra página en Facebook" class="red_social" style="margin-left: 0px;">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_24921_3577)">
+                                            <path d="M8.99999 0C13.9705 0 18 4.02944 18 8.99999C18 13.6014 14.5466 17.3958 10.0904 17.9341V11.7502L12.525 11.7502L13.0301 9H10.0904V8.02731C10.0904 7.30063 10.2329 6.79754 10.5599 6.47612C10.8869 6.1547 11.3984 6.01495 12.1363 6.01495C12.323 6.01495 12.4949 6.01681 12.6475 6.02052C12.8693 6.02592 13.0501 6.03525 13.176 6.0485V3.55536C13.1257 3.54138 13.0663 3.5274 12.9998 3.51365C12.849 3.48248 12.6617 3.45243 12.4602 3.42605C12.0393 3.3709 11.557 3.33173 11.2195 3.33173C9.8568 3.33173 8.82691 3.62327 8.10802 4.22714C7.24041 4.95593 6.82581 6.13966 6.82581 7.81491V8.99999H4.96994V11.7502H6.82581V17.735C2.90574 16.7624 0 13.2208 0 8.99999C0 4.02944 4.02944 0 8.99999 0Z" fill="#3B4B63"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_24921_3577">
+                                                <rect width="18" height="18" fill="white"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" aria-label="Visita nuestra página en Instagram" class="red_social">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.7964 5.26659C13.2004 5.26776 12.7157 4.78515 12.7146 4.18911C12.7134 3.59307 13.196 3.10843 13.7923 3.10726C14.3886 3.1061 14.8733 3.58899 14.8744 4.18503C14.8753 4.78107 14.3927 5.26543 13.7964 5.26659Z" fill="#3B4B63"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.00861 13.6208C6.45682 13.6257 4.38383 11.5612 4.37888 9.00874C4.37391 6.45692 6.43902 4.38361 8.99082 4.37865C11.5432 4.37369 13.6165 6.43942 13.6214 8.99096C13.6264 11.5434 11.5607 13.6158 9.00861 13.6208ZM8.99403 6.00026C7.33774 6.00318 5.99696 7.34893 5.99987 9.00554C6.00308 10.6624 7.34911 12.0029 9.0054 11.9997C10.6623 11.9965 12.0031 10.6511 11.9998 8.99417C11.9966 7.33727 10.6506 5.99706 8.99403 6.00026Z" fill="#3B4B63"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M3.0894 0.484859C3.66095 0.260907 4.315 0.107522 5.27262 0.0623237C6.23258 0.0162545 6.53904 0.00575327 8.98265 0.00108947C11.4269 -0.00357433 11.7333 0.00575146 12.6933 0.0483251C13.6512 0.0897323 14.3055 0.240786 14.8782 0.462408C15.4708 0.690731 15.9735 0.998086 16.4745 1.49702C16.9754 1.99654 17.2839 2.49752 17.5152 3.08918C17.7388 3.66131 17.8922 4.31479 17.9377 5.27301C17.9832 6.23267 17.9943 6.53885 17.9989 8.98279C18.0036 11.4264 17.9937 11.7332 17.9517 12.6938C17.91 13.6511 17.7593 14.3057 17.5376 14.8782C17.3087 15.4707 17.002 15.9734 16.503 16.4744C16.0041 16.9757 15.5026 17.2839 14.9109 17.5154C14.3388 17.7388 13.6853 17.8922 12.7277 17.938C11.7677 17.9834 11.4613 17.9942 9.01677 17.9989C6.57344 18.0036 6.26698 17.9942 5.30704 17.952C4.34912 17.91 3.69448 17.7592 3.12206 17.5379C2.52954 17.3087 2.02682 17.0022 1.52584 16.503C1.02458 16.0037 0.715789 15.5025 0.484844 14.9108C0.260893 14.339 0.10808 13.6852 0.0623045 12.7279C0.0165269 11.7676 0.0057413 11.4609 0.0010793 9.0172C-0.0036007 6.57327 0.0060275 6.26709 0.0480125 5.30712C0.0902999 4.34891 0.240478 3.69455 0.462097 3.12154C0.690996 2.52929 0.997759 2.02686 1.49728 1.5256C1.9962 1.02462 2.49775 0.715513 3.0894 0.484859ZM3.70615 16.0259C4.0237 16.1481 4.50017 16.2939 5.37761 16.3321C6.32705 16.3732 6.61135 16.3823 9.01385 16.3776C11.4172 16.3732 11.7015 16.363 12.6507 16.3184C13.5273 16.2767 14.0037 16.1291 14.3204 16.0055C14.7406 15.8413 15.0398 15.6451 15.3541 15.3304C15.6685 15.0146 15.863 14.7146 16.0257 14.2944C16.1481 13.9765 16.2937 13.4997 16.3319 12.6223C16.3736 11.6734 16.3823 11.3888 16.3776 8.98571C16.3733 6.58318 16.3631 6.29858 16.3179 5.3494C16.2765 4.47254 16.1292 3.99606 16.0053 3.67967C15.8411 3.25889 15.6454 2.96029 15.3299 2.64565C15.0144 2.331 14.7144 2.13708 14.2936 1.97437C13.9766 1.85161 13.4995 1.70639 12.6227 1.66819C11.6732 1.62649 11.3886 1.61803 8.98557 1.6227C6.58307 1.62736 6.29877 1.63698 5.34961 1.6819C4.47247 1.72359 3.99658 1.87085 3.67931 1.99479C3.25941 2.15896 2.96022 2.35404 2.64559 2.66985C2.33153 2.98565 2.13703 3.28513 1.97433 3.70621C1.85245 4.02348 1.70576 4.50054 1.66815 5.3774C1.62673 6.32686 1.618 6.61147 1.62266 9.01399C1.62704 11.4171 1.63724 11.7017 1.68186 12.6503C1.72297 13.5277 1.87139 14.0036 1.99474 14.3212C2.15891 14.7408 2.35458 15.04 2.6698 15.3546C2.98561 15.6681 3.28566 15.8632 3.70615 16.0259Z" fill="#3B4B63"></path>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" aria-label="Visita nuestra página en Twitter" class="red_social">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.7447 1.42798H16.2748L10.7473 7.7456L17.25 16.3425H12.1584L8.17053 11.1285L3.60746 16.3425H1.07582L6.98808 9.58505L0.75 1.42798H5.97083L9.57555 6.19373L13.7447 1.42798ZM12.8567 14.8281H14.2587L5.20905 2.86283H3.7046L12.8567 14.8281Z" fill="#3B4B63"></path>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" aria-label="Visita nuestra página en LinkedIn" class="red_social">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_24921_3580)">
+                                            <path d="M16.6676 0H1.32891C0.594141 0 0 0.580078 0 1.29727V16.6992C0 17.4164 0.594141 18 1.32891 18H16.6676C17.4023 18 18 17.4164 18 16.7027V1.29727C18 0.580078 17.4023 0 16.6676 0ZM5.34023 15.3387H2.66836V6.74648H5.34023V15.3387ZM4.0043 5.57578C3.14648 5.57578 2.45391 4.8832 2.45391 4.02891C2.45391 3.17461 3.14648 2.48203 4.0043 2.48203C4.85859 2.48203 5.55117 3.17461 5.55117 4.02891C5.55117 4.87969 4.85859 5.57578 4.0043 5.57578ZM15.3387 15.3387H12.6703V11.1621C12.6703 10.1672 12.6527 8.88398 11.2816 8.88398C9.89297 8.88398 9.68203 9.97031 9.68203 11.0918V15.3387H7.01719V6.74648H9.57656V7.9207H9.61172C9.9668 7.2457 10.8387 6.53203 12.1359 6.53203C14.8395 6.53203 15.3387 8.31094 15.3387 10.6242V15.3387Z" fill="#3B4B63"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_24921_3580">
+                                                <rect width="18" height="18" fill="white"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" aria-label="Visita nuestra página en TikTok" class="red_social">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.8044 0H9.77086V12.2608C9.77086 13.7218 8.60414 14.9218 7.1522 14.9218C5.70025 14.9218 4.53352 13.7218 4.53352 12.2608C4.53352 10.8261 5.67433 9.65215 7.07443 9.6V6.52175C3.98904 6.5739 1.5 9.10435 1.5 12.2608C1.5 15.4435 4.04089 18 7.17814 18C10.3153 18 12.8562 15.4174 12.8562 12.2608V5.9739C13.997 6.8087 15.3971 7.30435 16.875 7.33045V4.25217C14.5934 4.17391 12.8044 2.29565 12.8044 0Z" fill="#3B4B63"></path>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" aria-label="Visita nuestro canal en YouTube" class="red_social">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_24921_3582)">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0577 3.62555C17.3369 3.90662 17.5375 4.25612 17.6393 4.63906C18.0156 6.05247 18.0156 8.99997 18.0156 8.99997C18.0156 8.99997 18.0156 11.9475 17.6393 13.3609C17.5375 13.7438 17.3369 14.0933 17.0577 14.3744C16.7784 14.6555 16.4302 14.8582 16.0479 14.9625C14.6406 15.3409 9.01562 15.3409 9.01562 15.3409C9.01562 15.3409 3.39062 15.3409 1.98335 14.9625C1.60107 14.8582 1.25287 14.6555 0.973591 14.3744C0.694312 14.0933 0.493754 13.7438 0.391989 13.3609C0.015625 11.9475 0.015625 8.99997 0.015625 8.99997C0.015625 8.99997 0.015625 6.05247 0.391989 4.63906C0.493754 4.25612 0.694312 3.90662 0.973591 3.62555C1.25287 3.34448 1.60107 3.14168 1.98335 3.03747C3.39062 2.65906 9.01562 2.65906 9.01562 2.65906C9.01562 2.65906 14.6406 2.65906 16.0479 3.03747C16.4302 3.14168 16.7784 3.34448 17.0577 3.62555ZM11.8793 8.99999L7.17473 6.32351V11.6765L11.8793 8.99999Z" fill="#3B4B63"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_24921_3582">
+                                                <rect width="18" height="18" fill="white"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
+                            </div>
+                        </footer>
+                    </div>
+                    <picture class="img__container">
+                        <source media="(min-width: 700px)" srcset="tumi-pos.png" width="2800">
+                        <div style="min-width: 100px;">
+                            <img src="tumi-pos.png" alt="Web App" pre width="600" loading="lazy" as="image">
+                        </div>
+                    </picture>
+                    <div tabindex="-1" id="popup-cookies" aria-hidden="true" class="modal modal-cookies">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="modal-container">
+                                        <p class="title-modal">Hola 👋</p>
+                                        <div>
+                                            <p class="text-modal">Cuidamos de ti. Usamos cookies para proteger tu privacidad y ofrecerte una experiencia segura.</p>
+                                            <a routerlink="/cookies" href="/cookies">Ver política de cookies</a>
+                                        </div>
+                                        <div class="modal-actions">
+                                            <button class="custom primary-btn" style="margin: auto;">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+        <script src="runtime.js" type="module"></script>
+        <script src="polyfills.js" type="module"></script>
+        <script src="scripts.js" defer type="text/javascript"></script>
+        <script src="main.js" type="module"></script>
+    </body>
 </html>
