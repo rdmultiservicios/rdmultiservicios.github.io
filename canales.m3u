@@ -3,10 +3,10 @@
 https://jireh-5-hls-video-us-isp.dps.live/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latina/latina.smil/latina/livestream2/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ATV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497771524/6ddb4622ebc8_480_270.png" group-title="Nacional", ATV HD
-https://alba-pe-atv-atv.stream.mediatiquestream.com/original.m3u8
+https://live-evg4.tv360.bitel.com.pe/bitel/atv/bitel/atv_ori_480p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ATV+ HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497854204/8ff5794d3f88_480_270.png" group-title="Nacional", ATV+ HD
-https://alba-pe-atv-atvmas.stream.mediatiquestream.com/480p.m3u8
+https://live-evg25.tv360.bitel.com.pe/bitel/atvmas/bitel/atvmas_ori_480p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ATV Sur HD" tvg-logo="https://cableclub.com.pe/wp-content/uploads/2021/04/atv-sur.jpg" group-title="Nacional", ATV Sur HD
 https://alba-pe-atv-atvsur.stream.mediatiquestream.com/original.m3u8
