@@ -139,3 +139,8 @@ https://www.youtube.com/watch?v=-jBu29xfQVc
 
 #EXTINF:-1 tvg-id="" tvg-name="Internacional | FRANCE24" tvg-logo="https://howtowatch.france24.com/wp-content/themes/fr24/dist/assets/images/logos/logo-france-24-es.svg" group-title="Noticias internacionales", France24 Internacional
 https://youtu.be/Y-IlMeCCtIg
+
+#EXTINF:-1 tvg-id="" tvg-name="TELELIMA" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/09/19/02/1726687639950/81d12291ceee_480_270.png" group-title="Nacional", TeleLima
+https://live-evg25.tv360.bitel.com.pe/bitel/telelima/chunks.m3u8
+
+
