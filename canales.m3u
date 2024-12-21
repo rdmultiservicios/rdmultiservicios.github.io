@@ -20,12 +20,6 @@ https://vdo.grupolimalive.com/p/3179/live/agrotvlive.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="LA KARIBENA TV" tvg-logo="https://statics.lakaribena.com.pe/2024/08/crop/66b3750ba3e36__580x340.webp" group-title="Música", La Karibena Tv
 https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/index.fmp4.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="LA KARIBENA RADIO" tvg-logo="https://statics.lakaribena.com.pe/2024/01/crop/65b43ddf16b2f__580x340.webp" group-title="Radios", Radio La Karibeña
-https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/tracks-a1/index.fmp4.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="LA EXITOSA RADIO" tvg-logo="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/23541676791005.5c748715b3903.jpg" group-title="Radios", Radio La Exitosa
-https://neptuno-2-audio.mediaserver.digital/79525baf-b0f5-4013-a8bd-3c5c293c6561
-
 #EXTINF:-1 tvg-id="" tvg-name="VISION SUR TV" tvg-logo="https://visionsurtv.pe/wp-content/uploads/2024/06/logo_visionsurtv.png" group-title="Nacional", Vision Sur Tv
 https://ott1.hdlatam.tv/live_abr/webtvVisionSur/playlist.m3u8
 
@@ -124,12 +118,6 @@ https://7.innovatestream.pe:19360/cctvchupaca/cctvchupaca.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ONDA DIGITAL TV" tvg-logo="https://ondadigitaltv.com/wp-content/uploads/2019/05/cropped-cropped-LOGO-2019-1-2-1.png" group-title="Nacional", Onda Digital TV
 https://v4.tustreaming.cl/ondadigitaltv/tracks-v1a1/mono.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX Not Found" tvg-logo="https://claroperupoc.vtexassets.com/arquivos/ids/1667923/liga-1-max.png" group-title="Deportes", Liga 1 Max
-https://cxvpy2s.la10tv.com/liga1max/tracks-v1a1/mono.m3u8?remote=45.177.197.182&token=5665f5161d2c1c5771cf3229a53ec9ba0d0cf0c2-a86c87adb39ed0c769dbbc7ec1a0db0c-1724377284-1724341284
-
-#EXTINF:-1 tvg-id="" tvg-name="GOL PERU Not Found" tvg-logo="https://golperu.pe/wp-content/uploads/2023/04/png_golperu_logo.png" group-title="Deportes", Gol Perú
-https://dglvz29s.la10tv.com/golperu/tracks-v1a1/mono.m3u8?remote=45.177.197.182&token=ed499274633380ca540fe5808d8c1cbd16cb40be-25e81090183f4651a26ac7c121c6fb51-1724377447-1724341447
 
 #EXTINF:-1 tvg-id="" tvg-name="TEVESUR LIVE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/27/04/1719437849977/b4205070afdb_480_270.jpg" group-title="Nacional", Tv Sur Live
 https://live-evg25.tv360.bitel.com.pe/bitel/tevesur/chunks.m3u8
