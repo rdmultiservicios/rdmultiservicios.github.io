@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script>
+        function sendOrderToWhatsApp() {
+            // Retrieve form values
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var contact = document.getElementById('contact').value;
+            var address = document.getElementById('address').value;
+            var pincode = document.getElementById('pincode').value;
+            var landmark = document.getElementById('landmark').value;
+
+            // Retrieve product selections
+            var products = document.getElementsByName('product');
+            var orderDetails = '';
+            products.forEach(function(product) {
+                if (product.checked) {
+                    var quantity = document.getElementById('quantity_' + product.value).value;
+                    orderDetails += `Product: ${product.value}, Quantity: ${quantity}%0A`;
+                }
+            });
+
+            // Format the message
+            var formattedMessage = `Name: ${name}%0AEmail: ${email}%0AContact Number: ${contact}%0ADelivery Address: ${address}%0APincode: ${pincode}%0ALandmark: ${landmark}%0A%0AOrder Details:%0A${orderDetails}`;
+
+            // Your WhatsApp number (in international format, without '+' or '00')
+            var whatsappNumber = '51939975800'; // Replace with your number
+
+            // Create the WhatsApp URL
+            var whatsappURL = `https://wa.me/${whatsappNumber}?text=${formattedMessage}`;
+
+            // Open WhatsApp with the pre-filled message
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</head>
+<body>
+    <div class="container m-5">
+        <h2>Place Your Order</h2>
+        <form onsubmit="sendOrderToWhatsApp(); return false;">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact Number:</label>
+                <input type="tel" class="form-control" id="contact" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Delivery Address:</label>
+                <textarea class="form-control" id="address" rows="2" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="pincode" class="form-label">Pincode:</label>
+                <input type="text" class="form-control" id="pincode" required>
+            </div>
+            <div class="mb-3">
+                <label for="landmark" class="form-label">Landmark:</label>
+                <input type="text" class="form-control" id="landmark">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Select Products:</label><br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="product1" name="product" value="Product1">
+                    <label class="form-check-label" for="product1">Product 1</label>
+                    <input type="number" class="form-control mt-1" id="quantity_Product1" placeholder="Quantity" min="1" value="1">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="product2" name="product" value="Product2">
+                    <label class="form-check-label" for="product2">Product 2</label>
+                    <input type="number" class="form-control mt-1" id="quantity_Product2" placeholder="Quantity" min="1" value="1">
+                </div>
+                <!-- Add more products as needed -->
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Order</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
