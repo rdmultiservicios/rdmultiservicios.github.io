@@ -120,15 +120,7 @@ buyNowButton.addEventListener("click", () => {
     updateTotalPrice();
 
     alert("Thank you for your purchase!");
-});
-
-
-
-
-        function sendOrderToWhatsApp() {
-            // Retrieve product selections
-            var products = document.getElementsByName('product');
-            var orderDetails = '';
+        var orderDetails = '';
             products.forEach(function(product) {
                 if (product.checked) {
                     var quantity = document.getElementById('quantity_' + product.value).value;
@@ -147,4 +139,4 @@ buyNowButton.addEventListener("click", () => {
 
             // Open WhatsApp with the pre-filled message
             window.open(whatsappURL, '_blank');
-        }
+});
