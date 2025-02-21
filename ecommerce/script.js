@@ -7,7 +7,7 @@
 const addCartButtons = document.querySelectorAll(".add-cart");
 addCartButtons.forEach(button => {
     button.addEventListener("click", event => {
-        const productBox = event.target.closest(".product-box");
+        const productBox = event.target.closest(".single-product");
         addToCart(productBox);
     });
 });
@@ -15,7 +15,7 @@ addCartButtons.forEach(button => {
 const cartContent = document.querySelector(".cart-content");
 const addToCart = productBox => {
     const productImgSrc = productBox.querySelector("img").src;
-    const productTitle = productBox.querySelector(".product-title").textContent;
+    const productTitle = productBox.querySelector(".title").textContent;
     const productPrice = productBox.querySelector(".price").textContent;
 
     const cartItems = cartContent.querySelectorAll(".cart-product-title");
