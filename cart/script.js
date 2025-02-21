@@ -120,23 +120,4 @@ buyNowButton.addEventListener("click", () => {
     updateTotalPrice();
 
     alert("Thank you for your purchase!");
-        var orderDetails = '';
-            products.forEach(function(product) {
-                if (product.checked) {
-                    var quantity = document.getElementById('quantity_' + product.value).value;
-                    orderDetails += `Product: ${product.value}, Quantity: ${quantity}%0A`;
-                }
-            });
-
-            // Format the message
-            var formattedMessage = `Order Details:%0A${orderDetails}`;
-
-            // Your WhatsApp number (in international format, without '+' or '00')
-            var whatsappNumber = '51939975800'; // Replace with your number
-
-            // Create the WhatsApp URL
-            var whatsappURL = `https://wa.me/${whatsappNumber}?text=${formattedMessage}`;
-
-            // Open WhatsApp with the pre-filled message
-            window.open(whatsappURL, '_blank');
 });
