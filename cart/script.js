@@ -84,11 +84,11 @@ const updateTotalPrice = () => {
     cartBoxes.forEach(cartBox => {
         const priceElement = cartBox.querySelector(".cart-price");
         const quantityElement = cartBox.querySelector(".number");
-        const price = priceElement.textContent.replace("$", "");
+        const price = priceElement.textContent.replace("S/", "");
         const quantity = quantityElement.textContent;
         total += price * quantity;
     });
-    totalPriceElement.textContent = `$${total}`;
+    totalPriceElement.textContent = `S/${total}`;
 };
 
 let cartItemCount = 0;
