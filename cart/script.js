@@ -129,7 +129,7 @@ buyNowButton.addEventListener("click", () => {
     cartBoxes.forEach(cartBox => {
         mensaje += `${productTitle} 
         - Cantidad: ${productPrice} 
-        - Precio: S/${(cartBox.productPrice * cartBox.quantity)
+        - Precio: S/${(productPrice * quantity)
             .toFixed(2)}\n`;
     });
     
