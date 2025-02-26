@@ -134,8 +134,8 @@ buyNowButton.addEventListener("click", () => {
             .toFixed(2)}\n`;
     });
     // Añadimos el total del carrito al mensaje
-    mensaje += `\nTotal: 
-    S/${quantity.textContent}`;
+    //mensaje += `\nTotal: 
+    //S/${quantity.textContent}`;
     
     // Creamos la URL con el número de teléfono y el mensaje del pedido
     const url = `
