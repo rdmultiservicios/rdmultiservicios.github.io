@@ -119,5 +119,18 @@ buyNowButton.addEventListener("click", () => {
 
     updateTotalPrice();
 
-    alert("Thank you for your purchase!");
+    // alert("Thank you for your purchase!");
+
+
+
+    // Definimos una variable para construir el mensaje
+    let mensaje = "Hola, quiero comprar los siguientes productos:\n\n";
+
+    
+    // Creamos la URL con el número de teléfono y el mensaje del pedido
+    const url = `
+    https://api.whatsapp.com/send?phone=51939975800&text=${encodeURIComponent(mensaje)}`;
+    
+    // Abrimos una nueva ventana con la URL de WhatsApp
+    window.open(url, '_blank');
 });
