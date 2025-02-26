@@ -126,12 +126,16 @@ buyNowButton.addEventListener("click", () => {
     // Definimos una variable para construir el mensaje
     let mensaje = "Hola, quiero comprar los siguientes productos:\n\n";
 
+    // Recorremos cada producto en el carrito utilizando for eahc que toma un parámetro
     cartBoxes.forEach(cartBox => {
         mensaje += `${cartBox.productTitle} 
         - Cantidad: ${cartBox.productPrice} 
         - Precio: S/${(cartBox.productPrice * cartBox.quantity)
             .toFixed(2)}\n`;
     });
+    // Añadimos el total del carrito al mensaje
+    mensaje += `\nTotal: 
+    S/${quantity.textContent}`;
     
     // Creamos la URL con el número de teléfono y el mensaje del pedido
     const url = `
