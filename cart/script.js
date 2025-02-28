@@ -112,7 +112,7 @@ buyNowButton.addEventListener("click", () => {
         return;
     }
 
-    let message = "🛒 *Your Cart Details*:\n\n"; // Iniciamos el mensaje
+    let message = "*Your Cart Details*:\n\n"; // Iniciamos el mensaje
     cartBoxes.forEach(cartBox => {
         const productTitle = cartBox.querySelector(".cart-product-title").textContent;
         const productPrice = cartBox.querySelector(".cart-price").textContent;
