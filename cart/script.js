@@ -128,7 +128,7 @@ buyNowButton.addEventListener("click", () => {
     //const phoneNumber = "51939975800"; // Cambia este número por el que deseas enviar el mensaje
     //const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-    const whatsappLink = `https://api.whatsapp.com/send?phone=50245984577&text=${encodeURIComponent(message)}`;
+    const whatsappLink = `https://api.whatsapp.com/send?phone=51939975800&text=${encodeURIComponent(message)}`;
 
     // Redirigir a WhatsApp con el mensaje
     window.open(whatsappLink, "_blank");
