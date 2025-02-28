@@ -125,7 +125,7 @@ buyNowButton.addEventListener("click", () => {
     message += `\n*Total Price*: ${totalPrice}\n\n`;
 
     // Crear el enlace de WhatsApp con el mensaje
-    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    const whatsappLink = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
 
     // Redirigir a WhatsApp con el mensaje
     window.open(whatsappLink, "_blank");
