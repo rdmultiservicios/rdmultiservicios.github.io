@@ -5,139 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecommerce</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Iconos Remix -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <a href="#" class="logo">Ecommerce</a>
-        <div id="cart-icon">
-            <i class="ri-shopping-bag-line"></i>
-            <span class="cart-item-count"></span>
+    <!-- Header -->
+    <header class="bg-light py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="#" class="logo fs-3">Ecommerce</a>
+            <div id="cart-icon" class="position-relative">
+                <i class="ri-shopping-bag-line fs-2"></i>
+                <span class="cart-item-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+            </div>
         </div>
     </header>
 
-    <div class="cart">
+    <!-- Cart Section -->
+    <div class="cart position-fixed top-0 end-0 bg-white p-3 shadow-lg" style="width: 300px; height: 100vh; display: none;">
         <h2 class="cart-title">Carrito de compra</h2>
         <div class="cart-content">
-            <!-- <div class="cart-box">
-                <img src="images/product1.jpg" class="cart-img">
-                <div class="cart-detail">
-                    <h2 class="cart-product-title">Casual Black Polo</h2>
-                    <span class="cart-price">$100</span>
-                    <div class="cart-quantity">
-                        <button id="decrement">-</button>
-                        <span class="number">1</span>
-                        <button id="increment">+</button>
-                    </div>
-                </div>
-                <i class="ri-delete-bin-line cart-remove"></i>
-            </div> -->
+            <!-- Cart items will be added dynamically here -->
         </div>
-        <div class="total">
-            <div class="total-title">Total</div>
-            <div class="total-price">S/0</div>
+        <div class="total d-flex justify-content-between align-items-center">
+            <span>Total:</span>
+            <span class="total-price">S/0</span>
         </div>
-        <button class="btn-buy">Comprar ahora</button>
-        <i class="ri-close-line" id="cart-close"></i>
+        <button class="btn btn-primary w-100 my-2">Comprar ahora</button>
+        <button class="btn btn-danger w-100" id="cart-close">Cerrar</button>
     </div>
 
-    <section class="shop">
-        <h1 class="section-title">Productos</h1>
-        <div class="product-content">
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product1.jpg">
+    <!-- Shop Section -->
+    <section class="shop py-5">
+        <div class="container">
+            <h1 class="section-title mb-4">Productos</h1>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product1.jpg" class="card-img-top" alt="Casual Black Polo">
+                        <div class="card-body">
+                            <h5 class="card-title">Casual Black Polo</h5>
+                            <p class="card-text">S/100</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Casual Black Polo" data-price="100">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Casual Black Polo</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/100</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product2.jpg">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product2.jpg" class="card-img-top" alt="Waterproof Hoodie">
+                        <div class="card-body">
+                            <h5 class="card-title">Waterproof Hoodie</h5>
+                            <p class="card-text">S/50</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Waterproof Hoodie" data-price="50">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Waterproof Hoodie</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/50</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product3.jpg">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product3.jpg" class="card-img-top" alt="Blue Sweatshirt">
+                        <div class="card-body">
+                            <h5 class="card-title">Blue Sweatshirt</h5>
+                            <p class="card-text">S/20</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Blue Sweatshirt" data-price="20">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Blue Sweatshirt</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/20</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product4.jpg">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product4.jpg" class="card-img-top" alt="Hooded Urban Jacket">
+                        <div class="card-body">
+                            <h5 class="card-title">Hooded Urban Jacket</h5>
+                            <p class="card-text">S/125</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Hooded Urban Jacket" data-price="125">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Hooded Urban Jacket</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/125</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product5.jpg">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product5.jpg" class="card-img-top" alt="Cold Weather Jacket">
+                        <div class="card-body">
+                            <h5 class="card-title">Cold Weather Jacket</h5>
+                            <p class="card-text">S/147</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Cold Weather Jacket" data-price="147">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Cold Weather Jacket</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/147</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product6.jpg">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product6.jpg" class="card-img-top" alt="Sporty Jacket">
+                        <div class="card-body">
+                            <h5 class="card-title">Sporty Jacket</h5>
+                            <p class="card-text">S/80</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Sporty Jacket" data-price="80">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Sporty Jacket</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/80</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product7.jpg">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product7.jpg" class="card-img-top" alt="Olive Heritage Hoodie">
+                        <div class="card-body">
+                            <h5 class="card-title">Olive Heritage Hoodie</h5>
+                            <p class="card-text">S/62</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Olive Heritage Hoodie" data-price="62">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="product-title">Olive Heritage Hoodie</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/62</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
-                </div>
-            </div>
 
-            <div class="product-box">
-                <div class="img-box">
-                    <img src="images/product8.jpg">
-                </div>
-                <h2 class="product-title">Bright Horizon Polo</h2>
-                <div class="price-and-cart">
-                    <span class="price">S/70</span>
-                    <i class="ri-shopping-bag-line add-cart"></i>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="images/product8.jpg" class="card-img-top" alt="Bright Horizon Polo">
+                        <div class="card-body">
+                            <h5 class="card-title">Bright Horizon Polo</h5>
+                            <p class="card-text">S/70</p>
+                            <button class="btn btn-outline-primary add-cart" data-product="Bright Horizon Polo" data-price="70">Añadir al carrito</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 
