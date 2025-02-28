@@ -112,6 +112,15 @@ buyNowButton.addEventListener("click", () => {
         return;
     }
 
+    // Limpiar el carrito después de enviar los detalles a WhatsApp
+    cartBoxes.forEach(cartBox => cartBox.remove());
+    cartItemCount = 0;
+    updateCartCount(0);
+    updateTotalPrice();
+
+    //alert("Thank you for your purchase!");
+
+
     let message = "*Your Cart Details*:\n\n"; // Iniciamos el mensaje
     cartBoxes.forEach(cartBox => {
         const productTitle = cartBox.querySelector(".cart-product-title").textContent;
@@ -130,11 +139,5 @@ buyNowButton.addEventListener("click", () => {
     // Redirigir a WhatsApp con el mensaje
     window.open(whatsappLink, "_blank");
 
-    // Limpiar el carrito después de enviar los detalles a WhatsApp
-    cartBoxes.forEach(cartBox => cartBox.remove());
-    cartItemCount = 0;
-    updateCartCount(0);
-    updateTotalPrice();
-
-    alert("Thank you for your purchase!");
+    
 });
