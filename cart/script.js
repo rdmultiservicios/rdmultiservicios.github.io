@@ -122,7 +122,7 @@ buyNowButton.addEventListener("click", () => {
 
     // Agregar el total al final del mensaje
     const totalPrice = document.querySelector(".total-price").textContent;
-    message += `\n*Total Price*: ${totalPrice}\n\n`;
+    message += `\n*Total*: ${totalPrice}\n\n`;
 
     // Aquí puedes especificar un número de WhatsApp al que enviar el mensaje. Si no quieres, omite el número.
     const phoneNumber = "51939975800"; // Cambia este número por el que deseas enviar el mensaje
