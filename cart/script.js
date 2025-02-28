@@ -127,10 +127,10 @@ buyNowButton.addEventListener("click", () => {
     let mensaje = "Hola, quiero comprar los siguientes productos:\n\n";
 
     // Recorremos cada producto en el carrito utilizando for eahc que toma un parámetro
-    cartBoxes.forEach(cartBox => {
-        mensaje += `${cartBox.productTitle} 
-        - Cantidad: ${cartBox.productPrice} 
-        - Precio: S/${(cartBox.productPrice * cartBox.quantity)
+    item.forEach(cartItems => {
+        mensaje += `${cartItems.productTitle} 
+        - Cantidad: ${cartItems.productPrice} 
+        - Precio: S/${(cartItems.productPrice * cartItems.productPrice)
             .toFixed(2)}\n`;
     });
     // Añadimos el total del carrito al mensaje
