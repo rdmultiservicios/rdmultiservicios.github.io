@@ -21,7 +21,7 @@ const addToCart = productBox => {
     const cartItems = cartContent.querySelectorAll(".cart-product-title");
     for (let item of cartItems) {
         if (item.textContent === productTitle) {
-            alert("This item is already in the cart.");
+            alert("Este artículo ya está en el carrito.");
             return;
         }
     }
