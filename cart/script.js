@@ -112,35 +112,29 @@ buyNowButton.addEventListener("click", () => {
         return;
     }
 
-    cartBoxes.forEach(cartBox => cartBox.remove());
+    let message = "🛒 *Your Cart Details*:\n\n"; // Iniciamos el mensaje
+    cartBoxes.forEach(cartBox => {
+        const productTitle = cartBox.querySelector(".cart-product-title").textContent;
+        const productPrice = cartBox.querySelector(".cart-price").textContent;
+        const quantity = cartBox.querySelector(".number").textContent;
+        message += `*${productTitle}* - ${productPrice} x ${quantity}\n`;
+    });
 
+    // Agregar el total al final del mensaje
+    const totalPrice = document.querySelector(".total-price").textContent;
+    message += `\n*Total Price*: ${totalPrice}\n\n`;
+
+    // Crear el enlace de WhatsApp con el mensaje
+    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+    // Redirigir a WhatsApp con el mensaje
+    window.open(whatsappLink, "_blank");
+
+    // Limpiar el carrito después de enviar los detalles a WhatsApp
+    cartBoxes.forEach(cartBox => cartBox.remove());
     cartItemCount = 0;
     updateCartCount(0);
-
     updateTotalPrice();
 
-    // alert("Thank you for your purchase!");
-
-
-
-    // Definimos una variable para construir el mensaje
-    let mensaje = "Hola, quiero comprar los siguientes productos:\n\n";
-
-    // Recorremos cada producto en el carrito utilizando for eahc que toma un parámetro
-    item.forEach(cartItems => {
-        mensaje += `${cartItems.productTitle} 
-        - Cantidad: ${cartItems.productPrice} 
-        - Precio: S/${(cartItems.productPrice * cartItems.productPrice)
-            .toFixed(2)}\n`;
-    });
-    // Añadimos el total del carrito al mensaje
-    //mensaje += `\nTotal: 
-    //S/${quantity.textContent}`;
-    
-    // Creamos la URL con el número de teléfono y el mensaje del pedido
-    const url = `
-    https://api.whatsapp.com/send?phone=51939975800&text=${encodeURIComponent(mensaje)}`;
-    
-    // Abrimos una nueva ventana con la URL de WhatsApp
-    window.open(url, '_blank');
+    alert("Thank you for your purchase!");
 });
