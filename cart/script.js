@@ -108,20 +108,11 @@ const buyNowButton = document.querySelector(".btn-buy");
 buyNowButton.addEventListener("click", () => {
     const cartBoxes = cartContent.querySelectorAll(".cart-box");
     if (cartBoxes.length === 0) {
-        alert("Your cart is empty. Please add items to your cart before buying.");
+        alert("Tu carrito está vacío. Por favor agregue artículos a su carrito antes de comprar.");
         return;
     }
 
-    // Limpiar el carrito después de enviar los detalles a WhatsApp
-    cartBoxes.forEach(cartBox => cartBox.remove());
-    cartItemCount = 0;
-    updateCartCount(0);
-    updateTotalPrice();
-
-    //alert("Thank you for your purchase!");
-
-
-    let message = "*Your Cart Details*:\n\n"; // Iniciamos el mensaje
+    let message = "*Detalles de su compra*:\n\n"; // Iniciamos el mensaje
     cartBoxes.forEach(cartBox => {
         const productTitle = cartBox.querySelector(".cart-product-title").textContent;
         const productPrice = cartBox.querySelector(".cart-price").textContent;
@@ -133,11 +124,18 @@ buyNowButton.addEventListener("click", () => {
     const totalPrice = document.querySelector(".total-price").textContent;
     message += `\n*Total Price*: ${totalPrice}\n\n`;
 
-    // Crear el enlace de WhatsApp con el mensaje
-    const whatsappLink = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
+    // Aquí puedes especificar un número de WhatsApp al que enviar el mensaje. Si no quieres, omite el número.
+    const phoneNumber = "51939975800"; // Cambia este número por el que deseas enviar el mensaje
+    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     // Redirigir a WhatsApp con el mensaje
     window.open(whatsappLink, "_blank");
 
-    
+    // Limpiar el carrito después de enviar los detalles a WhatsApp
+    cartBoxes.forEach(cartBox => cartBox.remove());
+    cartItemCount = 0;
+    updateCartCount(0);
+    updateTotalPrice();
+
+    alert("¡Gracias por tu compra!");
 });
