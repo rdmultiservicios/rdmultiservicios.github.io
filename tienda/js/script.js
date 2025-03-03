@@ -50,7 +50,7 @@ function renderCart() {
                 <p>${product.name} - ${product.color} - ${product.size}</p>
                 <p>Cantidad: <input type="number" value="${product.quantity}" onchange="updateQuantity(${product.id}, this.value)"></p>
                 <p>Subtotal: $${totalProductPrice.toFixed(2)}</p>
-                <button onclick="removeItem(${index})">Eliminar</button>
+                <button class = "btn btn-danger btn-sm" onclick="removeItem(${index})">Quitar</button>
                 <hr>
             </div>
         `;
