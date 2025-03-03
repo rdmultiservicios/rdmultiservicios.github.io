@@ -35,24 +35,6 @@
         .cart-item {
             margin-bottom: 15px;
         }
-
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        button:focus {
-            outline: none;
-        }
-
     </style>
 </head>
 <body>
@@ -92,20 +74,20 @@
                     <!-- Sección para aplicar el descuento -->
                     <label for="discount-code">Código de descuento:</label>
                     <input type="text" id="discount-code">
-                    <button onclick="applyDiscount()">Aplicar descuento</button>
+                    <button class = "btn btn-primary" onclick="applyDiscount()">Aplicar descuento</button>
                     
                     <div id="cart-subtotal"></div>
                     <div id="cart-discount"></div>
                     <div id="cart-total"></div>
                     
                     <!-- Botón para vaciar el carrito -->
-                    <button onclick="emptyCart()">Vaciar carrito</button>
+                    <button class = "btn btn-primary" onclick="emptyCart()">Vaciar carrito</button>
 
                     <!-- Botón para cerrar el modal -->
-                    <button onclick="closeCart()">Cerrar</button>
+                    <button class = "btn btn-primary" onclick="closeCart()">Cerrar</button>
 
                     <!-- Botón para enviar por WhatsApp -->
-                    <button onclick="sendCartToWhatsApp()">Enviar por WhatsApp</button>
+                    <button class = "btn btn-primary" onclick="sendCartToWhatsApp()">Enviar por WhatsApp</button>
                 </div>
             </div>
 
