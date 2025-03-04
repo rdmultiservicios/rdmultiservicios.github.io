@@ -122,7 +122,7 @@ function sendWhatsAppMessage(total) {
     message += `\nSubtotal: $${total.toFixed(2)}\n`;
     message += `\nDescuento: ${discount}%\n`;
     message += `\nTotal: $${total.toFixed(2)}\n`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
