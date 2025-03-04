@@ -1,0 +1,2037 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Omcof - eCommerce Bootstrap 5 Template | SpringLab</title>
+    <meta name="author" content="Frutin">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Lexend:wght@300;400;500;600;700;800;900&family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/app.min.css">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <!-- font-awesome  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/fonts/font-awesome/css/font-awesome.css">
+    <!-- bootstrap-icons -->
+    <link href="assets/css/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link href="assets/css/switcher-style.css" rel="stylesheet">
+</head>
+<body class="popup-loader">
+    <!-- Preloader -->
+        <!-- <div class="preloader">
+            <button class="sl-btn btn-sm preloaderCls">Cancel Preloader</button>
+            <div class="preloader-inner">
+                <div class="loader">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div> -->
+    <!-- Preloader -->
+
+        <!-- Product Popup Start -->
+        <div id="QuickView" class="white-popup mfp-hide">
+            <div class="container bg-white rounded-10">
+                <div class="row gx-60">
+                    <div class="col-lg-6">
+                        <div class="product-big-img">
+                            <div class="img">
+                                <img src="assets/images/product/pro-1.png" alt="Product Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 align-self-center">
+                        <div class="product-about">
+                            <p class="price">
+                                $499.00<del>$600.99</del>
+                            </p>
+                            <h2 class="product-title">Best Apple Smartwatch</h2>
+                            <div class="product-rating">
+                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                    <span style="width:100%">
+                                        Rated <strong class="rating">5.00</strong>
+                                        out of 5 based on <span class="rating">1</span>
+                                        customer rating
+                                    </span>
+                                </div>
+                                <a href="shop-details.html" class="woocommerce-review-link">
+                                    (<span class="count">5</span>
+                                    customer reviews)
+                                </a>
+                            </div>
+                            <p class="text">Experience the perfect blend of innovation and style with the best Apple smartwatch. Stay connected, manage your day with ease. Featuring advanced health metrics and seamless integration with your Apple devices. Elevate your lifestyle with cutting-edge technology on your wrist.</p>
+                            <div class="mt-2 link-inherit">
+                                <p>
+                                    <strong class="text-title me-3">Availability:</strong>
+                                    <span class="stock in-stock">
+                                        <i class="bi bi-check-square me-2 ms-1"></i>In Stock
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="actions">
+                                <div class="quantity">
+                                    <input type="number" class="qty-input" step="1" min="1" max="100" name="quantity" value="1" title="Qty">
+                                    <button class="quantity-plus qty-btn">
+                                        <i class="bi bi-chevron-up"></i>
+                                    </button>
+                                    <button class="quantity-minus qty-btn">
+                                        <i class="bi bi-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <button class="sl-btn">Add to Cart</button>
+                                <a href="wishlist.html" class="icon-btn">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                            </div>
+                            <div class="product_meta">
+                                <span class="sku_wrapper">
+                                    SKU: <span class="sku">Apple-Smartwatch</span>
+                                </span>
+                                <span class="posted_in">
+                                    Category: <a href="#">Watch</a>
+                                </span>
+                                <span>
+                                    Tags: <a href="#">Smartwatch</a>
+                                    <a href="#">Features</a>
+                                    <a href="#">Latast</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+            </div>
+        </div>
+        <!-- Product Popup End -->
+
+        <!-- Side Menu Start -->
+        <div class="sidemenu-wrapper sidemenu-cart">
+            <div class="sidemenu-content">
+                <button class="closeButton sideMenuCls">
+                    <i class="bi bi-x"></i>
+                </button>
+                <div class="widget woocommerce widget_shopping_cart">
+                    <h3 class="widget_title">Shopping cart</h3>
+                    <div class="widget_shopping_cart_content">
+                        <ul class="woocommerce-mini-cart cart_list product_list_widget" id="cart-items-list">
+                            <!-- Aquí se agregarán los productos con la cantidad -->
+                        </ul>
+                        <!-- Subtotal, Descuento y Total -->
+                        <p class="woocommerce-mini-cart__total total">
+                            <strong>Subtotal:</strong> 
+                            <span id="cart-subtotal">$0.00</span>
+                        </p>
+                        <p class="woocommerce-mini-cart__total total">
+                            <strong>Descuento:</strong> 
+                            <span id="cart-discount">0%</span></p>
+                        <p class="woocommerce-mini-cart__total total"> 
+                            <strong>Total:</strong>
+                            <span id="cart-total-price">$0.00</span>
+                        </p>
+                        
+                        <div class="woocommerce-form-coupon-toggle">
+                            <div class="woocommerce-info">
+                                ¿Tienes un cupón? <a href="#" class="showcoupon">Haga clic aquí para ingresar su código</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form action="#" class="woocommerce-form-coupon">
+                                    <div class="form-group">
+                                        <label>Código</label>
+                                        <input type="text" id="discount-code-input" class="form-control" placeholder="Escribe tu código de cupón">
+                                    </div>
+                                    <div class="form-group">
+                                        <button id="apply-discount-code-btn" type="submit" class="sl-btn">Aplicar cupón</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="py-5">
+                            <p class="woocommerce-mini-cart__buttons buttons">
+                                <a href="javascript:void(0);" id="empty-cart-btn" class="sl-btn wc-forward">Vaciar carrito</a>
+                                <a href="javascript:void(0);" id="whatsapp-btn" class="sl-btn checkout wc-forward" style="display:none;">Enviar por WhatsApp</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="sidemenu-wrapper sidemenu-cart">
+            <div class="sidemenu-content">
+                <button class="closeButton sideMenuCls">
+                   <i class="bi bi-x"></i>
+                </button>
+                <div class="widget woocommerce widget_shopping_cart">
+                    <h3 class="widget_title">Shopping cart</h3>
+                    <div class="widget_shopping_cart_content">
+                        <ul class="woocommerce-mini-cart cart_list product_list_widget">
+                            <li class="woocommerce-mini-cart-item mini_cart_item">
+                                <a href="#" class="remove remove_from_cart_button">
+                                    <i class="bi bi-x"></i>
+                                </a>
+                                <a href="#">
+                                    <img src="assets/images/product/product_thumb_1_1.jpg" alt="Cart Image">Bosco Badam Oil
+                                </a>
+                                <span class="quantity">
+                                    1 ×
+                                    <span class="woocommerce-Price-amount amount">
+                                        <span class="woocommerce-Price-currencySymbol">$</span>
+                                        940.00
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                        <p class="woocommerce-mini-cart__total total">
+                            <strong>Subtotal:</strong>
+                            <span class="woocommerce-Price-amount amount">
+                                <span class="woocommerce-Price-currencySymbol">$</span>
+                                4398.00
+                            </span>
+                        </p>
+                        <p class="woocommerce-mini-cart__buttons buttons">
+                            <a href="cart.html" class="sl-btn wc-forward">View cart</a>
+                            <a href="checkout.html" class="sl-btn checkout wc-forward">Checkout</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Side Menu End -->
+
+        <!-- Popup Search Box Satrt -->
+        <div class="popup-search-box d-none d-lg-block">
+            <button class="searchClose">
+                <i class="fa fa-times"></i>
+            </button>
+            <form action="#">
+                <input type="text" placeholder="What are you looking for?">
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <!-- Popup Search Box End -->
+
+        <!-- Mobile menu start-->
+        <div class="sl-menu-wrapper">
+            <div class="sl-menu-area text-center">
+                <button class="sl-menu-toggle">
+                    <i class="bi bi-x"></i>
+                </button>
+                <div class="mobile-logo">
+                    <a href="index.html">
+                        <img src="assets/images/logo.png" alt="Frutin">
+                    </a>
+                </div>
+                <div class="sl-mobile-menu">
+                    <ul>
+                        <li class="menu-item-has-children">
+                            <a href="#">Home</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="index.html">Home 01</a>
+                                </li>
+                                <li>
+                                    <a href="index02.html">Home 02</a>
+                                </li>
+                                <li>
+                                    <a href="index03.html">Home 03</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Shop</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="shop.html">Shop</a>
+                                </li>
+                                <li>
+                                    <a href="shop-details.html">Shop Details</a>
+                                </li>
+                                <li>
+                                    <a href="cart.html">Cart Page</a>
+                                </li>
+                                <li>
+                                    <a href="checkout.html">Checkout</a>
+                                </li>
+                                <li>
+                                    <a href="wishlist.html">Wishlist</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Blog</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="blog.html">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="blog-details.html">Blog Details</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Pages</a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="faq.html">FAQs</a>
+                                </li>
+                                <li>
+                                    <a href="category.html">Category</a>
+                                </li>
+                                <li>
+                                    <a href="project.html">Portfolio</a>
+                                </li>
+                                <li class="sub-menu-item">
+                                    <a href="javascript:void(0)">Store</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="our-store.html">Our store</a>
+                                        </li>
+                                        <li>
+                                            <a href="store-locations.html">Store locations</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="timeline.html">Timeline</a>
+                                </li>
+                                <li>
+                                    <a href="payment-confirmation.html">Payment confirmation</a>
+                                </li>
+                                <li>
+                                    <a href="error.html">Error</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact</a>
+                        </li>
+                        <li class="header-doc">
+                            <a href="https://doc-omcof.springlab.in/">Document</a>
+                         </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu end-->
+
+    <!-- Main Header Start -->
+    <header class="sl-header header-layoutOne">
+        <div class="header-top d-none d-sm-block">
+            <div class="container">
+                <div class="row justify-content-center gy-2">
+                    <div class="col-auto d-none d-lg-block">
+                        <p class="header-notice">Orders of $50 or more qualify for free shipping!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-top">
+            <div class="container">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto">
+                        <div class="header-logo">
+                            <a href="index.html">
+                                <img src="assets/images/logo.png" alt="Frutin">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <form class="header-search">
+                            <input type="text" placeholder="Enter Keyword">
+                            <button type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-auto">
+                        <div class="header-icons">
+                            <!-- <a href="#" class="icon-btn login-btn sign-in-btn white-bg">
+                                <i class="bi bi-person"></i>
+                            </a>
+                            <a href="wishlist.html" class="icon-btn d-none d-sm-block">
+                                <span class="badge">3</span>
+                                <i class="bi bi-heart"></i>
+                            </a> -->
+                            <button type="button" class="icon-btn sideMenuToggler ">
+                                <span class="badge" id="cart-item-count">0</span>
+                                <i class="bi bi-cart3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sticky-wrapper">
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-3 d-none d-xl-block">
+                            <div class="category-menu-wrap">
+                                <a class="menu-expand" href="#">
+                                    <i class="bi bi-menu-up"></i> Shop by Categories
+                                </a>
+                                <nav class="category-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-house-check me-2"></i>Home & Garden
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-calculator-fill me-2"></i>Electronics
+                                            </a>
+                                        </li>
+                                        <li class="menu-item-has-children">
+                                            <a href="#">
+                                                <i class="bi bi-exclude me-2"></i>Fashion
+                                            </a>
+                                            <ul class="sub-menu">
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="bi bi-amd me-2"></i>Jewelry & Accessories
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="bi bi-eject me-2"></i>Sports & Entertainment
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="bi bi-chat-dots-fill me-2"></i>Mother & Kids
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="bi bi-lungs me-2"></i>Beauty & Health
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-buildings me-2"></i>Sports & Entertainment
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-airplane me-2"></i>Toys & Games
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-bicycle me-2"></i>Automobiles & Motorcycles
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-bus-front-fill me-2"></i>Collectibles & Art
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-exclamation me-2"></i>Tools & Home Improvement
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-check-all me-2"></i>Coconut Oil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="bi bi-box me-2"></i>Trading Cards
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <nav class="main-menu menu-style1 d-none d-lg-inline-block">
+                                <ul>
+                                    <li class="menu-item-has-children">
+                                        <a href="#">Home</a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="index.html">Home 01</a>
+                                            </li>
+                                            <li>
+                                                <a href="index02.html">Home 02</a>
+                                            </li>
+                                            <li>
+                                                <a href="index03.html">Home 03</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="about.html">About</a>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="#">Shop</a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="shop.html">Shop</a>
+                                            </li>
+                                            <li>
+                                                <a href="shop-details.html">Shop Details</a>
+                                            </li>
+                                            <li>
+                                                <a href="cart.html">Cart Page</a>
+                                            </li>
+                                            <li>
+                                                <a href="checkout.html">Checkout</a>
+                                            </li>
+                                            <li>
+                                                <a href="wishlist.html">Wishlist</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="#">Blog</a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="blog.html">Blog</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog-details.html">Blog Details</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children">
+                                        <a href="#">Pages</a>
+                                        <ul class="sub-menu">
+                                            <li>
+                                                <a href="faq.html">FAQs</a>
+                                            </li>
+                                            <li>
+                                                <a href="category.html">Category</a>
+                                            </li>
+                                            <li>
+                                                <a href="project.html">Portfolio</a>
+                                            </li>
+                                            <li class="sub-menu-item">
+                                                <a href="javascript:void(0)">Store</a>
+                                                <ul class="sub-menu">
+                                                    <li>
+                                                        <a href="our-store.html">Our store</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="store-locations.html">Store locations</a>
+                                                    </li>
+                                                </ul>
+                                             </li>
+                                             <li>
+                                                <a href="timeline.html">Timeline</a>
+                                             </li>
+                                             <li>
+                                                <a href="payment-confirmation.html">Payment confirmation</a>
+                                             </li>
+                                             <li>
+                                                <a href="error.html">Error</a>
+                                             </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="contact.html">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <button type="button" class="sl-menu-toggle d-block d-lg-none">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <div class="call-btn">
+                                <div class="box-icon">
+                                    <i class="bi bi-earbuds"></i>
+                                </div>
+                                <div class="media-body">
+                                    <p class="box-subtitle">Call Us 24/7</p>
+                                    <h3 class="box-title">
+                    <a href="tel:+1632543654">(+163)-254-3654</a>
+                </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Mian header end -->
+
+    <!-- Slider Section start -->
+    <section class="sl-hero-wrapper sl-hero-1" id="hero">
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-xl-9 wow fadeInUp">
+                    <div class="swiper sl-slider" id="heroSlider3" data-slider-options='{"effect":"fade"}'>
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="hero-inner" data-bg-src="assets/images/main-slider/slide1.png">
+                                    <div class="sl-hero-style1">
+                                        <span class="hero-subtitle" data-ani="slideinup" data-ani-delay="0.0s">100% Original Provide</span>
+                                        <h2 class="hero-title2">
+                                        <span class="title1" data-ani="slideinup" data-ani-delay="0.2s">Discover our</span>
+                                        <span class="title2" data-ani="slideinup" data-ani-delay="0.3s">Latest <span class="intro-stroke-text">Collection</span></span>
+                                    </h2>
+                                        <p class="hero-text" data-ani="slideinup" data-ani-delay="0.5s">With every touch, I mold raw clay into exquisite forms, infusing them with my imagination and passion. </p>
+                                        <a href="about.html" class="sl-btn btn-sm" data-ani="slideinup" data-ani-delay="0.6s">
+                                        Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-inner" data-bg-src="assets/images/main-slider/slide2.png">
+                                    <div class="sl-hero-style1">
+                                        <span class="hero-subtitle " data-ani="slideinup" data-ani-delay="0.0s">100% Original Provide</span>
+                                        <h2 class="hero-title2">
+                                            <span class="title1" data-ani="slideinup" data-ani-delay="0.2s"> Your Go-To </span>
+                                            <span class="title2" data-ani="slideinup" data-ani-delay="0.3s"><span class="intro-stroke-text">Shopping</span> Hub</span>
+                                        </h2>
+                                        <p class="hero-text" data-ani="slideinup" data-ani-delay="0.5s">With every touch, I mold raw clay into exquisite forms, infusing them with my imagination and passion.</p>
+                                        <a href="about.html" class="sl-btn btn-sm" data-ani="slideinup" data-ani-delay="0.6s">
+                                        Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="hero-inner" data-bg-src="assets/images/main-slider/slide3.png">
+                                    <div class="sl-hero-style1">
+                                        <span class="hero-subtitle" data-ani="slideinup" data-ani-delay="0.0s">100% Original Provide</span>
+                                        <h2 class="hero-title2">
+                                            <span class="title1" data-ani="slideinup" data-ani-delay="0.2s">Everything You </span>
+                                            <span class="title2" data-ani="slideinup" data-ani-delay="0.3s">Need in <span class="intro-stroke-text">One Place</span></span>
+                                        </h2>
+                                        <p class="hero-text" data-ani="slideinup" data-ani-delay="0.5s">With every touch, I mold raw clay into exquisite forms, infusing them with my imagination and passion.</p>
+                                        <a href="about.html" class="sl-btn btn-sm" data-ani="slideinup" data-ani-delay="0.6s">
+                                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- slider section end -->
+
+    <!-- Free Shipping -->
+    <section class="mt-5">
+        <div class="container">
+            <div class="feature-list-wrap wow zoomIn">
+                <div class="feature-list">
+                    <div class="box-icon">
+                        <img src="assets/images/icon/feature_list_1.png" alt="icon">
+                    </div>
+                    <div class="media-body">
+                        <h3 class="box-title">Return Policy</h3>
+                        <p class="box-text">Money back guarantee</p>
+                    </div>
+                </div>
+                <div class="feature-list-line"></div>
+                <div class="feature-list">
+                    <div class="box-icon">
+                        <img src="assets/images/icon/feature_list_2.png" alt="icon">
+                    </div>
+                    <div class="media-body">
+                        <h3 class="box-title">Free Shipping</h3>
+                        <p class="box-text">On all orders over $50.00</p>
+                    </div>
+                </div>
+                <div class="feature-list-line"></div>
+                <div class="feature-list">
+                    <div class="box-icon">
+                        <img src="assets/images/icon/feature_list_3.png" alt="icon">
+                    </div>
+                    <div class="media-body">
+                        <h3 class="box-title">Store locator</h3>
+                        <p class="box-text">Find your nearest store</p>
+                    </div>
+                </div>
+                <div class="feature-list-line"></div>
+                <div class="feature-list">
+                    <div class="box-icon">
+                        <img src="assets/images/icon/feature_list_4.png" alt="icon">
+                    </div>
+                    <div class="media-body">
+                        <h3 class="box-title">24/7 Support</h3>
+                        <p class="box-text">Contact us 24 hours a day</p>
+                    </div>
+                </div>
+                <div class="feature-list-line"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Free Shipping -->
+
+    <!-- category Section Start -->
+    <section class="space-top" data-pos-for="#category-sec" data-sec-pos="bottom-half">
+        <div class="container z-index-common">
+            <div class="row gy-4 justify-content-center">
+                <div class="col-xl-4 col-md-6 wow zoomIn">
+                    <div class="offer-box mega-hover" data-bg-src="assets/images/background/bg1.webp">
+                        <span class="box-subtitle">20% OFF</span>
+                        <h3 class="box-title">
+                        The Speakers of<br>The House
+                    </h3>
+                        <a href="shop-details.html" class="sl-btn btn-sm">
+                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 wow zoomIn">
+                    <div class="offer-box mega-hover" data-bg-src="assets/images/background/bg5.jpg">
+                        <span class="box-subtitle bg-theme">30% OFF</span>
+                        <h3 class="box-title text-white">
+                       Best Budget<br>Smartwatch
+                   </h3>
+                        <a href="shop-details.html" class="sl-btn style4 btn-sm">
+                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 wow zoomIn">
+                    <div class="offer-box mega-hover" data-bg-src="assets/images/background/bg4.png">
+                        <span class="box-subtitle">75% OFF</span>
+                        <h3 class="box-title">
+                            Apple Airpods<br>Headphones
+                        </h3>
+                                <a href="shop-details.html" class="sl-btn btn-sm">
+                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- category Section End-->
+
+    <!-- Shop By Category Start-->
+    <section class="space bg-smoke2" id="category-sec">
+        <div class="container">
+
+        </div>
+    </section>
+    <!-- Shop By Category End-->
+
+    <!-- Our Popular Products Start -->
+    <section class="space">
+        <div class="container">
+            <div class="row justify-content-lg-between justify-content-center align-items-end">
+                <div class="col-lg">
+                    <div class="title-area text-center text-lg-start">
+                        <span class="sub-title">
+                        <img src="assets/images/theme-img/title_icon.png" alt="Icon">Selected Products
+                    </span>
+                        <h2 class="sec-title">Our Popular Products</h2>
+                    </div>
+                </div>
+                <div class="col-auto mt-n2 mt-lg-0">
+                    <div class="sec-btn">
+                        <div class="nav tab-menu1" role="tablist">
+                            <button class="tab-btn active" id="nav-one-tab" data-bs-toggle="tab" data-bs-target="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">New</button>
+                            <button class="tab-btn" id="nav-two-tab" data-bs-toggle="tab" data-bs-target="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Featured</button>
+                            <button class="tab-btn" id="nav-three-tab" data-bs-toggle="tab" data-bs-target="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false">Top Sellers</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                    <div class="slider-area">
+                        <div class="swiper sl-slider has-shadow productSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-1.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <!-- <a href="cart.html" class="icon-btn">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a> -->
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="1">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphones</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Headphones Wireless.</a>
+                                        </h3>
+                                            <span class="price">$107</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(10 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 4.5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-2.png" alt="Product Image">
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="2">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphones</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Gaming Headphone</a>
+                                        </h3>
+                                            <span class="price">$39.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-3.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="3">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphone</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Headphone with Mic</a>
+                                        </h3>
+                                            <span class="price">$96.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-4.png" alt="Product Image">
+                                            <span class="product-tag">Sale</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="4">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile Tablets</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Galaxy Android Tablet</a>
+                                        </h3>
+                                            <span class="price">
+                                            $288<del>$306</del>
+                                        </span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-5.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="5">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">iPhone 14 Pro</a>
+                                        </h3>
+                                            <span class="price">$832.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-6.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="6">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile Tablets</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Apple iPad Air</a>
+                                        </h3>
+                                            <span class="price">$930</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-7.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="7">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">CPU Heat Pipes</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">DeepCool Air Cooler</a>
+                                        </h3>
+                                            <span class="price">$272.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-8.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="8">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">CPU Heat Pipes</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Antec Air Cooler</a>
+                                        </h3>
+                                            <span class="price">$90.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button data-slider-prev=".productSlider1" class="slider-arrow slider-prev">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button data-slider-next=".productSlider1" class="slider-arrow slider-next">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+                    <div class="slider-area">
+                        <div class="swiper sl-slider has-shadow productSlider2" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-1.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="9">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphones</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Headphones Wireless.</a>
+                                        </h3>
+                                            <span class="price">$107</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(10 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 4.5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-2.png" alt="Product Image">
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="10">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphones</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Gaming Headphone</a>
+                                        </h3>
+                                            <span class="price">$39.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-3.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="11">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphone</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Headphone with Mic</a>
+                                        </h3>
+                                            <span class="price">$96.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-4.png" alt="Product Image">
+                                            <span class="product-tag">Sale</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="12">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile Tablets</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Galaxy Android Tablet</a>
+                                        </h3>
+                                            <span class="price">
+                                            $288<del>$306</del>
+                                        </span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-5.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="13">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">iPhone 14 Pro</a>
+                                        </h3>
+                                            <span class="price">$832.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-6.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="14">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile Tablets</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Apple iPad Air</a>
+                                        </h3>
+                                            <span class="price">$930</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button data-slider-prev=".productSlider2" class="slider-arrow slider-prev">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button data-slider-next=".productSlider2" class="slider-arrow slider-next">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
+                    <div class="slider-area">
+                        <div class="swiper sl-slider has-shadow productSlider3" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-3.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="15">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Headphone</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Headphone with Mic</a>
+                                        </h3>
+                                            <span class="price">$96.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-4.png" alt="Product Image">
+                                            <span class="product-tag">Sale</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="16">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile Tablets</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Galaxy Android Tablet</a>
+                                        </h3>
+                                            <span class="price">
+                                            $288<del>$306</del>
+                                        </span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-5.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="17">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">iPhone 14 Pro</a>
+                                        </h3>
+                                            <span class="price">$832.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-6.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="18">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">Mobile Tablets</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Apple iPad Air</a>
+                                        </h3>
+                                            <span class="price">$930</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-7.png" alt="Product Image">
+                                            <span class="product-tag">New</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="19">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">CPU Heat Pipes</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">DeepCool Air Cooler</a>
+                                        </h3>
+                                            <span class="price">$272.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide wow fadeInUp">
+                                    <div class="sl-product product-grid">
+                                        <div class="product-img">
+                                            <img src="assets/images/product/prodact-card-8.png" alt="Product Image">
+                                            <span class="product-tag">Hot</span>
+                                            <div class="actions">
+                                                <a href="#QuickView" class="icon-btn popup-content">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="#" class="icon-btn add-to-cart-link" data-product-id="20">
+                                                    <i class="bi bi-cart-plus"></i>
+                                                </a>
+                                                <a href="wishlist.html" class="icon-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="shop-details.html" class="product-category">CPU Heat Pipes</a>
+                                            <h3 class="product-title">
+                                            <a href="shop-details.html">Antec Air Cooler</a>
+                                        </h3>
+                                            <span class="price">$90.85</span>
+                                            <div class="woocommerce-product-rating">
+                                                <span class="count">(120 Reviews)</span>
+                                                <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                    <span>
+                                                    Rated <strong class="rating">5.00</strong>
+                                                    out of 5 based on <span class="rating">1</span> customer rating
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button data-slider-prev=".productSlider3" class="slider-arrow slider-prev">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button data-slider-next=".productSlider3" class="slider-arrow slider-next">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Our Popular Products End -->
+
+    <!-- Deals Of The Week Start -->
+    <section class="bg-top-center overflow-hidden space-top" data-bg-src="assets/images/background/deal_bg_2.jpg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-md-8">
+                    <div class="title-area text-center">
+                        <span class="sub-title text-white">
+                        <img src="assets/images/theme-img/title_icon.png" alt="Icon">Hurry Up Now
+                    </span>
+                        <h2 class="sec-title text-white">Deals Of The Week</h2>
+                        <p class="sec-text text-light"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+                    </div>
+                </div>
+            </div>
+            <div class="deal-sec-area wow zoomIn">
+                <ul id="countDown" class="counter-list countdown-style1">
+                    <li>
+                        <div class="sale-item">
+                            <div class="sale-corn">
+                                <h2 id="day" class="Days count-number">0</h2>
+                            </div>
+                            <span class="count-name">Days</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sale-item">
+                            <div class="sale-corn">
+                                <h2 id="hour" class="Hours count-number">0</h2>
+                            </div>
+                            <span class="count-name">Hours</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sale-item">
+                            <div class="sale-corn">
+                                <h2 id="minute" class="Minute count-number">0</h2>
+                            </div>
+                            <span class="count-name">Minutes</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sale-item">
+                            <div class="sale-corn">
+                                <h2 id="second" class="Second count-number">0</h2>
+                            </div>
+                            <span class="count-name">Seconds</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="row gy-4 justify-content-center">
+                    <div class="col-xl-3 text-xl-start text-center">
+                        <div class="offer-grid mega-hover" data-bg-src="assets/images/background/cta_bg_4_1.jpg">
+                            <span class="h6 box-subtitle text-white">
+                            <span class="text-theme">20% Online </span> OFF
+                            </span>
+                            <h3 class="box-title text-white">
+                            Now You Get The<br>Headphone
+                        </h3>
+                            <a href="shop-details.html" class="sl-btn btn-sm style3">
+                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-9">
+                        <div class="row gy-4">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="sl-product product-grid">
+                                    <div class="product-img">
+                                        <img src="assets/images/product/prodact-card-1.png" alt="Product Image">
+                                        <span class="product-tag">Hot</span>
+                                        <div class="actions">
+                                            <a href="#QuickView" class="icon-btn popup-content">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="cart.html" class="icon-btn">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </a>
+                                            <a href="wishlist.html" class="icon-btn">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <a href="shop-details.html" class="product-category">Headphone</a>
+                                        <h3 class="product-title">
+                                        <a href="shop-details.html">Headphones Wireless.</a>
+                                    </h3>
+                                        <span class="price">
+                                        $08.85<del>$06.99</del>
+                                    </span>
+                                        <div class="woocommerce-product-rating">
+                                            <span class="count">(120 Reviews)</span>
+                                            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                <span>
+                                                Rated <strong class="rating">5.00</strong>
+                                                out of 5 based on <span class="rating">1</span> customer rating
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="sl-product product-grid">
+                                    <div class="product-img">
+                                        <img src="assets/images/product/prodact-card-2.png" alt="Product Image">
+                                        <span class="product-tag">Hot</span>
+                                        <div class="actions">
+                                            <a href="#QuickView" class="icon-btn popup-content">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="cart.html" class="icon-btn">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </a>
+                                            <a href="wishlist.html" class="icon-btn">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <a href="shop-details.html" class="product-category">Headphone</a>
+                                        <h3 class="product-title">
+                                        <a href="shop-details.html">Gaming Headphone</a>
+                                    </h3>
+                                        <span class="price">
+                                        $08.85<del>$06.99</del>
+                                    </span>
+                                        <div class="woocommerce-product-rating">
+                                            <span class="count">(120 Reviews)</span>
+                                            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                <span>
+                                                Rated <strong class="rating">5.00</strong>
+                                                out of 5 based on <span class="rating">1</span> customer rating
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="sl-product product-grid">
+                                    <div class="product-img">
+                                        <img src="assets/images/product/prodact-card-3.png" alt="Product Image">
+                                        <span class="product-tag">Sale</span>
+                                        <div class="actions">
+                                            <a href="#QuickView" class="icon-btn popup-content">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="cart.html" class="icon-btn">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </a>
+                                            <a href="wishlist.html" class="icon-btn">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <a href="shop-details.html" class="product-category">Headphone</a>
+                                        <h3 class="product-title">
+                                        <a href="shop-details.html">Headphone with Mic</a>
+                                    </h3>
+                                        <span class="price">
+                                        $08.85<del>$06.99</del>
+                                    </span>
+                                        <div class="woocommerce-product-rating">
+                                            <span class="count">(120 Reviews)</span>
+                                            <div class="star-rating" role="img" aria-label="Rated 5.00 out of 5">
+                                                <span>
+                                                Rated <strong class="rating">5.00</strong>
+                                                out of 5 based on <span class="rating">1</span> customer rating
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Deals Of The Week End -->
+
+    <!-- Banner Section Start -->
+    <section class="space">
+        <div class="container z-index-common">
+            <div class="row gy-30">
+                <div class="col-xl-6 wow zoomIn">
+                    <div class="offer-block mega-hover" data-bg-color="#dae9ff">
+                        <div class="box-img">
+                            <img src="assets/images/background/cta_5_1.png" alt="Image">
+                        </div>
+                        <span class="h6 box-subtitle">BEST FROM OUR : LAPTOP</span>
+                        <div class="box-content" data-border="#F3EEC1">
+                            <span class="box-heading">Latest Only</span>
+                            <h3 class="box-title">
+                            Best <b>Laptop</b>
+                        </h3>
+                            <p class="box-text">30% OFF FOR THIS MONTH</p>
+                            <a href="shop-details.html" class="sl-btn btn-sm">
+                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 wow zoomIn">
+                    <div class="offer-block mega-hover" data-bg-color="#ffe2da">
+                        <div class="box-img">
+                            <img src="assets/images/background/cta_5_2.png" alt="Image">
+                        </div>
+                        <span class="h6 box-subtitle">NEW FROM OUR SIDE : WATCH</span>
+                        <div class="box-content" data-border="#D1EDD2">
+                            <span class="box-heading">Latest Only</span>
+                            <h3 class="box-title">
+                            Best <b>Watch</b>
+                        </h3>
+                            <p class="box-text">50% OFF FOR THIS MONTH</p>
+                            <a href="shop-details.html" class="sl-btn btn-sm">
+                            Shop Now<i class="fas fa-chevrons-right ms-2"></i>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Section end -->
+
+    <!-- Footer top Start -->
+    <div class="footer-top-newsletter">
+        <div class="container z-index-common">
+            <div class="newsletter-wrap">
+                <div class="newsletter-content">
+                    <div class="sl-icon-box icon-type-icon">
+                        <div class="sl-icon-box__icon">
+                            <span class="motta-svg-icon">
+                                <img src="assets/images/icon/phone-call.png" alt="Icon" >
+                            </span>
+                        </div>
+                        <div class="sl-icon-box__wrapper">
+                            <h6 class="sl-icon-box__title">Call</h6>
+                            <div class="sl-icon-box__content">Call us from 11am to
+                                <br> 08pm .</div>
+                            <a class="motta-button motta-button-primary  motta-button--text  motta-button--color-black  motta-button--medium" href="tel:+91 900 5522 888">
+                                <span class="motta-button__text">+91 654 7765 999</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sl-icon-box icon-type-icon">
+                        <div class="sl-icon-box__icon">
+                            <span class="motta-svg-icon">
+                                <img src="assets/images/icon/email-01.png" alt="Icon" >
+                            </span>
+                        </div>
+                        <div class="sl-icon-box__wrapper">
+                            <h6 class="sl-icon-box__title">Email</h6>
+                            <div class="sl-icon-box__content">Our response time is
+                                <br> 1 to 3 business days.</div>
+                            <a class="motta-button motta-button-primary  motta-button--text  motta-button--color-black  motta-button--medium" href="tel:+91 900 5522 888">
+                                <span class="motta-button__text">springlab@gmail.com</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="sign-heading">Let’s keep in touch </h4>
+                    <p>Get recommendations, tips, updates, promotions and more.</p>
+                    <form class="newsletter-form">
+                        <div class="form-group">
+                            <input class="form-control" type="email" placeholder="Email Address" required="">
+                        </div>
+                        <button type="submit" class="sl-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer top end -->
+
+    <!-- Main footer Start -->
+    <footer class="footer-wrapper footer-layout1">
+        <div class="container">
+            <div class="widget-area">
+                <div class="row justify-content-between">
+                    <div class="col-md-6 col-lg-auto col-xl-auto">
+                        <div class="widget footer-widget">
+                            <div class="sl-widget-about">
+                                <div class="about-logo">
+                                    <a href="#">
+                                        <img src="assets/images/logo.png" alt="Frutin">
+                                    </a>
+                                </div>
+                                <h5 class="about-heading">Best For Shopping</h5>
+                                <p class="about-text">Sed do eiusmod tempor incididuntut labore dolore magna.</p>
+                                <div class="sl-social">
+                                    <a href="#">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="bi bi-linkedin"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="bi bi-youtube"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-auto col-xl-auto">
+                        <div class="widget widget_nav_menu footer-widget">
+                            <h3 class="widget_title">
+                                Shop
+                            </h3>
+                            <div class="menu-all-pages-container">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="shop.html">Shop</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-details.html">Shop Detail</a>
+                                    </li>
+                                    <li>
+                                        <a href="cart.html">Cart Page</a>
+                                    </li>
+                                    <li>
+                                        <a href="checkout.html">Checkout</a>
+                                    </li>
+                                    <li>
+                                        <a href="wishlist.html">Wishlist</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-auto col-xl-auto">
+                        <div class="widget widget_nav_menu footer-widget">
+                            <h3 class="widget_title">
+                                Quick Links
+                            </h3>
+                            <div class="menu-all-pages-container">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="about.html">About Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="project.html">Portfolio</a>
+                                    </li>
+                                    <li>
+                                        <a href="faq.html">Help & FAQs</a>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a href="contact.html">Contact Us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-auto col-xl-auto">
+                        <div class="widget footer-widget">
+                            <h3 class="widget_title">
+                               Contact Us
+                           </h3>
+                            <div class="th-widget-contact">
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                    </div>
+                                    <p class="info-box_text">1418 Riverwood Drive, Suite 3245 Cottonwood,</p>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </div>
+                                    <p class="info-box_text">
+                                        <a href="tel:+16326543427" class="info-box_link">+(183)-4534-3427</a>
+                                        <a href="tel:+16345345432" class="info-box_link">+(183)-2654-5432</a>
+                                    </p>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="bi bi-envelope"></i>
+                                    </div>
+                                    <p class="info-box_text">
+                                        <a href="mailto:help24/7@Omcof.com" class="info-box_link">help24/7@Omcof.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-wrap">
+            <div class="container">
+                <div class="row gy-2 align-items-center">
+                    <div class="col-md-6">
+                        <p class="copyright-text">
+                            Copyright <i class="bi bi-copyright"></i> 2024 <a href="index.html">Omcof</a> . All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="payment-img">
+                            <img src="assets/images/normal/payment_methods.png" alt="Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Main footer End -->
+
+    <!-- Back to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+
+    <!--================= Login Popup Start Here =================-->
+    <div class="sl-newsletter-popup login-popup">
+        <div class="sl-newsletter-close-btn"><i class="fa fa-times"></i></div>
+        <div class="sl-newsletter-inner">
+            <h3 class="sl-newsletter-heading">Login</h3>
+            <form>
+                <div class="input-area">
+                    <div class="input-div">
+                        <input type="email" placeholder="Email address" required="">
+                        <div class="input-icon"><i class="fa fa-envelope"></i></div>
+                    </div>
+                    <div class="input-div">
+                        <input type="password" placeholder="Your Password">
+                        <div class="input-icon"><i class="fa fa-key"></i></div>
+                    </div>
+                    <p>Don't have an account? <a href="#" class="sign-up-btn">Sign Up</a></p>
+                </div>
+                <button type="submit" class="subscribe-btn">Login<i class="fa fa-long-arrow-right ms-2"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="body-overlay-home login_overlay"></div>
+    <!--================= Login Popup End Here =================-->
+
+    <!--================= Register Popup Start Here =================-->
+    <div class="sl-newsletter-popup sign-up-popup">
+        <div class="sl-newsletter-close-btn"><i class="fa fa-times"></i></div>
+        <div class="sl-newsletter-inner">
+            <h3 class="sl-newsletter-heading">Register</h3>
+            <form>
+                <div class="input-area">
+                    <div class="input-div">
+                        <input type="text" placeholder="Your Name">
+                        <div class="input-icon"><i class="fa fa-user"></i></div>
+                    </div>
+                    <div class="input-div">
+                        <input type="email" placeholder="Email address" required="">
+                        <div class="input-icon"><i class="fa fa-envelope"></i></div>
+                    </div>
+                    <div class="input-div">
+                        <input type="password" placeholder="Your Password">
+                        <div class="input-icon"><i class="fa fa-key"></i></div>
+                    </div>
+                    <p>Already have an account? <a href="#" class="sign-in-btn">Sign In</a></p>
+                </div>
+                <button type="submit" class="subscribe-btn">Sign Up<i class="fa fa-long-arrow-right ms-2"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="body-overlay-home sign_up_overlay"></div>
+    <!--================= Register Popup End Here =================-->
+
+      
+    <!-- auto popup  -->
+    <div class="modal sl-inquiry-modal fade auto-popup" id="myModal" role="dialog" aria-modal="true">
+        <div class="modal-dialog" data-bg-src="assets/images/popup/img1.png">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="modal-title" id="exampleModalLongTitle">Subscribe to Our Newsletter</h3>
+                    <p class="text">Subscribe to the Porto mailing list to receive updates on new arrivals, special offers and our promotions.</p>
+                    <form role="search" class="search-form">
+                        <input type="email" class="email-field" placeholder="Email Address">
+                        <button type="submit" class="sl-btn btn-sm style4">Subscribe Now</button>
+                        <div class="custom-checkbox d-flex mb-3 mt-40">
+                            <input type="checkbox" class="form-check-input mr-2" id="basic_checkbox_3">
+                            <label class="form-check-label" for="basic_checkbox_3">Don't Show Again Popup</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button type="button" class="btn-close btn-hide-popup" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                <i class="bi bi-x"></i>
+            </span>
+            </button>
+        </div>
+    </div>
+    <div class="slp-bg popup-builder slp-fade"></div>
+    <!-- auto popup  -->
+
+    
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/jQuery.style.switcher.min.js"></script>
+    <script src="assets/js/countdown.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="assets/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/6444ec7788.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
