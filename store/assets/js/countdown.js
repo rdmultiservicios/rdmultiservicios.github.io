@@ -1,6 +1,6 @@
 (function ($){
 
-var countDate = new Date('july 30, 2025 00:00:00').getTime();
+var countDate = new Date('April 30, 2025 00:00:00').getTime();
      function newYear() {
         var now = new Date().getTime();
            gap = countDate - now;
