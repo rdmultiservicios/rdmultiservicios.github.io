@@ -124,10 +124,10 @@
                         
                         <div class="woocommerce-form-coupon-toggle">
                             <div class="woocommerce-info">
-                                ¿Tienes un cupón? <a href="javascript:void(0);" class="showcoupon">Haga clic aquí para ingresar su código</a>
+                                ¿Tienes un cupón? <a href="#" class="showcoupon">Haga clic aquí para ingresar su código</a>
                             </div>
                         </div>
-                        <div class="row d-none" id="coupon-form">
+                        <div class="row">
                             <div class="col-12">
                                 <form action="#" class="woocommerce-form-coupon">
                                     <div class="form-group">
@@ -1433,14 +1433,6 @@
 
     <script src="assets/js/script.js"></script>
     <script src="https://kit.fontawesome.com/6444ec7788.js" crossorigin="anonymous"></script>
-
-    <script>
-        document.querySelector('.showcoupon').addEventListener('click', function() {
-    var couponForm = document.getElementById('coupon-form');
-    couponForm.classList.toggle('d-none'); // Toggle the visibility of the coupon form
-});
-
-    </script>
 </body>
 
 </html>
