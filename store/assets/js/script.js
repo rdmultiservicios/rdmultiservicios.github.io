@@ -125,7 +125,7 @@ function sendWhatsAppMessage() {
     const total = subtotal - discountAmount;
 
     // Construir el mensaje de WhatsApp
-    let message = "*Detalle de compra:*\n\n";
+    let message = "*Detalles de su compra:*\n\n";
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity}) = S/ ${productTotal}\n`;
