@@ -14,7 +14,7 @@ let discountCode = ""; // Almacenar el código de descuento ingresado
 const discountCodes = {
     "DESCUENTO10": 10, // 10% de descuento
     "DESCUENTO20": 20, // 20% de descuento
-    "DESCUENTO50": 50  // 50% de descuento
+    "UNICA50": 50  // 50% de descuento
 };
 
 // Función para agregar un producto al carrito
