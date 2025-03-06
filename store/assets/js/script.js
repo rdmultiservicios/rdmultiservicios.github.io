@@ -155,11 +155,13 @@ document.querySelectorAll('.add-to-cart-link').forEach((link) => {
 document.getElementById('empty-cart-btn').addEventListener('click', emptyCart);
 
 // Asociar el evento de aplicar código de descuento
-document.getElementById('apply-discount-code-btn').addEventListener('click', () => {
+document.getElementById('apply-discount-code-btn').addEventListener('click', (event) => {
+    event.preventDefault(); // Prevenir la recarga de la página
+
     const codeInput = document.getElementById('discount-code-input').value.trim();
-    if (discountCodes[codeInput]) {
-        discount = discountCodes[codeInput]; // Aplicar el descuento
-        discountCode = codeInput; // Guardar el código de descuento
+    if (discountCodes[codeInput.toUpperCase()]) {
+        discount = discountCodes[codeInput.toUpperCase()]; // Aplicar el descuento
+        discountCode = codeInput.toUpperCase(); // Guardar el código de descuento
         updateCart(); // Actualizar el carrito visualmente
         alert(`¡Código de descuento aplicado! ${discount}%`);
     } else {
