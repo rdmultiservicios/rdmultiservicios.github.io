@@ -128,7 +128,7 @@ function sendWhatsAppMessage() {
     const total = subtotal - discountAmount;
 
     // Construir el mensaje de WhatsApp
-    let message = "*Detalle de compra:*\n\n";
+    let message = "*Detalles de su compra:*\n\n";
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity}) = S/ ${productTotal}\n`;
@@ -142,6 +142,7 @@ function sendWhatsAppMessage() {
     window.open(whatsappUrl, '_blank');
 }
 
+
 // Asociar los eventos de clic para agregar al carrito
 document.querySelectorAll('.add-to-cart-link').forEach((link) => {
     link.addEventListener('click', (event) => {
@@ -154,18 +155,56 @@ document.querySelectorAll('.add-to-cart-link').forEach((link) => {
 // Asociar el evento de vaciar carrito
 document.getElementById('empty-cart-btn').addEventListener('click', emptyCart);
 
+// Función para mostrar el mensaje de alerta de descuento
+function showDiscountAlert(message, isSuccess = true) {
+    const discountAlert = document.getElementById('discount-alert');
+    const discountAlertMessage = document.getElementById('discount-alert-message');
+
+    // Limpiar cualquier mensaje previo
+    discountAlert.classList.remove('text-success', 'text-danger');
+    discountAlert.style.display = 'none';
+
+    // Establecer el mensaje
+    discountAlertMessage.textContent = message;
+
+    // Usar clases de Bootstrap para éxito y error
+    if (isSuccess) {
+        discountAlert.classList.add('text-success'); // Verde para éxito
+    } else {
+        discountAlert.classList.add('text-danger'); // Rojo para error
+    }
+
+    // Mostrar el mensaje
+    discountAlert.style.display = 'block';
+
+    // Ocultar el mensaje automáticamente después de 3 segundos
+    setTimeout(() => {
+        discountAlert.style.display = 'none';
+    }, 3000);
+}
+
 // Asociar el evento de aplicar código de descuento
 document.getElementById('apply-discount-code-btn').addEventListener('click', (event) => {
     event.preventDefault(); // Prevenir la recarga de la página
 
     const codeInput = document.getElementById('discount-code-input').value.trim();
+    
+    if (!codeInput) {
+        // Mostrar alerta si no se ingresa un código
+        showDiscountAlert('Ingresa un cupón válido', false);
+        return;
+    }
+
     if (discountCodes[codeInput.toUpperCase()]) {
+        // Aplicar el descuento y mostrar éxito
         discount = discountCodes[codeInput.toUpperCase()]; // Aplicar el descuento
         discountCode = codeInput.toUpperCase(); // Guardar el código de descuento
         updateCart(); // Actualizar el carrito visualmente
-        alert(`¡Código de descuento aplicado! ${discount}%`);
+        
+        showDiscountAlert(`¡Cupón aplicado! ${discount}%`);
     } else {
-        alert('El código de descuento no es válido.');
+        // Mostrar alerta de error si el código no es válido
+        showDiscountAlert('El cupón no es válido.', false);
     }
 });
 
