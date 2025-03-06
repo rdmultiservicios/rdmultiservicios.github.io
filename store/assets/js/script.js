@@ -1,9 +1,12 @@
 // Estructura básica para los productos
 const products = [
-    { id: 1, name: "Headphones Wireless", price: 107, img: "assets/images/product/prodact-card-1.png" },
-    { id: 2, name: "Gaming Headphone", price: 39.85, img: "assets/images/product/prodact-card-2.png" },
-    { id: 3, name: "Headphone with Mic", price: 96.85, img: "assets/images/product/prodact-card-3.png" },
-    { id: 4, name: "Galaxy Android Tablet", price: 288, img: "assets/images/product/prodact-card-4.png" }
+    { id: 1, name: "Auriculares Bluetooth", price: 69.00, img: "assets/images/product/prodact-card-1.png" },
+    { id: 2, name: "Auriculares Gamer", price: 89.00, img: "assets/images/product/prodact-card-2.png" },
+    { id: 3, name: "Auriculares Microfono", price: 99.00, img: "assets/images/product/prodact-card-3.png" },
+    { id: 4, name: "Samsung Galaxy A52s", price: 899.00, img: "assets/images/product/prodact-card-4.png" },
+    { id: 5, name: "Headphones Wireless", price: 39.90, img: "assets/images/product/prodact-card-1.png" },
+    { id: 6, name: "Gaming Headphone", price: 19.90, img: "assets/images/product/prodact-card-2.png" },
+    { id: 7, name: "Headphone with Mic", price: 29.90, img: "assets/images/product/prodact-card-3.png" }
 ];
 
 let cart = []; // El carrito es un arreglo de objetos
@@ -14,7 +17,7 @@ let discountCode = ""; // Almacenar el código de descuento ingresado
 const discountCodes = {
     "DESCUENTO10": 10, // 10% de descuento
     "DESCUENTO20": 20, // 20% de descuento
-    "UNICA50": 50  // 50% de descuento
+    "DESCUENTO50": 50  // 50% de descuento
 };
 
 // Función para agregar un producto al carrito
@@ -71,7 +74,7 @@ function updateCart() {
             <span class="quantity">
                 ${product.quantity} ×
                 <span class="woocommerce-Price-amount amount">
-                    <span class="woocommerce-Price-currencySymbol">$</span>
+                    <span class="woocommerce-Price-currencySymbol">S/</span>
                     ${product.price.toFixed(2)}
                 </span>
             </span>
@@ -82,7 +85,7 @@ function updateCart() {
 
     // Mostrar el subtotal
     const cartSubtotal = document.getElementById('cart-subtotal');
-    cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+    cartSubtotal.textContent = `S/ ${subtotal.toFixed(2)}`;
 
     // Calcular el total con descuento
     const total = subtotal - (subtotal * (discount / 100));
@@ -93,7 +96,7 @@ function updateCart() {
 
     // Mostrar el total
     const cartTotalPrice = document.getElementById('cart-total-price');
-    cartTotalPrice.textContent = `$${total.toFixed(2)}`;
+    cartTotalPrice.textContent = `S/ ${total.toFixed(2)}`;
 
     // Mostrar el botón de WhatsApp solo si el carrito tiene productos
     const whatsappBtn = document.getElementById('whatsapp-btn');
@@ -125,7 +128,7 @@ function sendWhatsAppMessage() {
     const total = subtotal - discountAmount;
 
     // Construir el mensaje de WhatsApp
-    let message = "*Detalles de su compra:*\n\n";
+    let message = "*Detalle de compra:*\n\n";
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity}) = S/ ${productTotal}\n`;
