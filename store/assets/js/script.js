@@ -132,17 +132,24 @@ function sendWhatsAppMessage() {
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity})\n`;
-        //message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity}) = S/ ${productTotal}\n`;
     });
     message += `\n*Subtotal:* S/ ${subtotal.toFixed(2)}\n`;
-    message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`; // Mostrar el descuento en negrita
-    message += `*Total pedido:* S/ ${total.toFixed(2)}\n`; // Mostrar el total en negrita
+    message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`; // Mostrar el descuento
+    message += `*Total pedido:* S/ ${total.toFixed(2)}\n`; // Mostrar el total
 
     // Enlace de WhatsApp
     const whatsappUrl = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-}
 
+    // Vaciar el carrito
+    emptyCart();
+
+    // Limpiar el input de descuento
+    const discountInput = document.getElementById('discount-code-input');
+    if (discountInput) {
+        discountInput.value = ''; // Limpiar el campo de descuento
+    }
+}
 
 // Asociar los eventos de clic para agregar al carrito
 document.querySelectorAll('.add-to-cart-link').forEach((link) => {
