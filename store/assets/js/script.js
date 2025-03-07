@@ -210,7 +210,7 @@ document.getElementById('apply-discount-code-btn').addEventListener('click', (ev
     
     if (!codeInput) {
         // Mostrar alerta si no se ingresa un código
-        showDiscountAlert('No es un cupón válido', false);
+        showDiscountAlert('Por favor, ingresa un cupón de descuento', false);
         return;
     }
 
@@ -220,7 +220,7 @@ document.getElementById('apply-discount-code-btn').addEventListener('click', (ev
         discountCode = codeInput.toUpperCase(); // Guardar el código de descuento
         updateCart(); // Actualizar el carrito visualmente
         
-        showDiscountAlert(`¡Cupón aplicado! ${discount}%`);
+        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}%`);
     } else {
         // Mostrar alerta de error si el código no es válido
         showDiscountAlert('Este cupón no es válido.', false);
