@@ -137,12 +137,14 @@
                                     <div class="form-group">
                                         <input type="text" id="discount-code-input" class="form-control" placeholder="Cupón de descuento">
                                     </div>
-                                    <div id="discount-alert" role="alert" style="display: none; padding: 10px 20px; border-radius: 5px; width: auto;">
-                                    	<span id="discount-alert-message"></span>
-				                    </div>
-                                    <div class="form-group text-center">
+				    <div class="form-group text-center">
                                         <button id="apply-discount-code-btn" class="sl-btn btn-sm style4">Aplicar</button>
                                     </div>
+				    <!-- Alerta de descuento -->
+				    <div id="discount-alert" class="alert fade" style="display: none;">
+    					<i id="discount-alert-icon" class="bi"></i> <!-- Aquí va el ícono -->
+    					<span id="discount-alert-message"></span>
+				    </div>
                                 </form>
                             </div>
                         </div>
