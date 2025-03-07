@@ -4301,7 +4301,7 @@ ul.widget_rss,ul.wp-block-rss,ol.widget_rss,ol.wp-block-rss {
 }
 
 .main-menu ul li.menu-item-has-children li.sub-menu-item>a:after {
-    content: "\F234";
+    /*content: "\F234";*/
     float: right;
     display: inline-block;
     position: relative;
@@ -4325,7 +4325,7 @@ ul.widget_rss,ul.wp-block-rss,ol.widget_rss,ol.wp-block-rss {
 }
 
 .main-menu ul.sub-menu li a:before {
-    content: "\F2CF";
+    /*content: "\F2CF";*/
     position: absolute;
     top: 7px;
     left: 10px;
