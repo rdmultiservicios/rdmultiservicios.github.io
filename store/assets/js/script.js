@@ -159,28 +159,47 @@ document.getElementById('empty-cart-btn').addEventListener('click', emptyCart);
 function showDiscountAlert(message, isSuccess = true) {
     const discountAlert = document.getElementById('discount-alert');
     const discountAlertMessage = document.getElementById('discount-alert-message');
+    const discountAlertIcon = document.getElementById('discount-alert-icon');
 
     // Limpiar cualquier mensaje previo
-    discountAlert.classList.remove('text-success', 'text-danger');
-    discountAlert.style.display = 'none';
+    discountAlert.classList.remove('alert-success', 'alert-danger', 'fade', 'show');
+    discountAlert.classList.add('alert', 'd-flex', 'align-items-center', 'fade'); // Aseguramos que la alerta tenga clase 'fade' para transición
+
+    // Limpiar cualquier ícono previo
+    discountAlertIcon.classList.remove('bi-check-circle', 'bi-exclamation-triangle'); // Limpiar íconos previos
 
     // Establecer el mensaje
     discountAlertMessage.textContent = message;
 
     // Usar clases de Bootstrap para éxito y error
     if (isSuccess) {
-        discountAlert.classList.add('text-success'); // Verde para éxito
+        discountAlert.classList.add('alert-success'); // Verde para éxito
+        discountAlertIcon.classList.add('bi-check-circle'); // Ícono de éxito
     } else {
-        discountAlert.classList.add('text-danger'); // Rojo para error
+        discountAlert.classList.add('alert-danger'); // Rojo para error
+        discountAlertIcon.classList.add('bi-exclamation-triangle'); // Ícono de error
     }
 
-    // Mostrar el mensaje
-    discountAlert.style.display = 'block';
+    // Agregar espaciado entre el ícono y el mensaje usando la clase "me-2" de Bootstrap
+    discountAlertIcon.classList.add('me-2'); // Espacio a la derecha del ícono
 
-    // Ocultar el mensaje automáticamente después de 3 segundos
+    // Mostrar la alerta
+    discountAlert.style.display = 'flex';
+
+    // Mostrar la alerta con animación de fade
     setTimeout(() => {
-        discountAlert.style.display = 'none';
-    }, 3000);
+        discountAlert.classList.add('show'); // Agregar la clase 'show' para hacerla visible con fade-in
+    }, 10); // Agregar un pequeño retraso para asegurar que se vea la animación
+
+    // Ocultar el mensaje automáticamente después de 3 segundos con la animación de fade-out
+    setTimeout(() => {
+        discountAlert.classList.remove('show'); // Remover la clase 'show' para que desaparezca con fade-out
+    }, 3000); // Después de 3 segundos
+
+    // Ocultar el mensaje completamente después de la animación de desaparición
+    setTimeout(() => {
+        discountAlert.style.display = 'none'; // Establecer display a 'none' después de la animación
+    }, 3500); // Después de 3.5 segundos para asegurarnos de que la animación haya terminado
 }
 
 // Asociar el evento de aplicar código de descuento
@@ -191,7 +210,7 @@ document.getElementById('apply-discount-code-btn').addEventListener('click', (ev
     
     if (!codeInput) {
         // Mostrar alerta si no se ingresa un código
-        showDiscountAlert('Ingresa un cupón válido', false);
+        showDiscountAlert('No es un cupón válido', false);
         return;
     }
 
@@ -213,11 +232,3 @@ document.getElementById('whatsapp-btn').addEventListener('click', () => {
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0) * (1 - (discount / 100));
     sendWhatsAppMessage(total);
 });
-
-
-
-
-
-
-
-
