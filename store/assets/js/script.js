@@ -223,7 +223,7 @@ document.getElementById('apply-discount-code-btn').addEventListener('click', (ev
         showDiscountAlert(`¡Cupón aplicado! ${discount}%`);
     } else {
         // Mostrar alerta de error si el código no es válido
-        showDiscountAlert('El cupón no es válido.', false);
+        showDiscountAlert('Cupón no válido.', false);
     }
 });
 
