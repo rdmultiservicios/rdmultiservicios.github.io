@@ -128,14 +128,15 @@ function sendWhatsAppMessage() {
     const total = subtotal - discountAmount;
 
     // Construir el mensaje de WhatsApp
-    let message = "*Detalles de su compra:*\n\n";
+    let message = "¡Hola! Quiero comprar estos productos:\n\n*Detalles de su compra:*\n\n";
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
-        message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity}) = S/ ${productTotal}\n`;
+        message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity})\n`;
+        //message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity}) = S/ ${productTotal}\n`;
     });
     message += `\n*Subtotal:* S/ ${subtotal.toFixed(2)}\n`;
     message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`; // Mostrar el descuento en negrita
-    message += `*Total:* S/ ${total.toFixed(2)}\n`; // Mostrar el total en negrita
+    message += `*Total pedido:* S/ ${total.toFixed(2)}\n`; // Mostrar el total en negrita
 
     // Enlace de WhatsApp
     const whatsappUrl = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
