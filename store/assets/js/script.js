@@ -1,12 +1,12 @@
 // Estructura básica para los productos
 const products = [
-    { id: 1, name: "Auriculares Bluetooth", price: 69.00, img: "assets/images/product/prodact-card-1.png" },
-    { id: 2, name: "Auriculares Gamer", price: 89.00, img: "assets/images/product/prodact-card-2.png" },
-    { id: 3, name: "Auriculares Microfono", price: 99.00, img: "assets/images/product/prodact-card-3.png" },
-    { id: 4, name: "Samsung Galaxy A52s", price: 899.00, img: "assets/images/product/prodact-card-4.png" },
-    { id: 5, name: "Headphones Wireless", price: 39.90, img: "assets/images/product/prodact-card-1.png" },
-    { id: 6, name: "Gaming Headphone", price: 19.90, img: "assets/images/product/prodact-card-2.png" },
-    { id: 7, name: "Headphone with Mic", price: 29.90, img: "assets/images/product/prodact-card-3.png" }
+    { id: 1, name: "Auriculares Bluetooth", price: 69.00, img: "assets/images/product/prodact-card-1.png", sku: "AB123" },
+    { id: 2, name: "Auriculares Gamer", price: 89.00, img: "assets/images/product/prodact-card-2.png", sku: "AG456" },
+    { id: 3, name: "Auriculares Microfono", price: 99.00, img: "assets/images/product/prodact-card-3.png", sku: "JBLT500BLUAM" },
+    { id: 4, name: "Samsung Galaxy A52s", price: 899.00, img: "assets/images/product/prodact-card-4.png", sku: "SG123" },
+    { id: 5, name: "Headphones Wireless", price: 39.90, img: "assets/images/product/prodact-card-1.png", sku: "HW234" },
+    { id: 6, name: "Gaming Headphone", price: 19.90, img: "assets/images/product/prodact-card-2.png", sku: "GH567" },
+    { id: 7, name: "Headphone with Mic", price: 29.90, img: "assets/images/product/prodact-card-3.png", sku: "HM890" }
 ];
 
 let cart = []; // El carrito es un arreglo de objetos
@@ -45,17 +45,16 @@ function emptyCart() {
     cart = []; // Vaciar el carrito
     discount = 0; // Restablecer el descuento
     discountCode = ""; // Restablecer el código de descuento
+    localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
     updateCart(); // Actualizar la visualización del carrito
 }
 
-// Función para actualizar la visualización del carrito
+// Función para actualizar el carrito y guardarlo en el localStorage
 function updateCart() {
-    // Actualizar el número de artículos en el ícono del carrito
     const cartItemCount = document.getElementById('cart-item-count');
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     cartItemCount.textContent = totalItems;
 
-    // Actualizar los productos en el carrito
     const cartItemsList = document.getElementById('cart-items-list');
     cartItemsList.innerHTML = ''; // Limpiar lista de productos
 
@@ -71,6 +70,7 @@ function updateCart() {
             <a href="#">
                 <img src="${product.img}" alt="${product.name}">${product.name}
             </a>
+            <span class="text-muted" style="font-size: 0.75rem; display: block;">SKU: ${product.sku}</span>
             <span class="quantity">
                 ${product.quantity} ×
                 <span class="woocommerce-Price-amount amount">
@@ -83,29 +83,36 @@ function updateCart() {
         subtotal += product.price * product.quantity;
     });
 
-    // Mostrar el subtotal
     const cartSubtotal = document.getElementById('cart-subtotal');
     cartSubtotal.textContent = `S/ ${subtotal.toFixed(2)}`;
 
-    // Calcular el total con descuento
     const total = subtotal - (subtotal * (discount / 100));
-
-    // Mostrar el descuento
     const cartDiscount = document.getElementById('cart-discount');
     cartDiscount.textContent = `${discount}%`;
 
-    // Mostrar el total
     const cartTotalPrice = document.getElementById('cart-total-price');
     cartTotalPrice.textContent = `S/ ${total.toFixed(2)}`;
 
-    // Mostrar el botón de WhatsApp solo si el carrito tiene productos
     const whatsappBtn = document.getElementById('whatsapp-btn');
     if (cart.length > 0) {
-        whatsappBtn.style.display = 'inline-block'; // Mostrar el botón de WhatsApp
+        whatsappBtn.style.display = 'inline-block';
     } else {
-        whatsappBtn.style.display = 'none'; // Ocultar el botón si el carrito está vacío
+        whatsappBtn.style.display = 'none';
     }
+
+    // Guardar el carrito en el localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
+
+// Cargar el carrito desde el localStorage cuando se carga la página
+window.onload = function () {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        cart = JSON.parse(storedCart); // Cargar el carrito guardado
+        updateCart(); // Actualizar la visualización del carrito
+    }
+};
+
 
 // Función para eliminar un producto del carrito
 function removeFromCart(productId) {
@@ -118,33 +125,25 @@ function removeFromCart(productId) {
 
 // Función para enviar el mensaje por WhatsApp
 function sendWhatsAppMessage() {
-    // Calcular el subtotal
     let subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-    // Calcular el descuento aplicado
     const discountAmount = subtotal * (discount / 100);
-
-    // Calcular el total después de aplicar el descuento
     const total = subtotal - discountAmount;
 
-    // Construir el mensaje de WhatsApp
     let message = "¡Hola! Quiero comprar estos productos:\n\n*Detalles de su compra:*\n\n";
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity})\n`;
+        message += `SKU: ${product.sku}\n`; // SKU debajo del producto
     });
     message += `\n*Subtotal:* S/ ${subtotal.toFixed(2)}\n`;
-    message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`; // Mostrar el descuento
-    message += `*Total pedido:* S/ ${total.toFixed(2)}\n`; // Mostrar el total
+    message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`;
+    message += `*Total pedido:* S/ ${total.toFixed(2)}\n`;
 
-    // Enlace de WhatsApp
     const whatsappUrl = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 
-    // Vaciar el carrito
     emptyCart();
 
-    // Limpiar el input de descuento
     const discountInput = document.getElementById('discount-code-input');
     if (discountInput) {
         discountInput.value = ''; // Limpiar el campo de descuento
