@@ -189,11 +189,12 @@ function sendWhatsAppMessage() {
         message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`;
     }
 
-    // Mostrar el código y el valor del cupón si se aplicó
+    // Mostrar el código del cupón, el valor y la fecha de expiración si se aplicó
     if (discountCode) {
         const coupon = discountCodes[discountCode];
         message += `\n*Cupón aplicado:* ${discountCode}\n`;
         message += `*Valor del cupón:* ${coupon.type === 'percentage' ? coupon.value + "%" : "S/ " + coupon.value}\n`;
+        message += `*Fecha de expiración:* ${coupon.expiration}\n`;  // Agregar la fecha de expiración
     }
 
     // Mostrar el total
