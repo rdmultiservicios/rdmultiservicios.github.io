@@ -25,27 +25,11 @@ const discountCodes = {
 // Función para agregar un producto al carrito
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    const alertContainer = document.getElementById('alert-container'); // Contenedor para las alertas (asegúrate de tener un div con este id en tu HTML)
 
     if (product) {
         // Verificar si el stock es 0 antes de añadir al carrito
         if (product.stock === 0) {
-            // Crear la alerta de error por falta de stock
-            const alert = document.createElement('div');
-            alert.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show', 'custom-alert');
-            alert.setAttribute('role', 'alert');
-            alert.innerHTML = `
-                El producto "${product.name}" no está disponible en stock.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            `;
-            alertContainer.appendChild(alert);
-
-            // Ocultar la alerta después de 3 segundos
-            setTimeout(() => {
-                alert.classList.remove('show');
-                alert.classList.add('fade');
-            }, 3000);
-
+            // Eliminar la alerta de error por falta de stock
             return; // No agregar el producto si no hay stock
         }
 
@@ -55,22 +39,7 @@ function addToCart(productId) {
         // Verificar si hay suficiente stock para agregar el producto
         const quantityToAdd = existingProduct ? existingProduct.quantity + 1 : 1; // Cantidad a agregar
         if (quantityToAdd > product.stock) {
-            // Crear la alerta de error por stock insuficiente
-            const alert = document.createElement('div');
-            alert.classList.add('alert', 'alert-warning', 'alert-dismissible', 'fade', 'show', 'custom-alert');
-            alert.setAttribute('role', 'alert');
-            alert.innerHTML = `
-                No hay suficiente stock de "${product.name}". Solo quedan ${product.stock} unidades.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            `;
-            alertContainer.appendChild(alert);
-
-            // Ocultar la alerta después de 3 segundos
-            setTimeout(() => {
-                alert.classList.remove('show');
-                alert.classList.add('fade');
-            }, 3000);
-
+            // Eliminar la alerta de error por stock insuficiente
             return; // No agregar el producto si no hay suficiente stock
         }
 
@@ -84,22 +53,6 @@ function addToCart(productId) {
             // Si el producto no está en el carrito, lo agregamos con cantidad 1
             cart.push({ ...product, quantity: 1 });
         }
-
-        // Crear la alerta de éxito por agregar el producto al carrito
-        const alert = document.createElement('div');
-        alert.classList.add('alert', 'alert-success', 'alert-dismissible', 'fade', 'show', 'custom-alert');
-        alert.setAttribute('role', 'alert');
-        alert.innerHTML = `
-            El producto "${product.name}" ha sido añadido al carrito.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        alertContainer.appendChild(alert);
-
-        // Ocultar la alerta después de 3 segundos
-        setTimeout(() => {
-            alert.classList.remove('show');
-            alert.classList.add('fade');
-        }, 3000);
 
         // Actualizar el carrito visualmente
         updateCart();
