@@ -173,15 +173,33 @@ function sendWhatsAppMessage() {
     const total = subtotal - discountAmount;
 
     let message = "¡Hola! Quiero comprar estos productos:\n\n*Detalles de su compra:*\n\n";
+    
+    // Agregar productos al mensaje
     cart.forEach(product => {
         const productTotal = (product.price * product.quantity).toFixed(2);
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity})\n`;
         message += `SKU: ${product.sku}\n`; 
     });
+
+    // Agregar el subtotal
     message += `\n*Subtotal:* S/ ${subtotal.toFixed(2)}\n`;
-    message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`;
+
+    // Si hay un descuento aplicado, lo agregamos al mensaje
+    if (discount > 0) {
+        message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`;
+    }
+
+    // Mostrar el código y el valor del cupón si se aplicó
+    if (discountCode) {
+        const coupon = discountCodes[discountCode];
+        message += `\n*Cupón aplicado:* ${discountCode}\n`;
+        message += `*Valor del cupón:* ${coupon.type === 'percentage' ? coupon.value + "%" : "S/ " + coupon.value}\n`;
+    }
+
+    // Mostrar el total
     message += `*Total pedido:* S/ ${total.toFixed(2)}\n`;
 
+    // Enviar el mensaje por WhatsApp
     const whatsappUrl = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 
