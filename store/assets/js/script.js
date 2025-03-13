@@ -1,12 +1,12 @@
 // Estructura básica para los productos
 const products = [
-    { id: 1, name: "Auriculares Bluetooth", price: 69.00, img: "assets/images/product/prodact-card-1.png", sku: "AB123" },
-    { id: 2, name: "Auriculares Gamer", price: 89.00, img: "assets/images/product/prodact-card-2.png", sku: "AG456" },
-    { id: 3, name: "Auriculares Microfono", price: 99.00, img: "assets/images/product/prodact-card-3.png", sku: "JBLT500BLUAM" },
-    { id: 4, name: "Samsung Galaxy A52s", price: 899.00, img: "assets/images/product/prodact-card-4.png", sku: "SG123" },
-    { id: 5, name: "Headphones Wireless", price: 39.90, img: "assets/images/product/prodact-card-1.png", sku: "HW234" },
-    { id: 6, name: "Gaming Headphone", price: 19.90, img: "assets/images/product/prodact-card-2.png", sku: "GH567" },
-    { id: 7, name: "Headphone with Mic", price: 29.90, img: "assets/images/product/prodact-card-3.png", sku: "HM890" }
+    { id: 1, name: "Auriculares Bluetooth", price: 69.00, img: "assets/images/product/prodact-card-1.png", sku: "AB123", stock: 10 },
+    { id: 2, name: "Auriculares Gamer", price: 89.00, img: "assets/images/product/prodact-card-2.png", sku: "AG456", stock: 5 },
+    { id: 3, name: "Auriculares Microfono", price: 99.00, img: "assets/images/product/prodact-card-3.png", sku: "JBLT500BLUAM", stock: 3 },
+    { id: 4, name: "Samsung Galaxy A52s", price: 899.00, img: "assets/images/product/prodact-card-4.png", sku: "SG123", stock: 0 },
+    { id: 5, name: "Headphones Wireless", price: 39.90, img: "assets/images/product/prodact-card-1.png", sku: "HW234", stock: 20 },
+    { id: 6, name: "Gaming Headphone", price: 19.90, img: "assets/images/product/prodact-card-2.png", sku: "GH567", stock: 15 },
+    { id: 7, name: "Headphone with Mic", price: 29.90, img: "assets/images/product/prodact-card-3.png", sku: "HM890", stock: 2 }
 ];
 
 let cart = []; // El carrito es un arreglo de objetos
@@ -29,11 +29,20 @@ function addToCart(productId) {
         // Comprobar si el producto ya está en el carrito
         const existingProduct = cart.find(p => p.id === productId);
 
+        // Verificar si hay suficiente stock para agregar el producto
+        const quantityToAdd = existingProduct ? existingProduct.quantity + 1 : 1; // Cantidad a agregar
+        if (quantityToAdd > product.stock) {
+            // Si no hay suficiente stock, mostrar un mensaje
+            alert(`No hay suficiente stock de "${product.name}". Solo quedan ${product.stock} unidades.`);
+            return; // No agregar el producto si no hay suficiente stock
+        }
+
+        // Restar la cantidad solicitada del stock
+        product.stock -= 1; // Reducir el stock disponible
+
         if (existingProduct) {
-            // Si el producto ya está, incrementamos la cantidad
+            // Si el producto ya está en el carrito, incrementamos la cantidad
             existingProduct.quantity += 1;
-            // Actualizamos el precio por si hubo algún cambio
-            existingProduct.price = product.price;
         } else {
             // Si el producto no está en el carrito, lo agregamos con cantidad 1
             cart.push({ ...product, quantity: 1 });
@@ -156,7 +165,13 @@ window.onload = function () {
 function removeFromCart(productId) {
     const productIndex = cart.findIndex(p => p.id === productId);
     if (productIndex > -1) {
-        cart.splice(productIndex, 1); // Eliminar el producto
+        const removedProduct = cart[productIndex];
+        
+        // Devolver el stock del producto eliminado
+        const product = products.find(p => p.id === productId);
+        product.stock += removedProduct.quantity; // Aumentar el stock del producto eliminado
+
+        cart.splice(productIndex, 1); // Eliminar el producto del carrito
         updateCart(); // Actualizar el carrito visualmente
     }
 }
