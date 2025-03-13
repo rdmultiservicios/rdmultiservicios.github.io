@@ -15,9 +15,11 @@ let discountCode = ""; // Almacenar el código de descuento ingresado
 
 // Definimos códigos de descuento válidos (pueden ser códigos que otorguen un descuento fijo o porcentaje)
 const discountCodes = {
-    "DESCUENTO10": 10, // 10% de descuento
-    "DESCUENTO20": 20, // 20% de descuento
-    "DESCUENTO50": 50  // 50% de descuento
+    "DESCUENTO10": { type: "percentage", value: 10, expiration: "2025-12-31" },  // 10% de descuento
+    "DESCUENTO20": { type: "percentage", value: 20, expiration: "2025-06-30" },  // 20% de descuento
+    "DESCUENTO50": { type: "percentage", value: 50, expiration: "2025-01-01" },  // 50% de descuento
+    "DESCUENTO100": { type: "fixed", value: 100, expiration: "2025-12-31" }, // S/ 100 de descuento
+    "DESCUENTO50F": { type: "fixed", value: 50, expiration: "2025-06-30" }   // S/ 50 de descuento
 };
 
 // Función para agregar un producto al carrito
@@ -86,9 +88,23 @@ function updateCart() {
     const cartSubtotal = document.getElementById('cart-subtotal');
     cartSubtotal.textContent = `S/ ${subtotal.toFixed(2)}`;
 
-    const total = subtotal - (subtotal * (discount / 100));
+    let total = subtotal;
+    
+    // Aplicamos el descuento
+    if (discount > 0) {
+        if (discountCode && discountCodes[discountCode]) {
+            const coupon = discountCodes[discountCode];
+
+            if (coupon.type === "percentage") {
+                total -= subtotal * (discount / 100);
+            } else if (coupon.type === "fixed") {
+                total -= discount;
+            }
+        }
+    }
+
     const cartDiscount = document.getElementById('cart-discount');
-    cartDiscount.textContent = `${discount}%`;
+    cartDiscount.textContent = discount > 0 ? `${discount} ${coupon.type === 'percentage' ? "%" : "S/"}` : "0";
 
     const cartTotalPrice = document.getElementById('cart-total-price');
     cartTotalPrice.textContent = `S/ ${total.toFixed(2)}`;
@@ -221,17 +237,35 @@ document.getElementById('apply-discount-code-btn').addEventListener('click', (ev
         return;
     }
 
-    if (discountCodes[codeInput.toUpperCase()]) {
-        // Aplicar el descuento y mostrar éxito
-        discount = discountCodes[codeInput.toUpperCase()]; // Aplicar el descuento
-        discountCode = codeInput.toUpperCase(); // Guardar el código de descuento
-        updateCart(); // Actualizar el carrito visualmente
-        
-        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}%`);
-    } else {
-        // Mostrar alerta de error si el código no es válido
+    const coupon = discountCodes[codeInput.toUpperCase()];
+    
+    if (!coupon) {
+        // Mostrar alerta si el código no existe
         showDiscountAlert('Este cupón no es válido.', false);
+        return;
     }
+
+    const currentDate = new Date();
+    const expirationDate = new Date(coupon.expiration);
+
+    if (currentDate > expirationDate) {
+        // Mostrar alerta si el cupón ha caducado
+        showDiscountAlert('Este cupón ha caducado.', false);
+        return;
+    }
+
+    // Aplicar el descuento dependiendo del tipo
+    if (coupon.type === "percentage") {
+        discount = coupon.value;
+        discountCode = codeInput.toUpperCase();
+        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}%`);
+    } else if (coupon.type === "fixed") {
+        discount = coupon.value;
+        discountCode = codeInput.toUpperCase();
+        showDiscountAlert(`¡Cupón aplicado con éxito! S/ ${discount}`);
+    }
+
+    updateCart(); // Actualizar el carrito visualmente
 });
 
 // Asociar el evento de enviar por WhatsApp
