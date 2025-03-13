@@ -50,6 +50,12 @@ function addToCart(productId) {
 
         // Actualizar el carrito visualmente
         updateCart();
+
+        // Animación para el producto recién agregado
+        const newItem = document.querySelector(`#product-${productId}`);
+        if (newItem) {
+            newItem.classList.add('cart-item-add'); // Añadir la animación de "añadir"
+        }
     }
 }
 
@@ -84,6 +90,7 @@ function updateCart() {
 
     cart.forEach(product => {
         const li = document.createElement('li');
+        li.id = `cart-item-${product.id}`; // Asignar un ID único al item
         li.classList.add('woocommerce-mini-cart-item', 'mini_cart_item');
         li.innerHTML = `
             <a href="#" class="remove remove_from_cart_button" onclick="removeFromCart(${product.id})">
@@ -130,6 +137,8 @@ function updateCart() {
 
     // Guardar carrito en el localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
+
+    updateCartTotalPrice(subtotal);
 }
 
 
@@ -175,13 +184,23 @@ function removeFromCart(productId) {
     const productIndex = cart.findIndex(p => p.id === productId);
     if (productIndex > -1) {
         const removedProduct = cart[productIndex];
-        
+
         // Devolver el stock del producto eliminado
         const product = products.find(p => p.id === productId);
         product.stock += removedProduct.quantity; // Aumentar el stock del producto eliminado
 
-        cart.splice(productIndex, 1); // Eliminar el producto del carrito
-        updateCart(); // Actualizar el carrito visualmente
+        // Buscar el elemento del producto en la lista del carrito
+        const cartItem = document.querySelector(`#cart-item-${productId}`);
+        if (cartItem) {
+            // Aplicar animación de eliminación antes de removerlo
+            cartItem.classList.add('cart-item-remove');
+            // Esperar a que termine la animación y luego eliminar el producto del carrito
+            setTimeout(() => {
+                cartItem.remove(); // Eliminar el producto de la interfaz
+                cart.splice(productIndex, 1); // Eliminar el producto del carrito
+                updateCart(); // Actualizar la visualización del carrito
+            }, 500); // El tiempo debe coincidir con la duración de la animación
+        }
     }
 }
 
