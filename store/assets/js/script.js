@@ -169,7 +169,17 @@ function sendWhatsAppMessage() {
     }
 
     let subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const discountAmount = subtotal * (discount / 100);
+    let discountAmount = 0;
+
+    // Si hay un descuento porcentual, se calcula sobre el subtotal
+    if (discountCode && discountCodes[discountCode] && discountCodes[discountCode].type === 'percentage') {
+        discountAmount = subtotal * (discount / 100);
+    }
+    // Si el descuento es fijo, simplemente es el valor de descuento
+    else if (discountCode && discountCodes[discountCode] && discountCodes[discountCode].type === 'fixed') {
+        discountAmount = discount;
+    }
+
     const total = subtotal - discountAmount;
 
     let message = "¡Hola! Quiero comprar estos productos:\n\n*Detalles de su compra:*\n\n";
@@ -184,9 +194,12 @@ function sendWhatsAppMessage() {
     // Agregar el subtotal
     message += `\n*Subtotal:* S/ ${subtotal.toFixed(2)}\n`;
 
-    // Si hay un descuento aplicado, lo agregamos al mensaje
-    if (discount > 0) {
-        message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`;
+    // Mostrar el descuento aplicado
+    if (discountAmount > 0) {
+        if (discountCode && discountCodes[discountCode]) {
+            const coupon = discountCodes[discountCode];
+            message += `*Descuento aplicado:* S/ ${discountAmount.toFixed(2)} (${coupon.type === 'percentage' ? discount + "%" : "S/ " + coupon.value})\n`;
+        }
     }
 
     // Mostrar el código del cupón, el valor y la fecha de expiración si se aplicó
