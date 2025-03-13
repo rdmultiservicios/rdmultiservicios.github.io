@@ -26,6 +26,13 @@ const discountCodes = {
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (product) {
+        // Verificar si el stock es 0 antes de añadir al carrito
+        if (product.stock === 0) {
+            // Si el stock es 0, mostrar un mensaje de alerta y no agregar el producto al carrito
+            alert(`El producto "${product.name}" no está disponible en stock.`);
+            return; // No agregar el producto si no hay stock
+        }
+
         // Comprobar si el producto ya está en el carrito
         const existingProduct = cart.find(p => p.id === productId);
 
