@@ -50,12 +50,6 @@ function addToCart(productId) {
 
         // Actualizar el carrito visualmente
         updateCart();
-
-        // Animación para el producto recién agregado
-        const newItem = document.querySelector(`#product-${productId}`);
-        if (newItem) {
-            newItem.classList.add('cart-item-add'); // Añadir la animación de "añadir"
-        }
     }
 }
 
@@ -192,15 +186,12 @@ function removeFromCart(productId) {
         // Buscar el elemento del producto en la lista del carrito
         const cartItem = document.querySelector(`#cart-item-${productId}`);
         if (cartItem) {
-            // Aplicar animación de eliminación antes de removerlo
-            cartItem.classList.add('cart-item-remove');
-            // Esperar a que termine la animación y luego eliminar el producto del carrito
-            setTimeout(() => {
-                cartItem.remove(); // Eliminar el producto de la interfaz
-                cart.splice(productIndex, 1); // Eliminar el producto del carrito
-                updateCart(); // Actualizar la visualización del carrito
-            }, 500); // El tiempo debe coincidir con la duración de la animación
+            cartItem.remove(); // Eliminar el producto de la interfaz directamente, sin animación
         }
+
+        // Eliminar el producto del carrito
+        cart.splice(productIndex, 1); 
+        updateCart(); // Actualizar la visualización del carrito
     }
 }
 
