@@ -29,17 +29,18 @@ function addToCart(productId) {
     if (product) {
         // Verificar si el stock es 0 antes de añadir al carrito
         if (product.stock === 0) {
-            // Eliminar la alerta de error por falta de stock
+            // Mostrar alerta si el producto está agotado
+            alert("Este producto está agotado y no se puede agregar al carrito.");
             return; // No agregar el producto si no hay stock
         }
 
         // Comprobar si el producto ya está en el carrito
         const existingProduct = cart.find(p => p.id === productId);
 
-        // Verificar si hay suficiente stock para agregar el producto
-        const quantityToAdd = existingProduct ? existingProduct.quantity + 1 : 1; // Cantidad a agregar
+        const quantityToAdd = existingProduct ? existingProduct.quantity + 1 : 1; 
         if (quantityToAdd > product.stock) {
-            // Eliminar la alerta de error por stock insuficiente
+            // Mostrar alerta si no hay suficiente stock
+            alert("No hay suficiente stock de este producto.");
             return; // No agregar el producto si no hay suficiente stock
         }
 
@@ -47,10 +48,10 @@ function addToCart(productId) {
         product.stock -= 1; // Reducir el stock disponible
 
         if (existingProduct) {
-            // Si el producto ya está en el carrito, incrementamos la cantidad
+            // Si el producto ya está en el carrito, incrementar la cantidad
             existingProduct.quantity += 1;
         } else {
-            // Si el producto no está en el carrito, lo agregamos con cantidad 1
+            // Si el producto no está en el carrito, agregarlo con cantidad 1
             cart.push({ ...product, quantity: 1 });
         }
 
