@@ -32,6 +32,8 @@ function addToCart(productId) {
         if (existingProduct) {
             // Si el producto ya está, incrementamos la cantidad
             existingProduct.quantity += 1;
+            // Actualizamos el precio por si hubo algún cambio
+            existingProduct.price = product.price;
         } else {
             // Si el producto no está en el carrito, lo agregamos con cantidad 1
             cart.push({ ...product, quantity: 1 });
@@ -118,6 +120,32 @@ window.onload = function () {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
         cart = JSON.parse(storedCart);
+
+        // Verificar si los productos en el carrito siguen siendo válidos
+        cart.forEach(item => {
+            const product = products.find(p => p.id === item.id);
+            if (product) {
+                // Actualizar precio si ha cambiado
+                item.price = product.price;
+
+                // Si el producto ya no está disponible (por ejemplo, no existe en el stock),
+                // eliminarlo del carrito
+                if (!product) {
+                    const index = cart.indexOf(item);
+                    if (index !== -1) {
+                        cart.splice(index, 1); // Eliminar producto no disponible
+                    }
+                }
+            } else {
+                // El producto ya no existe, eliminamos del carrito
+                const index = cart.indexOf(item);
+                if (index !== -1) {
+                    cart.splice(index, 1);
+                }
+            }
+        });
+        
+        // Actualizamos la visualización del carrito después de verificarlo
         updateCart(); 
     } else {
         cart = [];
