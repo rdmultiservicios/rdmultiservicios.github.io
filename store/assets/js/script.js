@@ -55,6 +55,15 @@ function addToCart(productId) {
 
 // Función para vaciar el carrito
 function emptyCart() {
+    // Restaurar el stock de los productos en el carrito
+    cart.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        if (product) {
+            product.stock += item.quantity; // Restaurar el stock del producto
+        }
+    });
+
+    // Vaciar el carrito
     cart = []; // Vaciar el carrito
     discount = 0; // Restablecer el descuento
     discountCode = ""; // Restablecer el código de descuento
