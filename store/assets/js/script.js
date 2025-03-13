@@ -48,6 +48,9 @@ function addToCart(productId) {
             cart.push({ ...product, quantity: 1 });
         }
 
+        // Mostrar un mensaje de alerta
+        alert(`El producto "${product.name}" ha sido añadido al carrito.`);
+
         // Actualizar el carrito visualmente
         updateCart();
     }
