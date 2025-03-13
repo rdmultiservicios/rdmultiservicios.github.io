@@ -20,70 +20,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link href="assets/css/switcher-style.css" rel="stylesheet">
-    <style>
-	/* Personalización del contenedor de alertas */
-	#alert-container {
-	    position: fixed;
-	    top: 20px;
-	    right: 20px;
-	    z-index: 1050;
-	    max-width: 350px;
-	    width: 100%;
-	    display: flex;
-	    flex-direction: column;
-	    gap: 10px;
-	}
 	
-	/* Estilos personalizados para las alertas */
-	.custom-alert {
-	    border-radius: 10px;
-	    padding: 15px;
-	    font-size: 1rem;
-	    font-weight: 500;
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	    transition: opacity 0.3s ease-in-out;
-	}
-	
-	/* Alerta de éxito */
-	.alert-success.custom-alert {
-	    background-color: #d4edda;
-	    color: #155724;
-	}
-	
-	/* Alerta de error */
-	.alert-danger.custom-alert {
-	    background-color: #f8d7da;
-	    color: #721c24;
-	}
-	
-	/* Alerta de advertencia */
-	.alert-warning.custom-alert {
-	    background-color: #fff3cd;
-	    color: #856404;
-	}
-	
-	/* Botón de cierre de la alerta */
-	.custom-alert .btn-close {
-	    background-color: #333;
-	    opacity: 0.6;
-	    border-radius: 50%;
-	}
-	
-	.custom-alert .btn-close:hover {
-	    opacity: 1;
-	}
-	
-	/* Animación para el fade de las alertas */
-	.custom-alert.fade {
-	    opacity: 0;
-	    transition: opacity 0.5s ease-in-out;
-	}
-	
-	.custom-alert.show {
-	    opacity: 1;
-	}
-
-    </style>
 </head>
 <body class="popup-loader">
 
@@ -1336,9 +1273,6 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
         </svg>
     </div>
-
-    <div id="alert-container"></div>
-
 
     <!--================= Login Popup Start Here =================-->
     <div class="sl-newsletter-popup login-popup">
