@@ -20,49 +20,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link href="assets/css/switcher-style.css" rel="stylesheet">
-
-    <style>
-    	/* Animación para cuando un producto se agrega al carrito */
-.cart-item-add {
-    animation: slideIn 0.5s ease-out forwards;
-}
-
-/* Animación para cuando un producto se elimina del carrito */
-.cart-item-remove {
-    animation: slideOut 0.5s ease-out forwards;
-}
-
-/* Deslizar el producto hacia el carrito */
-@keyframes slideIn {
-    0% {
-        transform: scale(0.5) translateX(100px);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1) translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Desaparecer el producto al eliminarlo */
-@keyframes slideOut {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-}
-
-/* Transición para el carrito */
-.cart-container {
-    transition: all 0.3s ease;
-}
-
-    </style>
-	
 </head>
 <body class="popup-loader">
 
