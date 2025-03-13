@@ -88,47 +88,41 @@ function updateCart() {
     const cartSubtotal = document.getElementById('cart-subtotal');
     cartSubtotal.textContent = `S/ ${subtotal.toFixed(2)}`;
 
+    // Cálculo del total con descuento aplicado
     let total = subtotal;
-    
-    // Aplicamos el descuento
-    if (discount > 0) {
-        if (discountCode && discountCodes[discountCode]) {
-            const coupon = discountCodes[discountCode];
-
-            if (coupon.type === "percentage") {
-                total -= subtotal * (discount / 100);
-            } else if (coupon.type === "fixed") {
-                total -= discount;
-            }
+    if (discount > 0 && discountCode && discountCodes[discountCode]) {
+        const coupon = discountCodes[discountCode];
+        if (coupon.type === "percentage") {
+            total -= subtotal * (discount / 100);
+        } else if (coupon.type === "fixed") {
+            total -= discount;
         }
     }
 
     const cartDiscount = document.getElementById('cart-discount');
-    cartDiscount.textContent = discount > 0 ? `${discount} ${coupon.type === 'percentage' ? "%" : "S/"}` : "0";
+    cartDiscount.textContent = discount > 0 ? `${discount} ${discountCodes[discountCode].type === 'percentage' ? "%" : "S/"}` : "0";
 
     const cartTotalPrice = document.getElementById('cart-total-price');
     cartTotalPrice.textContent = `S/ ${total.toFixed(2)}`;
 
     const whatsappBtn = document.getElementById('whatsapp-btn');
-    if (cart.length > 0) {
-        whatsappBtn.style.display = 'inline-block';
-    } else {
-        whatsappBtn.style.display = 'none';
-    }
+    whatsappBtn.style.display = cart.length > 0 ? 'inline-block' : 'none';
 
-    // Guardar el carrito en el localStorage
+    // Guardar carrito en el localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 }
+
 
 // Cargar el carrito desde el localStorage cuando se carga la página
 window.onload = function () {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
-        cart = JSON.parse(storedCart); // Cargar el carrito guardado
-        updateCart(); // Actualizar la visualización del carrito
+        cart = JSON.parse(storedCart);
+        updateCart(); 
+    } else {
+        cart = [];
     }
 };
-
 
 // Función para eliminar un producto del carrito
 function removeFromCart(productId) {
@@ -141,15 +135,20 @@ function removeFromCart(productId) {
 
 // Función para enviar el mensaje por WhatsApp
 function sendWhatsAppMessage() {
+    if (cart.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
+    }
+
     let subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const discountAmount = subtotal * (discount / 100);
     const total = subtotal - discountAmount;
 
     let message = "¡Hola! Quiero comprar estos productos:\n\n*Detalles de su compra:*\n\n";
     cart.forEach(product => {
-        const productTotal = (product.price * product.quantity).toFixed(2);  // Subtotal por producto
+        const productTotal = (product.price * product.quantity).toFixed(2);
         message += `*${product.name}* - S/ ${product.price.toFixed(2)} (x${product.quantity})\n`;
-        message += `SKU: ${product.sku}\n`; // SKU debajo del producto
+        message += `SKU: ${product.sku}\n`; 
     });
     message += `\n*Subtotal:* S/ ${subtotal.toFixed(2)}\n`;
     message += `*Descuento:* S/ ${discountAmount.toFixed(2)} (${discount}%)\n`;
