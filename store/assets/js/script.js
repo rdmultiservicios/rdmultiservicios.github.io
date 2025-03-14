@@ -350,12 +350,18 @@ document.getElementById('apply-discount-code-btn').addEventListener('click', (ev
     const currentDate = new Date();
     const expirationDate = new Date(coupon.expiration);
 
+    // Mostrar un mensaje claro sobre la caducidad o invalidez del código
     if (currentDate > expirationDate) {
-        // Mostrar alerta si el cupón ha caducado
-        showDiscountAlert('Este cupón ha caducado.', false);
+        showDiscountAlert(`El cupón ${codeInput.toUpperCase()} ha caducado. Válido hasta ${coupon.expiration}.`, false);
         return;
     }
 
+    // Agregar verificación para evitar usar el mismo código varias veces
+    if (discountCode !== "") {
+        showDiscountAlert("Ya has aplicado un código de descuento.", false);
+        return;
+    }
+    
     // Aplicar el descuento dependiendo del tipo
     if (coupon.type === "percentage") {
         discount = coupon.value;
