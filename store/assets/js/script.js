@@ -37,7 +37,8 @@ function addToCart(productId) {
         // Comprobar si el producto ya está en el carrito
         const existingProduct = cart.find(p => p.id === productId);
 
-        const quantityToAdd = existingProduct ? existingProduct.quantity + 1 : 1; 
+        // Verificar si se intenta agregar más cantidad de la que hay en stock
+        const quantityToAdd = existingProduct ? existingProduct.quantity + 1 : 1;
         if (quantityToAdd > product.stock) {
             // Mostrar alerta si no hay suficiente stock
             alert("No hay suficiente stock de este producto.");
