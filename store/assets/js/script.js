@@ -380,6 +380,7 @@ function showDiscountAlert(message, isSuccess = true) {
 // Asociar el evento de aplicar código de descuento
 document.getElementById('apply-discount-code-btn').addEventListener('click', (event) => {
     event.preventDefault(); // Prevenir la recarga de la página
+    applyDiscount(); // Llamada a la función applyDiscount()
 
     const codeInput = document.getElementById('discount-code-input').value.trim();
     
