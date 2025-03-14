@@ -203,7 +203,7 @@ function removeFromCart(productId) {
     }
 }
 
-// Función para enviar el mensaje por WhatsApp
+// Función para enviar el mensaje por WhatsApp y limpiar el input del cupón
 function sendWhatsAppMessage() {
     if (cart.length === 0) {
         alert("Tu carrito está vacío.");
@@ -259,11 +259,12 @@ function sendWhatsAppMessage() {
     const whatsappUrl = `https://wa.me/51939975800?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 
-    emptyCart();
+    emptyCart(); // Vaciar el carrito después de enviar el mensaje
 
+    // Limpiar el campo de descuento
     const discountInput = document.getElementById('discount-code-input');
     if (discountInput) {
-        discountInput.value = ''; // Limpiar el campo de descuento
+        discountInput.value = ''; // Limpiar el campo de descuento después de enviar el mensaje
     }
 }
 
