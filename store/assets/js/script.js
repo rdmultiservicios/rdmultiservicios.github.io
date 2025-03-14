@@ -13,14 +13,87 @@ let cart = []; // El carrito es un arreglo de objetos
 let discount = 0; // Variable para guardar el descuento (en porcentaje)
 let discountCode = ""; // Almacenar el código de descuento ingresado
 
-// Definimos códigos de descuento válidos (pueden ser códigos que otorguen un descuento fijo o porcentaje)
+// Definimos códigos de descuento válidos (pueden ser códigos que otorguen un descuento fijo o porcentaje y se define monto mínimo)
 const discountCodes = {
-    "DESCUENTO10": { type: "percentage", value: 10, expiration: "2025-12-31" },  // 10% de descuento
-    "DESCUENTO20": { type: "percentage", value: 20, expiration: "2025-06-30" },  // 20% de descuento
-    "DESCUENTO50": { type: "percentage", value: 50, expiration: "2025-01-01" },  // 50% de descuento
-    "DESCUENTO100": { type: "fixed", value: 100, expiration: "2025-03-10" }, // S/ 100 de descuento
-    "DESCUENTO50F": { type: "fixed", value: 50, expiration: "2025-06-30" }   // S/ 50 de descuento
+    "DESCUENTO10": { 
+        type: "percentage", 
+        value: 10, 
+        expiration: "2025-12-31",
+        minAmount: 100 // Descuento solo se aplica si el subtotal es mayor o igual a 100
+    },
+    "DESCUENTO20": { 
+        type: "percentage", 
+        value: 20, 
+        expiration: "2025-06-30",
+        minAmount: 200 // Descuento solo se aplica si el subtotal es mayor o igual a 200
+    },
+    "DESCUENTO50": { 
+        type: "percentage", 
+        value: 50, 
+        expiration: "2025-01-01",
+        minAmount: 300 // Descuento solo se aplica si el subtotal es mayor o igual a 300
+    },
+    "DESCUENTO100": { 
+        type: "fixed", 
+        value: 100, 
+        expiration: "2025-03-10",
+        minAmount: 100 // Descuento solo se aplica si el subtotal es mayor o igual a 100
+    },
+    "DESCUENTO50F": { 
+        type: "fixed", 
+        value: 50, 
+        expiration: "2025-06-30",
+        minAmount: 200 // Descuento solo se aplica si el subtotal es mayor o igual a 200
+    }
 };
+
+// Función modificada para aplicar el descuento solo si se cumple el monto mínimo
+function applyDiscount() {
+    const codeInput = document.getElementById('discount-code-input').value.trim();
+
+    if (!codeInput) {
+        // Mostrar alerta si no se ingresa un código
+        showDiscountAlert('Por favor, ingresa un cupón de descuento', false);
+        return;
+    }
+
+    const coupon = discountCodes[codeInput.toUpperCase()];
+    
+    if (!coupon) {
+        // Mostrar alerta si el código no existe
+        showDiscountAlert('Este cupón no es válido.', false);
+        return;
+    }
+
+    const currentDate = new Date();
+    const expirationDate = new Date(coupon.expiration);
+
+    // Verificar la fecha de expiración
+    if (currentDate > expirationDate) {
+        showDiscountAlert(`El cupón ${codeInput.toUpperCase()} ha caducado. Válido hasta ${coupon.expiration}.`, false);
+        return;
+    }
+
+    // Verificar el monto mínimo del subtotal
+    let subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    if (subtotal < coupon.minAmount) {
+        showDiscountAlert(`El subtotal mínimo para aplicar este cupón es S/ ${coupon.minAmount}. Actualmente el subtotal es S/ ${subtotal.toFixed(2)}.`, false);
+        return;
+    }
+
+    // Aplicar el descuento dependiendo del tipo
+    if (coupon.type === "percentage") {
+        discount = coupon.value;
+        discountCode = codeInput.toUpperCase();
+        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}%`);
+    } else if (coupon.type === "fixed") {
+        discount = coupon.value;
+        discountCode = codeInput.toUpperCase();
+        showDiscountAlert(`¡Cupón aplicado con éxito! S/ ${discount}`);
+    }
+
+    updateCart(); // Actualizar el carrito visualmente
+}
 
 // Función para agregar un producto al carrito
 function addToCart(productId) {
