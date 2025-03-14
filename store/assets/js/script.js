@@ -59,18 +59,17 @@ function applyDiscount() {
     }
 
     // Aplicar el descuento dependiendo del tipo
-    let discount, discountCode;
     if (coupon.type === "percentage") {
-        discount = coupon.value;
-        discountCode = codeInput.toUpperCase();
+        discount = coupon.value; // Guardamos el porcentaje de descuento
+        discountCode = codeInput.toUpperCase(); // Guardamos el código de descuento
         showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}% de descuento.`);
     } else if (coupon.type === "fixed") {
-        discount = coupon.value;
-        discountCode = codeInput.toUpperCase();
+        discount = coupon.value; // Guardamos el descuento fijo
+        discountCode = codeInput.toUpperCase(); // Guardamos el código de descuento
         showDiscountAlert(`¡Cupón aplicado con éxito! S/ ${discount.toFixed(2)} de descuento.`);
     }
 
-    updateCart(); // Actualizar el carrito visualmente
+    updateCart(); // Actualizamos el carrito visualmente
 }
 
 // Función para agregar un producto al carrito
@@ -173,9 +172,9 @@ function updateCart() {
     if (discount > 0 && discountCode && discountCodes[discountCode]) {
         const coupon = discountCodes[discountCode];
         if (coupon.type === "percentage") {
-            total -= subtotal * (discount / 100);
+            total -= subtotal * (discount / 100); // Descuento porcentual
         } else if (coupon.type === "fixed") {
-            total -= discount;
+            total -= discount; // Descuento fijo
         }
     }
 
@@ -193,7 +192,6 @@ function updateCart() {
 
     updateCartTotalPrice(subtotal);
 }
-
 
 // Cargar el carrito desde el localStorage cuando se carga la página
 window.onload = function () {
