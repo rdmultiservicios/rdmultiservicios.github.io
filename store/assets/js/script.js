@@ -18,7 +18,7 @@ const discountCodes = {
     "DESCUENTO10": { type: "percentage", value: 10, expiration: "2025-12-31" },  // 10% de descuento
     "DESCUENTO20": { type: "percentage", value: 20, expiration: "2025-06-30" },  // 20% de descuento
     "DESCUENTO50": { type: "percentage", value: 50, expiration: "2025-01-01" },  // 50% de descuento
-    "DESCUENTO100": { type: "fixed", value: 100, expiration: "2025-12-31" }, // S/ 100 de descuento
+    "DESCUENTO100": { type: "fixed", value: 100, expiration: "2025-03-10" }, // S/ 100 de descuento
     "DESCUENTO50F": { type: "fixed", value: 50, expiration: "2025-06-30" }   // S/ 50 de descuento
 };
 
