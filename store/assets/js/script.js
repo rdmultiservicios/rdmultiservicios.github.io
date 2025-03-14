@@ -15,36 +15,11 @@ let discountCode = ""; // Almacenar el código de descuento ingresado
 
 // Definimos códigos de descuento válidos (pueden ser códigos que otorguen un descuento fijo o porcentaje y se define monto mínimo)
 const discountCodes = {
-    "DESCUENTO10": { 
-        type: "percentage", 
-        value: 10, 
-        expiration: "2025-12-31",
-        minAmount: 100 // Descuento solo se aplica si el subtotal es mayor o igual a 100
-    },
-    "DESCUENTO20": { 
-        type: "percentage", 
-        value: 20, 
-        expiration: "2025-06-30",
-        minAmount: 200 // Descuento solo se aplica si el subtotal es mayor o igual a 200
-    },
-    "DESCUENTO50": { 
-        type: "percentage", 
-        value: 50, 
-        expiration: "2025-01-01",
-        minAmount: 300 // Descuento solo se aplica si el subtotal es mayor o igual a 300
-    },
-    "DESCUENTO100": { 
-        type: "fixed", 
-        value: 100, 
-        expiration: "2025-03-10",
-        minAmount: 100 // Descuento solo se aplica si el subtotal es mayor o igual a 100
-    },
-    "DESCUENTO50F": { 
-        type: "fixed", 
-        value: 50, 
-        expiration: "2025-06-30",
-        minAmount: 200 // Descuento solo se aplica si el subtotal es mayor o igual a 200
-    }
+    "DESCUENTO10": { type: "percentage", value: 10, expiration: "2025-12-31", minAmount: 100 }, // Descuento solo se aplica si el subtotal es mayor o igual a 100
+    "DESCUENTO20": { type: "percentage", value: 20, expiration: "2025-06-30", minAmount: 200 }, // Descuento solo se aplica si el subtotal es mayor o igual a 200
+    "DESCUENTO50": { type: "percentage", value: 50, expiration: "2025-01-01", minAmount: 300 }, // Descuento solo se aplica si el subtotal es mayor o igual a 300
+    "DESCUENTO100": { type: "fixed", value: 100, expiration: "2025-03-10", minAmount: 100 },    // Descuento solo se aplica si el subtotal es mayor o igual a 100
+    "DESCUENTO50F": { type: "fixed", value: 50, expiration: "2025-06-30", minAmount: 200 }      // Descuento solo se aplica si el subtotal es mayor o igual a 200 
 };
 
 // Función modificada para aplicar el descuento solo si se cumple el monto mínimo
