@@ -33,7 +33,7 @@ function applyDiscount() {
     }
 
     const coupon = discountCodes[codeInput.toUpperCase()];
-    
+
     if (!coupon) {
         // Mostrar alerta si el código no existe
         showDiscountAlert('Este cupón no es válido.', false);
@@ -51,6 +51,8 @@ function applyDiscount() {
 
     // Verificar el monto mínimo del subtotal
     let subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    // Validación del monto mínimo
     if (subtotal < coupon.minAmount) {
         showDiscountAlert(`El subtotal mínimo para aplicar este cupón es S/ ${coupon.minAmount}. Actualmente el subtotal es S/ ${subtotal.toFixed(2)}.`, false);
         return;
