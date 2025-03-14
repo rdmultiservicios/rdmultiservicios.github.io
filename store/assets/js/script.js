@@ -53,7 +53,7 @@ function addToCart(productId) {
     }
 }
 
-// Función para vaciar el carrito
+// Función para vaciar el carrito, limpiar el input de descuento y restaurar el estado
 function emptyCart() {
     // Restaurar el stock de los productos en el carrito
     cart.forEach(item => {
@@ -68,6 +68,14 @@ function emptyCart() {
     discount = 0; // Restablecer el descuento
     discountCode = ""; // Restablecer el código de descuento
     localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
+
+    // Limpiar y vaciar el input del código de descuento
+    const discountInput = document.getElementById('discount-code-input');
+    if (discountInput) {
+        discountInput.value = ''; // Limpiar el campo de descuento
+    }
+
+    // Actualizar la visualización del carrito
     updateCart(); // Actualizar la visualización del carrito
 }
 
@@ -173,25 +181,25 @@ window.onload = function () {
     }
 };
 
-// Función para eliminar un producto del carrito
+// Función optimizada para eliminar un producto del carrito
 function removeFromCart(productId) {
+    // Eliminar el producto del carrito
     const productIndex = cart.findIndex(p => p.id === productId);
+
     if (productIndex > -1) {
         const removedProduct = cart[productIndex];
-
-        // Devolver el stock del producto eliminado
+        
+        // Restaurar el stock del producto eliminado
         const product = products.find(p => p.id === productId);
-        product.stock += removedProduct.quantity; // Aumentar el stock del producto eliminado
-
-        // Buscar el elemento del producto en la lista del carrito
-        const cartItem = document.querySelector(`#cart-item-${productId}`);
-        if (cartItem) {
-            cartItem.remove(); // Eliminar el producto de la interfaz directamente, sin animación
+        if (product) {
+            product.stock += removedProduct.quantity; // Aumentar el stock del producto eliminado
         }
 
         // Eliminar el producto del carrito
-        cart.splice(productIndex, 1); 
-        updateCart(); // Actualizar la visualización del carrito
+        cart.splice(productIndex, 1);
+
+        // Actualizar el carrito visualmente
+        updateCart();
     }
 }
 
