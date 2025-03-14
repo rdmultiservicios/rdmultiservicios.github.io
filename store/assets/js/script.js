@@ -54,19 +54,20 @@ function applyDiscount() {
 
     // Validación del monto mínimo
     if (subtotal < coupon.minAmount) {
-        showDiscountAlert(`El subtotal mínimo para aplicar este cupón es S/ ${coupon.minAmount}. Actualmente el subtotal es S/ ${subtotal.toFixed(2)}.`, false);
+        showDiscountAlert(`El subtotal mínimo para aplicar este cupón es S/ ${coupon.minAmount.toFixed(2)}. Actualmente el subtotal es S/ ${subtotal.toFixed(2)}.`, false);
         return;
     }
 
     // Aplicar el descuento dependiendo del tipo
+    let discount, discountCode;
     if (coupon.type === "percentage") {
         discount = coupon.value;
         discountCode = codeInput.toUpperCase();
-        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}%`);
+        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}% de descuento.`);
     } else if (coupon.type === "fixed") {
         discount = coupon.value;
         discountCode = codeInput.toUpperCase();
-        showDiscountAlert(`¡Cupón aplicado con éxito! S/ ${discount}`);
+        showDiscountAlert(`¡Cupón aplicado con éxito! S/ ${discount.toFixed(2)} de descuento.`);
     }
 
     updateCart(); // Actualizar el carrito visualmente
@@ -380,51 +381,14 @@ function showDiscountAlert(message, isSuccess = true) {
 // Asociar el evento de aplicar código de descuento
 document.getElementById('apply-discount-code-btn').addEventListener('click', (event) => {
     event.preventDefault(); // Prevenir la recarga de la página
-    applyDiscount(); // Llamada a la función applyDiscount()
 
-    const codeInput = document.getElementById('discount-code-input').value.trim();
-    
-    if (!codeInput) {
-        // Mostrar alerta si no se ingresa un código
-        showDiscountAlert('Por favor, ingresa un cupón de descuento', false);
-        return;
-    }
-
-    const coupon = discountCodes[codeInput.toUpperCase()];
-    
-    if (!coupon) {
-        // Mostrar alerta si el código no existe
-        showDiscountAlert('Este cupón no es válido.', false);
-        return;
-    }
-
-    const currentDate = new Date();
-    const expirationDate = new Date(coupon.expiration);
-
-    // Mostrar un mensaje claro sobre la caducidad o invalidez del código
-    if (currentDate > expirationDate) {
-        showDiscountAlert(`El cupón ${codeInput.toUpperCase()} ha caducado. Válido hasta ${coupon.expiration}.`, false);
-        return;
-    }
-
-    // Agregar verificación para evitar usar el mismo código varias veces
+    // Verifica si ya se ha aplicado un código de descuento
     if (discountCode !== "") {
         showDiscountAlert("Ya has aplicado un código de descuento.", false);
         return;
     }
-    
-    // Aplicar el descuento dependiendo del tipo
-    if (coupon.type === "percentage") {
-        discount = coupon.value;
-        discountCode = codeInput.toUpperCase();
-        showDiscountAlert(`¡Cupón aplicado con éxito! ${discount}%`);
-    } else if (coupon.type === "fixed") {
-        discount = coupon.value;
-        discountCode = codeInput.toUpperCase();
-        showDiscountAlert(`¡Cupón aplicado con éxito! S/ ${discount}`);
-    }
 
-    updateCart(); // Actualizar el carrito visualmente
+    applyDiscount(); // Llamada a la función applyDiscount()
 });
 
 // Asociar el evento de enviar por WhatsApp
