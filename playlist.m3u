@@ -1,0 +1,238 @@
+#EXTM3U
+#EXT-X-SESSION-DATA:DATA-ID="com.xui.1_5_12r2"
+#EXTINF:-1,America TV HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtYZeRJqETkTNfXiWQu3HT84/ts
+#EXTINF:-1,America Televisión
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtZntslO0feSx4B1T_sf8SX8/ts
+#EXTINF:-1,Latina HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtamRPtSPkW4KSY6PTOPyTLc/ts
+#EXTINF:-1,Panamericana
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRRLvhM38oACNngUqehqUyc/ts
+#EXTINF:-1,ATV
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQyKi3AZm8qLPy5hWyWYH2Q/ts
+#EXTINF:-1,HEI HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtT_gQcHHVgxNzqtz8lgUcqo/ts
+#EXTINF:-1,RPP
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfYUbXCWPi0ZFi1Ac_U8v3s/ts
+#EXTINF:-1,Canal N
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtbHhb2SExjiR7XYHdIQ0dZE/ts
+#EXTINF:-1,TV PERU
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtZ52rQJIWg0-Vlsna2Jyauc/ts
+#EXTINF:-1,Willax
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRj94j6rFKRrL09v2tanh7c/ts
+#EXTINF:-1,GolTV HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHta46pArSmYKMa28kvk0EWC0/ts
+#EXTINF:-1,GOLPERU HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtTldRVKB599NMW-oa9cyOZQ/ts
+#EXTINF:-1,USA
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcvSAnPkVJLxkYLRXRQ7dko/ts
+#EXTINF:-1,Movistar Deportes HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtYMJPv-c580xZttoXzrJysI/ts
+#EXTINF:-1,ESPN HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtegkrLRtm1y-s50NAoWCvLI/ts
+#EXTINF:-1,ESPN 5 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtUH1CB5QsON8v1XjqBVZZ6I/ts
+#EXTINF:-1,ESPN 6 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQ3-q2LG9SLzRtJ7jtk9sP8/ts
+#EXTINF:-1,ESPN 2 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQ2KzWFpMYVDTYmLHTiPKc0/ts
+#EXTINF:-1,ESPN 3 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtaIt5-TJ17cfvDX33wICivs/ts
+#EXTINF:-1,ESPN 4 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtZ0Xb94ED4V5MZHwlLXqJf8/ts
+#EXTINF:-1,ESPN 7 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWsGEnbJOIO47mLBk7pD9ss/ts
+#EXTINF:-1,Fox Sports 3 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQNDJMUsFTNHsC6ukuhlvbA/ts
+#EXTINF:-1,TNT SPORTS HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtXJCFr6nNtQ3Jxmzx0ZgQnc/ts
+#EXTINF:-1,EL TRECE
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcHCHD3XWg0k1YEzoRiyAvI/ts
+#EXTINF:-1,Liga 1 Max
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVRVU2mMSYskJuSBkbPMfKo/ts
+#EXTINF:-1,Liga 1 MAX OPCION 2
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtXW1WPsEoMzaIYy426wiY78/ts
+#EXTINF:-1,DIRECTV SPORTS
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHta6cCQM9QLf1Ol0x68Mk8XQ/ts
+#EXTINF:-1,GOLF CHANNEL
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcfSoUheTBEZOXgm77z4Q_E/ts
+#EXTINF:-1,ESPN Premium HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtaX5fIo6Ek7AdVa6agN7v8k/ts
+#EXTINF:-1,Nick HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtUeUthLIpEetLcFgEUFiJrw/ts
+#EXTINF:-1,Nick Jr
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtbbI87JmjBimoys2x8up2KA/ts
+#EXTINF:-1,Disney HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtejUTaByBU7oUC5U7BMF0uk/ts
+#EXTINF:-1,Disney Junior
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfmIzJbYBQ07VgwUrNLXSw0/ts
+#EXTINF:-1,Discovery Kids HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfVyrA2BSHaXXV0zoUUADtA/ts
+#EXTINF:-1,Cartoon Network HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcAfxrlZ49QFKcmmK-vAunI/ts
+#EXTINF:-1,Paramount HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRPDgKMMQSojHBuQ-rkqitM/ts
+#EXTINF:-1,DHE HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfX8ExYj2L59ySdJHUeIVow/ts
+#EXTINF:-1,Cinecanal HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQGqcW9uIjhrlSxSuWIWdwc/ts
+#EXTINF:-1,AMC HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWsL4kiKgal1eT-yhXBDz5c/ts
+#EXTINF:-1,Warner Channel
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtbgMPtiNWAfO1tDT4G6o3F8/ts
+#EXTINF:-1,Warner Channel HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtaLl67oqJzfZFPgURt48yS8/ts
+#EXTINF:-1,UNIVERSAL CHANNEL HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVFsaUh0Bd7cP3u5ctyyjHM/ts
+#EXTINF:-1,Universal
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtX3Mw6PmYy2hkHP_BMmH8cw/ts
+#EXTINF:-1,Studio Universal HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcsCZukMaW8MHghxEUiupdc/ts
+#EXTINF:-1,TNT HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtaot9yGBg5ltxIHZtwMIkLs/ts
+#EXTINF:-1,TNT Series HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWtJZbwSI4D1KrPUWjNv-0A/ts
+#EXTINF:-1,Space HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtYw1NkRattUBZ7qhWPY1b84/ts
+#EXTINF:-1,Sony HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtaDqplftvnZT8AvFp695wQE/ts
+#EXTINF:-1,HBO Family HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfR-CIxwH5fiD4ZxdShudOY/ts
+#EXTINF:-1,HBO HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWVy1Tg22qmUdTgIiXqgSx8/ts
+#EXTINF:-1,HBO MUNDI HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfzzqTDYoeVpb1MRE-FKfg4/ts
+#EXTINF:-1,HBO XTREME HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtYiGl9z0R_U5GCo_Q9puLJE/ts
+#EXTINF:-1,Golden HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtY8GarfIzh-YwQqd7o0joik/ts
+#EXTINF:-1,FX HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtSzYYvL7eWiMPQ6M_2w_mNk/ts
+#EXTINF:-1,Cinemax HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtaODmUyQGEtO8V8qTjgco_U/ts
+#EXTINF:-1,HGTV SD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtTjHEbIW74_snkiSTRgEK7g/ts
+#EXTINF:-1,AXN HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtStYy5cufIBAkgUhvDOM7_8/ts
+#EXTINF:-1,A&E HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtSSVOFDbXimYJd_RTIYxc3U/ts
+#EXTINF:-1,STAR CHANNEL HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtdgoY_SlYP9Q3I6Em6j-WjI/ts
+#EXTINF:-1,Comedy Central HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtX7NSsEtMhQ-N_9VDqwoVTI/ts
+#EXTINF:-1,Nat Geo HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRQ3lxxQ6KJ8gzB29bMHF2c/ts
+#EXTINF:-1,History Channel
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWGQHgLp3na0k9ltuJXKcUQ/ts
+#EXTINF:-1,History Channel HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtYweDtDw2bTDpCzZjfCk85U/ts
+#EXTINF:-1,History 2 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWk1QCOspULUW3Rke9rX1TA/ts
+#EXTINF:-1,ID HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtUlan9p29s3Faa328ZHNQUc/ts
+#EXTINF:-1,Discovery Science
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtYwR0JgmslbCDQ6Ig0e90Os/ts
+#EXTINF:-1,Discovery H&H HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtXO720sdA19qV4Yt0zd0FyQ/ts
+#EXTINF:-1,Animal Planet HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtTAP-5tXk9jclMxuRPp_-y8/ts
+#EXTINF:-1,Pasiones HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQ-lcFdAtvzS_QwfCZB02cw/ts
+#EXTINF:-1,Las Estrellas HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHteWewwJG4FazbM3dEqFg_Rs/ts
+#EXTINF:-1,Film & Arts
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtf_-i6FsxQZmwGihGRIfaZA/ts
+#EXTINF:-1,ATRES SERIES HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVL4DwvJQZfKvLLCHCWwFUQ/ts
+#EXTINF:-1,Telemundo
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQZC45p8KV9UaC9o3Grqq9o/ts
+#EXTINF:-1,Telenovelas
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRvVD0KhfpFjV5NIYs4e664/ts
+#EXTINF:-1,CHV HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcgl8YZ-TIZfh3N_BC0pQjs/ts
+#EXTINF:-1,CNN Chile HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtZ77xUzhkme3h3MssUANBW8/ts
+#EXTINF:-1,TNT NOVELAS
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtV5tVgaGO2DJt0q05INNF3M/ts
+#EXTINF:-1,Golden Edge HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtS_zBpCul_LbdDDYAebOQZk/ts
+#EXTINF:-1,Canal 24 Horas HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHteupW23KMSGHFAzRFsVjB6Q/ts
+#EXTINF:-1,CNN Español
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtc0FEPqiO02tVPsEQbyybQU/ts
+#EXTINF:-1,Caracol HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtU0WoW9HLVVbrbiR6J_X1Zo/ts
+#EXTINF:-1,DW Español
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcHEALJDZQCJma--eaNgh00/ts
+#EXTINF:-1,Discovery HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVBZHJphr4FOKZeXiAONQCc/ts
+#EXTINF:-1,Discovery Theater HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfy6CPvenwdN74yRGHiBzlo/ts
+#EXTINF:-1,Discovery World HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRTRFObStN3-HT4601l5CgE/ts
+#EXTINF:-1,E! HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtS_3XPQBWKRJp6tP_LVnsxQ/ts
+#EXTINF:-1,CARTONITO
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVVCRkJanHPCAdfcOD9yzE4/ts
+#EXTINF:-1,El Gourmet HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQ1IRB1xSdh82gTTl3EpWnQ/ts
+#EXTINF:-1,Nick Music
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRThY4e5PhS5Zg0KT_RaQz0/ts
+#EXTINF:-1,Food Network HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtbSf8a5aKSlVDLKwgrkkvFs/ts
+#EXTINF:-1,GLOBAL
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtab7kTWzX2eiwo6SxhgNb5o/ts
+#EXTINF:-1,HOLA TV HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtdKKNvzV9GRcctJPoQL-b_Q/ts
+#EXTINF:-1,La Red HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtUwTu_gWjOfWxCahRemYaWc/ts
+#EXTINF:-1,Teen Nick
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtTXJs6Ze-WMWunR6zL8xFCo/ts
+#EXTINF:-1,HBO Signature
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfJsgB4MoSy6YLybI-Ee1Mg/ts
+#EXTINF:-1,MEGA HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtZgvgEOL-8KfwuGzk9M4kcM/ts
+#EXTINF:-1,MTV 00s
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQjXA5d5SKGIAGmvGf3Fn6Q/ts
+#EXTINF:-1,MTV HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVNAkOAwErdvySMegpg1emU/ts
+#EXTINF:-1,MTV LIVE HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtRtSq3e7gxcM94VLhLj9zmU/ts
+#EXTINF:-1,Euro Channel
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtSvZoWynX5nEM51H_aGwtgc/ts
+#EXTINF:-1,DE PELICULA
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtTjXNgA_C1Q32mMJ-aX8pRg/ts
+#EXTINF:-1,RCN HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcYCnw4SCEVOMnGNFtXI4JA/ts
+#EXTINF:-1,Discovery Turbo
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtXEWDA06f_7JEY1aHycVRT0/ts
+#EXTINF:-1,STAR TVE HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtXLvX2CkqYTiR5MPAOWQ510/ts
+#EXTINF:-1,Stingray Concerts HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcku_w3IBluKyAtUmfGp0t8/ts
+#EXTINF:-1,Sun Channel HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtb0MStlEBMr2NqlN3hBTLyo/ts
+#EXTINF:-1,Adult Swim HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtcdwLsOBau68rQHukU0r71U/ts
+#EXTINF:-1,TVN HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtVBAka-MlTVZFXmbjwIBtkQ/ts
+#EXTINF:-1,ToonCast
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtSXf8WNU-Y-UPD9Gc9eJC9E/ts
+#EXTINF:-1,HTV HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtT9cNoffbhz0KHG2NmVwNHk/ts
+#EXTINF:-1,LOS SIMPSON 24/7
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtQChU4t8vAOXwgkWT39yOqM/ts
+#EXTINF:-1,CANAL NUEVO TIEMPO
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtdjYxWVDwERa6j7JAcHAoKw/ts
+#EXTINF:-1,HBO 2 HD
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtZYsHB_XaZh6qQpFxjsaO-E/ts
+#EXTINF:-1,SUPER CAMPEONES 24/7
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtfs9misYmTPoy5p5r1ADU6U/ts
+#EXTINF:-1,BOB ESPONJA 24/7
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtTe7v5WdW01T6Fe3aoI9kMA/ts
+#EXTINF:-1,DRAGON BALL DAIMA 24/7
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtWs7h8_7jw2VRNAGGcosvfQ/ts
+#EXTINF:-1,El Principe del Rap HD 24/7
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtS2j5jFwrU0QM4Jpze9C58A/ts
+#EXTINF:-1,Dragon Ball GT 24/7
+http://10.0.2.5:25461/play/TkxHvRzm7ooosJfinLeHtXCNiZtgQQsjosR-IZ-wvKc/ts
