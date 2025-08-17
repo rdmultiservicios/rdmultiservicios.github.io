@@ -131,6 +131,12 @@ https://youtu.be/Y-IlMeCCtIg
 #EXTINF:-1 tvg-id="" tvg-name="TELELIMA" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/09/19/02/1726687639950/81d12291ceee_480_270.png" group-title="Nacional", TeleLima
 https://live-evg25.tv360.bitel.com.pe/bitel/telelima/chunks.m3u8
 
+#EXTINF:-1 tvg-id="" tvg-name="LATELE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/15/05/1736895378330/a71e8fedf788_640_360.png" group-title="Nacional", Latele
+https://live-evg25.tv360.bitel.com.pe/bitel/latele/chunks.m3u8
+
+#EXTINF:-1 tvg-id="" tvg-name="TUsAMI" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/05/12/22/1747065234249/9494ebd7585a_640_360.png" group-title="Nacional", Tusami
+https://live-evg25.tv360.bitel.com.pe/bitel/tusami/chunks.m3u8
+
 
 
 #EXTINF:-1 tvg-id="Películas" tvg-name="EL MUÑECO DIABÓLICO" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/07/21/577e6d56/577e6d56-14a6-4f97-8efb-70f24f6b509d_640_360.jpg" group-title="Nuevos Lanzamientos", El muñeco diabólico
