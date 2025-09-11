@@ -8,13 +8,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Botón de modo oscuro -->
-  <div class="container mt-3 d-flex justify-content-end">
-    <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌙 Modo oscuro</button>
-  </div>
-
-  <div class="container my-3">
+  <div class="container my-4">
 
     <h1 class="mb-4 text-center">IPTV Player Mejorado</h1>
 
@@ -29,7 +23,7 @@
         <input type="file" id="epgFile" accept=".xml" class="form-control" />
       </div>
       <div class="col-md-4">
-        <label for="urlInput" class="form-label">Cargar lista M3U desde URL</label>
+        <label for="urlInput" class="form-label">Cargar canal/VOD desde URL</label>
         <div class="input-group">
           <input type="url" id="urlInput" placeholder="https://ejemplo.com/stream.m3u8 o .mp4" class="form-control" />
           <button id="loadFromUrl" class="btn btn-primary">Cargar</button>
@@ -67,7 +61,6 @@
 
   </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="player.js"></script>
   <script src="vod.js"></script>
