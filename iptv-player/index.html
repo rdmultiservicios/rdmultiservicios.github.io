@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV - Player</title>
+  <title>IPTV - Cuadrícula 3x3 con EPG</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -179,6 +179,34 @@
       background-color: #222;
       text-align: center;
     }
+
+    /* EPG Styles */
+    .epg-container {
+      background-color: #1a1a1a;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      color: #ccc;
+      max-height: 6rem;
+      overflow: hidden;
+    }
+
+    #epgTitle {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: #fff;
+    }
+
+    #epgTime {
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+
+    #epgDesc {
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
@@ -194,6 +222,13 @@
       fluid
     ></video>
     <div class="current-channel-label" id="currentChannel">Canal Actual</div>
+
+    <!-- EPG debajo del reproductor -->
+    <div class="epg-container" id="epgContainer">
+      <div id="epgTitle">Título del programa</div>
+      <div id="epgTime">00:00 - 00:00</div>
+      <div id="epgDesc">Descripción breve del programa.</div>
+    </div>
   </div>
 
   <div id="lists-container" class="container-fluid">
