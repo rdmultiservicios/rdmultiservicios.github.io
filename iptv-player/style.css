@@ -1,24 +1,53 @@
-.channel, .vod-card, .favorite-card {
-  cursor: pointer;
-  background: #1f1f1f;
-  border-radius: 8px;
+body {
+  background: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h3 {
+  color: #212529;
+}
+
+.channel, .vod, .favorite {
+  background: white;
+  border-radius: 6px;
   padding: 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.2s;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease-in-out;
 }
 
-.channel:hover, .vod-card:hover, .favorite-card:hover {
-  background: #2c2c2c;
+.channel:hover, .vod:hover, .favorite:hover {
+  background-color: #e9ecef;
 }
 
-.channel img, .vod-card img, .favorite-card img {
+.channel img, .vod img, .favorite img {
+  width: 40px;
   height: 40px;
-  width: auto;
+  object-fit: contain;
   border-radius: 4px;
 }
 
+.channel span, .vod span, .favorite span {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+#videoPlayer {
+  background: black;
+  border-radius: 6px;
+  max-height: 360px;
+  object-fit: contain;
+}
+
 #epgInfo {
-  white-space: pre-wrap;
+  font-size: 0.85rem;
+  color: #6c757d;
+  min-height: 3em;
+}
+
+@media (max-width: 576px) {
+  #videoPlayer {
+    max-height: 240px;
+  }
 }
