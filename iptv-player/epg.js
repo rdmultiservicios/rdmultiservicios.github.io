@@ -1,49 +1,55 @@
-// Cargar archivo XML de EPG
+// Cargar archivo EPG y parsear
 function loadEPGFile(file) {
   const reader = new FileReader();
-  reader.onload = () => parseEPG(reader.result);
+  reader.onload = () => {
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(reader.result, "application/xml");
+    parseEPG(xml);
+  };
   reader.readAsText(file);
 }
 
-// Parsear EPG XML y almacenar en epgData
-function parseEPG(xmlString) {
-  const parser = new DOMParser();
-  const xml = parser.parseFromString(xmlString, 'application/xml');
+// Parsear XMLTV
+function parseEPG(xml) {
   epgData = {};
 
-  const programmes = xml.querySelectorAll('programme');
-  programmes.forEach(prog => {
-    const channel = prog.getAttribute('channel');
-    const title = prog.querySelector('title')?.textContent || '';
-    const desc = prog.querySelector('desc')?.textContent || '';
-    const startStr = prog.getAttribute('start');
-    const stopStr = prog.getAttribute('stop');
+  const programmes = xml.querySelectorAll("programme");
 
-    // Parse fechas (formato: 20210910120000 + timezone)
-    const parseDate = str => {
-      // Formato esperado: yyyymmddhhmmss + timezone opcional
-      // Ejemplo: 20210910120000 +0000
-      const datePart = str.substring(0, 14);
-      const year = datePart.substring(0, 4);
-      const month = datePart.substring(4, 6);
-      const day = datePart.substring(6, 8);
-      const hour = datePart.substring(8, 10);
-      const min = datePart.substring(10, 12);
-      const sec = datePart.substring(12, 14);
-      return new Date(`${year}-${month}-${day}T${hour}:${min}:${sec}Z`);
-    };
+  programmes.forEach(program => {
+    const channelId = program.getAttribute("channel");
+    const startStr = program.getAttribute("start");
+    const stopStr = program.getAttribute("stop");
 
-    const start = parseDate(startStr);
-    const stop = parseDate(stopStr);
+    const titleEl = program.querySelector("title");
+    const title = titleEl ? titleEl.textContent : "Sin título";
 
-    if (!epgData[channel]) epgData[channel] = [];
-    epgData[channel].push({ title, desc, start, stop });
+    const start = parseEPGDate(startStr);
+    const stop = parseEPGDate(stopStr);
+
+    if (!epgData[channelId]) {
+      epgData[channelId] = [];
+    }
+
+    epgData[channelId].push({
+      title,
+      start,
+      stop
+    });
   });
 
-  // Ordenar cada lista por fecha inicio
-  for (const ch in epgData) {
-    epgData[ch].sort((a, b) => a.start - b.start);
-  }
+  console.log("EPG cargado:", epgData);
+}
 
-  alert('EPG cargado correctamente');
+// Convertir fecha XMLTV a Date
+function parseEPGDate(str) {
+  // Ejemplo: 20250910120000 +0000
+  const clean = str.replace(/\s+/g, '').replace(/[^0-9]/g, '');
+  const year = parseInt(clean.slice(0, 4));
+  const month = parseInt(clean.slice(4, 6)) - 1;
+  const day = parseInt(clean.slice(6, 8));
+  const hour = parseInt(clean.slice(8, 10));
+  const minute = parseInt(clean.slice(10, 12));
+  const second = parseInt(clean.slice(12, 14));
+
+  return new Date(Date.UTC(year, month, day, hour, minute, second));
 }
