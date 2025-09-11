@@ -3,49 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV Player - WinTV Style</title>
+  <title>IPTV Player Moderno</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    body { background-color: #111; color: #fff; }
-    .video-container { position: relative; width: 100%; padding-top: 56.25%; }
-    video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; }
+    body { background-color: #0f0f0f; color: #fff; }
+    .video-container { position: relative; width: 100%; padding-top: 56.25%; background: #000; }
+    video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .channel-btn { text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; border-radius: 8px; }
+    .channel-btn:hover { background-color: #222; }
     .channel-list { max-height: 80vh; overflow-y: auto; }
-    .channel-btn img { border-radius: 3px; }
-    .channel-btn span { cursor: pointer; }
+    .btn-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+    .current-channel { font-weight: bold; font-size: 1.1rem; }
+    @media (max-width: 768px) {
+      .channel-list { max-height: 40vh; }
+    }
   </style>
 </head>
 <body>
 
-<div class="container-fluid">
-  <div class="row vh-100">
-    <!-- Sidebar canales -->
+<div class="container-fluid p-0">
+  <div class="row g-0">
+    
+    <!-- Canal List -->
     <div class="col-md-3 bg-dark p-3 channel-list">
-      <h5>📺 Canales</h5>
+      <h5 class="text-white mb-3"><i class="bi bi-tv"></i> Canales</h5>
       <input type="text" class="form-control mb-3" id="search" placeholder="Buscar canal...">
-      <div id="channelButtons"></div>
-      <hr>
+      <div id="channelButtons" class="d-grid gap-2"></div>
+      <hr class="text-secondary" />
       <h6>⭐ Favoritos</h6>
-      <div id="favorites"></div>
+      <div id="favorites" class="d-grid gap-2"></div>
     </div>
 
-    <!-- Reproductor -->
-    <div class="col-md-9 p-0">
+    <!-- Player -->
+    <div class="col-md-9 bg-black text-white">
       <div class="video-container">
         <video id="video" controls autoplay></video>
       </div>
-      <div class="d-flex justify-content-between p-3 bg-dark">
-        <button class="btn btn-outline-light" onclick="togglePip()">📺 Modo PiP</button>
-        <button class="btn btn-outline-light" onclick="goBack()">⏪ Volver canal anterior</button>
+      <div class="bg-dark d-flex flex-wrap justify-content-between align-items-center p-3">
+        <div class="current-channel" id="currentChannel">Canal actual</div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-light btn-icon" onclick="goBack()" title="Canal anterior"><i class="bi bi-arrow-counterclockwise"></i></button>
+          <button class="btn btn-outline-light btn-icon" onclick="reload()" title="Recargar"><i class="bi bi-arrow-repeat"></i></button>
+          <button class="btn btn-outline-light btn-icon" onclick="togglePip()" title="Picture-in-Picture"><i class="bi bi-box-arrow-in-up-right"></i></button>
+          <button class="btn btn-outline-light btn-icon" onclick="toggleFullscreen()" title="Pantalla completa"><i class="bi bi-arrows-fullscreen"></i></button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- HLS.js -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <script>
   const video = document.getElementById('video');
+  const currentChannelLabel = document.getElementById('currentChannel');
   let lastChannel = '';
   let channels = [];
+  let currentURL = '';
 
   async function loadM3U() {
     try {
@@ -81,7 +97,10 @@
   }
 
   function playStream(url, name) {
-    if (video.src) lastChannel = video.src;
+    if (currentURL) lastChannel = currentURL;
+    currentURL = url;
+    currentChannelLabel.innerText = name;
+
     if (Hls.isSupported()) {
       const hls = new Hls();
       hls.loadSource(url);
@@ -95,16 +114,28 @@
     }
   }
 
+  function goBack() {
+    if (lastChannel) playStream(lastChannel, 'Canal anterior');
+  }
+
+  function reload() {
+    if (currentURL) playStream(currentURL, 'Recargando...');
+  }
+
   function togglePip() {
     if (document.pictureInPictureElement) {
       document.exitPictureInPicture();
     } else {
-      video.requestPictureInPicture().catch(err => console.log(err));
+      video.requestPictureInPicture().catch(console.error);
     }
   }
 
-  function goBack() {
-    if (lastChannel) playStream(lastChannel);
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      video.requestFullscreen().catch(console.error);
+    } else {
+      document.exitFullscreen();
+    }
   }
 
   function renderChannels() {
@@ -115,11 +146,11 @@
       .filter(ch => ch.name.toLowerCase().includes(search))
       .forEach(ch => {
         const btn = document.createElement('button');
-        btn.className = 'btn btn-outline-light w-100 mb-2 text-start channel-btn';
+        btn.className = 'btn btn-outline-light channel-btn d-flex align-items-center gap-2';
         btn.innerHTML = `
-          <img src="${ch.logo || 'https://via.placeholder.com/20'}" width="24" class="me-2">
-          ${ch.name}
-          <span class="float-end" onclick="event.stopPropagation(); addFavorite('${ch.name}', '${ch.url}', '${ch.logo}')">⭐</span>
+          <img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30">
+          <span>${ch.name}</span>
+          <span class="ms-auto text-warning" onclick="event.stopPropagation(); addFavorite('${ch.name}', '${ch.url}', '${ch.logo}')"><i class="bi bi-star"></i></span>
         `;
         btn.onclick = () => playStream(ch.url, ch.name);
         container.appendChild(btn);
@@ -141,11 +172,8 @@
     container.innerHTML = '';
     favs.forEach(ch => {
       const btn = document.createElement('button');
-      btn.className = 'btn btn-warning w-100 mb-2 text-start channel-btn';
-      btn.innerHTML = `
-        <img src="${ch.logo || 'https://via.placeholder.com/20'}" width="24" class="me-2">
-        ${ch.name}
-      `;
+      btn.className = 'btn btn-warning channel-btn d-flex align-items-center gap-2';
+      btn.innerHTML = `<img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30"><span>${ch.name}</span>`;
       btn.onclick = () => playStream(ch.url, ch.name);
       container.appendChild(btn);
     });
