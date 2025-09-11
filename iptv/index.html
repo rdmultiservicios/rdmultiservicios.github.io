@@ -2,148 +2,179 @@
 <html lang="es">
 <head>
   <meta charset="UTF‑8" />
-  <meta name="viewport" content="width=device‑width, initial‑scale=1" />
-  <title>IPTV Mejorado con EPG y Favoritos</title>
+  <meta name="viewport" content="width=device‑width, initial-scale=1" />
+  <title>IPTV Reproductor Responsive</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10"></script>
   <script src="https://cdn.jsdelivr.net/npm/m3u-parser-generator@5.0.1/dist/m3u-parser-generator.iife.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+    }
+    #channelList {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    #channelLogo {
+      max-height: 80px;
+      margin: 10px 0;
+    }
+    .list-group-item {
+      background-color: #1e1e1e;
+      color: white;
+    }
+    .list-group-item:hover {
+      background-color: #333;
+    }
+  </style>
 </head>
-<body class="bg-dark text-white">
+<body>
 
-  <div class="container py-4">
-    <h1 class="mb-4">Reproductor IPTV Avanzado</h1>
-    <!-- Carga de lista -->
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <input id="m3uInput" type="file" class="form-control" accept=".m3u,.txt">
-      </div>
-      <div class="col-md-6 input-group">
-        <input id="m3uUrl" type="url" placeholder="URL de lista M3U" class="form-control">
+<div class="container-fluid py-4">
+  <h2 class="mb-4 text-center">📺 Reproductor IPTV Responsive</h2>
+
+  <!-- Carga de lista -->
+  <div class="row gy-3 mb-3">
+    <div class="col-12 col-md-6">
+      <input id="m3uInput" type="file" class="form-control" accept=".m3u,.txt">
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="input-group">
+        <input id="m3uUrl" type="url" class="form-control" placeholder="URL de lista M3U">
         <button id="loadUrlBtn" class="btn btn-primary">Cargar</button>
-      </div>
-    </div>
-    <!-- Búsqueda y filtros -->
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <input id="searchInput" type="text" placeholder="Buscar canal..." class="form-control">
-      </div>
-      <div class="col-md-4">
-        <button id="favFilterBtn" class="btn btn-outline-warning">Mostrar solo favoritos</button>
-      </div>
-    </div>
-    <!-- Contenido -->
-    <div class="row">
-      <div class="col-md-4">
-        <div id="channelList" class="list-group overflow-auto" style="max-height:80vh;"></div>
-      </div>
-      <div class="col-md-8">
-        <div class="ratio ratio-16x9 bg-black mb-3">
-          <video id="videoPlayer" controls autoplay class="w-100 h-100"></video>
-        </div>
-        <div id="channelInfo" class="text-center">
-          <h5 id="channelName"></h5>
-          <img id="channelLogo" src="" alt="" class="img-fluid" style="max-height:100px;">
-          <div id="channelGroup" class="fst-italic mt-2"></div>
-          <button id="favBtn" class="btn btn-outline-warning mt-2">♥ Favorito</button>
-        </div>
-        <!-- EPG (opcional, solo si tienes URL EPG integrada) -->
-        <div id="epgContainer" class="mt-3"></div>
       </div>
     </div>
   </div>
 
-  <script>
-    const parser = new m3uParserGenerator.M3uParser();
-    let allChannels = [], filteredChannels = [];
-    let currentHls = null;
-    let favorites = new Set(JSON.parse(localStorage.getItem('favorites')||'[]'));
+  <!-- Filtros -->
+  <div class="row gy-3 mb-4">
+    <div class="col-12 col-md-6">
+      <input id="searchInput" type="text" class="form-control" placeholder="Buscar canal...">
+    </div>
+    <div class="col-12 col-md-6">
+      <button id="favFilterBtn" class="btn btn-outline-warning w-100">Mostrar solo favoritos</button>
+    </div>
+  </div>
 
-    const m3uInput = document.getElementById('m3uInput');
-    const m3uUrl = document.getElementById('m3uUrl');
-    const loadUrlBtn = document.getElementById('loadUrlBtn');
-    const channelList = document.getElementById('channelList');
-    const searchInput = document.getElementById('searchInput');
-    const favFilterBtn = document.getElementById('favFilterBtn');
-    const videoPlayer = document.getElementById('videoPlayer');
-    const channelName = document.getElementById('channelName');
-    const channelLogo = document.getElementById('channelLogo');
-    const channelGroup = document.getElementById('channelGroup');
-    const favBtn = document.getElementById('favBtn');
+  <!-- Layout flexible: lista + reproductor -->
+  <div class="row flex-column flex-lg-row">
+    <!-- Lista de canales -->
+    <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+      <div id="channelList" class="list-group"></div>
+    </div>
 
-    m3uInput.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => loadPlaylist(e.target.result);
-      reader.readAsText(file);
+    <!-- Reproductor y detalles -->
+    <div class="col-12 col-lg-8">
+      <div class="ratio ratio-16x9 bg-black mb-3">
+        <video id="videoPlayer" controls autoplay class="w-100 h-100"></video>
+      </div>
+      <div id="channelInfo" class="text-center">
+        <h5 id="channelName"></h5>
+        <img id="channelLogo" src="" alt="" class="img-fluid d-block mx-auto">
+        <div id="channelGroup" class="fst-italic mt-2"></div>
+        <button id="favBtn" class="btn btn-outline-warning mt-2">♥ Favorito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const parser = new m3uParserGenerator.M3uParser();
+  let allChannels = [], filteredChannels = [];
+  let currentHls = null;
+  let favorites = new Set(JSON.parse(localStorage.getItem('favorites')||'[]'));
+
+  const m3uInput = document.getElementById('m3uInput');
+  const m3uUrl = document.getElementById('m3uUrl');
+  const loadUrlBtn = document.getElementById('loadUrlBtn');
+  const channelList = document.getElementById('channelList');
+  const searchInput = document.getElementById('searchInput');
+  const favFilterBtn = document.getElementById('favFilterBtn');
+  const videoPlayer = document.getElementById('videoPlayer');
+  const channelName = document.getElementById('channelName');
+  const channelLogo = document.getElementById('channelLogo');
+  const channelGroup = document.getElementById('channelGroup');
+  const favBtn = document.getElementById('favBtn');
+
+  m3uInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => loadPlaylist(e.target.result);
+    reader.readAsText(file);
+  });
+
+  loadUrlBtn.addEventListener('click', () => {
+    const url = m3uUrl.value.trim();
+    if (!url) return;
+    fetch(url).then(r => r.text()).then(loadPlaylist).catch(() => alert("Error al cargar lista"));
+  });
+
+  function loadPlaylist(text) {
+    const pl = parser.parse(text);
+    allChannels = pl.medias.map(m => ({
+      name: m.name,
+      url: m.location,
+      logo: m.attributes['tvg-logo'] || '',
+      group: m.attributes['group-title'] || '',
+      id: m.name + m.location
+    }));
+    filteredChannels = allChannels;
+    renderList();
+  }
+
+  function renderList() {
+    channelList.innerHTML = '';
+    const term = searchInput.value.toLowerCase();
+    const showFavs = favFilterBtn.classList.contains('active');
+    filteredChannels = allChannels.filter(ch =>
+      ch.name.toLowerCase().includes(term) &&
+      (!showFavs || favorites.has(ch.id))
+    );
+    filteredChannels.forEach(ch => {
+      const li = document.createElement('button');
+      li.className = 'list-group-item list-group-item-action d-flex justify-content-between';
+      li.innerHTML = `<span>${ch.name}</span>${favorites.has(ch.id)?'★':''}`;
+      li.onclick = () => playChannel(ch);
+      channelList.appendChild(li);
     });
+  }
 
-    loadUrlBtn.addEventListener('click', () => {
-      if (!m3uUrl.value.trim()) return;
-      fetch(m3uUrl.value.trim())
-        .then(r => r.text())
-        .then(loadPlaylist)
-        .catch(() => alert('Error al cargar desde URL'));
-    });
+  searchInput.addEventListener('input', renderList);
+  favFilterBtn.addEventListener('click', () => {
+    favFilterBtn.classList.toggle('active');
+    renderList();
+  });
 
-    function loadPlaylist(text) {
-      const pl = parser.parse(text);
-      allChannels = pl.medias.map(m => ({
-        name: m.name,
-        url: m.location,
-        logo: m.attributes['tvg-logo']||'',
-        group: m.attributes['group-title']||'',
-        id: m.name + m.location
-      }));
-      filteredChannels = allChannels;
+  function playChannel(ch) {
+    channelName.textContent = ch.name;
+    channelGroup.textContent = ch.group;
+    channelLogo.src = ch.logo;
+    favBtn.textContent = favorites.has(ch.id) ? '♥ Quitar favorito' : '♡ Agregar favorito';
+    favBtn.onclick = () => {
+      if (favorites.has(ch.id)) favorites.delete(ch.id);
+      else favorites.add(ch.id);
+      localStorage.setItem('favorites', JSON.stringify([...favorites]));
       renderList();
+      favBtn.textContent = favorites.has(ch.id) ? '♥ Quitar favorito' : '♡ Agregar favorito';
+    };
+
+    if (currentHls) currentHls.destroy();
+    if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+      videoPlayer.src = ch.url;
+    } else if (Hls.isSupported()) {
+      currentHls = new Hls();
+      currentHls.loadSource(ch.url);
+      currentHls.attachMedia(videoPlayer);
+    } else {
+      alert("Tu navegador no soporta HLS.");
     }
 
-    function renderList() {
-      channelList.innerHTML = '';
-      const term = searchInput.value.toLowerCase();
-      const showFavs = favFilterBtn.classList.contains('active');
-      filteredChannels = allChannels.filter(ch =>
-        ch.name.toLowerCase().includes(term) &&
-        (!showFavs || favorites.has(ch.id))
-      );
-      filteredChannels.forEach(ch => {
-        const li = document.createElement('button');
-        li.className = 'list-group-item list-group-item-action d-flex justify-content-between';
-        li.innerHTML = `<span>${ch.name}</span>${favorites.has(ch.id)?'★':''}`;
-        li.onclick = () => playChannel(ch);
-        channelList.appendChild(li);
-      });
-    }
+    videoPlayer.play();
+  }
+</script>
 
-    searchInput.addEventListener('input', renderList);
-    favFilterBtn.addEventListener('click', () => {
-      favFilterBtn.classList.toggle('active');
-      renderList();
-    });
-
-    function playChannel(ch) {
-      channelName.textContent = ch.name;
-      channelGroup.textContent = ch.group;
-      channelLogo.src = ch.logo;
-      favBtn.textContent = favorites.has(ch.id)? '♥ Quitar favorito' : '♡ Agregar favorito';
-      favBtn.onclick = () => {
-        if (favorites.has(ch.id)) favorites.delete(ch.id);
-        else favorites.add(ch.id);
-        localStorage.setItem('favorites', JSON.stringify([...favorites]));
-        renderList();
-        favBtn.textContent = favorites.has(ch.id)? '♥ Quitar favorito' : '♡ Agregar favorito';
-      };
-
-      if (currentHls) currentHls.destroy();
-      if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) videoPlayer.src = ch.url;
-      else if (Hls.isSupported()) {
-        currentHls = new Hls();
-        currentHls.loadSource(ch.url);
-        currentHls.attachMedia(videoPlayer);
-      } else alert('Tu navegador no soporta HLS.');
-      videoPlayer.play();
-    }
-  </script>
 </body>
 </html>
