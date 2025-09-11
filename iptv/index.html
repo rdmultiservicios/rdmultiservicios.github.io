@@ -1,41 +1,171 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>IPTV Player HTML</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- hls.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reproductor IPTV Mejorado</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10"></script>
 </head>
-<body class="bg-dark text-light">
+<body class="bg-dark text-white">
 
   <div class="container py-5">
-    <h1 class="text-center mb-4">🎥 Reproductor IPTV en HTML</h1>
+    <h1 class="mb-4">🎥 Reproductor IPTV Mejorado</h1>
 
-    <div class="mb-4">
-      <label for="m3uFile" class="form-label">Seleccionar archivo .m3u</label>
-      <input type="file" id="m3uFile" class="form-control" accept=".m3u,.txt">
+    <!-- Carga de M3U local o remota -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label for="m3uInput" class="form-label">Cargar archivo M3U (local)</label>
+        <input class="form-control" type="file" id="m3uInput" accept=".m3u,.txt">
+      </div>
+      <div class="col-md-6">
+        <label for="m3uUrl" class="form-label">O desde URL remota</label>
+        <div class="input-group">
+          <input class="form-control" type="url" id="m3uUrl" placeholder="https://ejemplo.com/lista.m3u">
+          <button class="btn btn-primary" id="loadUrlBtn">Cargar</button>
+        </div>
+      </div>
     </div>
 
+    <!-- Reproductor y lista -->
     <div class="row">
-      <!-- Lista de canales -->
       <div class="col-md-4">
         <ul class="list-group" id="channelList"></ul>
       </div>
-
-      <!-- Reproductor de video -->
       <div class="col-md-8">
-        <video id="videoPlayer" class="w-100 border border-light" controls height="400">
-          Tu navegador no soporta el tag de video.
-        </video>
+        <div class="ratio ratio-16x9 bg-black mb-3">
+          <video id="videoPlayer" controls autoplay class="w-100 h-100" crossorigin="anonymous"></video>
+        </div>
+        <div id="channelName" class="text-center fw-bold"></div>
       </div>
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <!-- JS principal -->
+  <script>
+    const m3uInput = document.getElementById('m3uInput');
+    const m3uUrl = document.getElementById('m3uUrl');
+    const loadUrlBtn = document.getElementById('loadUrlBtn');
+    const channelList = document.getElementById('channelList');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const channelNameDisplay = document.getElementById('channelName');
+
+    let currentHls = null;
+    let channels = [];
+
+    // Leer desde archivo local
+    m3uInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const content = e.target.result;
+        channels = parseM3U(content);
+        renderChannelList(channels);
+        saveToLocalStorage(null, content);
+      };
+      reader.readAsText(file);
+    });
+
+    // Leer desde URL remota
+    loadUrlBtn.addEventListener('click', function () {
+      const url = m3uUrl.value.trim();
+      if (!url) return;
+
+      fetch(url)
+        .then(res => res.text())
+        .then(data => {
+          channels = parseM3U(data);
+          renderChannelList(channels);
+          saveToLocalStorage(url, null);
+        })
+        .catch(err => alert("Error al cargar la lista desde URL."));
+    });
+
+    // Parseador M3U
+    function parseM3U(content) {
+      const lines = content.split('\n').map(line => line.trim()).filter(Boolean);
+      const list = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].startsWith('#EXTINF')) {
+          const nameMatch = lines[i].match(/,(.+)$/);
+          const name = nameMatch ? nameMatch[1] : 'Canal desconocido';
+          const url = lines[i + 1];
+          if (url && url.startsWith('http')) {
+            list.push({ name, url });
+          }
+        }
+      }
+
+      return list;
+    }
+
+    // Renderiza la lista de canales
+    function renderChannelList(channels) {
+      channelList.innerHTML = '';
+
+      channels.forEach((channel, index) => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item list-group-item-action';
+        li.textContent = channel.name;
+        li.style.cursor = 'pointer';
+        li.addEventListener('click', () => playChannel(channel));
+        channelList.appendChild(li);
+
+        // Autoplay el primero
+        if (index === 0) playChannel(channel);
+      });
+    }
+
+    // Reproduce un canal
+    function playChannel(channel) {
+      channelNameDisplay.textContent = `Estás viendo: ${channel.name}`;
+
+      if (currentHls) {
+        currentHls.destroy();
+        currentHls = null;
+      }
+
+      if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        videoPlayer.src = channel.url;
+      } else if (Hls.isSupported()) {
+        currentHls = new Hls();
+        currentHls.loadSource(channel.url);
+        currentHls.attachMedia(videoPlayer);
+      } else {
+        alert('Tu navegador no soporta HLS.');
+      }
+
+      videoPlayer.play();
+    }
+
+    // Guardar en localStorage
+    function saveToLocalStorage(url = null, content = null) {
+      if (url) {
+        localStorage.setItem('iptv_url', url);
+        localStorage.removeItem('iptv_content');
+      } else if (content) {
+        localStorage.setItem('iptv_content', content);
+        localStorage.removeItem('iptv_url');
+      }
+    }
+
+    // Cargar automáticamente última lista usada
+    window.addEventListener('load', () => {
+      const savedUrl = localStorage.getItem('iptv_url');
+      const savedContent = localStorage.getItem('iptv_content');
+
+      if (savedUrl) {
+        m3uUrl.value = savedUrl;
+        loadUrlBtn.click();
+      } else if (savedContent) {
+        channels = parseM3U(savedContent);
+        renderChannelList(channels);
+      }
+    });
+  </script>
+
 </body>
 </html>
