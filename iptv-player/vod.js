@@ -1,85 +1,47 @@
-// Renderizar videos bajo demanda con botón favorito
-function renderVOD(list) {
+// Renderizar la lista de VOD
+function renderVOD(vodList) {
   const container = document.getElementById('vodList');
   container.innerHTML = '';
-  list.forEach(channel => {
-    const col = document.createElement('div');
-    col.className = 'col';
 
-    const card = document.createElement('div');
-    card.className = 'vod d-flex justify-content-between align-items-center';
-
-    const info = document.createElement('div');
-    info.className = 'd-flex align-items-center gap-2';
-
-    const img = document.createElement('img');
-    img.src = channel.logo || 'https://via.placeholder.com/40?text=VOD';
-    img.alt = 'logo';
-
-    const title = document.createElement('span');
-    title.textContent = channel.title;
-
-    info.appendChild(img);
-    info.appendChild(title);
-
-    const star = document.createElement('span');
-    star.innerHTML = isFavorite(channel) ? '⭐' : '☆';
-    star.style.cursor = 'pointer';
-    star.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleFavorite(channel);
-      renderAll();
-    });
-
-    card.appendChild(info);
-    card.appendChild(star);
-    card.addEventListener('click', () => playChannel(channel));
-
-    col.appendChild(card);
-    container.appendChild(col);
-  });
-}
-
-// Renderizar la lista de favoritos
-function renderFavorites() {
-  const container = document.getElementById('favoritesList');
-  const favs = getFavorites();
-  container.innerHTML = '';
-  if (favs.length === 0) {
-    container.innerHTML = '<p class="text-muted">No tienes favoritos aún.</p>';
+  if (!vodList.length) {
+    container.innerHTML = '<p class="text-muted">No hay VOD disponibles.</p>';
     return;
   }
-  favs.forEach(channel => {
+
+  vodList.forEach(channel => {
     const col = document.createElement('div');
     col.className = 'col';
 
     const card = document.createElement('div');
-    card.className = 'favorite d-flex justify-content-between align-items-center';
+    card.className = 'vod d-flex align-items-center justify-content-between px-2';
 
     const info = document.createElement('div');
     info.className = 'd-flex align-items-center gap-2';
 
     const img = document.createElement('img');
-    img.src = channel.logo || 'https://via.placeholder.com/40?text=⭐';
-    img.alt = 'logo';
+    img.src = channel.logo || 'https://via.placeholder.com/48x48?text=VOD';
+    img.alt = 'Logo';
 
     const title = document.createElement('span');
     title.textContent = channel.title;
 
     info.appendChild(img);
     info.appendChild(title);
+    card.appendChild(info);
 
+    // Icono de favorito ⭐
     const star = document.createElement('span');
-    star.innerHTML = '⭐';
-    star.style.cursor = 'pointer';
+    star.className = 'star';
+    star.innerHTML = isFavorite(channel) ? '⭐' : '☆';
     star.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleFavorite(channel);
       renderAll();
     });
 
-    card.appendChild(info);
     card.appendChild(star);
+
+    // Al hacer clic, reproducir el VOD
     card.addEventListener('click', () => playChannel(channel));
 
     col.appendChild(card);
@@ -87,31 +49,130 @@ function renderFavorites() {
   });
 }
 
-// Funciones para manejar favoritos en localStorage
-
+// Favoritos
 function getFavorites() {
-  const favs = localStorage.getItem('vod-favorites');
-  return favs ? JSON.parse(favs) : [];
+  return JSON.parse(localStorage.getItem('favorites') || '[]');
 }
 
 function isFavorite(channel) {
-  return getFavorites().some(c => c.url === channel.url);
+  const favorites = getFavorites();
+  return favorites.some(c => c.url === channel.url);
 }
 
 function toggleFavorite(channel) {
-  let favs = getFavorites();
+  let favorites = getFavorites();
   if (isFavorite(channel)) {
-    favs = favs.filter(c => c.url !== channel.url);
+    favorites = favorites.filter(c => c.url !== channel.url);
   } else {
-    favs.push(channel);
+    favorites.push(channel);
   }
-  localStorage.setItem('vod-favorites', JSON.stringify(favs));
+  localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-// Función para borrar todos los favoritos
+function renderFavorites() {
+  const container = document.getElementById('favoritesList');
+  const favorites = getFavorites().filter(c => {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    return c.title.toLowerCase().includes(query);
+  });
+
+  container.innerHTML = '';
+
+  if (!favorites.length) {
+    container.innerHTML = '<p class="text-muted">No hay favoritos guardados.</p>';
+    return;
+  }
+
+  favorites.forEach(channel => {
+    const col = document.createElement('div');
+    col.className = 'col';
+
+    const card = document.createElement('div');
+    card.className = 'favorite d-flex align-items-center justify-content-between px-2';
+
+    const info = document.createElement('div');
+    info.className = 'd-flex align-items-center gap-2';
+
+    const img = document.createElement('img');
+    img.src = channel.logo || 'https://via.placeholder.com/48x48?text=Fav';
+    img.alt = 'Logo';
+
+    const title = document.createElement('span');
+    title.textContent = channel.title;
+
+    info.appendChild(img);
+    info.appendChild(title);
+    card.appendChild(info);
+
+    const star = document.createElement('span');
+    star.className = 'star';
+    star.innerHTML = '⭐';
+    star.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFavorite(channel);
+      renderAll();
+    });
+
+    card.appendChild(star);
+    card.addEventListener('click', () => playChannel(channel));
+
+    col.appendChild(card);
+    container.appendChild(col);
+  });
+}
+
+// Borrar todos los favoritos
 function clearFavorites() {
-  if (confirm('¿Seguro que quieres borrar todos los favoritos?')) {
-    localStorage.removeItem('vod-favorites');
+  if (confirm("¿Estás seguro de borrar todos los favoritos?")) {
+    localStorage.removeItem('favorites');
     renderAll();
   }
+}
+
+// Renderizar canales (en vivo)
+function renderChannels(channelList) {
+  const container = document.getElementById('channelList');
+  container.innerHTML = '';
+
+  if (!channelList.length) {
+    container.innerHTML = '<p class="text-muted">No hay canales disponibles.</p>';
+    return;
+  }
+
+  channelList.forEach(channel => {
+    const col = document.createElement('div');
+    col.className = 'col';
+
+    const card = document.createElement('div');
+    card.className = 'channel d-flex align-items-center justify-content-between px-2';
+
+    const info = document.createElement('div');
+    info.className = 'd-flex align-items-center gap-2';
+
+    const img = document.createElement('img');
+    img.src = channel.logo || 'https://via.placeholder.com/48x48?text=TV';
+    img.alt = 'Logo';
+
+    const title = document.createElement('span');
+    title.textContent = channel.title;
+
+    info.appendChild(img);
+    info.appendChild(title);
+    card.appendChild(info);
+
+    const star = document.createElement('span');
+    star.className = 'star';
+    star.innerHTML = isFavorite(channel) ? '⭐' : '☆';
+    star.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFavorite(channel);
+      renderAll();
+    });
+
+    card.appendChild(star);
+    card.addEventListener('click', () => playChannel(channel));
+
+    col.appendChild(card);
+    container.appendChild(col);
+  });
 }
