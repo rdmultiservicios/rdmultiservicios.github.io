@@ -1,123 +1,48 @@
-let player;
+const videoPlayer = videojs('video-player', {
+  fluid: true,
+  autoplay: true,
+  controls: true,
+  preload: 'auto'
+});
+
 let channels = [];
-let epgData = null; // Datos EPG cargados
-let currentURL = '';
+let epgData = null;
+let currentChannelId = null;
 
-window.onload = async function () {
-  player = videojs('video-player', {
-    controls: true,
-    autoplay: true,
-    fluid: true
-  });
-
-  await loadChannels();
-  await loadEPG();
-
-  renderChannels();
-  renderFavorites();
-
-  if (channels.length > 0) {
-    changeChannel(channels[0].url, channels[0].name);
-  }
-
-  document.getElementById('search').addEventListener('input', renderChannels);
-};
-
-// Carga archivo M3U
-async function loadChannels() {
+async function fetchChannels() {
   try {
-    const res = await fetch('channels.m3u');
-    const text = await res.text();
-    channels = parseM3U(text);
+    const response = await fetch('channels.m3u');
+    if (!response.ok) throw new Error('Error cargando canales');
+    const m3uText = await response.text();
+    channels = parseM3U(m3uText);
+    renderChannels();
   } catch (error) {
-    console.error('Error cargando el archivo M3U:', error);
+    alert('No se pudo cargar la lista de canales.');
+    console.error(error);
   }
 }
 
 function parseM3U(data) {
-  const lines = data.split('\n');
-  const result = [];
-
+  const lines = data.split('\n').map(line => line.trim());
+  let result = [];
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (line.startsWith('#EXTINF')) {
-      const name = line.split(',')[1]?.trim() || 'Canal';
-      const logoMatch = line.match(/tvg-logo="(.*?)"/);
-      const logo = logoMatch ? logoMatch[1] : '';
-      const url = lines[i + 1]?.trim();
-      if (url && url.startsWith('http')) {
-        result.push({ name, logo, url });
-      }
+    if (lines[i].startsWith('#EXTINF:')) {
+      const info = lines[i];
+      const url = lines[i + 1];
+      if (!url || url.startsWith('#')) continue;
+
+      // Extraer nombre y logo de la línea EXTINF
+      const nameMatch = info.match(/,(.*)$/);
+      const logoMatch = info.match(/tvg-logo="([^"]+)"/);
+
+      result.push({
+        name: nameMatch ? nameMatch[1].trim() : 'Canal sin nombre',
+        url: url.trim(),
+        logo: logoMatch ? logoMatch[1] : null
+      });
     }
   }
-
   return result;
-}
-
-// Carga archivo JSON con datos EPG
-async function loadEPG() {
-  try {
-    const res = await fetch('epg.json');
-    epgData = await res.json();
-  } catch (error) {
-    console.error('Error cargando el archivo EPG:', error);
-  }
-}
-
-// Cambia canal y actualiza EPG
-function changeChannel(url, name) {
-  currentURL = url;
-  player.src({ src: url, type: 'application/x-mpegURL' });
-  player.play().catch(console.error);
-
-  document.getElementById('currentChannel').innerText = name;
-
-  updateEPG(name);
-}
-
-// Actualiza la sección EPG según el canal y la hora actual
-function updateEPG(channelName) {
-  if (!epgData) {
-    clearEPG();
-    return;
-  }
-
-  // Buscar canal en EPG por nombre (case insensitive)
-  const channel = epgData.channels.find(c => c.name.toLowerCase() === channelName.toLowerCase());
-  if (!channel) {
-    clearEPG();
-    return;
-  }
-
-  const now = new Date();
-
-  // Buscar programa actual (start <= now < stop)
-  const currentProgram = epgData.programmes.find(p => {
-    return (
-      p.channel === channel.id &&
-      new Date(p.start) <= now &&
-      now < new Date(p.stop)
-    );
-  });
-
-  if (currentProgram) {
-    document.getElementById('epgTitle').innerText = currentProgram.title;
-    document.getElementById('epgTime').innerText = `${formatTime(currentProgram.start)} - ${formatTime(currentProgram.stop)}`;
-    document.getElementById('epgDesc').innerText = currentProgram.desc;
-  } else {
-    clearEPG();
-  }
-}
-
-function clearEPG() {
-  document.getElementById('epgTitle').innerText = 'Sin información de EPG';
-  document.getElementById('epgTime').innerText = '';
-  document.getElementById('epgDesc').innerText = '';
-}
-
-function formatTime(dateTime) {
-  const date = new Date(dateTime);
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 function renderChannels() {
@@ -160,6 +85,70 @@ function renderChannels() {
     });
 
   container.appendChild(grid);
+}
+
+function changeChannel(url, name) {
+  videoPlayer.src({ type: 'application/x-mpegURL', src: url });
+  videoPlayer.play();
+  currentChannelId = url;
+  document.getElementById('currentChannel').textContent = name;
+  updateEPG(name);
+}
+
+async function fetchEPG() {
+  try {
+    const response = await fetch('epg.json');
+    if (!response.ok) throw new Error('Error cargando EPG');
+    epgData = await response.json();
+  } catch (error) {
+    console.error('No se pudo cargar EPG:', error);
+    epgData = null;
+  }
+}
+
+function updateEPG(channelName) {
+  if (!epgData) {
+    clearEPG();
+    return;
+  }
+
+  // Buscar canal en epgData.channels por nombre (sensible a mayúsculas/minúsculas)
+  const ch = epgData.channels.find(c => c.name.toLowerCase() === channelName.toLowerCase());
+  if (!ch) {
+    clearEPG();
+    return;
+  }
+
+  const now = new Date();
+  const nowISO = now.toISOString();
+
+  // Buscar programa en emisión para ese canal (por id)
+  const program = epgData.programmes.find(p =>
+    p.channel === ch.id &&
+    p.start <= nowISO &&
+    p.stop > nowISO
+  );
+
+  if (program) {
+    // Mostrar programa
+    document.getElementById('epgTitle').textContent = program.title || 'Sin título';
+    document.getElementById('epgDesc').textContent = program.desc || '';
+    document.getElementById('epgTime').textContent =
+      formatTime(program.start) + ' - ' + formatTime(program.stop);
+  } else {
+    clearEPG();
+  }
+}
+
+function clearEPG() {
+  document.getElementById('epgTitle').textContent = 'No hay información EPG disponible';
+  document.getElementById('epgDesc').textContent = '';
+  document.getElementById('epgTime').textContent = '';
+}
+
+function formatTime(dateString) {
+  const d = new Date(dateString);
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 function getFavorites() {
@@ -225,3 +214,27 @@ function renderFavorites() {
     container.appendChild(favCard);
   });
 }
+
+document.getElementById('search').addEventListener('input', renderChannels);
+
+async function init() {
+  await fetchChannels();
+  await fetchEPG();
+  renderFavorites();
+
+  // Seleccionar primer canal si hay
+  if (channels.length > 0) {
+    changeChannel(channels[0].url, channels[0].name);
+  }
+
+  // Actualizar EPG cada minuto
+  setInterval(() => {
+    if (currentChannelId) {
+      // Encontrar canal por URL para nombre
+      const ch = channels.find(c => c.url === currentChannelId);
+      if (ch) updateEPG(ch.name);
+    }
+  }, 60000);
+}
+
+init();
