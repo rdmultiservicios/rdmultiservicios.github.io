@@ -31,7 +31,6 @@ function parseM3U(data) {
       const url = lines[i + 1];
       if (!url || url.startsWith('#')) continue;
 
-      // Extraer nombre y logo de la línea EXTINF
       const nameMatch = info.match(/,(.*)$/);
       const logoMatch = info.match(/tvg-logo="([^"]+)"/);
 
@@ -112,7 +111,7 @@ function updateEPG(channelName) {
     return;
   }
 
-  // Buscar canal en epgData.channels por nombre (sensible a mayúsculas/minúsculas)
+  // Buscar canal en epgData.channels por nombre (case insensitive)
   const ch = epgData.channels.find(c => c.name.toLowerCase() === channelName.toLowerCase());
   if (!ch) {
     clearEPG();
@@ -122,7 +121,7 @@ function updateEPG(channelName) {
   const now = new Date();
   const nowISO = now.toISOString();
 
-  // Buscar programa en emisión para ese canal (por id)
+  // Buscar programa actual
   const program = epgData.programmes.find(p =>
     p.channel === ch.id &&
     p.start <= nowISO &&
@@ -130,7 +129,6 @@ function updateEPG(channelName) {
   );
 
   if (program) {
-    // Mostrar programa
     document.getElementById('epgTitle').textContent = program.title || 'Sin título';
     document.getElementById('epgDesc').textContent = program.desc || '';
     document.getElementById('epgTime').textContent =
@@ -177,64 +175,63 @@ function removeFavorite(url) {
 
 function renderFavorites() {
   const container = document.getElementById('favoritesList');
+  const favorites = getFavorites();
   container.innerHTML = '';
 
-  const favorites = getFavorites();
   favorites.forEach(fav => {
-    const favCard = document.createElement('div');
-    favCard.className = 'favorite-card';
+    const card = document.createElement('div');
+    card.className = 'favorite-card';
+    card.onclick = () => changeChannel(fav.url, fav.name);
 
-    const infoDiv = document.createElement('div');
-    infoDiv.className = 'favorite-info';
-    infoDiv.onclick = () => changeChannel(fav.url, fav.name);
+    const info = document.createElement('div');
+    info.className = 'favorite-info';
 
     const img = document.createElement('img');
     img.src = fav.logo || 'https://via.placeholder.com/50x30?text=No+Logo';
     img.alt = fav.name;
 
-    const nameDiv = document.createElement('div');
-    nameDiv.className = 'favorite-name';
-    nameDiv.textContent = fav.name;
+    const name = document.createElement('div');
+    name.className = 'favorite-name';
+    name.textContent = fav.name;
 
-    infoDiv.appendChild(img);
-    infoDiv.appendChild(nameDiv);
+    info.appendChild(img);
+    info.appendChild(name);
 
     const delBtn = document.createElement('button');
     delBtn.className = 'favorite-delete-btn';
-    delBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
     delBtn.title = 'Eliminar de favoritos';
+    delBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
     delBtn.onclick = (e) => {
       e.stopPropagation();
       removeFavorite(fav.url);
     };
 
-    favCard.appendChild(infoDiv);
-    favCard.appendChild(delBtn);
+    card.appendChild(info);
+    card.appendChild(delBtn);
 
-    container.appendChild(favCard);
+    container.appendChild(card);
   });
 }
 
 document.getElementById('search').addEventListener('input', renderChannels);
 
-async function init() {
+// Inicio
+(async () => {
   await fetchChannels();
   await fetchEPG();
-  renderFavorites();
 
-  // Seleccionar primer canal si hay
+  // Cambiar al primer canal disponible automáticamente si existe
   if (channels.length > 0) {
     changeChannel(channels[0].url, channels[0].name);
   }
 
+  renderFavorites();
+
   // Actualizar EPG cada minuto
   setInterval(() => {
     if (currentChannelId) {
-      // Encontrar canal por URL para nombre
       const ch = channels.find(c => c.url === currentChannelId);
       if (ch) updateEPG(ch.name);
     }
-  }, 60000);
-}
-
-init();
+  }, 60 * 1000);
+})();
