@@ -2,33 +2,35 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>IPTV Web Player</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Reproductor IPTV Mejorado</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container-fluid py-3">
-    <h1 class="text-center mb-4">IPTV Web Player</h1>
+  <h1>Reproductor IPTV Mejorado</h1>
 
-    <div class="row">
-      <!-- Lista de canales -->
-      <div class="col-md-3" id="channelList" style="max-height: 80vh; overflow-y: auto;">
-        <!-- Carga dinámica de canales -->
-      </div>
-
-      <!-- Reproductor -->
-      <div class="col-md-9">
-        <video id="videoPlayer" controls autoplay class="w-100 rounded border" style="max-height: 80vh;">
-          Tu navegador no soporta video HLS.
-        </video>
-      </div>
-    </div>
+  <div class="controls">
+    <label>Cargar Playlist M3U:
+      <input type="file" id="playlistFile" accept=".m3u,.m3u8">
+    </label>
+    <label>Cargar EPG XML:
+      <input type="file" id="epgFile" accept=".xml">
+    </label>
+    <label>Pegar URL M3U:
+      <input type="text" id="urlInput" placeholder="http://ejemplo.com/lista.m3u8">
+      <button id="loadFromUrl">Cargar</button>
+    </label>
+    <input type="text" id="searchInput" placeholder="Buscar canal...">
   </div>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="script.js"></script>
+  <div id="channelList"></div>
+
+  <video id="videoPlayer" controls autoplay></video>
+
+  <div id="epgInfo"></div>
+
+  <!-- Librería HLS.js para soporte .m3u8 -->
+  <script src="libs/hls.min.js"></script>
+  <script src="player.js"></script>
+  <script src="epg.js"></script>
 </body>
 </html>
