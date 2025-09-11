@@ -1,171 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reproductor IPTV Mejorado</title>
+  <meta charset="UTF‑8" />
+  <meta name="viewport" content="width=device‑width, initial‑scale=1" />
+  <title>IPTV Mejorado con EPG y Favoritos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10"></script>
+  <script src="https://cdn.jsdelivr.net/npm/m3u-parser-generator@5.0.1/dist/m3u-parser-generator.iife.js"></script>
 </head>
 <body class="bg-dark text-white">
 
-  <div class="container py-5">
-    <h1 class="mb-4">🎥 Reproductor IPTV Mejorado</h1>
-
-    <!-- Carga de M3U local o remota -->
-    <div class="row mb-4">
+  <div class="container py-4">
+    <h1 class="mb-4">Reproductor IPTV Avanzado</h1>
+    <!-- Carga de lista -->
+    <div class="row mb-3">
       <div class="col-md-6">
-        <label for="m3uInput" class="form-label">Cargar archivo M3U (local)</label>
-        <input class="form-control" type="file" id="m3uInput" accept=".m3u,.txt">
+        <input id="m3uInput" type="file" class="form-control" accept=".m3u,.txt">
       </div>
-      <div class="col-md-6">
-        <label for="m3uUrl" class="form-label">O desde URL remota</label>
-        <div class="input-group">
-          <input class="form-control" type="url" id="m3uUrl" placeholder="https://ejemplo.com/lista.m3u">
-          <button class="btn btn-primary" id="loadUrlBtn">Cargar</button>
-        </div>
+      <div class="col-md-6 input-group">
+        <input id="m3uUrl" type="url" placeholder="URL de lista M3U" class="form-control">
+        <button id="loadUrlBtn" class="btn btn-primary">Cargar</button>
       </div>
     </div>
-
-    <!-- Reproductor y lista -->
+    <!-- Búsqueda y filtros -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <input id="searchInput" type="text" placeholder="Buscar canal..." class="form-control">
+      </div>
+      <div class="col-md-4">
+        <button id="favFilterBtn" class="btn btn-outline-warning">Mostrar solo favoritos</button>
+      </div>
+    </div>
+    <!-- Contenido -->
     <div class="row">
       <div class="col-md-4">
-        <ul class="list-group" id="channelList"></ul>
+        <div id="channelList" class="list-group overflow-auto" style="max-height:80vh;"></div>
       </div>
       <div class="col-md-8">
         <div class="ratio ratio-16x9 bg-black mb-3">
-          <video id="videoPlayer" controls autoplay class="w-100 h-100" crossorigin="anonymous"></video>
+          <video id="videoPlayer" controls autoplay class="w-100 h-100"></video>
         </div>
-        <div id="channelName" class="text-center fw-bold"></div>
+        <div id="channelInfo" class="text-center">
+          <h5 id="channelName"></h5>
+          <img id="channelLogo" src="" alt="" class="img-fluid" style="max-height:100px;">
+          <div id="channelGroup" class="fst-italic mt-2"></div>
+          <button id="favBtn" class="btn btn-outline-warning mt-2">♥ Favorito</button>
+        </div>
+        <!-- EPG (opcional, solo si tienes URL EPG integrada) -->
+        <div id="epgContainer" class="mt-3"></div>
       </div>
     </div>
   </div>
 
-  <!-- JS principal -->
   <script>
+    const parser = new m3uParserGenerator.M3uParser();
+    let allChannels = [], filteredChannels = [];
+    let currentHls = null;
+    let favorites = new Set(JSON.parse(localStorage.getItem('favorites')||'[]'));
+
     const m3uInput = document.getElementById('m3uInput');
     const m3uUrl = document.getElementById('m3uUrl');
     const loadUrlBtn = document.getElementById('loadUrlBtn');
     const channelList = document.getElementById('channelList');
+    const searchInput = document.getElementById('searchInput');
+    const favFilterBtn = document.getElementById('favFilterBtn');
     const videoPlayer = document.getElementById('videoPlayer');
-    const channelNameDisplay = document.getElementById('channelName');
+    const channelName = document.getElementById('channelName');
+    const channelLogo = document.getElementById('channelLogo');
+    const channelGroup = document.getElementById('channelGroup');
+    const favBtn = document.getElementById('favBtn');
 
-    let currentHls = null;
-    let channels = [];
-
-    // Leer desde archivo local
-    m3uInput.addEventListener('change', function(event) {
-      const file = event.target.files[0];
+    m3uInput.addEventListener('change', e => {
+      const file = e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
-      reader.onload = function(e) {
-        const content = e.target.result;
-        channels = parseM3U(content);
-        renderChannelList(channels);
-        saveToLocalStorage(null, content);
-      };
+      reader.onload = e => loadPlaylist(e.target.result);
       reader.readAsText(file);
     });
 
-    // Leer desde URL remota
-    loadUrlBtn.addEventListener('click', function () {
-      const url = m3uUrl.value.trim();
-      if (!url) return;
-
-      fetch(url)
-        .then(res => res.text())
-        .then(data => {
-          channels = parseM3U(data);
-          renderChannelList(channels);
-          saveToLocalStorage(url, null);
-        })
-        .catch(err => alert("Error al cargar la lista desde URL."));
+    loadUrlBtn.addEventListener('click', () => {
+      if (!m3uUrl.value.trim()) return;
+      fetch(m3uUrl.value.trim())
+        .then(r => r.text())
+        .then(loadPlaylist)
+        .catch(() => alert('Error al cargar desde URL'));
     });
 
-    // Parseador M3U
-    function parseM3U(content) {
-      const lines = content.split('\n').map(line => line.trim()).filter(Boolean);
-      const list = [];
-
-      for (let i = 0; i < lines.length; i++) {
-        if (lines[i].startsWith('#EXTINF')) {
-          const nameMatch = lines[i].match(/,(.+)$/);
-          const name = nameMatch ? nameMatch[1] : 'Canal desconocido';
-          const url = lines[i + 1];
-          if (url && url.startsWith('http')) {
-            list.push({ name, url });
-          }
-        }
-      }
-
-      return list;
+    function loadPlaylist(text) {
+      const pl = parser.parse(text);
+      allChannels = pl.medias.map(m => ({
+        name: m.name,
+        url: m.location,
+        logo: m.attributes['tvg-logo']||'',
+        group: m.attributes['group-title']||'',
+        id: m.name + m.location
+      }));
+      filteredChannels = allChannels;
+      renderList();
     }
 
-    // Renderiza la lista de canales
-    function renderChannelList(channels) {
+    function renderList() {
       channelList.innerHTML = '';
-
-      channels.forEach((channel, index) => {
-        const li = document.createElement('li');
-        li.className = 'list-group-item list-group-item-action';
-        li.textContent = channel.name;
-        li.style.cursor = 'pointer';
-        li.addEventListener('click', () => playChannel(channel));
+      const term = searchInput.value.toLowerCase();
+      const showFavs = favFilterBtn.classList.contains('active');
+      filteredChannels = allChannels.filter(ch =>
+        ch.name.toLowerCase().includes(term) &&
+        (!showFavs || favorites.has(ch.id))
+      );
+      filteredChannels.forEach(ch => {
+        const li = document.createElement('button');
+        li.className = 'list-group-item list-group-item-action d-flex justify-content-between';
+        li.innerHTML = `<span>${ch.name}</span>${favorites.has(ch.id)?'★':''}`;
+        li.onclick = () => playChannel(ch);
         channelList.appendChild(li);
-
-        // Autoplay el primero
-        if (index === 0) playChannel(channel);
       });
     }
 
-    // Reproduce un canal
-    function playChannel(channel) {
-      channelNameDisplay.textContent = `Estás viendo: ${channel.name}`;
+    searchInput.addEventListener('input', renderList);
+    favFilterBtn.addEventListener('click', () => {
+      favFilterBtn.classList.toggle('active');
+      renderList();
+    });
 
-      if (currentHls) {
-        currentHls.destroy();
-        currentHls = null;
-      }
+    function playChannel(ch) {
+      channelName.textContent = ch.name;
+      channelGroup.textContent = ch.group;
+      channelLogo.src = ch.logo;
+      favBtn.textContent = favorites.has(ch.id)? '♥ Quitar favorito' : '♡ Agregar favorito';
+      favBtn.onclick = () => {
+        if (favorites.has(ch.id)) favorites.delete(ch.id);
+        else favorites.add(ch.id);
+        localStorage.setItem('favorites', JSON.stringify([...favorites]));
+        renderList();
+        favBtn.textContent = favorites.has(ch.id)? '♥ Quitar favorito' : '♡ Agregar favorito';
+      };
 
-      if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-        videoPlayer.src = channel.url;
-      } else if (Hls.isSupported()) {
+      if (currentHls) currentHls.destroy();
+      if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) videoPlayer.src = ch.url;
+      else if (Hls.isSupported()) {
         currentHls = new Hls();
-        currentHls.loadSource(channel.url);
+        currentHls.loadSource(ch.url);
         currentHls.attachMedia(videoPlayer);
-      } else {
-        alert('Tu navegador no soporta HLS.');
-      }
-
+      } else alert('Tu navegador no soporta HLS.');
       videoPlayer.play();
     }
-
-    // Guardar en localStorage
-    function saveToLocalStorage(url = null, content = null) {
-      if (url) {
-        localStorage.setItem('iptv_url', url);
-        localStorage.removeItem('iptv_content');
-      } else if (content) {
-        localStorage.setItem('iptv_content', content);
-        localStorage.removeItem('iptv_url');
-      }
-    }
-
-    // Cargar automáticamente última lista usada
-    window.addEventListener('load', () => {
-      const savedUrl = localStorage.getItem('iptv_url');
-      const savedContent = localStorage.getItem('iptv_content');
-
-      if (savedUrl) {
-        m3uUrl.value = savedUrl;
-        loadUrlBtn.click();
-      } else if (savedContent) {
-        channels = parseM3U(savedContent);
-        renderChannelList(channels);
-      }
-    });
   </script>
-
 </body>
 </html>
