@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPTV Reproductor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .video-container {
+      background-color: #000;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+    .epg-box, .channels-box {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-top: 1rem;
+    }
+    footer {
+      background-color: #343a40;
+      color: #fff;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        IPTV Reproductor
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">EPG</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <div class="container mt-4">
+
+    <!-- Reproductor de Video -->
+    <div class="video-container rounded overflow-hidden">
+      <video id="iptvPlayer" class="w-100 h-100" controls autoplay>
+        <source src="https://path-to-your-stream/playlist.m3u8" type="application/x-mpegURL">
+        Tu navegador no soporta el video.
+      </video>
+    </div>
+
+    <!-- EPG (Guía de programación) -->
+    <div class="epg-box mt-3">
+      <h5>Guía de programación (EPG)</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">08:00 - Noticias</li>
+        <li class="list-group-item">09:00 - Programa matutino</li>
+        <li class="list-group-item">10:30 - Serie: "Ejemplo de serie"</li>
+        <li class="list-group-item">12:00 - Película: "Ejemplo de película"</li>
+      </ul>
+    </div>
+
+    <!-- Lista de canales -->
+    <div class="channels-box mt-3">
+      <h5>Canales disponibles</h5>
+      <div class="row row-cols-2 row-cols-md-4 g-3">
+        <div class="col">
+          <button class="btn btn-outline-primary w-100">Canal 1</button>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-primary w-100">Canal 2</button>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-primary w-100">Canal 3</button>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-primary w-100">Canal 4</button>
+        </div>
+        <!-- Puedes agregar más canales aquí -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container">
+      <p class="mb-0">© 2025 IPTV Reproductor. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
