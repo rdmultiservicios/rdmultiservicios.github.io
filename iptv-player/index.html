@@ -93,17 +93,19 @@
       padding: 0 1rem 1.5rem 1rem;
       min-height: 50vh;
       /* para que la sección tome el resto y tenga scroll si necesario */
+
+      overflow: hidden;  /* evitar scroll doble, que los hijos manejen scroll */
     }
 
     /* Contenedor canales */
     #channels-section {
-      flex: 2;
+      flex: 2 1 auto;
       display: flex;
       flex-direction: column;
       background-color: #222;
       border-radius: 8px;
       padding: 1rem;
-      overflow-y: auto;
+      overflow-y: hidden;
       max-height: 100%;
     }
 
