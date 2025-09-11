@@ -63,22 +63,28 @@ function renderChannels(list) {
   const container = document.getElementById('channelList');
   container.innerHTML = '';
   list.forEach(channel => {
-    const div = document.createElement('div');
-    div.className = 'channel';
+    const col = document.createElement('div');
+    col.className = 'col';
+
+    const card = document.createElement('div');
+    card.className = 'channel';
 
     const img = document.createElement('img');
     img.src = channel.logo || 'https://via.placeholder.com/40?text=TV';
     img.alt = 'logo';
 
-    const text = document.createElement('span');
-    text.textContent = channel.title;
+    const title = document.createElement('span');
+    title.textContent = channel.title;
 
-    div.appendChild(img);
-    div.appendChild(text);
-    div.addEventListener('click', () => playChannel(channel));
-    container.appendChild(div);
+    card.appendChild(img);
+    card.appendChild(title);
+    card.addEventListener('click', () => playChannel(channel));
+
+    col.appendChild(card);
+    container.appendChild(col);
   });
 }
+
 
 function playChannel(channel) {
   const video = document.getElementById('videoPlayer');
