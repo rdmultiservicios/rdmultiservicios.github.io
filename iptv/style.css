@@ -1,1 +1,15 @@
+.channel-button {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.channel-button:hover {
+  background-color: #f0f0f0;
+}
+
+.channel-logo {
+  height: 20px;
+  margin-right: 10px;
+}
 
