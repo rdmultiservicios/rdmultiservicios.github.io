@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV - Diseño Tipo Movistar TV</title>
+  <title>IPTV - Diseño Moderno Tipo Movistar TV</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10"></script>
   <script src="https://cdn.jsdelivr.net/npm/m3u-parser-generator@5.0.1/dist/m3u-parser-generator.iife.js"></script>
@@ -15,54 +15,86 @@
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      padding-top: 70px; /* Para navbar fijo */
     }
 
-    h2 {
-      color: #00a0e9;
+    /* Navbar */
+    .navbar-custom {
+      background-color: #001f3f;
+      box-shadow: 0 3px 8px rgba(0, 160, 233, 0.6);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1030;
+    }
+    .navbar-brand {
       font-weight: 700;
-      letter-spacing: 1px;
-      text-align: center;
-      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      color: #00a0e9 !important;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .navbar-brand img {
+      height: 32px;
     }
 
-    /* Inputs y botones */
-    input.form-control, 
-    .btn {
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: background-color 0.3s ease;
-    }
-
-    input.form-control:focus {
-      box-shadow: 0 0 8px #00a0e9;
-      border-color: #00a0e9;
+    /* Inputs y botones mejorados */
+    input.form-control {
+      border-radius: 12px;
+      font-size: 1.1rem;
+      padding: 12px 16px;
       background-color: #1e1e1e;
+      border: 1.5px solid #444;
+      color: #eee;
+      box-shadow: 0 0 5px transparent;
+      transition: all 0.3s ease;
+    }
+    input.form-control::placeholder {
+      color: #888;
+    }
+    input.form-control:focus {
+      background-color: #121212;
+      border-color: #00a0e9;
+      box-shadow: 0 0 10px #00a0e9;
       color: #fff;
+      outline: none;
     }
 
     .btn-primary {
       background-color: #00a0e9;
       border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 12px 24px;
+      box-shadow: 0 0 12px #00a0e9aa;
+      transition: background-color 0.3s ease;
     }
-
     .btn-primary:hover {
       background-color: #007bbf;
+      box-shadow: 0 0 20px #007bbfcc;
     }
 
     .btn-outline-warning {
       color: #ffc107;
       border-color: #ffc107;
-      font-weight: 600;
+      font-weight: 700;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      padding: 12px 24px;
+      transition: all 0.3s ease;
     }
-
     .btn-outline-warning.active,
     .btn-outline-warning:hover {
       background-color: #ffc107;
       color: #121212;
       border-color: #ffc107;
+      box-shadow: 0 0 20px #ffc107cc;
     }
 
-    /* Lista de canales como cards */
+    /* Lista de canales sin sombras */
     #channelList {
       max-height: 65vh;
       overflow-y: auto;
@@ -75,24 +107,24 @@
     .channel-card {
       background-color: #1e1e1e;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      /* box-shadow eliminado */
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 12px;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      transition: transform 0.2s ease;
       user-select: none;
     }
 
     .channel-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(0,160,233,0.8);
+      /* box-shadow eliminado */
     }
 
     .channel-card.active {
       border: 3px solid #00a0e9;
-      box-shadow: 0 6px 20px rgba(0,160,233,1);
+      /* box-shadow eliminado */
       transform: scale(1.1);
       background-color: #121212;
     }
@@ -205,6 +237,16 @@
 </head>
 <body>
 
+<!-- Navbar -->
+<nav class="navbar navbar-custom navbar-expand-lg">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" href="#">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Movistar_logo_2018.svg" alt="Logo Movistar" />
+      IPTV Movistar TV
+    </a>
+  </div>
+</nav>
+
 <div class="container-fluid py-4">
   <h2>IPTV - Diseño Moderno Tipo Movistar TV</h2>
 
@@ -246,127 +288,184 @@
       <div id="channelInfo">
         <h3 id="channelName"></h3>
         <img id="channelLogo" src="" alt="" class="big" />
-        <div id="channelGroup"></div>
-        <button id="favBtn">♥ Favorito</button>
+        <p id="channelGroup"></p>
+        <button id="favBtn">⭐ Añadir a favoritos</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  const parser = new m3uParserGenerator.M3uParser();
-  let allChannels = [];
+  let channels = [];
   let filteredChannels = [];
-  let currentHls = null;
-  let favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
-  let activeChannelId = null;
+  let favorites = new Set();
+  let showingFavorites = false;
+  let currentChannelId = null;
 
+  const channelListEl = document.getElementById("channelList");
+  const videoPlayer = document.getElementById("videoPlayer");
+  const channelNameEl = document.getElementById("channelName");
+  const channelGroupEl = document.getElementById("channelGroup");
+  const channelLogoEl = document.getElementById("channelLogo");
+  const favBtn = document.getElementById("favBtn");
+
+  const searchInput = document.getElementById("searchInput");
+  const favFilterBtn = document.getElementById("favFilterBtn");
   const m3uInput = document.getElementById("m3uInput");
   const m3uUrl = document.getElementById("m3uUrl");
   const loadUrlBtn = document.getElementById("loadUrlBtn");
-  const channelList = document.getElementById("channelList");
-  const searchInput = document.getElementById("searchInput");
-  const favFilterBtn = document.getElementById("favFilterBtn");
-  const videoPlayer = document.getElementById("videoPlayer");
-  const channelName = document.getElementById("channelName");
-  const channelLogo = document.getElementById("channelLogo");
-  const channelGroup = document.getElementById("channelGroup");
-  const favBtn = document.getElementById("favBtn");
 
-  m3uInput.addEventListener("change", (e) => {
+  // Carga lista desde archivo local
+  m3uInput.addEventListener("change", e => {
+    if(e.target.files.length === 0) return;
     const file = e.target.files[0];
-    if (!file) return;
     const reader = new FileReader();
-    reader.onload = (e) => loadPlaylist(e.target.result);
+    reader.onload = () => {
+      loadChannelsFromText(reader.result);
+    };
     reader.readAsText(file);
   });
 
+  // Carga lista desde URL
   loadUrlBtn.addEventListener("click", () => {
     const url = m3uUrl.value.trim();
-    if (!url) return;
+    if(!url) return alert("Por favor, ingresa una URL válida.");
     fetch(url)
-      .then((r) => r.text())
-      .then(loadPlaylist)
-      .catch(() => alert("Error al cargar lista"));
+      .then(res => {
+        if (!res.ok) throw new Error("No se pudo cargar la lista.");
+        return res.text();
+      })
+      .then(text => loadChannelsFromText(text))
+      .catch(err => alert(err.message));
   });
 
-  searchInput.addEventListener("input", renderList);
-
-  favFilterBtn.addEventListener("click", () => {
-    favFilterBtn.classList.toggle("active");
-    renderList();
-  });
-
-  function loadPlaylist(text) {
-    const pl = parser.parse(text);
-    allChannels = pl.medias.map((m) => ({
-      name: m.name,
-      url: m.location,
-      logo: m.attributes["tvg-logo"] || "",
-      group: m.attributes["group-title"] || "",
-      id: m.name + m.location,
+  // Parsear y cargar canales
+  function loadChannelsFromText(text) {
+    const parsed = M3UParserGenerator.M3U.parse(text);
+    channels = parsed.items.map((item, i) => ({
+      id: i,
+      name: item.name || `Canal ${i + 1}`,
+      url: item.url,
+      group: item.group || "Sin grupo",
+      logo: item.tvgLogo || "",
     }));
-    filteredChannels = allChannels;
-    renderList();
+    filteredChannels = [...channels];
+    currentChannelId = null;
+    showingFavorites = false;
+    favFilterBtn.classList.remove("active");
+    renderChannelList();
+    playChannel(channels[0]?.id);
   }
 
-  function renderList() {
-    channelList.innerHTML = "";
-    const term = searchInput.value.toLowerCase();
-    const showFavs = favFilterBtn.classList.contains("active");
-
-    filteredChannels = allChannels.filter(
-      (ch) => ch.name.toLowerCase().includes(term) && (!showFavs || favorites.has(ch.id))
-    );
-
-    filteredChannels.forEach((ch) => {
-      const card = document.createElement("div");
-      card.className = "channel-card";
-      if (activeChannelId === ch.id) card.classList.add("active");
-
-      card.innerHTML = `
-        <img src="${ch.logo || 'https://via.placeholder.com/90?text=No+Logo'}" alt="${ch.name}" class="channel-logo" />
-        <div class="channel-name">${ch.name}</div>
-        <div style="margin-top:5px; font-size:0.9rem; color:#888;">${ch.group}</div>
-        <div style="font-size:1.2rem; margin-top:5px;">${favorites.has(ch.id) ? "★" : ""}</div>
-      `;
-
-      card.onclick = () => playChannel(ch);
-      channelList.appendChild(card);
-    });
-  }
-
-  function playChannel(ch) {
-    activeChannelId = ch.id;
-    channelName.textContent = ch.name;
-    channelGroup.textContent = ch.group;
-    channelLogo.src = ch.logo || "https://via.placeholder.com/120?text=No+Logo";
-    favBtn.textContent = favorites.has(ch.id) ? "♥ Quitar favorito" : "♡ Agregar favorito";
-
-    favBtn.onclick = () => {
-      if (favorites.has(ch.id)) favorites.delete(ch.id);
-      else favorites.add(ch.id);
-      localStorage.setItem("favorites", JSON.stringify([...favorites]));
-      renderList();
-      favBtn.textContent = favorites.has(ch.id) ? "♥ Quitar favorito" : "♡ Agregar favorito";
-    };
-
-    if (currentHls) currentHls.destroy();
-
-    if (videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
-      videoPlayer.src = ch.url;
-    } else if (Hls.isSupported()) {
-      currentHls = new Hls();
-      currentHls.loadSource(ch.url);
-      currentHls.attachMedia(videoPlayer);
-    } else {
-      alert("Tu navegador no soporta HLS.");
+  // Renderizar lista de canales
+  function renderChannelList() {
+    let list = filteredChannels;
+    if(showingFavorites) {
+      list = list.filter(c => favorites.has(c.id));
     }
 
-    videoPlayer.play();
-    renderList();
-  }
-</script>
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    if(searchTerm) {
+      list = list.filter(c => c.name.toLowerCase().includes(searchTerm));
+    }
 
+    channelListEl.innerHTML = "";
+    if(list.length === 0) {
+      channelListEl.innerHTML = "<p class='text-center text-muted mt-3'>No se encontraron canales</p>";
+      return;
+    }
+    for(const ch of list) {
+      const card = document.createElement("div");
+      card.className = "channel-card";
+      if(ch.id === currentChannelId) card.classList.add("active");
+      card.title = ch.name;
+      card.onclick = () => playChannel(ch.id);
+
+      const logo = document.createElement("img");
+      logo.src = ch.logo || "https://via.placeholder.com/90x90?text=No+Logo";
+      logo.alt = ch.name;
+      logo.className = "channel-logo";
+
+      const name = document.createElement("div");
+      name.className = "channel-name";
+      name.textContent = ch.name;
+
+      card.appendChild(logo);
+      card.appendChild(name);
+      channelListEl.appendChild(card);
+    }
+  }
+
+  // Reproducir canal
+  function playChannel(id) {
+    const channel = channels.find(c => c.id === id);
+    if(!channel) return;
+
+    currentChannelId = id;
+    renderChannelList();
+
+    channelNameEl.textContent = channel.name;
+    channelGroupEl.textContent = channel.group;
+    channelLogoEl.src = channel.logo || "https://via.placeholder.com/120x120?text=No+Logo";
+    channelLogoEl.alt = channel.name;
+
+    if(Hls.isSupported() && channel.url.endsWith(".m3u8")) {
+      if(window.hls) {
+        window.hls.destroy();
+      }
+      window.hls = new Hls();
+      window.hls.loadSource(channel.url);
+      window.hls.attachMedia(videoPlayer);
+      window.hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        videoPlayer.play();
+      });
+    } else {
+      videoPlayer.src = channel.url;
+      videoPlayer.play();
+    }
+
+    updateFavButton();
+  }
+
+  // Botón favorito
+  favBtn.addEventListener("click", () => {
+    if(currentChannelId === null) return;
+    if(favorites.has(currentChannelId)) {
+      favorites.delete(currentChannelId);
+    } else {
+      favorites.add(currentChannelId);
+    }
+    updateFavButton();
+  });
+
+  // Actualizar texto y estilo del botón favorito
+  function updateFavButton() {
+    if(currentChannelId === null) {
+      favBtn.style.display = "none";
+      return;
+    }
+    favBtn.style.display = "inline-block";
+    if(favorites.has(currentChannelId)) {
+      favBtn.textContent = "⭐ Quitar de favoritos";
+      favBtn.classList.add("active");
+    } else {
+      favBtn.textContent = "⭐ Añadir a favoritos";
+      favBtn.classList.remove("active");
+    }
+  }
+
+  // Filtro favoritos
+  favFilterBtn.addEventListener("click", () => {
+    showingFavorites = !showingFavorites;
+    favFilterBtn.classList.toggle("active");
+    renderChannelList();
+  });
+
+  // Filtro búsqueda
+  searchInput.addEventListener("input", () => {
+    renderChannelList();
+  });
+
+</script>
 </body>
 </html>
