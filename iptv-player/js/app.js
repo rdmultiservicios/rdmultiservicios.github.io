@@ -1,190 +1,233 @@
-let player;
-let channels = [];
-let currentURL = '';
-let lastURL = '';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IPTV - Reproductor con cuadrícula 3x3</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Video.js CSS -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 
-window.onload = async function() {
-  player = videojs('video-player', {
-    controls: true,
-    autoplay: true,
-    fluid: true,
-    controlBar: {
-      volumePanel: { inline: false }
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
     }
-  });
-  player.addClass('vjs-custom-skin');
 
-  await loadChannels();
-  renderChannels();
-  renderFavorites();
-  if (channels.length > 0) {
-    changeChannel(channels[0].url, channels[0].name);
-  }
+    #video-container {
+      flex: 0 0 auto;
+      max-height: 40vh;
+      background: black;
+    }
 
-  document.getElementById('search').addEventListener('input', renderChannels);
-};
+    #lists-container {
+      flex: 1 1 auto;
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      overflow-y: auto;
+      flex-wrap: nowrap;
+    }
 
-async function loadChannels() {
-  try {
-    const res = await fetch('channels.m3u');
-    const text = await res.text();
-    channels = parseM3U(text);
-  } catch (err) {
-    console.error("Error cargando M3U:", err);
-  }
-}
-
-function parseM3U(data) {
-  const lines = data.split('\n');
-  const out = [];
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (line.startsWith('#EXTINF')) {
-      const nameMatch = line.match(/,(.*)$/);
-      const logoMatch = line.match(/tvg-logo="(.*?)"/);
-      const name = nameMatch ? nameMatch[1].trim() : 'Canal sin nombre';
-      const logo = logoMatch ? logoMatch[1] : '';
-      const url = (lines[i + 1] || '').trim();
-      if (url && url.startsWith('http')) {
-        out.push({ name, url, logo });
+    @media (min-width: 768px) {
+      #lists-container {
+        flex-direction: row;
+      }
+      #channelList, #favoritesList {
+        flex: 1;
+        max-height: calc(60vh - 2rem);
+        overflow-y: auto;
+        padding-right: 0.5rem;
+        scroll-behavior: smooth;
       }
     }
-  }
-  return out;
-}
 
-function changeChannel(url, name) {
-  if (currentURL) lastURL = currentURL;
-  currentURL = url;
-  player.src({ src: url, type: 'application/x-mpegURL' });
-  player.play().catch(e => console.error(e));
-  document.getElementById('currentChannel').innerText = name;
-}
+    @media (max-width: 767.98px) {
+      #lists-container {
+        flex-direction: column;
+      }
+      #channelList, #favoritesList {
+        max-height: 30vh;
+        width: 100%;
+        margin-bottom: 1rem;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+        scroll-behavior: smooth;
+      }
+    }
 
-function goBack() {
-  if (lastURL) changeChannel(lastURL, 'Anterior');
-}
+    /* Grid de 3 columnas fijas (en escritorio) */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
 
-function reloadChannel() {
-  if (currentURL) changeChannel(currentURL, document.getElementById('currentChannel').innerText);
-}
+    /* Ajustes responsive */
+    @media (max-width: 767.98px) {
+      .channel-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-function togglePip() {
-  let vid = player.tech().el();
-  if (document.pictureInPictureElement) {
-    document.exitPictureInPicture().catch(e => console.error(e));
-  } else {
-    vid.requestPictureInPicture().catch(e => console.error(e));
-  }
-}
+    @media (max-width: 480px) {
+      .channel-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-function toggleFullscreen() {
-  if (!player.isFullscreen()) {
-    player.requestFullscreen();
-  } else {
-    player.exitFullscreen();
-  }
-}
+    .channel-card {
+      background-color: #222;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.2s ease;
+      user-select: none;
+    }
 
-function renderChannels() {
-  const container = document.getElementById('channelList');
-  const search = document.getElementById('search').value.toLowerCase();
-  container.innerHTML = '';
-  const grid = document.createElement('div');
-  grid.className = 'channel-grid';
+    .channel-card:hover {
+      background-color: #333;
+    }
 
-  channels
-    .filter(ch => ch.name.toLowerCase().includes(search))
-    .forEach(ch => {
-      const card = document.createElement('div');
-      card.className = 'channel-card';
-      card.title = ch.name;
-      card.onclick = () => changeChannel(ch.url, ch.name);
+    .channel-card img {
+      width: 80px;
+      height: 45px;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+    }
 
-      const logo = document.createElement('img');
-      logo.src = ch.logo || 'https://via.placeholder.com/80x45?text=No+Logo';
-      logo.alt = ch.name;
+    .channel-name {
+      text-align: center;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
 
-      const name = document.createElement('div');
-      name.className = 'channel-name';
-      name.textContent = ch.name;
+    .channel-fav-btn {
+      margin-top: auto;
+      color: #f0ad4e;
+      font-size: 1.3rem;
+      cursor: pointer;
+      user-select: none;
+    }
 
-      const favBtn = document.createElement('div');
-      favBtn.className = 'channel-fav-btn';
-      favBtn.innerHTML = '<i class="bi bi-star"></i>';
-      favBtn.title = 'Agregar a favoritos';
-      favBtn.onclick = (e) => {
-        e.stopPropagation();
-        addFavorite(ch.name, ch.url, ch.logo);
-      };
+    .channel-fav-btn:hover {
+      color: #ffc107;
+    }
 
-      card.appendChild(logo);
-      card.appendChild(name);
-      card.appendChild(favBtn);
+    .favorite-card {
+      background-color: #444;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
 
-      grid.appendChild(card);
-    });
+    .favorite-card:hover {
+      background-color: #555;
+    }
 
-  container.appendChild(grid);
-}
+    .favorite-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      overflow: hidden;
+    }
 
-function renderFavorites() {
-  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-  const container = document.getElementById('favoritesList');
-  container.innerHTML = '';
+    .favorite-info img {
+      width: 50px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
 
-  if (favs.length === 0) {
-    container.innerHTML = '<p>No hay favoritos.</p>';
-    return;
-  }
+    .favorite-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
+    }
 
-  favs.forEach((ch, i) => {
-    const card = document.createElement('div');
-    card.className = 'favorite-card';
+    .favorite-delete-btn {
+      background: transparent;
+      border: none;
+      color: #dc3545;
+      font-size: 1.3rem;
+      cursor: pointer;
+      user-select: none;
+    }
 
-    const info = document.createElement('div');
-    info.className = 'favorite-info';
-    info.onclick = () => changeChannel(ch.url, ch.name);
+    .favorite-delete-btn:hover {
+      color: #ff6b6b;
+    }
 
-    const logo = document.createElement('img');
-    logo.src = ch.logo || 'https://via.placeholder.com/80x45?text=No+Logo';
-    logo.alt = ch.name;
+    .current-channel-label {
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      background-color: #222;
+      text-align: center;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
 
-    const name = document.createElement('div');
-    name.className = 'favorite-name';
-    name.textContent = ch.name;
+  <div id="video-container">
+    <video
+      id="video-player"
+      class="video-js vjs-default-skin"
+      controls
+      preload="auto"
+      autoplay
+      playsinline
+      fluid
+    ></video>
+    <div class="current-channel-label" id="currentChannel">Canal Actual</div>
+  </div>
 
-    info.appendChild(logo);
-    info.appendChild(name);
+  <div id="lists-container" class="container-fluid">
+    <div>
+      <h5>Canales</h5>
+      <input
+        type="text"
+        id="search"
+        class="form-control mb-3"
+        placeholder="Buscar canal..."
+        autocomplete="off"
+      />
+      <div id="channelList"></div>
+    </div>
 
-    const delBtn = document.createElement('button');
-    delBtn.className = 'favorite-delete-btn';
-    delBtn.title = 'Eliminar favorito';
-    delBtn.innerHTML = '<i class="bi bi-trash"></i>';
-    delBtn.onclick = (e) => {
-      e.stopPropagation();
-      removeFavorite(i);
-    };
+    <div>
+      <h5>Favoritos</h5>
+      <div id="favoritesList"></div>
+    </div>
+  </div>
 
-    card.appendChild(info);
-    card.appendChild(delBtn);
-
-    container.appendChild(card);
-  });
-}
-
-function addFavorite(name, url, logo) {
-  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-  if (!favs.find(f => f.name === name)) {
-    favs.push({ name, url, logo });
-    localStorage.setItem('favorites', JSON.stringify(favs));
-    renderFavorites();
-  }
-}
-
-function removeFavorite(index) {
-  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-  favs.splice(index, 1);
-  localStorage.setItem('favorites', JSON.stringify(favs));
-  renderFavorites();
-}
+  <!-- Video.js y app.js -->
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
