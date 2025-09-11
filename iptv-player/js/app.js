@@ -1,5 +1,3 @@
-// js/app.js
-
 let player;
 let channels = [];
 let currentURL = '';
@@ -9,7 +7,7 @@ window.onload = async function() {
   player = videojs('video-player', {
     controls: true,
     autoplay: true,
-    fluid: true,       // fluido, que se ajuste al contenedor
+    fluid: true,
     controlBar: {
       volumePanel: { inline: false }
     }
@@ -58,7 +56,6 @@ function parseM3U(data) {
 function changeChannel(url, name) {
   if (currentURL) lastURL = currentURL;
   currentURL = url;
-  // Cambiar fuente en videojs
   player.src({ src: url, type: 'application/x-mpegURL' });
   player.play().catch(e => console.error(e));
   document.getElementById('currentChannel').innerText = name;
@@ -73,7 +70,7 @@ function reloadChannel() {
 }
 
 function togglePip() {
-  let vid = player.tech().el();  // obtener el elemento video real
+  let vid = player.tech().el();
   if (document.pictureInPictureElement) {
     document.exitPictureInPicture().catch(e => console.error(e));
   } else {
@@ -93,21 +90,87 @@ function renderChannels() {
   const container = document.getElementById('channelList');
   const search = document.getElementById('search').value.toLowerCase();
   container.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'channel-grid';
+
   channels
     .filter(ch => ch.name.toLowerCase().includes(search))
     .forEach(ch => {
-      const btn = document.createElement('button');
-      btn.className = 'btn btn-outline-light channel-item d-flex align-items-center gap-2 mb-1';
-      btn.innerHTML = `
-        <img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30" alt="logo">
-        <span class="flex-grow-1 text-start">${ch.name}</span>
-        <span onclick="event.stopPropagation(); addFavorite('${ch.name.replace(/'/g, "\\'")}', '${ch.url}', '${ch.logo}')">
-          <i class="bi bi-star"></i>
-        </span>
-      `;
-      btn.onclick = () => changeChannel(ch.url, ch.name);
-      container.appendChild(btn);
+      const card = document.createElement('div');
+      card.className = 'channel-card';
+      card.title = ch.name;
+      card.onclick = () => changeChannel(ch.url, ch.name);
+
+      const logo = document.createElement('img');
+      logo.src = ch.logo || 'https://via.placeholder.com/80x45?text=No+Logo';
+      logo.alt = ch.name;
+
+      const name = document.createElement('div');
+      name.className = 'channel-name';
+      name.textContent = ch.name;
+
+      const favBtn = document.createElement('div');
+      favBtn.className = 'channel-fav-btn';
+      favBtn.innerHTML = '<i class="bi bi-star"></i>';
+      favBtn.title = 'Agregar a favoritos';
+      favBtn.onclick = (e) => {
+        e.stopPropagation();
+        addFavorite(ch.name, ch.url, ch.logo);
+      };
+
+      card.appendChild(logo);
+      card.appendChild(name);
+      card.appendChild(favBtn);
+
+      grid.appendChild(card);
     });
+
+  container.appendChild(grid);
+}
+
+function renderFavorites() {
+  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+  const container = document.getElementById('favoritesList');
+  container.innerHTML = '';
+
+  if (favs.length === 0) {
+    container.innerHTML = '<p>No hay favoritos.</p>';
+    return;
+  }
+
+  favs.forEach((ch, i) => {
+    const card = document.createElement('div');
+    card.className = 'favorite-card';
+
+    const info = document.createElement('div');
+    info.className = 'favorite-info';
+    info.onclick = () => changeChannel(ch.url, ch.name);
+
+    const logo = document.createElement('img');
+    logo.src = ch.logo || 'https://via.placeholder.com/80x45?text=No+Logo';
+    logo.alt = ch.name;
+
+    const name = document.createElement('div');
+    name.className = 'favorite-name';
+    name.textContent = ch.name;
+
+    info.appendChild(logo);
+    info.appendChild(name);
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'favorite-delete-btn';
+    delBtn.title = 'Eliminar favorito';
+    delBtn.innerHTML = '<i class="bi bi-trash"></i>';
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
+      removeFavorite(i);
+    };
+
+    card.appendChild(info);
+    card.appendChild(delBtn);
+
+    container.appendChild(card);
+  });
 }
 
 function addFavorite(name, url, logo) {
@@ -117,35 +180,6 @@ function addFavorite(name, url, logo) {
     localStorage.setItem('favorites', JSON.stringify(favs));
     renderFavorites();
   }
-}
-
-function renderFavorites() {
-  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-  const container = document.getElementById('favoritesList');
-  container.innerHTML = '';
-  favs.forEach((ch, i) => {
-    const div = document.createElement('div');
-    div.className = 'channel-item btn btn-warning d-flex justify-content-between align-items-center mb-1';
-    div.style.cursor = 'pointer';
-
-    const leftSide = document.createElement('div');
-    leftSide.className = 'd-flex align-items-center gap-2 flex-grow-1';
-    leftSide.innerHTML = `<img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30" alt="logo"><span>${ch.name}</span>`;
-    leftSide.onclick = () => changeChannel(ch.url, ch.name);
-
-    const btnDelete = document.createElement('button');
-    btnDelete.className = 'btn btn-sm btn-danger';
-    btnDelete.title = 'Eliminar favorito';
-    btnDelete.innerHTML = `<i class="bi bi-trash"></i>`;
-    btnDelete.onclick = (e) => {
-      e.stopPropagation();
-      removeFavorite(i);
-    };
-
-    div.appendChild(leftSide);
-    div.appendChild(btnDelete);
-    container.appendChild(div);
-  });
 }
 
 function removeFavorite(index) {
