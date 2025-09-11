@@ -1,5 +1,5 @@
 // Ruta a tu lista M3U (puede ser URL o archivo local en el mismo servidor)
-const M3U_URL = "tu_lista.m3u";  // Cambia esto por tu archivo M3U
+const M3U_URL = "lista.m3u";  // Cambia esto por tu archivo M3U
 
 document.addEventListener("DOMContentLoaded", async () => {
   const response = await fetch(M3U_URL);
