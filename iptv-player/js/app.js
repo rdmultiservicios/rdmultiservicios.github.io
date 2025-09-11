@@ -97,11 +97,13 @@ function renderChannels() {
     .filter(ch => ch.name.toLowerCase().includes(search))
     .forEach(ch => {
       const btn = document.createElement('button');
-      btn.className = 'btn btn-outline-light channel-item d-flex align-items-center gap-2';
+      btn.className = 'btn btn-outline-light channel-item d-flex align-items-center gap-2 mb-1';
       btn.innerHTML = `
-        <img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30">
-        <span class="flex-grow-1">${ch.name}</span>
-        <span onclick="event.stopPropagation(); addFavorite('${ch.name}', '${ch.url}', '${ch.logo}')"><i class="bi bi-star"></i></span>
+        <img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30" alt="logo">
+        <span class="flex-grow-1 text-start">${ch.name}</span>
+        <span onclick="event.stopPropagation(); addFavorite('${ch.name.replace(/'/g, "\\'")}', '${ch.url}', '${ch.logo}')">
+          <i class="bi bi-star"></i>
+        </span>
       `;
       btn.onclick = () => changeChannel(ch.url, ch.name);
       container.appendChild(btn);
@@ -121,14 +123,34 @@ function renderFavorites() {
   let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
   const container = document.getElementById('favoritesList');
   container.innerHTML = '';
-  favs.forEach(ch => {
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-warning channel-item d-flex align-items-center gap-2';
-    btn.innerHTML = `
-      <img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30">
-      <span class="flex-grow-1">${ch.name}</span>
-    `;
-    btn.onclick = () => changeChannel(ch.url, ch.name);
-    container.appendChild(btn);
+  favs.forEach((ch, i) => {
+    const div = document.createElement('div');
+    div.className = 'channel-item btn btn-warning d-flex justify-content-between align-items-center mb-1';
+    div.style.cursor = 'pointer';
+
+    const leftSide = document.createElement('div');
+    leftSide.className = 'd-flex align-items-center gap-2 flex-grow-1';
+    leftSide.innerHTML = `<img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30" alt="logo"><span>${ch.name}</span>`;
+    leftSide.onclick = () => changeChannel(ch.url, ch.name);
+
+    const btnDelete = document.createElement('button');
+    btnDelete.className = 'btn btn-sm btn-danger';
+    btnDelete.title = 'Eliminar favorito';
+    btnDelete.innerHTML = `<i class="bi bi-trash"></i>`;
+    btnDelete.onclick = (e) => {
+      e.stopPropagation();
+      removeFavorite(i);
+    };
+
+    div.appendChild(leftSide);
+    div.appendChild(btnDelete);
+    container.appendChild(div);
   });
+}
+
+function removeFavorite(index) {
+  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+  favs.splice(index, 1);
+  localStorage.setItem('favorites', JSON.stringify(favs));
+  renderFavorites();
 }
