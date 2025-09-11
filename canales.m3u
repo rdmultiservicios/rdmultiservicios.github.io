@@ -47,6 +47,12 @@ https://live-evg20.tv360.bitel.com.pe/bitel/america_tv_abr/bitel/america_tv_360p
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú" tvg-logo="https://tvperu.gob.pe/sites/all/themes/stability/images/logo.png" group-title="Nacional", TV Perú
 https://cdnhd.iblups.com/hls/777b4d4cc0984575a7d14f6ee57dbcaf.m3u8
 
+#EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TVPE Noticias" tvg-logo="https://tvperu.gob.pe/sites/all/themes/stability/images/logo.png" group-title="Nacional", TV Perú Noticias
+https://cdnhd.iblups.com/hls/902c1a0395264f269f1160efa00660e4.m3u8
+
+#EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú Internacional" tvg-logo="https://tvperu.gob.pe/sites/all/themes/stability/images/logo.png" group-title="Nacional", TV Perú Internacional
+https://cdnhd.iblups.com/hls/ee2450c81e554f4cae0e6292106993c2.m3u8
+
 #EXTINF:-1 tvg-id="" tvg-name="NATIVA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/03/07/21/170982034755/ec43a73cb351_480_270.png" group-title="Nacional", Nativa TV
 https://www.ntv.pe/salida/nativa.m3u8
 
