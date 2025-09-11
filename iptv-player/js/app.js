@@ -1,21 +1,7 @@
 let player;
 let channels = [];
+let epgData = null; // Datos EPG cargados
 let currentURL = '';
-
-// Ejemplo de datos EPG asociados a URLs de canales (ajusta según tus URLs reales)
-const epgData = {
-  'http://example.com/channel1.m3u8': {
-    title: 'Noticiero Central',
-    time: '20:00 - 21:00',
-    description: 'Resumen de noticias nacionales e internacionales.'
-  },
-  'http://example.com/channel2.m3u8': {
-    title: 'Película: El Viaje',
-    time: '21:00 - 23:00',
-    description: 'Un hombre emprende una travesía por el país para redescubrirse.'
-  },
-  // Agrega aquí más objetos con la url del canal como key
-};
 
 window.onload = async function () {
   player = videojs('video-player', {
@@ -25,6 +11,8 @@ window.onload = async function () {
   });
 
   await loadChannels();
+  await loadEPG();
+
   renderChannels();
   renderFavorites();
 
@@ -35,6 +23,7 @@ window.onload = async function () {
   document.getElementById('search').addEventListener('input', renderChannels);
 };
 
+// Carga archivo M3U
 async function loadChannels() {
   try {
     const res = await fetch('channels.m3u');
@@ -65,6 +54,17 @@ function parseM3U(data) {
   return result;
 }
 
+// Carga archivo JSON con datos EPG
+async function loadEPG() {
+  try {
+    const res = await fetch('epg.json');
+    epgData = await res.json();
+  } catch (error) {
+    console.error('Error cargando el archivo EPG:', error);
+  }
+}
+
+// Cambia canal y actualiza EPG
 function changeChannel(url, name) {
   currentURL = url;
   player.src({ src: url, type: 'application/x-mpegURL' });
@@ -72,17 +72,52 @@ function changeChannel(url, name) {
 
   document.getElementById('currentChannel').innerText = name;
 
-  // Mostrar EPG si existe
-  const epg = epgData[url];
-  if (epg) {
-    document.getElementById('epgTitle').innerText = epg.title;
-    document.getElementById('epgTime').innerText = epg.time;
-    document.getElementById('epgDesc').innerText = epg.description;
-  } else {
-    document.getElementById('epgTitle').innerText = 'Sin información de EPG';
-    document.getElementById('epgTime').innerText = '';
-    document.getElementById('epgDesc').innerText = '';
+  updateEPG(name);
+}
+
+// Actualiza la sección EPG según el canal y la hora actual
+function updateEPG(channelName) {
+  if (!epgData) {
+    clearEPG();
+    return;
   }
+
+  // Buscar canal en EPG por nombre (case insensitive)
+  const channel = epgData.channels.find(c => c.name.toLowerCase() === channelName.toLowerCase());
+  if (!channel) {
+    clearEPG();
+    return;
+  }
+
+  const now = new Date();
+
+  // Buscar programa actual (start <= now < stop)
+  const currentProgram = epgData.programmes.find(p => {
+    return (
+      p.channel === channel.id &&
+      new Date(p.start) <= now &&
+      now < new Date(p.stop)
+    );
+  });
+
+  if (currentProgram) {
+    document.getElementById('epgTitle').innerText = currentProgram.title;
+    document.getElementById('epgTime').innerText = `${formatTime(currentProgram.start)} - ${formatTime(currentProgram.stop)}`;
+    document.getElementById('epgDesc').innerText = currentProgram.desc;
+  } else {
+    clearEPG();
+  }
+}
+
+function clearEPG() {
+  document.getElementById('epgTitle').innerText = 'Sin información de EPG';
+  document.getElementById('epgTime').innerText = '';
+  document.getElementById('epgDesc').innerText = '';
+}
+
+function formatTime(dateTime) {
+  const date = new Date(dateTime);
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 function renderChannels() {
@@ -120,62 +155,73 @@ function renderChannels() {
       card.appendChild(img);
       card.appendChild(name);
       card.appendChild(favBtn);
+
       grid.appendChild(card);
     });
 
   container.appendChild(grid);
 }
 
+function getFavorites() {
+  return JSON.parse(localStorage.getItem('iptv_favorites') || '[]');
+}
+
+function saveFavorites(favorites) {
+  localStorage.setItem('iptv_favorites', JSON.stringify(favorites));
+}
+
 function addFavorite(name, url, logo) {
-  let favs = JSON.parse(localStorage.getItem('favorites')) || [];
-  if (!favs.some(f => f.url === url)) {
-    favs.push({ name, url, logo });
-    localStorage.setItem('favorites', JSON.stringify(favs));
+  let favorites = getFavorites();
+  if (!favorites.some(fav => fav.url === url)) {
+    favorites.push({ name, url, logo });
+    saveFavorites(favorites);
     renderFavorites();
   }
 }
 
+function removeFavorite(url) {
+  let favorites = getFavorites();
+  favorites = favorites.filter(fav => fav.url !== url);
+  saveFavorites(favorites);
+  renderFavorites();
+}
+
 function renderFavorites() {
   const container = document.getElementById('favoritesList');
-  const favs = JSON.parse(localStorage.getItem('favorites')) || [];
   container.innerHTML = '';
 
-  favs.forEach(fav => {
-    const card = document.createElement('div');
-    card.className = 'favorite-card';
+  const favorites = getFavorites();
+  favorites.forEach(fav => {
+    const favCard = document.createElement('div');
+    favCard.className = 'favorite-card';
 
-    const info = document.createElement('div');
-    info.className = 'favorite-info';
-    info.onclick = () => changeChannel(fav.url, fav.name);
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'favorite-info';
+    infoDiv.onclick = () => changeChannel(fav.url, fav.name);
 
     const img = document.createElement('img');
-    img.src = fav.logo || 'https://via.placeholder.com/50x30?text=Logo';
+    img.src = fav.logo || 'https://via.placeholder.com/50x30?text=No+Logo';
     img.alt = fav.name;
 
-    const name = document.createElement('div');
-    name.className = 'favorite-name';
-    name.textContent = fav.name;
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'favorite-name';
+    nameDiv.textContent = fav.name;
 
-    info.appendChild(img);
-    info.appendChild(name);
+    infoDiv.appendChild(img);
+    infoDiv.appendChild(nameDiv);
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'favorite-delete-btn';
-    deleteBtn.innerHTML = '<i class="bi bi-trash-fill"></i>';
-    deleteBtn.title = 'Eliminar';
-    deleteBtn.onclick = () => {
+    const delBtn = document.createElement('button');
+    delBtn.className = 'favorite-delete-btn';
+    delBtn.innerHTML = '<i class="bi bi-x-circle"></i>';
+    delBtn.title = 'Eliminar de favoritos';
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
       removeFavorite(fav.url);
     };
 
-    card.appendChild(info);
-    card.appendChild(deleteBtn);
-    container.appendChild(card);
-  });
-}
+    favCard.appendChild(infoDiv);
+    favCard.appendChild(delBtn);
 
-function removeFavorite(url) {
-  let favs = JSON.parse(localStorage.getItem('favorites')) || [];
-  favs = favs.filter(f => f.url !== url);
-  localStorage.setItem('favorites', JSON.stringify(favs));
-  renderFavorites();
+    container.appendChild(favCard);
+  });
 }
