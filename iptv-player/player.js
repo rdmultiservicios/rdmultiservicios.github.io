@@ -107,6 +107,7 @@ function renderChannels(list) {
 function playChannel(channel) {
   const video = document.getElementById('videoPlayer');
 
+  // Detener y limpiar stream anterior
   if (video.hls) {
     video.hls.destroy();
     video.hls = null;
@@ -126,13 +127,12 @@ function playChannel(channel) {
 
   video.play();
 
-  // EPG
+  // Mostrar EPG si aplica
   if (channel.tvgId && epgData[channel.tvgId]) {
     const now = new Date();
     const current = epgData[channel.tvgId].find(p => now >= p.start && now <= p.stop);
     const epgDiv = document.getElementById('epgInfo');
     if (current) {
-      epgDiv.inner
       epgDiv.innerHTML = `
         <strong>${current.title}</strong><br>
         ${current.start.toLocaleTimeString()} - ${current.stop.toLocaleTimeString()}<br>
@@ -145,13 +145,12 @@ function playChannel(channel) {
     document.getElementById('epgInfo').textContent = '';
   }
 
-  // Guardar progreso si es VOD
+  // Guardar y recuperar progreso si es VOD
   if (channel.group?.toLowerCase().includes('vod')) {
     video.addEventListener('timeupdate', () => {
       localStorage.setItem('vod-progress-' + channel.url, video.currentTime);
     });
 
-    // Recuperar progreso
     const lastTime = localStorage.getItem('vod-progress-' + channel.url);
     if (lastTime) {
       video.currentTime = parseFloat(lastTime);
