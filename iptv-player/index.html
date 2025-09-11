@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV Player Moderno</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPTV con Video.js Skin Moderno</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Video.js CSS -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
+  <!-- Custom Skin CSS -->
+  <link href="css/videojs-custom-skin.css" rel="stylesheet">
   <style>
-    body { background-color: #0f0f0f; color: #fff; }
-    .video-container { position: relative; width: 100%; padding-top: 56.25%; background: #000; }
-    video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    .channel-btn { text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; border-radius: 8px; }
-    .channel-btn:hover { background-color: #222; }
-    .channel-list { max-height: 80vh; overflow-y: auto; }
+    body { background-color: #111; color: #fff; }
+    .channel-list-container { max-height: 80vh; overflow-y: auto; }
+    .channel-item { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 6px; }
+    .channel-item:hover { background-color: #222; }
     .btn-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
-    .current-channel { font-weight: bold; font-size: 1.1rem; }
-    @media (max-width: 768px) {
-      .channel-list { max-height: 40vh; }
-    }
+    .current-channel-label { font-weight: bold; font-size: 1.2rem; }
   </style>
 </head>
 <body>
 
 <div class="container-fluid p-0">
   <div class="row g-0">
-    
-    <!-- Canal List -->
-    <div class="col-md-3 bg-dark p-3 channel-list">
-      <h5 class="text-white mb-3"><i class="bi bi-tv"></i> Canales</h5>
-      <input type="text" class="form-control mb-3" id="search" placeholder="Buscar canal...">
-      <div id="channelButtons" class="d-grid gap-2"></div>
-      <hr class="text-secondary" />
+    <!-- Sidebar: canales -->
+    <div class="col-md-3 bg-dark p-3">
+      <h5 class="mb-3"><i class="bi bi-list-ul"></i> Canales</h5>
+      <input type="text" id="search" class="form-control mb-3" placeholder="Buscar canal...">
+      <div id="channelList" class="d-grid gap-2 channel-list-container"></div>
+      <hr class="text-secondary">
       <h6>⭐ Favoritos</h6>
-      <div id="favorites" class="d-grid gap-2"></div>
+      <div id="favoritesList" class="d-grid gap-2 channel-list-container"></div>
     </div>
 
     <!-- Player -->
-    <div class="col-md-9 bg-black text-white">
-      <div class="video-container">
-        <video id="video" controls autoplay></video>
+    <div class="col-md-9 bg-black text-white d-flex flex-column">
+      <div class="flex-grow-1 position-relative">
+        <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" autoplay playsinline></video>
       </div>
-      <div class="bg-dark d-flex flex-wrap justify-content-between align-items-center p-3">
-        <div class="current-channel" id="currentChannel">Canal actual</div>
+      <div class="bg-dark d-flex justify-content-between align-items-center p-3">
+        <div class="current-channel-label" id="currentChannel">Canal Actual</div>
         <div class="d-flex gap-2">
           <button class="btn btn-outline-light btn-icon" onclick="goBack()" title="Canal anterior"><i class="bi bi-arrow-counterclockwise"></i></button>
-          <button class="btn btn-outline-light btn-icon" onclick="reload()" title="Recargar"><i class="bi bi-arrow-repeat"></i></button>
+          <button class="btn btn-outline-light btn-icon" onclick="reloadChannel()" title="Recargar canal"><i class="bi bi-arrow-repeat"></i></button>
           <button class="btn btn-outline-light btn-icon" onclick="togglePip()" title="Picture-in-Picture"><i class="bi bi-box-arrow-in-up-right"></i></button>
           <button class="btn btn-outline-light btn-icon" onclick="toggleFullscreen()" title="Pantalla completa"><i class="bi bi-arrows-fullscreen"></i></button>
         </div>
@@ -53,135 +53,9 @@
   </div>
 </div>
 
-<!-- HLS.js -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<script>
-  const video = document.getElementById('video');
-  const currentChannelLabel = document.getElementById('currentChannel');
-  let lastChannel = '';
-  let channels = [];
-  let currentURL = '';
-
-  async function loadM3U() {
-    try {
-      const response = await fetch('channels.m3u');
-      const text = await response.text();
-      channels = parseM3U(text);
-      renderChannels();
-      renderFavorites();
-      if (channels.length > 0) {
-        playStream(channels[0].url, channels[0].name);
-      }
-    } catch (error) {
-      console.error("Error cargando el archivo M3U:", error);
-    }
-  }
-
-  function parseM3U(data) {
-    const lines = data.split('\n');
-    const parsed = [];
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].startsWith('#EXTINF')) {
-        const nameMatch = lines[i].match(/,(.*)$/);
-        const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
-        const name = nameMatch ? nameMatch[1].trim() : 'Canal sin nombre';
-        const logo = logoMatch ? logoMatch[1] : '';
-        const url = lines[i + 1]?.trim();
-        if (url && url.startsWith('http')) {
-          parsed.push({ name, url, logo });
-        }
-      }
-    }
-    return parsed;
-  }
-
-  function playStream(url, name) {
-    if (currentURL) lastChannel = currentURL;
-    currentURL = url;
-    currentChannelLabel.innerText = name;
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = url;
-      video.addEventListener('loadedmetadata', () => video.play());
-    } else {
-      alert('Tu navegador no soporta este tipo de video.');
-    }
-  }
-
-  function goBack() {
-    if (lastChannel) playStream(lastChannel, 'Canal anterior');
-  }
-
-  function reload() {
-    if (currentURL) playStream(currentURL, 'Recargando...');
-  }
-
-  function togglePip() {
-    if (document.pictureInPictureElement) {
-      document.exitPictureInPicture();
-    } else {
-      video.requestPictureInPicture().catch(console.error);
-    }
-  }
-
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      video.requestFullscreen().catch(console.error);
-    } else {
-      document.exitFullscreen();
-    }
-  }
-
-  function renderChannels() {
-    const container = document.getElementById('channelButtons');
-    const search = document.getElementById('search').value.toLowerCase();
-    container.innerHTML = '';
-    channels
-      .filter(ch => ch.name.toLowerCase().includes(search))
-      .forEach(ch => {
-        const btn = document.createElement('button');
-        btn.className = 'btn btn-outline-light channel-btn d-flex align-items-center gap-2';
-        btn.innerHTML = `
-          <img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30">
-          <span>${ch.name}</span>
-          <span class="ms-auto text-warning" onclick="event.stopPropagation(); addFavorite('${ch.name}', '${ch.url}', '${ch.logo}')"><i class="bi bi-star"></i></span>
-        `;
-        btn.onclick = () => playStream(ch.url, ch.name);
-        container.appendChild(btn);
-      });
-  }
-
-  function addFavorite(name, url, logo) {
-    let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-    if (!favs.find(f => f.name === name)) {
-      favs.push({ name, url, logo });
-      localStorage.setItem('favorites', JSON.stringify(favs));
-      renderFavorites();
-    }
-  }
-
-  function renderFavorites() {
-    const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-    const container = document.getElementById('favorites');
-    container.innerHTML = '';
-    favs.forEach(ch => {
-      const btn = document.createElement('button');
-      btn.className = 'btn btn-warning channel-btn d-flex align-items-center gap-2';
-      btn.innerHTML = `<img src="${ch.logo || 'https://via.placeholder.com/30'}" width="30" height="30"><span>${ch.name}</span>`;
-      btn.onclick = () => playStream(ch.url, ch.name);
-      container.appendChild(btn);
-    });
-  }
-
-  document.getElementById('search').addEventListener('input', renderChannels);
-  window.onload = loadM3U;
-</script>
+<!-- Scripts -->
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
