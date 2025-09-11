@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV - Reproductor con cuadrícula 3x3</title>
-  
+  <title>IPTV - Cuadrícula 3x3</title>
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
@@ -41,12 +41,12 @@
       #lists-container {
         flex-direction: row;
       }
+
       #channelList, #favoritesList {
         flex: 1;
         max-height: calc(60vh - 2rem);
         overflow-y: auto;
         padding-right: 0.5rem;
-        scroll-behavior: smooth;
       }
     }
 
@@ -54,24 +54,23 @@
       #lists-container {
         flex-direction: column;
       }
+
       #channelList, #favoritesList {
         max-height: 30vh;
         width: 100%;
         margin-bottom: 1rem;
         overflow-y: auto;
         padding-right: 0.5rem;
-        scroll-behavior: smooth;
       }
     }
 
-    /* Grid de 3 columnas fijas (en escritorio) */
+    /* Cuadrícula 3x3 */
     .channel-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
 
-    /* Ajustes responsive */
     @media (max-width: 767.98px) {
       .channel-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -94,7 +93,6 @@
       flex-direction: column;
       align-items: center;
       transition: background-color 0.2s ease;
-      user-select: none;
     }
 
     .channel-card:hover {
@@ -102,8 +100,8 @@
     }
 
     .channel-card img {
-      width: 80px;
-      height: 45px;
+      width: 100px;
+      height: 60px;
       object-fit: contain;
       margin-bottom: 0.5rem;
       border-radius: 4px;
@@ -123,7 +121,6 @@
       color: #f0ad4e;
       font-size: 1.3rem;
       cursor: pointer;
-      user-select: none;
     }
 
     .channel-fav-btn:hover {
@@ -138,14 +135,7 @@
       align-items: center;
       justify-content: space-between;
       color: white;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
       margin-bottom: 0.5rem;
-      user-select: none;
-    }
-
-    .favorite-card:hover {
-      background-color: #555;
     }
 
     .favorite-info {
@@ -153,6 +143,7 @@
       align-items: center;
       gap: 0.75rem;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .favorite-info img {
@@ -175,7 +166,6 @@
       color: #dc3545;
       font-size: 1.3rem;
       cursor: pointer;
-      user-select: none;
     }
 
     .favorite-delete-btn:hover {
@@ -188,7 +178,6 @@
       padding: 0.5rem 1rem;
       background-color: #222;
       text-align: center;
-      user-select: none;
     }
   </style>
 </head>
@@ -210,23 +199,16 @@
   <div id="lists-container" class="container-fluid">
     <div>
       <h5>Canales</h5>
-      <input
-        type="text"
-        id="search"
-        class="form-control mb-3"
-        placeholder="Buscar canal..."
-        autocomplete="off"
-      />
+      <input type="text" id="search" class="form-control mb-3" placeholder="Buscar canal..." />
       <div id="channelList"></div>
     </div>
-
     <div>
       <h5>Favoritos</h5>
       <div id="favoritesList"></div>
     </div>
   </div>
 
-  <!-- Video.js y app.js -->
+  <!-- Scripts -->
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
   <script src="js/app.js"></script>
 </body>
