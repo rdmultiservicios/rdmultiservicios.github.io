@@ -32,14 +32,30 @@
       gap: 1rem;
       padding: 1rem;
       overflow-y: auto;
+      flex-wrap: nowrap;
     }
-    #channelList, #favoritesList {
-      flex: 1;
-      max-height: calc(60vh - 2rem);
-      overflow-y: auto;
-      background-color: #222;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
+    /* Para escritorio */
+    @media (min-width: 768px) {
+      #lists-container {
+        flex-direction: row;
+      }
+      #channelList, #favoritesList {
+        flex: 1;
+        max-height: calc(60vh - 2rem);
+        overflow-y: auto;
+      }
+    }
+    /* Para móviles */
+    @media (max-width: 767.98px) {
+      #lists-container {
+        flex-direction: column;
+      }
+      #channelList, #favoritesList {
+        max-height: 30vh;
+        width: 100%;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+      }
     }
     .channel-item {
       text-align: left;
@@ -48,9 +64,14 @@
       text-overflow: ellipsis;
       border-radius: 6px;
       cursor: pointer;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
     }
-    .channel-item:hover {
-      background-color: #333;
+    @media (max-width: 767.98px) {
+      .channel-item {
+        font-size: 1.1rem;
+        padding: 0.75rem 1.25rem;
+      }
     }
     .btn-icon {
       width: 40px;
