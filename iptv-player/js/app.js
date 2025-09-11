@@ -111,7 +111,6 @@ function updateEPG(channelName) {
     return;
   }
 
-  // Buscar canal en epgData.channels por nombre (case insensitive)
   const ch = epgData.channels.find(c => c.name.toLowerCase() === channelName.toLowerCase());
   if (!ch) {
     clearEPG();
@@ -121,7 +120,6 @@ function updateEPG(channelName) {
   const now = new Date();
   const nowISO = now.toISOString();
 
-  // Buscar programa actual
   const program = epgData.programmes.find(p =>
     p.channel === ch.id &&
     p.start <= nowISO &&
@@ -130,35 +128,38 @@ function updateEPG(channelName) {
 
   if (program) {
     document.getElementById('epgTitle').textContent = program.title || 'Sin título';
-    document.getElementById('epgDesc').textContent = program.desc || '';
-    document.getElementById('epgTime').textContent =
-      formatTime(program.start) + ' - ' + formatTime(program.stop);
+    document.getElementById('epgTime').textContent = `${formatTime(program.start)} - ${formatTime(program.stop)}`;
+    document.getElementById('epgDesc').textContent = program.desc || 'Sin descripción.';
   } else {
     clearEPG();
   }
 }
 
 function clearEPG() {
-  document.getElementById('epgTitle').textContent = 'No hay información EPG disponible';
-  document.getElementById('epgDesc').textContent = '';
+  document.getElementById('epgTitle').textContent = 'No hay información EPG disponible.';
   document.getElementById('epgTime').textContent = '';
+  document.getElementById('epgDesc').textContent = '';
 }
 
-function formatTime(dateString) {
-  const d = new Date(dateString);
+function formatTime(iso) {
+  const d = new Date(iso);
   return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 function getFavorites() {
-  return JSON.parse(localStorage.getItem('iptv_favorites') || '[]');
+  try {
+    return JSON.parse(localStorage.getItem('iptvFavorites')) || [];
+  } catch {
+    return [];
+  }
 }
 
-function saveFavorites(favorites) {
-  localStorage.setItem('iptv_favorites', JSON.stringify(favorites));
+function saveFavorites(favs) {
+  localStorage.setItem('iptvFavorites', JSON.stringify(favs));
 }
 
 function addFavorite(name, url, logo) {
-  let favorites = getFavorites();
+  const favorites = getFavorites();
   if (!favorites.some(fav => fav.url === url)) {
     favorites.push({ name, url, logo });
     saveFavorites(favorites);
@@ -220,14 +221,12 @@ document.getElementById('search').addEventListener('input', renderChannels);
   await fetchChannels();
   await fetchEPG();
 
-  // Cambiar al primer canal disponible automáticamente si existe
   if (channels.length > 0) {
     changeChannel(channels[0].url, channels[0].name);
   }
 
   renderFavorites();
 
-  // Actualizar EPG cada minuto
   setInterval(() => {
     if (currentChannelId) {
       const ch = channels.find(c => c.url === currentChannelId);
