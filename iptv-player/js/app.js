@@ -2,6 +2,21 @@ let player;
 let channels = [];
 let currentURL = '';
 
+// Ejemplo de datos EPG asociados a URLs de canales (ajusta según tus URLs reales)
+const epgData = {
+  'http://example.com/channel1.m3u8': {
+    title: 'Noticiero Central',
+    time: '20:00 - 21:00',
+    description: 'Resumen de noticias nacionales e internacionales.'
+  },
+  'http://example.com/channel2.m3u8': {
+    title: 'Película: El Viaje',
+    time: '21:00 - 23:00',
+    description: 'Un hombre emprende una travesía por el país para redescubrirse.'
+  },
+  // Agrega aquí más objetos con la url del canal como key
+};
+
 window.onload = async function () {
   player = videojs('video-player', {
     controls: true,
@@ -54,7 +69,20 @@ function changeChannel(url, name) {
   currentURL = url;
   player.src({ src: url, type: 'application/x-mpegURL' });
   player.play().catch(console.error);
+
   document.getElementById('currentChannel').innerText = name;
+
+  // Mostrar EPG si existe
+  const epg = epgData[url];
+  if (epg) {
+    document.getElementById('epgTitle').innerText = epg.title;
+    document.getElementById('epgTime').innerText = epg.time;
+    document.getElementById('epgDesc').innerText = epg.description;
+  } else {
+    document.getElementById('epgTitle').innerText = 'Sin información de EPG';
+    document.getElementById('epgTime').innerText = '';
+    document.getElementById('epgDesc').innerText = '';
+  }
 }
 
 function renderChannels() {
