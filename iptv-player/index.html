@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV - Reproductor con EPG separado</title>
+  <title>IPTV - Reproductor con EPG y Favoritos</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -35,7 +35,7 @@
       font-size: 1.2rem;
     }
 
-    /* EPG separado debajo del video */
+    /* EPG debajo del video */
     #epgContainer {
       background-color: #1f1f1f;
       border-radius: 8px;
@@ -43,8 +43,6 @@
       box-shadow: 0 4px 12px rgb(0 0 0 / 0.6);
       color: #eee;
       user-select: none;
-      max-height: 7rem;
-      overflow: hidden;
       margin: 0.5rem 1rem;
       flex-shrink: 0;
     }
@@ -89,7 +87,7 @@
       flex: 1 1 auto;
       display: flex;
       gap: 1rem;
-      padding: 1rem;
+      padding: 1rem 1rem 2rem 1rem;
       overflow-y: auto;
       flex-wrap: nowrap;
     }
@@ -99,10 +97,18 @@
       flex: 2;
       display: flex;
       flex-direction: column;
+      background-color: #222;
+      border-radius: 8px;
+      padding: 1rem;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    #channels-section h5 {
+      margin-bottom: 1rem;
     }
 
     #channelList {
-      overflow-y: auto;
       flex-grow: 1;
     }
 
@@ -114,6 +120,12 @@
       border-radius: 8px;
       padding: 1rem;
       max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #favorites-section h5 {
+      margin-bottom: 1rem;
     }
 
     /* Buscador */
@@ -121,16 +133,22 @@
       margin-bottom: 1rem;
     }
 
-    /* Cuadrícula 3x3 */
+    /* Cuadrícula canales */
     .channel-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
     }
 
+    /* Ajustes móviles */
     @media (max-width: 767.98px) {
       #lists-container {
         flex-direction: column;
+        padding: 1rem;
+      }
+
+      #channels-section, #favorites-section {
+        max-height: none;
       }
 
       .channel-grid {
@@ -138,7 +156,6 @@
       }
 
       #favorites-section {
-        max-height: none;
         margin-top: 1rem;
       }
     }
@@ -151,7 +168,7 @@
 
     /* Tarjetas canales */
     .channel-card {
-      background-color: #222;
+      background-color: #333;
       border-radius: 0.5rem;
       padding: 0.5rem;
       cursor: pointer;
@@ -165,7 +182,7 @@
     }
 
     .channel-card:hover {
-      background-color: #333;
+      background-color: #444;
     }
 
     .channel-card img {
@@ -274,7 +291,7 @@
   </div>
 
   <div id="lists-container" class="container-fluid">
-    <section id="channels-section">
+    <section id="channels-section" aria-label="Lista de canales">
       <h5>Canales</h5>
       <input type="text" id="search" class="form-control" placeholder="Buscar canal..." autocomplete="off" />
       <div id="channelList"></div>
