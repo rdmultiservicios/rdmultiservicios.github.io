@@ -15,16 +15,19 @@
       background-color: #111;
       color: #fff;
       margin: 0;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
     }
 
     #video-container {
-      max-height: 40vh;
       background: black;
       flex-shrink: 0;
       position: relative;
+      max-height: 40vh;
+      display: flex;
+      flex-direction: column;
     }
 
     #currentChannel {
@@ -35,7 +38,7 @@
       font-size: 1.2rem;
     }
 
-    /* EPG debajo del video */
+    /* EPG */
     #epgContainer {
       background-color: #1f1f1f;
       border-radius: 8px;
@@ -43,7 +46,7 @@
       box-shadow: 0 4px 12px rgb(0 0 0 / 0.6);
       color: #eee;
       user-select: none;
-      margin: 0.5rem 1rem;
+      margin: 0.75rem 1rem 1.5rem 1rem;
       flex-shrink: 0;
     }
 
@@ -84,12 +87,12 @@
 
     /* Contenedor principal para listas */
     #lists-container {
-      flex: 1 1 auto;
       display: flex;
+      flex-grow: 1;
       gap: 1rem;
-      padding: 1rem 1rem 2rem 1rem;
-      overflow-y: auto;
-      flex-wrap: nowrap;
+      padding: 0 1rem 1.5rem 1rem;
+      min-height: 50vh;
+      /* para que la sección tome el resto y tenga scroll si necesario */
     }
 
     /* Contenedor canales */
@@ -100,8 +103,8 @@
       background-color: #222;
       border-radius: 8px;
       padding: 1rem;
-      max-height: 70vh;
       overflow-y: auto;
+      max-height: 100%;
     }
 
     #channels-section h5 {
@@ -110,16 +113,17 @@
 
     #channelList {
       flex-grow: 1;
+      overflow-y: auto;
     }
 
     /* Contenedor favoritos */
     #favorites-section {
       flex: 1;
-      overflow-y: auto;
       background-color: #222;
       border-radius: 8px;
       padding: 1rem;
-      max-height: 70vh;
+      overflow-y: auto;
+      max-height: 100%;
       display: flex;
       flex-direction: column;
     }
@@ -144,10 +148,12 @@
     @media (max-width: 767.98px) {
       #lists-container {
         flex-direction: column;
-        padding: 1rem;
+        padding: 0 1rem 1rem 1rem;
+        min-height: auto;
       }
 
-      #channels-section, #favorites-section {
+      #channels-section,
+      #favorites-section {
         max-height: none;
       }
 
@@ -281,13 +287,14 @@
       fluid
     ></video>
     <div id="currentChannel">Canal Actual</div>
-    <div id="epgContainer" aria-live="polite" aria-atomic="true" role="region">
-      <div class="epg-header">
-        <h6 id="epgTitle" class="text-truncate">Título del programa</h6>
-        <small id="epgTime">00:00 - 00:00</small>
-      </div>
-      <p id="epgDesc">Descripción breve del programa.</p>
+  </div>
+
+  <div id="epgContainer" aria-live="polite" aria-atomic="true" role="region">
+    <div class="epg-header">
+      <h6 id="epgTitle" class="text-truncate">Título del programa</h6>
+      <small id="epgTime">00:00 - 00:00</small>
     </div>
+    <p id="epgDesc">Descripción breve del programa.</p>
   </div>
 
   <div id="lists-container" class="container-fluid">
