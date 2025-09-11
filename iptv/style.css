@@ -1,15 +1,66 @@
-.channel-button {
-  cursor: pointer;
+body {
+  background: #111;
+  color: #eee;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+#searchInput {
+  padding: 5px;
+}
+
+#videoPlayer {
+  width: 100%;
+  height: 400px;
+  background: black;
+  margin: 20px 0;
+}
+
+#channelList {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #333;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
 }
 
-.channel-button:hover {
-  background-color: #f0f0f0;
+.channel {
+  padding: 8px;
+  margin: 5px 0;
+  background: #222;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.channel-logo {
-  height: 20px;
-  margin-right: 10px;
+.channel:hover {
+  background: #444;
 }
 
+.channel img {
+  height: 30px;
+  width: auto;
+}
+
+#epgInfo {
+  margin-top: 20px;
+  font-size: 0.9em;
+  background: #222;
+  padding: 10px;
+}
