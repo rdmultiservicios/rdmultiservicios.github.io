@@ -91,4 +91,63 @@ function renderChannels() {
 
       card.appendChild(img);
       card.appendChild(name);
-      card.appendChild(favBtn
+      card.appendChild(favBtn);
+      grid.appendChild(card);
+    });
+
+  container.appendChild(grid);
+}
+
+function addFavorite(name, url, logo) {
+  let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+  if (!favs.some(f => f.url === url)) {
+    favs.push({ name, url, logo });
+    localStorage.setItem('favorites', JSON.stringify(favs));
+    renderFavorites();
+  }
+}
+
+function renderFavorites() {
+  const container = document.getElementById('favoritesList');
+  const favs = JSON.parse(localStorage.getItem('favorites')) || [];
+  container.innerHTML = '';
+
+  favs.forEach(fav => {
+    const card = document.createElement('div');
+    card.className = 'favorite-card';
+
+    const info = document.createElement('div');
+    info.className = 'favorite-info';
+    info.onclick = () => changeChannel(fav.url, fav.name);
+
+    const img = document.createElement('img');
+    img.src = fav.logo || 'https://via.placeholder.com/50x30?text=Logo';
+    img.alt = fav.name;
+
+    const name = document.createElement('div');
+    name.className = 'favorite-name';
+    name.textContent = fav.name;
+
+    info.appendChild(img);
+    info.appendChild(name);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'favorite-delete-btn';
+    deleteBtn.innerHTML = '<i class="bi bi-trash-fill"></i>';
+    deleteBtn.title = 'Eliminar';
+    deleteBtn.onclick = () => {
+      removeFavorite(fav.url);
+    };
+
+    card.appendChild(info);
+    card.appendChild(deleteBtn);
+    container.appendChild(card);
+  });
+}
+
+function removeFavorite(url) {
+  let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+  favs = favs.filter(f => f.url !== url);
+  localStorage.setItem('favorites', JSON.stringify(favs));
+  renderFavorites();
+}
