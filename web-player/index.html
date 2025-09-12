@@ -3,85 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TV360 - Demo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <title>TV360 - Canales en Vivo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      background-color: #f8f9fa;
+    .channel-card {
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    .video-player {
+    .channel-card:hover {
+      transform: scale(1.02);
+    }
+    video {
       width: 100%;
-      height: 480px;
-      background: #000;
-    }
-    .channel-thumbnail {
-      height: 100px;
-      object-fit: cover;
+      max-height: 500px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">TV360</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Películas</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Radio</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Content -->
-  <div class="container my-4">
-    <div class="row">
-      <div class="col-md-8">
-        <!-- Video Player -->
-        <div class="video-player mb-3">
-          <video controls autoplay muted width="100%" height="100%">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            Tu navegador no soporta el video HTML5.
-          </video>
-        </div>
-        <h5>Ahora en vivo: Canal de prueba</h5>
-      </div>
-
-      <!-- Sidebar -->
-      <div class="col-md-4">
-        <h5>Canales Disponibles</h5>
-        <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-            <img src="https://via.placeholder.com/100x60?text=Canal+1" class="me-3 channel-thumbnail" />
-            Canal 1 - Noticias
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-            <img src="https://via.placeholder.com/100x60?text=Canal+2" class="me-3 channel-thumbnail" />
-            Canal 2 - Deportes
-          </a>
-          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-            <img src="https://via.placeholder.com/100x60?text=Canal+3" class="me-3 channel-thumbnail" />
-            Canal 3 - Películas
-          </a>
-        </div>
-      </div>
-    </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">TV360</a>
+    <input class="form-control ms-auto w-50" type="text" placeholder="Buscar canal..." id="searchInput">
   </div>
+</nav>
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3">
-    <div class="container">
-      &copy; 2025 TV360. Todos los derechos reservados.
+<!-- Video Player -->
+<div class="container mt-4">
+  <h4 class="mb-3">Reproduciendo:</h4>
+  <video id="livePlayer" controls autoplay>
+    <source id="videoSource" src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" type="application/x-mpegURL">
+    Tu navegador no soporta el video HLS.
+  </video>
+</div>
+
+<!-- Channel Grid -->
+<div class="container mt-5">
+  <h5>Canales en vivo</h5>
+  <div class="row" id="channelGrid">
+    
+    <!-- Canal 1 -->
+    <div class="col-md-3 mb-4 channel-card" data-name="Noticias" onclick="playChannel('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8')">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x170?text=Canal+Noticias" class="card-img-top" alt="Canal Noticias">
+        <div class="card-body text-center">
+          <h6 class="card-title">Canal Noticias</h6>
+        </div>
+      </div>
     </div>
-  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Canal 2 -->
+    <div class="col-md-3 mb-4 channel-card" data-name="Deportes" onclick="playChannel('https://test-streams.mux.dev/test_001/stream.m3u8')">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x170?text=Canal+Deportes" class="card-img-top" alt="Canal Deportes">
+        <div class="card-body text-center">
+          <h6 class="card-title">Canal Deportes</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canal 3 -->
+    <div class="col-md-3 mb-4 channel-card" data-name="Películas" onclick="playChannel('https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8')">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x170?text=Canal+Películas" class="card-img-top" alt="Canal Películas">
+        <div class="card-body text-center">
+          <h6 class="card-title">Canal Películas</h6>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canal 4 -->
+    <div class="col-md-3 mb-4 channel-card" data-name="Música" onclick="playChannel('https://moiptvhls-i.akamaihd.net/hls/live/652976/musictv/playlist.m3u8')">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x170?text=Canal+Música" class="card-img-top" alt="Canal Música">
+        <div class="card-body text-center">
+          <h6 class="card-title">Canal Música</h6>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  <div class="container">
+    &copy; 2025 TV360. Todos los derechos reservados.
+  </div>
+</footer>
+
+<!-- JS Bootstrap + Funciones -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function playChannel(url) {
+    const player = document.getElementById("livePlayer");
+    const source = document.getElementById("videoSource");
+    source.src = url;
+    player.load();
+    player.play();
+  }
+
+  // Buscador de canales
+  document.getElementById("searchInput").addEventListener("input", function() {
+    const query = this.value.toLowerCase();
+    const cards = document.querySelectorAll(".channel-card");
+
+    cards.forEach(card => {
+      const name = card.getAttribute("data-name").toLowerCase();
+      if (name.includes(query)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
