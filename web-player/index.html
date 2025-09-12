@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV360 - Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .video-player {
+      width: 100%;
+      height: 480px;
+      background: #000;
+    }
+    .channel-thumbnail {
+      height: 100px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">TV360</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Películas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Radio</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container my-4">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Video Player -->
+        <div class="video-player mb-3">
+          <video controls autoplay muted width="100%" height="100%">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Tu navegador no soporta el video HTML5.
+          </video>
+        </div>
+        <h5>Ahora en vivo: Canal de prueba</h5>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-md-4">
+        <h5>Canales Disponibles</h5>
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <img src="https://via.placeholder.com/100x60?text=Canal+1" class="me-3 channel-thumbnail" />
+            Canal 1 - Noticias
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <img src="https://via.placeholder.com/100x60?text=Canal+2" class="me-3 channel-thumbnail" />
+            Canal 2 - Deportes
+          </a>
+          <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <img src="https://via.placeholder.com/100x60?text=Canal+3" class="me-3 channel-thumbnail" />
+            Canal 3 - Películas
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+      &copy; 2025 TV360. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
