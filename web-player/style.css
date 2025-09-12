@@ -9,7 +9,7 @@ body {
 }
 
 /* Navbar personalizado */
-.navbar {
+/*.navbar {
   background: #212529;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
@@ -31,7 +31,7 @@ body {
   border-color: #00b4d8;
   box-shadow: 0 0 8px rgba(0,180,216,0.6);
   outline: none;
-}
+}*/
 
 /* Contenedor del reproductor y info */
 #playerArea {
@@ -198,3 +198,4 @@ footer {
     padding: 1rem;
   }
 }
+
