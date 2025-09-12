@@ -1,33 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tv>
   <channel id="canal1">
-    <display-name>Noticias HD</display-name>
-    <icon src="https://via.placeholder.com/120x60?text=Noticias" />
+    <display-name>Canal Local</display-name>
   </channel>
   <channel id="canal2">
-    <display-name>Deportes TV</display-name>
-    <icon src="https://via.placeholder.com/120x60?text=Deportes" />
-  </channel>
-  <channel id="canal3">
-    <display-name>Películas</display-name>
-    <icon src="https://via.placeholder.com/120x60?text=Pel%C3%ADculas" />
+    <display-name>Canal Remoto</display-name>
   </channel>
 
-  <programme channel="canal1" start="20250912080000 +0000" stop="20250912090000 +0000">
-    <title>Noticias al Día</title>
+  <programme start="20250912120000 +0000" stop="20250912123000 +0000" channel="canal1">
+    <title>Programa A1</title>
   </programme>
-  <programme channel="canal1" start="20250912090000 +0000" stop="20250912100000 +0000">
-    <title>Panorama Nacional</title>
-  </programme>
-
-  <programme channel="canal2" start="20250912080000 +0000" stop="20250912093000 +0000">
-    <title>Resumen Deportivo</title>
-  </programme>
-  <programme channel="canal2" start="20250912093000 +0000" stop="20250912110000 +0000">
-    <title>Fútbol Internacional</title>
+  <programme start="20250912123000 +0000" stop="20250912130000 +0000" channel="canal1">
+    <title>Programa A2</title>
   </programme>
 
-  <programme channel="canal3" start="20250912080000 +0000" stop="20250910090000 +0000">
-    <title>Película: Matrix</title>
+  <programme start="20250912120000 +0000" stop="20250912123000 +0000" channel="canal2">
+    <title>Programa B1</title>
+  </programme>
+  <programme start="20250912123000 +0000" stop="20250912130000 +0000" channel="canal2">
+    <title>Programa B2</title>
   </programme>
 </tv>
