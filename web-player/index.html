@@ -62,6 +62,11 @@
   </div>
 
   <script>
+    // Si ya está logueado, redirigir automáticamente
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      window.location.href = "dashboard.html";
+    }
+
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('errorMessage');
 
@@ -71,11 +76,10 @@
       const user = document.getElementById('user').value.trim();
       const password = document.getElementById('password').value.trim();
 
-      // Simulación de login (puedes reemplazar esto con validación real)
+      // Login simple (usuario hardcodeado)
       if (user === 'admin' && password === '1234') {
-        alert('Inicio de sesión exitoso');
-        // Redirigir a otro sitio si se desea
-        window.location.href = "dashboard.html";
+        localStorage.setItem('isLoggedIn', 'true'); // Guardar estado de sesión
+        window.location.href = "dashboard.html"; // Redirigir al dashboard
       } else {
         errorMessage.style.display = 'block';
         errorMessage.textContent = 'Usuario o contraseña incorrectos';
