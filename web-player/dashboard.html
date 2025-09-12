@@ -14,6 +14,7 @@
   <div class="container">
     <a class="navbar-brand" href="#">TV360</a>
     <input class="form-control ms-auto w-50" type="text" placeholder="Buscar canal..." id="searchInput">
+    <button class="btn btn-danger mt-4" onclick="logout()">Cerrar Sesión</button>
   </div>
 </nav>
 
@@ -175,8 +176,22 @@
   loadChannels();
 </script>
 
+<script>
+    // Redirigir si no ha iniciado sesión
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = "login.html";
+    }
+
+    // Cerrar sesión
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = "login.html";
+    }
+  </script>
+
 </body>
 </html>
+
 
 
 
