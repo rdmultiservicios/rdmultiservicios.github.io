@@ -14,10 +14,10 @@ https://live-evg20.tv360.bitel.com.pe/bitel/atvmas_abr/bitel/atvmas_360p/chunks.
 #EXTINF:-1 tvg-id="atv.pe" tvg-name="ATV Sur HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/15/05/1736895367519/57dbdf5188f3_480_270.png" group-title="Nacional", ATV Sur HD
 https://live-evg20.tv360.bitel.com.pe/bitel/atvsur_abr/bitel/atvsur_360p/chunks.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="LA EXITOSA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/03/23/04/167952120589/8c00689813ad_480_270.png" group-title="Nacional", La Exitosa TV 6.1 HD
+#EXTINF:-1 tvg-id="" tvg-name="LA EXITOSA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/03/23/04/167952120589/8c00689813ad_480_270.png" group-title="Nacional", La Exitosa TV
 https://luna-1-video.mediaserver.digital/exitosatv_233b-4b49-a726-5a3cb0e3243c/index.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="AGRO TV" tvg-logo="https://agrotv.pe/imgs/agrotv.png" group-title="Nacional", Agro Tv
+#EXTINF:-1 tvg-id="" tvg-name="AGRO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/09/09/04/1757368249836/852c1040711d_480_270.png" group-title="Nacional", Agro Tv
 https://vdo.grupolimalive.com/p/3179/live/agrotvlive.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="LA KARIBENA TV" tvg-logo="https://statics.lakaribena.com.pe/2024/08/crop/66b3750ba3e36__580x340.webp" group-title="Música", La Karibena Tv
@@ -44,7 +44,7 @@ https://www.chasquirouter.com/salida/sd/trivu.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Ovacion TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/04/1675976979325/8b5c5f7b1cee_480_270.png" group-title="Nacional", Ovacion TV
 https://5c3fb01839654.streamlock.net:1963/iptvovacion1/liveovacion1tv/chunklist_w35115645.m3u8
 
-#EXTINF:-1 tvg-id="americatv.com.pe" tvg-name="AMERICA TV" tvg-logo="https://s-tg.americatv.com.pe/f/desktop/img/ae.png" group-title="Nacional", America TV
+#EXTINF:-1 tvg-id="americatv.com.pe" tvg-name="AMERICA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735835681860/c6e8bd31225d_480_270.png" group-title="Nacional", America TV
 https://live-evg20.tv360.bitel.com.pe/bitel/america_tv_abr/bitel/america_tv_360p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png" group-title="Nacional", TV Perú
@@ -72,7 +72,7 @@ https://live.obslivestream.com/conecta2/tracks-v1a1/mono.m3u8
 https://5c3fb01839654.streamlock.net:1963/iptvrcrperu/livercrperutv/chunklist_w1710542714.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ANIME ONEGAI HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/23/1723566026507/5ebdbdb3f8fa_480_270.png" group-title="Cable Internacional", Anime Onegai TV
-https://live-evg25.tv360.bitel.com.pe/bitel/animeOnegai/bitel/animeOnegai_ori_480p/chunks.m3u8
+https://live-evg20.tv360.bitel.com.pe/bitel/animeOnegai/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="CTV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/03/06/1719961310377/da37730bae58_480_270.png" group-title="Nacional", CTV TV
 https://live-evg4.tv360.bitel.com.pe/bitel/ctv/chunks.m3u8
@@ -89,8 +89,8 @@ https://live-evg25.tv360.bitel.com.pe/bitel/lambayeque/bitel/lambayeque_ori_sour
 #EXTINF:-1 tvg-id="" tvg-name="TOP LATINO HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/11/06/1718061523165/72d14673702a_480_270.jpg" group-title="Música", Top Latino TV
 https://live-evg13.tv360.bitel.com.pe/hls/tltv.m3u8?uid=2779768
 
-#EXTINF:-1 tvg-id="" tvg-name="GLOBAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723498023494/88f72215f063_480_270.png" group-title="Nacional", Global TV
-https://live-evg25.tv360.bitel.com.pe/bitel/global/bitel/global_ori_480p/chunks.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="GLOBAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/21/1735829804503/8dfc28d8c469_640_360.png" group-title="Nacional", Global TV
+https://live-evg20.tv360.bitel.com.pe/bitel/global_abr/bitel/global_720p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="BH TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497196103/dd106731023a_480_270.jpg" group-title="Nacional", BH Nuestro Canal TV
 https://live-evg25.tv360.bitel.com.pe/bitel/bhtv/chunks.m3u8
@@ -98,8 +98,8 @@ https://live-evg25.tv360.bitel.com.pe/bitel/bhtv/chunks.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="LIKE TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/05/24/23/1716567780481/f4d8de9e25b1_480_270.jpg" group-title="Nacional", Like TV
 https://live-evg9.tv360.bitel.com.pe/fuegotvvivo12112021/tracks-v1a1/mono.m3u8?uid=2779768
 
-#EXTINF:-1 tvg-id="" tvg-name="FUN BOX TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/03/1675974876113/58118c7fb03d_480_270.png" group-title="Cable Internacional", Fun Box TV
-https://live-evg25.tv360.bitel.com.pe/bitel/funbox/bitel/funbox_ori_480p/chunks.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="GAMARRA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/25/23/1756139507194/bed24b5efdea_640_360.jpg" group-title="Nacional", Gamarra TV
+https://live-evg25.tv360.bitel.com.pe/bitel/gamarratv/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="MEGA TV AREQUIPA" tvg-logo="https://www.megatvarequipa.com/wp-content/uploads/2023/05/cropped-cropped-cropped-cropped-Polish_20230519_110858425-1.jpg" group-title="Nacional", Mega TV Arequipa
 https://mc.servidor.stream:19360/megatv/megatv.m3u8
@@ -143,10 +143,10 @@ https://live-evg25.tv360.bitel.com.pe/bitel/telelima/chunks.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="LATELE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/15/05/1736895378330/a71e8fedf788_640_360.png" group-title="Nacional", Latele
 https://live-evg25.tv360.bitel.com.pe/bitel/latele/chunks.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="TUsAMI" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/05/12/22/1747065234249/9494ebd7585a_640_360.png" group-title="Nacional", Tusami
-https://live-evg25.tv360.bitel.com.pe/bitel/tusami/chunks.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="FMH Kids" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/12/31/22/1735657792230/b870c45f862d_640_360.png" group-title="Cable Internacional", FMH Kids
+https://live-evg20.tv360.bitel.com.pe/bitel/fmhkids_abr/bitel/fmhkids_720p/chunks.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="RPP" tvg-logo="https://static.srv.win.i.mtvreg.com/cache/logos/RPP.png" group-title="Nacional", RPP
+#EXTINF:-1 tvg-id="" tvg-name="RPP" tvg-logo="https://impulsatumarca.pe/marcas/rpp.png" group-title="Nacional", RPP
 https://cdnback3.win.cdn.moderntv.eu:7909/win/stream/RPP/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DRPP_stream_3l&_cdn_session=2940589139&_cdn_token=03845d136dab25e633280f540b191ed916339afe
 
 
