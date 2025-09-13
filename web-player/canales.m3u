@@ -134,7 +134,7 @@ https://v4.tustreaming.cl/ondadigitaltv/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="TEVESUR LIVE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/27/04/1719437849977/b4205070afdb_480_270.jpg" group-title="Nacional", Tv Sur Live
 https://live-evg25.tv360.bitel.com.pe/bitel/tevesur/chunks.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="CANAL B LIVE" tvg-logo="descarga.png" group-title="Nacional", Canal B Live
+#EXTINF:-1 tvg-id="" tvg-name="CANAL B LIVE" tvg-logo="img-canales/canalb.png" group-title="Nacional", Canal B Live
 https://cdnback4.win.cdn.moderntv.eu:7909/win/stream/CANALB/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DPrueba_stream_1g&_cdn_session=2940981723&_cdn_token=90957d4697f7cf96e48edd3142ebe5e395b0458c
 
 #EXTINF:-1 tvg-id="" tvg-name="Internacional | FRANCE24" tvg-logo="https://howtowatch.france24.com/wp-content/themes/fr24/dist/assets/images/logos/logo-france-24-es.svg" group-title="Noticias internacionales", France24 Internacional
