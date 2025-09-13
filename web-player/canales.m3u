@@ -90,7 +90,7 @@ https://www.milenial.news/salida/sd/milenial.m3u8
 https://live-evg25.tv360.bitel.com.pe/bitel/lambayeque/bitel/lambayeque_ori_source/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TOP LATINO HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/11/06/1718061523165/72d14673702a_480_270.jpg" group-title="Música", Top Latino TV
-https://5cefcbf58ba2e.streamlock.net:543/webtltv/webtltv.stream/chunklist_w1860656256_tkd293emF0b2tlbnN0YXJ0dGltZT0xNzU3ODAwMDE5Jndvd3phdG9rZW5lbmR0aW1lPTE3NTc4MDEwMTkmd293emF0b2tlbmhhc2g9aEFwMEstT1RXRGMyTnlSSWlWWDVNUS1CQW01N2d2ZjFDZGZPSkZWcjJmUT0=.m3u8
+https://5cefcbf58ba2e.streamlock.net:543/webtltv/webtltv.stream/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="GLOBAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/21/1735829804503/8dfc28d8c469_640_360.png" group-title="Nacional", Global TV
 https://live-evg20.tv360.bitel.com.pe/bitel/global_abr/bitel/global_720p/chunks.m3u8
