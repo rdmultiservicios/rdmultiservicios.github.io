@@ -120,7 +120,7 @@ https://cdnhd.iblups.com/hls/3f2cb1658d114f2693eff18d83199e67.m3u8
 https://per01-lim01.servidor.stream/usiltv/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="img-canales/nacionaltvperu.jpg" group-title="Nacional", Nacional TV Perú
-https://play.agenciastreaming.com:8081/nacionaltv/tracks-v1/index.fmp4.m3u8
+https://play.agenciastreaming.com:8081/nacionaltv/tracks-v1a1/index.fmp4.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="img-canales/señalperutv.jpg" group-title="Nacional", Señal Perú TV
 https://livestream.perucast.com/hls/stream.m3u8
