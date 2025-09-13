@@ -1,12 +1,12 @@
 #EXTM3U
 #EXTINF:-1 tvg-id="" tvg-name="LATINA HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/02/1675972220844/cf0924f238d8_480_270.png" group-title="Nacional", Latina HD
-https://jireh-6-hls-video-us-isp.dps.live/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latina/latina.smil/latina/livestream3/chunks.m3u8?dpssid=b2131930628168c57d1d70c05&sid=ba5t1l1xb2101513231668c57db99ec31&ndvc=0
+https://jireh-6-hls-video-us-isp.dps.live/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latina/latina.smil/latina/livestream3/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="LATINA NOTICIAS" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/02/1675972220844/cf0924f238d8_480_270.png" group-title="Nacional", Latina Noticias
-https://jireh-3-hls-video-us-isp.dps.live/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latinanoticias/latinanoticias.smil/latinanoticias/livestream3/chunks.m3u8?dpssid=b2131930628168c57d1d70c05&sid=ba5t1l1xb2161482233668c57fb862cd4&ndvc=0
+https://jireh-3-hls-video-us-isp.dps.live/hls-video/567ffde3fa319fadf3419efda25619456231dfea/latinanoticias/latinanoticias.smil/latinanoticias/livestream3/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="LATINA CLÁSICOS" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/02/1675972220844/cf0924f238d8_480_270.png" group-title="Nacional", Latina Clásicos
-https://jireh-6-hls-video-us-isp.dps.live/hls-video/plus226/latina2/latina2.smil/latina2/livestream3/chunks.m3u8?dpssid=b2131930628168c57d1d70c05&sid=ba5t1l1xb2195547444068c57f0d8d7c9&ndvc=0
+https://jireh-6-hls-video-us-isp.dps.live/hls-video/plus226/latina2/latina2.smil/latina2/livestream3/chunks.m3u8
 
 #EXTINF:-1 tvg-id="atv.pe" tvg-name="ATV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497771524/6ddb4622ebc8_480_270.png" group-title="Nacional", ATV HD
 https://live-evg20.tv360.bitel.com.pe/bitel/atv_abr/bitel/atv_360p/chunks.m3u8
