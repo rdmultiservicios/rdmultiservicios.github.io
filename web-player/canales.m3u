@@ -26,7 +26,7 @@ https://vdo.grupolimalive.com/p/3179/live/agrotvlive.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="LA KARIBENA TV" tvg-logo="https://statics.lakaribena.com.pe/2024/08/crop/66b3750ba3e36__580x340.webp" group-title="Música", La Karibena Tv
 https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/index.fmp4.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="VISION SUR TV" tvg-logo="https://visionsurtv.pe/wp-content/uploads/2024/06/logo_visionsurtv.png" group-title="Nacional", Vision Sur Tv
+#EXTINF:-1 tvg-id="" tvg-name="VISION SUR TV" tvg-logo="https://visionsurtv.pe/wp-content/uploads/2025/03/Diseno-sin-titulo-1.png" group-title="Nacional", Vision Sur Tv
 https://ott1.hdlatam.tv/live_abr/webtvVisionSur/playlist.m3u8
 
 #EXTINF:-1 tvg-id="pbo.pe" tvg-name="PBO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/17/03/1721162066598/2b612543c6e6_480_270.jpg" group-title="Nacional", PBO TV
@@ -72,7 +72,7 @@ https://streamusmptv.ddns.net/live/stream.m3u8
 https://live.obslivestream.com/conecta2/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="RCR TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/05/25/03/1716583821856/57bd933ed445_480_270.jpg" group-title="Nacional", RCR HD TV
-https://5c3fb01839654.streamlock.net:1963/iptvrcrperu/livercrperutv/chunklist_w711696859.m3u8
+https://5c3fb01839654.streamlock.net:1963/iptvrcrperu/livercrperutv/chunklist_w1710542714.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ANIME ONEGAI HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/23/1723566026507/5ebdbdb3f8fa_480_270.png" group-title="Cable Internacional", Anime Onegai TV
 https://live-evg25.tv360.bitel.com.pe/bitel/animeOnegai/bitel/animeOnegai_ori_480p/chunks.m3u8
