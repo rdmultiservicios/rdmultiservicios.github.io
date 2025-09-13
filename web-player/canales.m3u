@@ -38,7 +38,7 @@ https://live-evg20.tv360.bitel.com.pe/bitel/willax_abr/bitel/willax_720p/chunks.
 #EXTINF:-1 tvg-id="" tvg-name="Internacional | RT TV" tvg-logo="https://actualidad.rt.com/static/img/og/logo-rt-black.jpg" group-title="Noticias internacionales", RT TV Internacional
 https://rt-esp.rttv.com/dvr/rtesp/playlist.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="Internacional | DW Español TV" tvg-logo="https://s3.us-east-1.amazonaws.com/forofms.na/monthly_2024_02/large.DWDeutscheWelleenespaol.png.b5cc19d4d75f3c0803ad79adb29c07ab.png" group-title="Noticias internacionales", DW Español TV Internacional
+#EXTINF:-1 tvg-id="" tvg-name="Internacional | DW Español TV" tvg-logo="img-canales/dwespañol.png" group-title="Noticias internacionales", DW Español TV Internacional
 https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream04/streamPlaylist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TRIVU TV 1" tvg-logo="https://noticiasncc.com/wp-content/uploads/2023/03/tribu-logo-300x224.jpg" group-title="Nacional", TRIVU TV 1
