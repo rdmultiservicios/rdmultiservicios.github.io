@@ -122,7 +122,7 @@ https://per01-lim01.servidor.stream/usiltv/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="img-canales/nacionaltvperu.jpg" group-title="Nacional", Nacional TV Perú
 https://play.agenciastreaming.com:8081/nacionaltv/tracks-a1/index.fmp4.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="https://xn--sealperutv-u9a.pe/wp-content/uploads/elementor/thumbs/logo_bn-qof9nvfho5h2wt3w9krbcuj660siu9svnxm6jpfv5s.png" group-title="Nacional", Señal Perú TV
+#EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="img-canales/señalperutv.jpg" group-title="Nacional", Señal Perú TV
 https://livestream.perucast.com/hls/stream.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="DOCLE C TV" tvg-logo="https://doblectelevision.com/wp-content/uploads/2023/12/LOGO-CANAL-HD.png" group-title="Nacional", Doble C TV
