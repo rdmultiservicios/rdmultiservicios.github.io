@@ -78,7 +78,7 @@ https://5c3fb01839654.streamlock.net:1963/iptvrcrperu/livercrperutv/chunklist_w1
 https://live-evg20.tv360.bitel.com.pe/bitel/animeOnegai/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="CTV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/03/06/1719961310377/da37730bae58_480_270.png" group-title="Nacional", CTV TV
-https://live-evg4.tv360.bitel.com.pe/bitel/ctv/chunks.m3u8
+https://ca2.inka.net.pe/ctvperu-live/tracks-v1a1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV NORTE HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/14/02/172357795260/02dd5475270f_480_270.png" group-title="Nacional", TV Norte HD
 https://live-evg25.tv360.bitel.com.pe/bitel/tvnorte/bitel/tvnorte_ori_480p/chunks.m3u8
