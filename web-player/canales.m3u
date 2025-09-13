@@ -128,7 +128,7 @@ https://livestream.perucast.com/hls/stream.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="DOCLE C TV" tvg-logo="https://doblectelevision.com/wp-content/uploads/2023/12/LOGO-CANAL-HD.png" group-title="Nacional", Doble C TV
 https://7.innovatestream.pe:19360/cctvchupaca/cctvchupaca.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="ONDA DIGITAL TV" tvg-logo="https://ondadigitaltv.com/wp-content/uploads/2019/05/cropped-cropped-LOGO-2019-1-2-1.png" group-title="Nacional", Onda Digital TV
+#EXTINF:-1 tvg-id="" tvg-name="ONDA DIGITAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/05/08/02/1746646295483/cc5938c5e784_640_360.jpg" group-title="Nacional", Onda Digital TV
 https://v4.tustreaming.cl/ondadigitaltv/tracks-v1a1/mono.ts.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TEVESUR LIVE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/27/04/1719437849977/b4205070afdb_480_270.jpg" group-title="Nacional", Tv Sur Live
