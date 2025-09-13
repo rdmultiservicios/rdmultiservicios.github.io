@@ -119,8 +119,8 @@ https://cdnhd.iblups.com/hls/3f2cb1658d114f2693eff18d83199e67.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="USIL TV" tvg-logo="https://usil.tv/uploads/images/logo_site_1673478162.png" group-title="Nacional", Usil TV
 https://per01-lim01.servidor.stream/usiltv/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="https://nacionaltvperu.com/wp-content/uploads/2024/02/NTVPERU-r-negro-01-01-2048x1152.png" group-title="Nacional", Nacional TV Perú
-https://s1.tvdatta.com:3349/live/nacionaltvlive.m3u8
+#EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="img-canales/nacionaltvperu.jpg" group-title="Nacional", Nacional TV Perú
+https://play.agenciastreaming.com:8081/nacionaltv/tracks-a1/index.fmp4.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="https://xn--sealperutv-u9a.pe/wp-content/uploads/elementor/thumbs/logo_bn-qof9nvfho5h2wt3w9krbcuj660siu9svnxm6jpfv5s.png" group-title="Nacional", Señal Perú TV
 https://livestream.perucast.com/hls/stream.m3u8
