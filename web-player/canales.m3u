@@ -96,7 +96,7 @@ https://5cefcbf58ba2e.streamlock.net:543/webtltv/webtltv.stream/chunklist_w18606
 https://live-evg20.tv360.bitel.com.pe/bitel/global_abr/bitel/global_720p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="BH TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497196103/dd106731023a_480_270.jpg" group-title="Nacional", BH Nuestro Canal TV
-https://sc1.wasidata.com/Bhtv/tracks-v1a1/index.fmp4.m3u8
+https://sc1.wasidata.com/Bhtv/tracks-v1a1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="LIKE TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/05/24/23/1716567780481/f4d8de9e25b1_480_270.jpg" group-title="Nacional", Like TV
 https://live-evg9.tv360.bitel.com.pe/fuegotvvivo12112021/tracks-v1a1/mono.m3u8?uid=2779768
@@ -120,7 +120,7 @@ https://cdnhd.iblups.com/hls/3f2cb1658d114f2693eff18d83199e67.m3u8
 https://per01-lim01.servidor.stream/usiltv/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="img-canales/nacionaltvperu.jpg" group-title="Nacional", Nacional TV Perú
-https://play.agenciastreaming.com:8081/nacionaltv/tracks-v1a1/index.fmp4.m3u8
+https://play.agenciastreaming.com:8081/nacionaltv/tracks-v1a1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="img-canales/señalperutv.jpg" group-title="Nacional", Señal Perú TV
 https://livestream.perucast.com/hls/stream.m3u8
