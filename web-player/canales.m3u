@@ -59,7 +59,7 @@ https://cdnhd.iblups.com/hls/902c1a0395264f269f1160efa00660e4.m3u8
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú Internacional" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png" group-title="Nacional", TV Perú Internacional
 https://cdnhd.iblups.com/hls/ee2450c81e554f4cae0e6292106993c2.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="NATIVA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/173583565692/7885cf39a6b2_640_360.png" group-title="Nacional", Nativa TV
+#EXTINF:-1 tvg-id="" tvg-name="NATIVA TV" tvg-logo="https://iptvpremium.com.pe/wp-content/uploads/2025/02/channels4_profile-300x300.jpg" group-title="Nacional", Nativa TV
 https://oneplay.iptvperu.tv:1936/static/nativa1.stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="PANAMERICANA TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/03/1675975326951/18caf2f51ca8_480_270.png" group-title="Nacional", Panamericana TV
@@ -107,16 +107,16 @@ https://live-evg25.tv360.bitel.com.pe/bitel/gamarratv/chunks.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MEGA TV AREQUIPA" tvg-logo="https://www.megatvarequipa.com/wp-content/uploads/2023/05/cropped-cropped-cropped-cropped-Polish_20230519_110858425-1.jpg" group-title="Nacional", Mega TV Arequipa
 https://mc.servidor.stream:19360/megatv/megatv.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://cnt.pe/wp-content/uploads/2024/04/cropped-286261861_525760372621597_6727290441715558918_n.jpg" group-title="Nacional", CNT TV Digital
+#EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://iptvpremium.com.pe/wp-content/uploads/2025/02/CNC_TV_2020_2.webp" group-title="Nacional", CNT TV Digital
 https://vdo.voxhdnet.com:3171/live/cnttvarequipalive.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SOL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/05/03/1720125013885/51cff0114d6c_480_270.jpg" group-title="Nacional", Sol TV
 https://video03.logicahost.com.br/soltv/soltv/chunklist_w206119081.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="IPE TV" tvg-logo="https://www.canalipe.gob.pe/sites/default/themes/concise_drupal/static/media/header/canalipe.png" group-title="Nacional", IPe TV
+#EXTINF:-1 tvg-id="" tvg-name="IPE TV" tvg-logo="https://www.canalipe.gob.pe/sites/default/themes/concise_drupal/static/media/header/logo.png" group-title="Nacional", IPe TV
 https://cdnhd.iblups.com/hls/3f2cb1658d114f2693eff18d83199e67.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="USIL TV" tvg-logo="https://usil.tv/uploads/images/logo_site_1673478162.png" group-title="Nacional", Usil TV
+#EXTINF:-1 tvg-id="" tvg-name="USIL TV" tvg-logo="https://usil.tv/uploads/images/channel_12_1745285348_thumb.png" group-title="Nacional", Usil TV
 https://per01-lim01.servidor.stream/usiltv/tracks-v1a1/mono.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="img-canales/nacionaltvperu.jpg" group-title="Nacional", Nacional TV Perú
@@ -125,7 +125,7 @@ https://play.agenciastreaming.com:8081/nacionaltv/tracks-v1a1/index.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="img-canales/señalperutv.jpg" group-title="Nacional", Señal Perú TV
 https://livestream.perucast.com/hls/stream.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="DOCLE C TV" tvg-logo="https://doblectelevision.com/wp-content/uploads/2023/12/LOGO-CANAL-HD.png" group-title="Nacional", Doble C TV
+#EXTINF:-1 tvg-id="" tvg-name="DOCLE C TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/05/04/1754342007238/063fe0fb2040_480_270.jpg" group-title="Nacional", Doble C TV
 https://7.innovatestream.pe:19360/cctvchupaca/cctvchupaca.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ONDA DIGITAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/05/08/02/1746646295483/cc5938c5e784_640_360.jpg" group-title="Nacional", Onda Digital TV
@@ -152,11 +152,17 @@ https://live-evg20.tv360.bitel.com.pe/bitel/fmhkids_abr/bitel/fmhkids_720p/chunk
 #EXTINF:-1 tvg-id="" tvg-name="RPP" tvg-logo="https://impulsatumarca.pe/marcas/rpp.png" group-title="Nacional", RPP
 https://cdnback3.win.cdn.moderntv.eu:7909/win/stream/RPP/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DRPP_stream_3l&_cdn_session=2940589139&_cdn_token=03845d136dab25e633280f540b191ed916339afe
 
-#EXTINF:-1 tvg-id="" tvg-name="NICK JR" tvg-logo="img-canales/nickjr.png" group-title="Cable Internacional", Nick Jr
+#EXTINF:-1 tvg-id="" tvg-name="NICK JR" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nick_Jr._logo_2023_%28outline%29.svg/250px-Nick_Jr._logo_2023_%28outline%29.svg.png" group-title="Cable Internacional", Nick Jr
 https://cdnmain5.win.cdn.moderntv.eu:7909/win/stream/Nick_Jr/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DNick_Jr_stream_zn&_cdn_session=3226577387&_cdn_token=047a519c4d1e8bb585922b58a0c224e196642b81
 
-#EXTINF:-1 tvg-id="" tvg-name="FUN BOX" tvg-logo="img-canales/funbox.png" group-title="Cable Internacional", Fun Box
+#EXTINF:-1 tvg-id="" tvg-name="FUN BOX" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/FunBox_TV_logo.svg/120px-FunBox_TV_logo.svg.png" group-title="Cable Internacional", Fun Box
 https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/Funbox_MIC/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3Dfunbox_stream_kt&_cdn_session=3226600595&_cdn_token=7c2bdef7859503049ab4885d72de56e49c0c732f
 
 #EXTINF:-1 tvg-id="" tvg-name="JUSTICIA TV" tvg-logo="https://justiciatv.pj.gob.pe/wp-content/uploads/2016/05/logo.png" group-title="Nacional", Justicia Tv
 https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/justiciatv/10-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3Djusticiatv_stream_1d&_cdn_session=3227055419&_cdn_token=d4ac42d8e87726eef0fd43f07c8d66f6a14c8fa2
+
+#EXTINF:-1 tvg-id="" tvg-name="NICKELODEON" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Nickelodeon_2023_logo_%28outline%29.svg/330px-Nickelodeon_2023_logo_%28outline%29.svg.png" group-title="Cable Internacional", Nickelodeon
+https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/Nick/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3Dnik_stream_8g&_cdn_session=3228246491&_cdn_token=d5f7236ae29488f0db2e612ef6169f4caa3f77d3
+
+#EXTINF:-1 tvg-id="" tvg-name="ASIRI TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/25/23/1756140167560/c7e886fe5f8e_480_270.jpg" group-title="Nacional", Asiri Tv
+https://video2.lhdserver.es/asiritv/live.m3u8
