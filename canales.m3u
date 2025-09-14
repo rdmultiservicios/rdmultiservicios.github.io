@@ -170,3 +170,5 @@ https://video2.lhdserver.es/asiritv/live.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX" tvg-logo="https://next-liga1.fanatiz.com/liga1/strapi/production/2024_logo_LIGA_1_P_dark_mode_fb69c5031a.webp" group-title="Deportes", Liga 1 Max
 https://deportes2.ksdjugfsddeports.com:9091/27_/tracks-v1a1/mono.ts.m3u8?remote=200.37.185.54&token=d25b9e3fd634c4f2edfc08087a25275ef2075808-7b2a70e2951d8488c752f318dbb8944c-1757905350-1757883750
 
+#EXTINF:-1 tvg-id="" tvg-name="GOL PERÚ" tvg-logo="https://dfw.yhy.mybluehost.me/wp-content/uploads/2023/04/png_golperu_logo.png" group-title="Deportes", Gol Perú
+https://deportes2.ksdjugfsddeports.com:9091/2_/tracks-v1a1/mono.ts.m3u8?remote=200.37.185.54&token=62976e7f732b1ce1beb1813cb0c0ed0d31266d4f-165540584b125fcb3e00581fad050a38-1757905930-1757884330
