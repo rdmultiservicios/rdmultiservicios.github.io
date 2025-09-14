@@ -107,7 +107,7 @@ https://live-evg25.tv360.bitel.com.pe/bitel/gamarratv/chunks.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MEGA TV AREQUIPA" tvg-logo="https://www.megatvarequipa.com/wp-content/uploads/2023/05/cropped-cropped-cropped-cropped-Polish_20230519_110858425-1.jpg" group-title="Nacional", Mega TV Arequipa
 https://mc.servidor.stream:19360/megatv/megatv.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://cnt.pe/wp-content/uploads/2024/04/cropped-286261861_525760372621597_6727290441715558918_n.jpg" group-title="Nacional", CNT TV Canal Digital 10.2 HD
+#EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://cnt.pe/wp-content/uploads/2024/04/cropped-286261861_525760372621597_6727290441715558918_n.jpg" group-title="Nacional", CNT TV Digital
 https://vdo.voxhdnet.com:3171/live/cnttvarequipalive.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SOL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/05/03/1720125013885/51cff0114d6c_480_270.jpg" group-title="Nacional", Sol TV
