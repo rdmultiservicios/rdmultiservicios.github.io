@@ -138,7 +138,7 @@ https://live-evg25.tv360.bitel.com.pe/bitel/tevesur/chunks.m3u8
 https://cdnback4.win.cdn.moderntv.eu:7909/win/stream/CANALB/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DPrueba_stream_1g&_cdn_session=2940981723&_cdn_token=90957d4697f7cf96e48edd3142ebe5e395b0458c
 
 #EXTINF:-1 tvg-id="" tvg-name="Internacional | FRANCE24" tvg-logo="https://howtowatch.france24.com/wp-content/themes/fr24/dist/assets/images/logos/logo-france-24-es.svg" group-title="Noticias internacionales", France24 Internacional
-https://youtu.be/Y-IlMeCCtIg
+https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/France24/10-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DFrance24_stream_a7&_cdn_session=3227029291&_cdn_token=a9b32884e5e4cbe658c12189009ef554df6eeda0
 
 #EXTINF:-1 tvg-id="" tvg-name="TELELIMA" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/09/19/02/1726687639950/81d12291ceee_480_270.png" group-title="Nacional", TeleLima
 https://live-evg25.tv360.bitel.com.pe/bitel/telelima/chunks.m3u8
