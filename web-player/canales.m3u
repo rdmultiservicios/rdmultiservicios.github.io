@@ -152,5 +152,9 @@ https://live-evg20.tv360.bitel.com.pe/bitel/fmhkids_abr/bitel/fmhkids_720p/chunk
 #EXTINF:-1 tvg-id="" tvg-name="RPP" tvg-logo="https://impulsatumarca.pe/marcas/rpp.png" group-title="Nacional", RPP
 https://cdnback3.win.cdn.moderntv.eu:7909/win/stream/RPP/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DRPP_stream_3l&_cdn_session=2940589139&_cdn_token=03845d136dab25e633280f540b191ed916339afe
 
+#EXTINF:-1 tvg-id="" tvg-name="NICK JR" tvg-logo="img-canales/nickjr.png" group-title="Cable Internacional", Nick Jr
+https://cdnmain5.win.cdn.moderntv.eu:7909/win/stream/Nick_Jr/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3DNick_Jr_stream_zn&_cdn_session=3226577387&_cdn_token=047a519c4d1e8bb585922b58a0c224e196642b81
 
+#EXTINF:-1 tvg-id="" tvg-name="FUN BOX" tvg-logo="img-canales/funbox.png" group-title="Cable Internacional", Fun Box
+https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/Funbox_MIC/20-hls/live-media.m3u8?_cdn_attrs=account%3Dwin%2Cresource%3Dfunbox_stream_kt&_cdn_session=3226600595&_cdn_token=7c2bdef7859503049ab4885d72de56e49c0c732f
 
