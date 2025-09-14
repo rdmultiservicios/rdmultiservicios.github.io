@@ -167,3 +167,6 @@ https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/Nick/20-hls/live-media.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="ASIRI TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/25/23/1756140167560/c7e886fe5f8e_480_270.jpg" group-title="Nacional", Asiri Tv
 https://video2.lhdserver.es/asiritv/live.m3u8
 
+#EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX" tvg-logo="https://next-liga1.fanatiz.com/liga1/strapi/production/2024_logo_LIGA_1_P_dark_mode_fb69c5031a.webp" group-title="Deportes", Liga 1 Max
+https://deportes2.ksdjugfsddeports.com:9091/27_/tracks-v1a1/mono.ts.m3u8?remote=200.37.185.54&token=d25b9e3fd634c4f2edfc08087a25275ef2075808-7b2a70e2951d8488c752f318dbb8944c-1757905350-1757883750
+
