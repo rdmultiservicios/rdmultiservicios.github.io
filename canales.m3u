@@ -59,7 +59,7 @@ https://cdnhd.iblups.com/hls/902c1a0395264f269f1160efa00660e4.m3u8
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú Internacional" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png" group-title="Nacional", TV Perú Internacional
 https://cdnhd.iblups.com/hls/ee2450c81e554f4cae0e6292106993c2.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="NATIVA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/173583565692/7885cf39a6b2_640_360.png" group-title="Nacional", Nativa TV
+#EXTINF:-1 tvg-id="" tvg-name="NATIVA TV" tvg-logo="https://iptvpremium.com.pe/wp-content/uploads/2025/02/channels4_profile-300x300.jpg" group-title="Nacional", Nativa TV
 https://oneplay.iptvperu.tv:1936/static/nativa1.stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="PANAMERICANA TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/03/1675975326951/18caf2f51ca8_480_270.png" group-title="Nacional", Panamericana TV
@@ -107,7 +107,7 @@ https://live-evg25.tv360.bitel.com.pe/bitel/gamarratv/chunks.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="MEGA TV AREQUIPA" tvg-logo="https://www.megatvarequipa.com/wp-content/uploads/2023/05/cropped-cropped-cropped-cropped-Polish_20230519_110858425-1.jpg" group-title="Nacional", Mega TV Arequipa
 https://mc.servidor.stream:19360/megatv/megatv.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://www.tdt.gob.pe/img/logo.png" group-title="Nacional", CNT TV Digital
+#EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://iptvpremium.com.pe/wp-content/uploads/2025/02/CNC_TV_2020_2.webp" group-title="Nacional", CNT TV Digital
 https://vdo.voxhdnet.com:3171/live/cnttvarequipalive.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SOL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/05/03/1720125013885/51cff0114d6c_480_270.jpg" group-title="Nacional", Sol TV
