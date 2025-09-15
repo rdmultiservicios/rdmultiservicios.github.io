@@ -21,7 +21,7 @@ https://live-evg20.tv360.bitel.com.pe/bitel/atvsur_abr/bitel/atvsur_360p/chunks.
 https://luna-1-video.mediaserver.digital/exitosatv_233b-4b49-a726-5a3cb0e3243c/index.m3u8
 
 #EXTINF:-1 tvg-id="creotvperu.com" tvg-name="CREO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/06/30/22/1751297879912/c4d705f4ff50_480_270.png" group-title="Nacional", Creotv
-https://live-evg25.tv360.bitel.com.pe/bitel/creoplus/chunks.m3u8
+https://srv1.thinkinternationalchannels.com/creotv/tracks-v1a1/index.m3u8
 
 #EXTINF:-1 tvg-id="lakaribena.com.pe" tvg-name="LA KARIBENA TV" tvg-logo="https://statics.lakaribena.com.pe/2024/08/crop/66b3750ba3e36__580x340.webp" group-title="Música", La Karibena Tv
 https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/index.fmp4.m3u8
