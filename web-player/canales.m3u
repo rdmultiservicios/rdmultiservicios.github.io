@@ -65,7 +65,7 @@ https://oneplay.iptvperu.tv:1936/static/nativa1.stream/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="PANAMERICANA TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/03/1675975326951/18caf2f51ca8_480_270.png" group-title="Nacional", Panamericana TV
 https://live-evg20.tv360.bitel.com.pe/bitel/panamericana_abr/bitel/panamericana_720p/chunks.m3u8
 
-#EXTINF:-1 tvg-id="USMPTV.pe" tvg-name="NEO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/30/02/1738179913557/a2814d1fb8a4_480_270.jpg" group-title="Nacional", Neo Tv
+#EXTINF:-1 tvg-id="" tvg-name="NEO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/30/02/1738179913557/a2814d1fb8a4_480_270.jpg" group-title="Nacional", Neo Tv
 https://live-evg25.tv360.bitel.com.pe/bitel/neotv/bitel/neotv_ori_source/chunks.m3u8
 
 #EXTINF:-1 tvg-id="conecta2.pe" tvg-name="CONECTA2 TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/06/06/22/1686064768681/9a1978fc185d_480_270.png" group-title="Nacional", Conecta2 TV
