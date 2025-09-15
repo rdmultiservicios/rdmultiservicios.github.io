@@ -20,8 +20,8 @@ https://live-evg20.tv360.bitel.com.pe/bitel/atvsur_abr/bitel/atvsur_360p/chunks.
 #EXTINF:-1 tvg-id="exitosanoticias.pe" tvg-name="LA EXITOSA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/03/23/04/167952120589/8c00689813ad_480_270.png" group-title="Nacional", La Exitosa TV
 https://luna-1-video.mediaserver.digital/exitosatv_233b-4b49-a726-5a3cb0e3243c/index.m3u8
 
-#EXTINF:-1 tvg-id="agrotv.pe" tvg-name="AGRO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/09/09/04/1757368249836/852c1040711d_480_270.png" group-title="Nacional", Agro Tv
-https://vdo.grupolimalive.com/p/3179/live/agrotvlive.m3u8
+#EXTINF:-1 tvg-id="creotvperu.com" tvg-name="CREO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/06/30/22/1751297879912/c4d705f4ff50_480_270.png" group-title="Nacional", Creotv
+https://live-evg25.tv360.bitel.com.pe/bitel/creoplus/chunks.m3u8
 
 #EXTINF:-1 tvg-id="lakaribena.com.pe" tvg-name="LA KARIBENA TV" tvg-logo="https://statics.lakaribena.com.pe/2024/08/crop/66b3750ba3e36__580x340.webp" group-title="Música", La Karibena Tv
 https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/index.fmp4.m3u8
@@ -119,14 +119,14 @@ https://cdnhd.iblups.com/hls/3f2cb1658d114f2693eff18d83199e67.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="USIL TV" tvg-logo="https://usil.tv/uploads/images/channel_12_1745285348_thumb.png" group-title="Nacional", Usil TV
 https://per01-lim01.servidor.stream/usiltv/tracks-v1a1/mono.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="https://linktr.ee/og/image/NacionalTvPeru.jpg" group-title="Nacional", Nacional TV Perú
+#EXTINF:-1 tvg-id="" tvg-name="NACIONAL TV PE" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/02/20/06/1740006367890/9200e98d8cde_480_270.png" group-title="Nacional", Nacional TV Perú
 https://play.agenciastreaming.com:8081/nacionaltv/tracks-v1a1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="SEÑAL PERÚ TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/1200px-Imagen_no_disponible.svg.png" group-title="Nacional", Señal Perú TV
 https://livestream.perucast.com/hls/stream.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="DOCLE C TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/05/04/1754342007238/063fe0fb2040_480_270.jpg" group-title="Nacional", Doble C TV
-https://7.innovatestream.pe:19360/cctvchupaca/cctvchupaca.m3u8
+https://live-evg25.tv360.bitel.com.pe/bitel/doblec/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="ONDA DIGITAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/05/08/02/1746646295483/cc5938c5e784_640_360.jpg" group-title="Nacional", Onda Digital TV
 https://v4.tustreaming.cl/ondadigitaltv/tracks-v1a1/mono.ts.m3u8
