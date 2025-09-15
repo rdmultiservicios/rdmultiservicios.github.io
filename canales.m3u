@@ -63,7 +63,7 @@ https://cdnhd.iblups.com/hls/ee2450c81e554f4cae0e6292106993c2.m3u8
 https://oneplay.iptvperu.tv:1936/static/nativa1.stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="PANAMERICANA TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/03/1675975326951/18caf2f51ca8_480_270.png" group-title="Nacional", Panamericana TV
-https://sae11.playlist.live-video.net/v1/playlist/CucFk5cTED9QfOf9gzCy0UCmKbTevP4Tlw1TlRRu2FAKI19hB1CuAMGYZv7uLmFkcjNZTcROOyWhf818VDcD8IjNpyDiAR26ZQ7T8EqEMWelOBcsiACxzeH7oxCBmlsMBgD_byLFkL6z77S8-8-vpxtLVUfIzuDILPzb6zIwI0E2QzTMDguc4DMfQnD0-CxpPXIv7tjx_xZDcduNKpfGNz74dWsVIaczl_pjL5Sq9JGcvmwGm8w76QfzeNBmMgw4iMnuqCowNcuIHsILg0ur_q0vTTQEa6EFEdcS_MxxH0jFS5ta3bpXR_Om4AvzLK01Bczm7F_rQfsAVUWN9dZ44BalpkqjSd2-0DDsPBvkie34mIoXKSWWR8rX8uD_-KlLUgFRabbN0ndLMUq4PXci3fIWqy3nfgauCTWv_EIkmAKkQod8AR5FVLqhNeLqyjx4vqBrOmXbMDAiI5V7jP6rIpaAwydCxZJSL5dKNgGKAsGynFJsMlmCGxenn-JH2UGZFWUP652xDRFtfAkhlpHq64HeYggZcddTtozQEytKgncEPz691WlltibuOn2uXzOKcDhKJQsPriYH0aMuxtSP3vzKAap7c7cu2FN6gRsncDupAf7M7-UAa4v0R_MEGdfg4vuKvzNfznSI_xdrG0fZr337SdPG7UcokDbWhvuat5INMODWBUuBMkMCO0loW_qEQdwNbcxSCZ0MQLTkA4KmsniLbFNKAytQZq3jsKWQ8k5P4i5MqDF1q3LjTn6Gh9GrLP5ukO_ez4xhQsxAJMEEHsonJ3I3bwC-qbO_nHErZjd_RWGdFjysFfn8OKgiK0vkhuO98NtvPEz-6e3zxZQ1GUIhpzyd0jQ1Rv3dX0ioWJoNBMGL-Fr7oGM-FXDAXCWKRX_lmkKS4-tg-H1XCqvFh6vlp8zVuoZ22Y9a5-8iyVVUpOwxMlBDXNZ-_X2NVxuVz9M8z9F2COXUO67orkK9Yo6g7pSlGHeVhHYaDF5g0ImxV-DJJnyT9CABKgl1cy1lYXN0LTIwnA0.m3u8
+https://live-evg20.tv360.bitel.com.pe/bitel/panamericana_abr/bitel/panamericana_720p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="USMPTV.pe" tvg-name="USMPTV TV" tvg-logo="https://i.imgur.com/9cmIv3q.png" group-title="Nacional", USMPTV 739 HD MOVISTAR TV
 https://streamusmptv.ddns.net/live/stream.m3u8
@@ -81,13 +81,13 @@ https://live-evg20.tv360.bitel.com.pe/bitel/animeOnegai/chunks.m3u8
 https://ca2.inka.net.pe/ctvperu-live/tracks-v1a1/index.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TV NORTE HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/14/02/172357795260/02dd5475270f_480_270.png" group-title="Nacional", TV Norte HD
-https://live-evg25.tv360.bitel.com.pe/bitel/tvnorte/bitel/tvnorte_ori_480p/chunks.m3u8
+https://live-evg25.tv360.bitel.com.pe/bitel/tvnorte/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="MILENIAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/04/25/05/1713997920924/debc49d2d9d3_480_270.png" group-title="Nacional", Milenial TV
 https://www.milenial.news/salida/sd/milenial.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="Canal 49 Norte TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/25/21/1721919151436/341aa24e0986_480_270.jpg" group-title="Nacional", Canal 49 TV Lambayeque
-https://live-evg25.tv360.bitel.com.pe/bitel/lambayeque/bitel/lambayeque_ori_source/chunks.m3u8
+https://live-evg25.tv360.bitel.com.pe/bitel/lambayeque/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="TOP LATINO HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/06/11/06/1718061523165/72d14673702a_480_270.jpg" group-title="Música", Top Latino TV
 https://5cefcbf58ba2e.streamlock.net:543/webtltv/webtltv.stream/chunklist.m3u8
@@ -167,8 +167,5 @@ https://cdnmain3.win.cdn.moderntv.eu:7909/win/stream/Nick/20-hls/live-media.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="ASIRI TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/25/23/1756140167560/c7e886fe5f8e_480_270.jpg" group-title="Nacional", Asiri Tv
 https://video2.lhdserver.es/asiritv/live.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX" tvg-logo="https://next-liga1.fanatiz.com/liga1/strapi/production/2024_logo_LIGA_1_P_dark_mode_fb69c5031a.webp" group-title="Deportes", Liga 1 Max
+#EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/29/06/1724886128623/dbb2ab453061_480_270.png" group-title="Deportes", Liga 1 Max
 https://deportes2.ksdjugfsddeports.com:9091/27_/tracks-v1a1/mono.ts.m3u8
-
-#EXTINF:-1 tvg-id="" tvg-name="GOL PERÚ" tvg-logo="https://dfw.yhy.mybluehost.me/wp-content/uploads/2023/04/png_golperu_logo.png" group-title="Deportes", Gol Perú
-https://deportes2.ksdjugfsddeports.com:9091/2_/tracks-v1a1/mono.ts.m3u8
