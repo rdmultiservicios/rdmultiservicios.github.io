@@ -104,9 +104,6 @@ https://live-evg9.tv360.bitel.com.pe/fuegotvvivo12112021/tracks-v1a1/mono.m3u8?u
 #EXTINF:-1 tvg-id="" tvg-name="GAMARRA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/08/25/23/1756139507194/bed24b5efdea_640_360.jpg" group-title="Nacional", Gamarra TV
 https://live-evg25.tv360.bitel.com.pe/bitel/gamarratv/chunks.m3u8
 
-#EXTINF:-1 tvg-id="" tvg-name="MEGA TV AREQUIPA" tvg-logo="https://www.megatvarequipa.com/wp-content/uploads/2023/05/cropped-cropped-cropped-cropped-Polish_20230519_110858425-1.jpg" group-title="Nacional", Mega TV Arequipa
-https://mc.servidor.stream:19360/megatv/megatv.m3u8
-
 #EXTINF:-1 tvg-id="" tvg-name="CNT TV Canal Digital 10.2 HD" tvg-logo="https://iptvpremium.com.pe/wp-content/uploads/2025/02/CNC_TV_2020_2.webp" group-title="Nacional", CNT TV Digital
 https://vdo.voxhdnet.com:3171/live/cnttvarequipalive.m3u8
 
