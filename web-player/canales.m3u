@@ -41,7 +41,7 @@ https://rt-esp.rttv.com/dvr/rtesp/playlist.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="Internacional | DW Español TV" tvg-logo="https://cdn.storage.foromedios.com/monthly_2024_02/small.DWDeutscheWelleenespaol.png.274cc6364ff97e8ddc52b679ede3c6a0.png" group-title="Noticias internacionales", DW Español TV Internacional
 https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/stream04/streamPlaylist.m3u8
 
-#EXTINF:-1 tvg-id="trivutv.com" tvg-name="TRIVU TV 1" tvg-logo="https://noticiasncc.com/wp-content/uploads/2023/03/tribu-logo-300x224.jpg" group-title="Nacional", TRIVU TV 1
+#EXTINF:-1 tvg-id="trivutv.com" tvg-name="TRIVU TV 1" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/07/03/04/17514915647/cf8aabdf43f2_480_270.png" group-title="Nacional", TRIVU TV 1
 https://www.chasquirouter.com/salida/sd/trivu.m3u8
 
 #EXTINF:-1 tvg-id="ovacion.pe" tvg-name="Ovacion TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/04/1675976979325/8b5c5f7b1cee_480_270.png" group-title="Nacional", Ovacion TV
