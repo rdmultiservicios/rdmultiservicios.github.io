@@ -3,109 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>IPTV WebApp</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://vjs.zencdn.net/8.9.0/video-js.css" rel="stylesheet" />
+  <title>IPTV Web App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://vjs.zencdn.net/7.22.2/video-js.css" rel="stylesheet" />
   <style>
     body {
-      background-color: #121212;
-      color: #eee;
-    }
-    .channel-item {
-      cursor: pointer;
-      padding: 0.3rem 0.5rem;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .channel-item:hover,
-    .channel-item.active {
-      background-color: #333;
-    }
-    #epg-info {
-      background-color: #1c1c1c;
-      padding: 0.8rem;
-    }
-    #epg-programmes {
       background-color: #000;
-      padding: 1rem;
-      font-size: 0.9rem;
-      max-height: 200px;
+      color: #eee;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    #app {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    #sidebar {
+      width: 320px;
+      background-color: #111;
       overflow-y: auto;
+      border-right: 1px solid #222;
+      padding: 0.5rem;
     }
-    .video-js {
-      width: 100% !important;
-      height: auto !important;
-      aspect-ratio: 16 / 9;
+    #main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
     }
-    @media (max-width: 768px) {
-      #sidebar {
-        height: auto;
-        max-height: 40vh;
-        overflow-y: auto;
-      }
-      #epg-info,
-      #epg-programmes {
-        font-size: 0.85rem;
-      }
+    #video-container {
+      flex: 0 0 auto;
+      max-height: 320px;
+      margin-bottom: 1rem;
     }
-
-    /* Light theme */
+    #channel-groups {
+      overflow-y: auto;
+      max-height: calc(100vh - 400px);
+    }
+    .list-group-item {
+      cursor: pointer;
+    }
+    .list-group-item:hover {
+      background-color: #222;
+    }
+    .favorite-btn {
+      font-size: 1.1rem;
+      border: none;
+      background: transparent;
+      color: gold;
+      cursor: pointer;
+      padding: 0 0.25rem;
+    }
+    .favorite-btn:hover {
+      color: #ff0;
+    }
+    /* Modo claro */
     body.light-theme {
-      background-color: #f8f9fa !important;
-      color: #000 !important;
+      background-color: #f8f9fa;
+      color: #212529;
     }
-    body.light-theme .channel-item:hover,
-    body.light-theme .channel-item.active {
-      background-color: #ddd !important;
-    }
-    body.light-theme .channel-item {
+    body.light-theme #sidebar {
       background-color: #fff;
-      color: #000;
+      border-right: 1px solid #ddd;
     }
-    body.light-theme #epg-info {
-      background-color: #e9ecef;
-      color: #000;
+    body.light-theme .list-group-item:hover {
+      background-color: #eee;
     }
-    body.light-theme #epg-programmes {
-      background-color: #fff;
-      color: #000;
-    }
-    body.light-theme #sidebar.bg-black {
-      background-color: #f8f9fa !important;
+    /* Responsive mobile */
+    @media (max-width: 576px) {
+      #app {
+        flex-direction: column;
+      }
+      #sidebar {
+        width: 100%;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #222;
+      }
+      #main {
+        padding: 0.5rem 0.25rem;
+      }
+      #video-container {
+        max-height: 220px;
+        margin-bottom: 0.5rem;
+      }
+      #channel-groups {
+        max-height: 250px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container-fluid px-0">
-    <div class="row gx-0">
-      <nav id="sidebar" class="col-12 col-md-3 bg-black p-3">
-        <button id="themeToggle" class="btn btn-sm btn-secondary mb-2">🌙 Cambiar tema</button>
-        <input id="search" type="search" class="form-control mb-3" placeholder="Buscar canales..." />
-        <div class="accordion" id="channel-groups"></div>
-      </nav>
-      <main class="col-12 col-md-9">
-        <div id="player-container" class="mb-3">
-          <video
-            id="video-player"
-            class="video-js vjs-default-skin"
-            controls
-            preload="auto"
-            autoplay
-          ></video>
-        </div>
-        <div id="epg-info">
-          <h5 id="epg-title">Título del canal</h5>
-          <p id="epg-description">Grupo / ID</p>
-        </div>
-        <div id="epg-programmes" class="text-white"></div>
-      </main>
-    </div>
+  <div class="d-flex justify-content-between align-items-center p-2 bg-dark text-light">
+    <h3 class="mb-0">IPTV Web App</h3>
+    <button id="theme-toggle" class="btn btn-outline-light btn-sm" title="Alternar tema claro/oscuro">🌙</button>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://vjs.zencdn.net/8.9.0/video.min.js"></script>
+  <div id="app">
+    <nav id="sidebar" aria-label="Lista de canales">
+      <input
+        type="search"
+        id="search-input"
+        class="form-control mb-2"
+        placeholder="Buscar canal..."
+        aria-label="Buscar canal"
+      />
+      <div id="favorites-group" class="mb-3">
+        <h5>⭐ Favoritos</h5>
+        <ul class="list-group" id="favorites-list"></ul>
+      </div>
+      <div class="accordion" id="channel-groups" role="region" aria-live="polite" aria-atomic="true"></div>
+    </nav>
+
+    <main id="main" role="main">
+      <div id="video-container">
+        <video
+          id="video-player"
+          class="video-js vjs-default-skin"
+          controls
+          preload="auto"
+          playsinline
+          width="100%"
+          height="320"
+          aria-label="Reproductor de video"
+        ></video>
+      </div>
+      <section id="epg-section" aria-live="polite" aria-atomic="true">
+        <h5>Programa actual</h5>
+        <div id="epg-programmes" class="small"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/video.js@7.22.2/dist/video.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js"></script>
   <script src="app.js"></script>
 </body>
