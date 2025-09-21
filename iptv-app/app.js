@@ -1,306 +1,369 @@
-// app.js
+// Variables globales
+let channels = [];
+let epgData = null;
+let player = null;
+let currentChannelId = null;
 
-const CHANNELS_M3U = 'channels.m3u'; // Archivo M3U local o URL
-const EPG_XML = 'epg.xml';           // Archivo XMLTV local o URL
+// Cargar favoritos del localStorage
+const favorites = new Set(JSON.parse(localStorage.getItem('favorites') || '[]'));
 
-const videoPlayer = videojs('video-player');
-const channelGroupsContainer = document.getElementById('channel-groups');
+// Referencias DOM
+const channelGroupsEl = document.getElementById('channel-groups');
 const searchInput = document.getElementById('search');
 const epgTitle = document.getElementById('epg-title');
 const epgDescription = document.getElementById('epg-description');
 const epgProgrammes = document.getElementById('epg-programmes');
-const fullscreenBtn = document.getElementById('fullscreen-btn');
+const themeToggle = document.getElementById('themeToggle');
 
-let channels = []; // Array de canales parseados
-let epgData = {};  // Objeto { channelId: [programas] }
-let filteredChannels = [];
-let favorites = new Set(JSON.parse(localStorage.getItem('favorites') || '[]'));
-let currentChannelId = localStorage.getItem('lastChannelId') || null;
-
-// Utils para parsear fechas XMLTV con offset y convertir a Date local
-function parseXMLTVDate(str) {
-  const dtPart = str.substring(0, 14);
-  const offsetPart = str.substring(15).trim();
-
-  const year = parseInt(dtPart.substring(0, 4));
-  const month = parseInt(dtPart.substring(4, 6)) - 1;
-  const day = parseInt(dtPart.substring(6, 8));
-  const hour = parseInt(dtPart.substring(8, 10));
-  const minute = parseInt(dtPart.substring(10, 12));
-  const second = parseInt(dtPart.substring(12, 14));
-
-  let date = new Date(Date.UTC(year, month, day, hour, minute, second));
-
-  const sign = offsetPart[0];
-  const offsetHours = parseInt(offsetPart.substring(1, 3));
-  const offsetMinutes = parseInt(offsetPart.substring(3, 5));
-  const offsetTotalMinutes = offsetHours * 60 + offsetMinutes;
-
-  if(sign === '+') {
-    date = new Date(date.getTime() - offsetTotalMinutes * 60000);
-  } else if(sign === '-') {
-    date = new Date(date.getTime() + offsetTotalMinutes * 60000);
-  }
-
-  return date;
-}
-
-// Parsear M3U en array de objetos
-async function parseM3U(url) {
+async function loadM3U(url) {
   const res = await fetch(url);
   const text = await res.text();
+  return parseM3U(text);
+}
 
-  const lines = text.split('\n');
-  const parsedChannels = [];
-  let currentChannel = null;
-
-  for (let line of lines) {
-    line = line.trim();
-    if (!line) continue;
-
+function parseM3U(data) {
+  const lines = data.split('\n');
+  const channelsList = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
     if (line.startsWith('#EXTINF')) {
-      const attrRegex = /(\w+)=["']([^"']*)["']/g;
+      const infoLine = line;
+      const urlLine = lines[i + 1]?.trim();
+      i++;
+      // Parse attributes
       const attrs = {};
+      const regex = /(\w+?)="([^"]*?)"/g;
       let match;
-
-      while ((match = attrRegex.exec(line)) !== null) {
+      while ((match = regex.exec(infoLine))) {
         attrs[match[1]] = match[2];
       }
-      const name = line.split(',')[1] || attrs['tvg-name'] || 'Sin nombre';
-
-      currentChannel = {
-        id: attrs['tvg-id'] || name.toLowerCase().replace(/\s+/g, '-'),
-        name: name,
+      // Parse name after comma
+      const name = infoLine.split(',').slice(1).join(',').trim();
+      channelsList.push({
+        id: attrs['tvg-id'] || name,
+        name: attrs['tvg-name'] || name,
         logo: attrs['tvg-logo'] || '',
-        group: attrs['group-title'] || 'Otros',
-        url: ''
-      };
-    } else if (currentChannel && !line.startsWith('#')) {
-      currentChannel.url = line;
-      parsedChannels.push(currentChannel);
-      currentChannel = null;
+        group: attrs['group-title'] || 'Sin grupo',
+        url: urlLine,
+      });
     }
   }
-
-  return parsedChannels;
+  return channelsList;
 }
 
-// Parsear EPG XMLTV
-async function parseEPG(url) {
+async function loadEPG(url) {
   const res = await fetch(url);
   const text = await res.text();
-
   const parser = new DOMParser();
   const xml = parser.parseFromString(text, 'application/xml');
-
-  const programmes = xml.querySelectorAll('programme');
-  const epg = {};
-
-  programmes.forEach(p => {
-    const channel = p.getAttribute('channel');
-    const start = parseXMLTVDate(p.getAttribute('start'));
-    const stop = parseXMLTVDate(p.getAttribute('stop'));
-    const titleEl = p.querySelector('title');
-    const descEl = p.querySelector('desc');
-
-    if (!epg[channel]) epg[channel] = [];
-
-    epg[channel].push({
-      start,
-      stop,
-      title: titleEl ? titleEl.textContent : '',
-      desc: descEl ? descEl.textContent : ''
-    });
-  });
-
-  for (const ch in epg) {
-    epg[ch].sort((a,b) => a.start - b.start);
-  }
-
-  return epg;
+  return xml;
 }
 
-// Mostrar canales agrupados en acordeones Bootstrap
-function renderChannelList(channelsList) {
+function groupChannels(channelsList) {
   const groups = {};
-  channelsList.forEach(ch => {
+  channelsList.forEach((ch) => {
     if (!groups[ch.group]) groups[ch.group] = [];
     groups[ch.group].push(ch);
   });
+  // Ordenar alfabéticamente grupos
+  const sortedGroups = {};
+  Object.keys(groups)
+    .sort((a, b) => a.localeCompare(b))
+    .forEach((key) => {
+      sortedGroups[key] = groups[key];
+    });
+  return sortedGroups;
+}
 
-  channelGroupsContainer.innerHTML = '';
+function renderChannelList(channelsList) {
+  channelGroupsEl.innerHTML = '';
+  const grouped = groupChannels(channelsList);
 
-  let groupIndex = 0;
-  for (const group in groups) {
-    groupIndex++;
-    const groupId = 'group-' + groupIndex;
+  // Crear sección "Favoritos" primero si hay
+  const favChannels = channelsList.filter((ch) => favorites.has(ch.id));
+  if (favChannels.length) {
+    const favId = 'group-favorites';
+    const favHeaderId = 'heading-favorites';
+    const favCollapseId = 'collapse-favorites';
 
-    const item = document.createElement('div');
-    item.className = 'accordion-item bg-black text-white';
+    const favAccordion = document.createElement('div');
+    favAccordion.className = 'accordion-item';
 
-    item.innerHTML = `
-      <h2 class="accordion-header" id="heading-${groupId}">
-        <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${groupId}" aria-expanded="false" aria-controls="collapse-${groupId}">
-          ${group}
+    favAccordion.innerHTML = `
+      <h2 class="accordion-header" id="${favHeaderId}">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${favCollapseId}" aria-expanded="true" aria-controls="${favCollapseId}">
+          ⭐ Favoritos (${favChannels.length})
         </button>
       </h2>
-      <div id="collapse-${groupId}" class="accordion-collapse collapse" aria-labelledby="heading-${groupId}" data-bs-parent="#channel-groups">
-        <div class="accordion-body p-0" style="max-height: 300px; overflow-y: auto;">
-          <ul class="list-group list-group-flush" id="list-${groupId}"></ul>
+      <div id="${favCollapseId}" class="accordion-collapse collapse show" aria-labelledby="${favHeaderId}" data-bs-parent="#channel-groups">
+        <div class="accordion-body p-0">
+          <ul class="list-group list-group-flush" id="${favId}-list"></ul>
+        </div>
+      </div>
+    `;
+    channelGroupsEl.appendChild(favAccordion);
+
+    const favListEl = document.getElementById(`${favId}-list`);
+    favChannels.forEach((ch) => {
+      const li = createChannelItem(ch);
+      favListEl.appendChild(li);
+    });
+  }
+
+  Object.entries(grouped).forEach(([group, chList], index) => {
+    const groupId = `group-${index}`;
+    const headerId = `heading-${index}`;
+    const collapseId = `collapse-${index}`;
+
+    const accordionItem = document.createElement('div');
+    accordionItem.className = 'accordion-item';
+
+    accordionItem.innerHTML = `
+      <h2 class="accordion-header" id="${headerId}">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#${collapseId}"
+          aria-expanded="false"
+          aria-controls="${collapseId}">
+          ${group} (${chList.length})
+        </button>
+      </h2>
+      <div id="${collapseId}" class="accordion-collapse collapse" aria-labelledby="${headerId}" data-bs-parent="#channel-groups">
+        <div class="accordion-body p-0">
+          <ul class="list-group list-group-flush" id="${groupId}-list"></ul>
         </div>
       </div>
     `;
 
-    channelGroupsContainer.appendChild(item);
+    channelGroupsEl.appendChild(accordionItem);
 
-    const ul = item.querySelector(`#list-${groupId}`);
-
-    groups[group].forEach(ch => {
-      const li = document.createElement('li');
-      li.className = 'list-group-item d-flex align-items-center channel-item bg-black text-white';
-      if (ch.id === currentChannelId) li.classList.add('active');
-
-      li.dataset.channelId = ch.id;
-
-      li.innerHTML = `
-        <img src="${ch.logo}" alt="${ch.name}" style="width: 40px; height: 25px; object-fit: contain; margin-right: 10px;" />
-        <div class="flex-grow-1">${ch.name}</div>
-        <button class="btn btn-sm btn-outline-warning favorite-btn" title="Favorito">${favorites.has(ch.id) ? '★' : '☆'}</button>
-      `;
-
-      li.querySelector('.favorite-btn').onclick = e => {
-        e.stopPropagation();
-        toggleFavorite(ch.id, e.target);
-      };
-
-      li.onclick = () => selectChannel(ch.id);
-
-      ul.appendChild(li);
+    const listEl = document.getElementById(`${groupId}-list`);
+    chList.forEach((ch) => {
+      const li = createChannelItem(ch);
+      listEl.appendChild(li);
     });
-  }
+  });
 }
 
-// Cambiar canal seleccionado
-function selectChannel(channelId) {
-  if (currentChannelId === channelId) return;
+function createChannelItem(ch) {
+  const li = document.createElement('li');
+  li.className = 'list-group-item channel-item d-flex align-items-center justify-content-between';
 
-  currentChannelId = channelId;
-  localStorage.setItem('lastChannelId', currentChannelId);
+  li.innerHTML = `
+    <div class="d-flex align-items-center flex-grow-1">
+      <img src="${ch.logo}" alt="${ch.name}" style="width: 40px; height: 25px; object-fit: contain; margin-right: 10px;" />
+      <div>${ch.name}</div>
+    </div>
+    <button class="btn btn-sm btn-outline-warning favorite-btn" title="Favorito">${favorites.has(ch.id) ? '★' : '☆'}</button>
+  `;
 
-  document.querySelectorAll('.channel-item').forEach(item => {
-    item.classList.toggle('active', item.dataset.channelId === channelId);
-  });
+  li.onclick = () => {
+    playChannel(ch);
+  };
 
-  const channel = channels.find(ch => ch.id === channelId);
-  if (!channel) return;
+  li.querySelector('.favorite-btn').onclick = (e) => {
+    e.stopPropagation();
+    toggleFavorite(ch.id, e.target);
+  };
 
-  playChannel(channel.url);
+  // Marcar activo si es el canal actual
+  if (ch.id === currentChannelId) li.classList.add('active');
+
+  return li;
+}
+
+function toggleFavorite(channelId, button) {
+  if (favorites.has(channelId)) {
+    favorites.delete(channelId);
+    button.textContent = '☆';
+  } else {
+    favorites.add(channelId);
+    button.textContent = '★';
+  }
+  localStorage.setItem('favorites', JSON.stringify([...favorites]));
+  renderChannelList(channels);
+}
+
+function playChannel(channel) {
+  currentChannelId = channel.id;
+  updateActiveChannelUI();
+
+  if (player) {
+    if (Hls.isSupported() && channel.url.endsWith('.m3u8')) {
+      if (player.hls) {
+        player.hls.destroy();
+      }
+      const video = document.getElementById('video-player');
+      const hls = new Hls();
+      player.hls = hls;
+      hls.loadSource(channel.url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+    } else {
+      player.src({ src: channel.url, type: 'application/vnd.apple.mpegurl' });
+    }
+  }
+
   showEPG(channel);
 }
 
-// Reproducir canal con Video.js + HLS.js fallback
-function playChannel(url) {
-  if (videoPlayer.techName_ === 'Html5' && Hls.isSupported()) {
-    if (videoPlayer.hls) {
-      videoPlayer.hls.destroy();
-      videoPlayer.hls = null;
+function updateActiveChannelUI() {
+  document.querySelectorAll('.channel-item').forEach((el) => {
+    el.classList.remove('active');
+  });
+  // Marcar activo el canal seleccionado
+  document.querySelectorAll('.channel-item').forEach((el) => {
+    if (el.querySelector('div').textContent === channels.find((ch) => ch.id === currentChannelId)?.name) {
+      el.classList.add('active');
     }
-    const hls = new Hls();
-    videoPlayer.hls = hls;
-    hls.loadSource(url);
-    hls.attachMedia(videoPlayer.tech_.el_);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      videoPlayer.play();
-    });
-  } else {
-    videoPlayer.src({ src: url, type: 'application/x-mpegURL' });
-    videoPlayer.play();
-  }
+  });
 }
 
-// Mostrar EPG del canal actual
 function showEPG(channel) {
-  epgTitle.textContent = channel.name;
-  epgDescription.textContent = `Grupo: ${channel.group} | ID: ${channel.id}`;
-
-  const now = new Date();
-  const programmes = epgData[channel.id] || [];
-
-  // Buscar programa actual y próximos
-  const currentPrograms = programmes.filter(p => p.start <= now && p.stop > now);
-  const nextPrograms = programmes.filter(p => p.start > now);
-
-  epgProgrammes.innerHTML = '';
-
-  if (currentPrograms.length === 0 && nextPrograms.length === 0) {
-    epgProgrammes.textContent = 'No hay información de programación disponible.';
+  if (!epgData) {
+    epgTitle.textContent = channel.name;
+    epgDescription.textContent = `Grupo: ${channel.group} / ID: ${channel.id}`;
+    epgProgrammes.innerHTML = '<em>EPG no disponible</em>';
     return;
   }
 
-  currentPrograms.forEach(p => {
+  epgTitle.textContent = channel.name;
+  epgDescription.textContent = `Grupo: ${channel.group} / ID: ${channel.id}`;
+  epgProgrammes.innerHTML = '';
+
+  const now = new Date();
+
+  // Obtener programas para el canal
+  const programmes = Array.from(epgData.querySelectorAll(`programme[channel="${channel.id}"]`)).map((prog) => {
+    const start = parseEPGDate(prog.getAttribute('start'));
+    const stop = parseEPGDate(prog.getAttribute('stop'));
+    return {
+      start,
+      stop,
+      title: prog.querySelector('title')?.textContent || 'Sin título',
+      desc: prog.querySelector('desc')?.textContent || '',
+    };
+  });
+
+  // Programas actuales
+  const currentPrograms = programmes.filter((p) => now >= p.start && now <= p.stop);
+  // Próximos 3 programas
+  const nextPrograms = programmes.filter((p) => p.start > now).sort((a, b) => a.start - b.start);
+
+  // Mostrar programas actuales con indicador 🟢
+  currentPrograms.forEach((p) => {
     const div = document.createElement('div');
-    div.innerHTML = `<strong>En emisión:</strong> ${p.title} (${formatTime(p.start)} - ${formatTime(p.stop)})<br><small>${p.desc}</small>`;
+    div.className = 'text-success mb-2';
+    div.innerHTML = `
+      <strong>🟢 En emisión:</strong> ${p.title} (${formatTime(p.start)} - ${formatTime(p.stop)})<br>
+      <small>${p.desc}</small>
+    `;
     epgProgrammes.appendChild(div);
   });
 
-  nextPrograms.slice(0, 3).forEach(p => {
+  // Mostrar próximos programas
+  nextPrograms.slice(0, 3).forEach((p) => {
     const div = document.createElement('div');
-    div.innerHTML = `<strong>Próximo:</strong> ${p.title} (${formatTime(p.start)} - ${formatTime(p.stop)})<br><small>${p.desc}</small>`;
+    div.className = 'text-muted mb-2';
+    div.innerHTML = `
+      <strong>⏭ Próximo:</strong> ${p.title} (${formatTime(p.start)} - ${formatTime(p.stop)})<br>
+      <small>${p.desc}</small>
+    `;
     epgProgrammes.appendChild(div);
   });
+
+  if (currentPrograms.length === 0 && nextPrograms.length === 0) {
+    epgProgrammes.innerHTML = '<em>No hay información EPG para este canal</em>';
+  }
+}
+
+function parseEPGDate(dateStr) {
+  // EPG usa formato: YYYYMMDDHHmmss Z
+  // Ejemplo: 20250920120000 +0000
+  // Convertir a ISO 8601 para parseo correcto
+  if (!dateStr) return null;
+  const dateIso = dateStr.replace(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6Z');
+  return new Date(dateIso);
 }
 
 function formatTime(date) {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-// Filtrar canales por búsqueda
-function filterChannels(term) {
-  term = term.toLowerCase();
-  filteredChannels = channels.filter(ch =>
-    ch.name.toLowerCase().includes(term) || ch.group.toLowerCase().includes(term)
-  );
-  renderChannelList(filteredChannels);
+function filterChannels(query) {
+  query = query.trim().toLowerCase();
+  if (!query) {
+    renderChannelList(channels);
+    return;
+  }
+  const filtered = channels.filter((ch) => ch.name.toLowerCase().includes(query));
+  renderChannelList(filtered);
 }
 
-// Favoritos
-function toggleFavorite(channelId, btn) {
-  if (favorites.has(channelId)) {
-    favorites.delete(channelId);
-    btn.textContent = '☆';
-  } else {
-    favorites.add(channelId);
-    btn.textContent = '★';
-  }
-  localStorage.setItem('favorites', JSON.stringify([...favorites]));
+function init() {
+  player = videojs('video-player', {
+    autoplay: true,
+    controls: true,
+    muted: false,
+    preload: 'auto',
+  });
+
+  // Cargar M3U y EPG
+  Promise.all([loadM3U('channels.m3u'), loadEPG('epg.xml')]).then(([m3uChannels, epg]) => {
+    channels = m3uChannels;
+    epgData = epg;
+
+    renderChannelList(channels);
+
+    // Reproducir el primer canal por defecto
+    if (channels.length > 0) {
+      playChannel(channels[0]);
+    }
+  });
+
+  // Buscar canales
+  searchInput.addEventListener('input', (e) => {
+    filterChannels(e.target.value);
+  });
+
+  // Actualizar EPG automáticamente cada 60 segundos
+  setInterval(() => {
+    const currentChannel = channels.find((ch) => ch.id === currentChannelId);
+    if (currentChannel) {
+      showEPG(currentChannel);
+    }
+  }, 60000);
+
+  // Tema claro/oscuro
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
+    const isLight = document.body.classList.contains('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    updateTheme();
+  });
+
+  updateTheme();
 }
 
-// Botón pantalla completa
-fullscreenBtn.addEventListener('click', () => {
-  if (!document.fullscreenElement) {
-    videoPlayer.el().requestFullscreen();
+function updateTheme() {
+  const isLight = localStorage.getItem('theme') === 'light';
+  if (isLight) {
+    document.body.classList.add('light-theme');
+    document.body.classList.remove('bg-black');
+    document.getElementById('sidebar').classList.remove('bg-black');
+    document.getElementById('sidebar').classList.add('bg-light');
+    document.body.style.color = '#000';
   } else {
-    document.exitFullscreen();
+    document.body.classList.remove('light-theme');
+    document.body.classList.add('bg-black');
+    document.getElementById('sidebar').classList.add('bg-black');
+    document.getElementById('sidebar').classList.remove('bg-light');
+    document.body.style.color = '#eee';
   }
-});
+}
 
-// Evento búsqueda
-searchInput.addEventListener('input', () => {
-  filterChannels(searchInput.value);
-});
-
-// Inicialización
-(async function init() {
-  channels = await parseM3U(CHANNELS_M3U);
-  epgData = await parseEPG(EPG_XML);
-
-  filteredChannels = channels;
-
-  renderChannelList(channels);
-
-  if (currentChannelId && channels.find(ch => ch.id === currentChannelId)) {
-    selectChannel(currentChannelId);
-  } else if (channels.length > 0) {
-    selectChannel(channels[0].id);
-  }
-})();
+window.onload = init;
