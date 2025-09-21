@@ -1,43 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tv>
-  <channel id="nature1">
-    <display-name>Nature TV</display-name>
-  </channel>
-  <channel id="news1">
-    <display-name>Noticias 24</display-name>
-  </channel>
-  <channel id="sports1">
-    <display-name>Deportes Live</display-name>
-  </channel>
-  <channel id="movie1">
-    <display-name>Cine Clásico</display-name>
-  </channel>
-
-  <programme start="20250920120000 +0000" stop="20250920130000 +0000" channel="nature1">
-    <title>Documental Animales</title>
-    <desc>Un recorrido por la fauna salvaje.</desc>
+  <programme start="20250920100000 +0000" stop="20250920110000 +0000" channel="channel1">
+    <title>Noticias Matutinas</title>
+    <desc>Las últimas noticias de la mañana.</desc>
   </programme>
-  <programme start="20250920130000 +0000" stop="20250920140000 +0000" channel="nature1">
-    <title>Explorando el Océano</title>
-    <desc>Maravillas submarinas y ecosistemas marinos.</desc>
+  <programme start="20250920110000 +0000" stop="20250920120000 +0000" channel="channel1">
+    <title>Reportajes Especiales</title>
+    <desc>Investigaciones y reportajes.</desc>
   </programme>
-
-  <programme start="20250920120000 +0000" stop="20250920123000 +0000" channel="news1">
-    <title>Noticias Internacionales</title>
-    <desc>Últimas noticias del mundo.</desc>
+  <programme start="20250920100000 +0000" stop="20250920113000 +0000" channel="channel2">
+    <title>Fútbol en vivo</title>
+    <desc>Partido de fútbol local.</desc>
   </programme>
-  <programme start="20250920123000 +0000" stop="20250920130000 +0000" channel="news1">
-    <title>Noticias Locales</title>
-    <desc>Eventos y sucesos en la ciudad.</desc>
+  <programme start="20250920113000 +0000" stop="20250920120000 +0000" channel="channel2">
+    <title>Resumen deportivo</title>
+    <desc>Lo más destacado del día.</desc>
   </programme>
-
-  <programme start="20250920120000 +0000" stop="20250920140000 +0000" channel="sports1">
-    <title>Fútbol en Vivo</title>
-    <desc>Partido en directo.</desc>
+  <programme start="20250920100000 +0000" stop="20250920103000 +0000" channel="channel3">
+    <title>Serie de comedia</title>
+    <desc>Episodio 5 - Temporada 2.</desc>
   </programme>
-
-  <programme start="20250920120000 +0000" stop="20250920130000 +0000" channel="movie1">
-    <title>Clásicos del Cine</title>
-    <desc>Películas inolvidables de los años 50.</desc>
+  <programme start="20250920103000 +0000" stop="20250920110000 +0000" channel="channel3">
+    <title>Talk Show</title>
+    <desc>Entrevistas y humor.</desc>
   </programme>
 </tv>
