@@ -11,7 +11,7 @@
     <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Iconos de Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
@@ -21,17 +21,22 @@
             color: #fff;
             overflow-x: hidden;
         }
-
-        .container-fluid {
-            padding: 0;
+        .main-container {
+            min-height: 100vh;
         }
-
+        .video-player-container {
+            background-color: #000;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
+            border-radius: 1rem;
+            overflow: hidden;
         }
-
         .video-container video {
             position: absolute;
             top: 0;
@@ -39,148 +44,180 @@
             width: 100%;
             height: 100%;
         }
-
         .video-js {
-            border-radius: 0.75rem;
-            overflow: hidden;
+            border-radius: 1rem;
         }
-
         .sidebar {
             background-color: #1a1a1a;
-            height: 100vh;
+            height: 100%;
             overflow-y: auto;
-            border-radius: 0.75rem;
+            border-radius: 1rem;
             padding: 1rem;
         }
-
         .channel-list .card {
             background-color: transparent;
             border: none;
+            margin-bottom: 0.5rem;
         }
-
         .channel-list .list-group-item {
             cursor: pointer;
             background-color: transparent;
             color: #fff;
             border: none;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s ease-in-out;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
             display: flex;
             align-items: center;
         }
-
         .channel-list .list-group-item:hover,
         .channel-list .list-group-item.active {
             background-color: #333;
+            transform: scale(1.02);
         }
-
         .channel-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 0.75rem;
-            object-fit: cover;
-            border: 1px solid #444;
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+            margin-right: 1rem;
+            object-fit: contain;
+            background-color: #2e2e2e;
+            padding: 0.25rem;
         }
-
-        .channel-details {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-        }
-
         .channel-name {
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         .category-header {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #ccc;
             padding: 0.5rem 0;
             margin-top: 1rem;
         }
-
         .card-header button {
             color: #fff;
             text-decoration: none;
         }
-
         .card-header button:hover {
             color: #ddd;
         }
-
-        .channel-placeholder {
-            min-height: 200px;
-            background-color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            flex-direction: column;
-            text-align: center;
-            border-radius: 0.75rem;
-            padding: 1rem;
-        }
-
-        .now-playing {
+        .now-playing-container {
             background-color: #1a1a1a;
-            border-radius: 0.75rem;
-            padding: 1rem;
+            border-radius: 1rem;
+            padding: 1.5rem;
             margin-bottom: 1rem;
         }
-
-        .file-input-label {
+        .epg-table-container {
             background-color: #2e2e2e;
-            color: #fff;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: center;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .epg-table {
             width: 100%;
+            font-size: 0.9rem;
+            border-collapse: collapse;
         }
-        
-        .file-input-label:hover {
+        .epg-table th, .epg-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #444;
+        }
+        .epg-table tr.current-program {
             background-color: #444;
+            font-weight: bold;
         }
-
+        .epg-table th {
+            text-align: left;
+            color: #aaa;
+        }
+        .epg-table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .epg-table-container::-webkit-scrollbar-track {
+            background: #2e2e2e;
+        }
+        .epg-table-container::-webkit-scrollbar-thumb {
+            background-color: #555;
+            border-radius: 4px;
+        }
+        .file-upload-container {
+            background-color: #1a1a1a;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .upload-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+        .upload-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
         #fileInput {
             display: none;
         }
-        
         /* Media Queries para diseño responsive */
         @media (min-width: 992px) {
-            .main-content {
+            .main-container {
+                display: flex;
+            }
+            .video-player-container {
+                flex-grow: 1;
                 height: 100vh;
                 display: flex;
-                flex-direction: row;
-            }
-            .video-player-col {
-                flex-grow: 1;
-                padding: 1rem;
             }
             .sidebar-col {
-                width: 380px;
+                width: 400px;
                 flex-shrink: 0;
-                padding: 1rem;
             }
         }
     </style>
 </head>
 <body class="bg-dark text-light">
-    <div class="container-fluid main-content">
-        <div class="row w-100">
+    <div class="container-fluid main-container">
+        <div class="row w-100 g-0">
             <!-- Columna del reproductor de video -->
-            <div class="col-lg-8 p-3 order-lg-1 video-player-col">
+            <div class="col-lg-8 p-3 order-lg-1 video-player-container">
                 <div class="d-flex flex-column h-100">
-                    <div class="now-playing" id="nowPlaying">
-                        <h4 class="m-0">No hay canal reproduciéndose</h4>
+                    <div class="now-playing-container">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <h4 class="m-0" id="nowPlayingTitle">Selecciona un canal para comenzar a ver.</h4>
+                                <p class="m-0 text-muted" id="nowPlayingCategory"></p>
+                            </div>
+                        </div>
+                        <div id="epgDisplayContainer" class="epg-table-container">
+                             <h5>Guía de Programación</h5>
+                             <table class="epg-table">
+                                 <thead>
+                                     <tr>
+                                         <th>Horario</th>
+                                         <th>Programa</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody id="epgTableBody">
+                                     <tr><td colspan="2">No hay datos EPG para este canal.</td></tr>
+                                 </tbody>
+                             </table>
+                        </div>
                     </div>
                     <div class="video-container flex-grow-1 mb-3">
                         <video id="my-video" class="video-js vjs-theme-forest" controls preload="auto" data-setup='{}'>
@@ -191,24 +228,21 @@
                             </p>
                         </video>
                     </div>
-                    <!-- Control para cargar el archivo -->
-                    <div class="text-center">
-                        <label for="fileInput" class="file-input-label">
-                            <i class="fas fa-upload me-2"></i> Cargar archivo .m3u
-                        </label>
-                        <input type="file" id="fileInput" accept=".m3u">
-                    </div>
                 </div>
             </div>
-
             <!-- Columna de la lista de canales -->
             <div class="col-lg-4 p-3 order-lg-2 sidebar-col">
                 <div class="sidebar d-flex flex-column h-100">
                     <h2 class="text-center my-3">Canales de TV</h2>
                     <div class="channel-list flex-grow-1" id="channelList">
-                        <div class="channel-placeholder">
-                            <i class="fas fa-tv fa-3x mb-3"></i>
-                            <p class="lead">Carga un archivo .m3u para ver los canales.</p>
+                        <div id="upload-prompt" class="file-upload-container">
+                            <i class="fas fa-satellite-dish fa-3x mb-3 text-secondary"></i>
+                            <h5 class="mb-3">¡Bienvenido!</h5>
+                            <p class="text-muted">Carga tu lista de canales M3U para comenzar a ver.</p>
+                            <label for="fileInput" class="upload-btn">
+                                <i class="fas fa-upload me-2"></i> Cargar M3U
+                            </label>
+                            <input type="file" id="fileInput" accept=".m3u">
                         </div>
                     </div>
                 </div>
@@ -220,24 +254,57 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Video.js y HLS.js -->
     <script src="https://vjs.zencdn.net/8.14.0/video.min.js"></script>
-    <script src="https://unpkg.com/@videojs/http-streaming@3.10.0/dist/videojs-http-streaming.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.8/hls.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('fileInput');
             const channelList = document.getElementById('channelList');
-            const nowPlaying = document.getElementById('nowPlaying');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+            const nowPlayingCategory = document.getElementById('nowPlayingCategory');
+            const epgTableBody = document.getElementById('epgTableBody');
             const player = videojs('my-video');
+            let hls;
+
+            // Datos EPG internos (mock data).
+            const epgData = {
+                "TV Azteca": [
+                    { title: "Noticiero Matutino", start: 8, end: 10 },
+                    { title: "Entrevista del día", start: 10, end: 11 },
+                    { title: "Noticiero Vespertino", start: 14, end: 16 },
+                    { title: "Reporte de la noche", start: 20, end: 22 }
+                ],
+                "Canal 5": [
+                    { title: "Dibujos Animados", start: 7, end: 9 },
+                    { title: "Comedia de Situación", start: 9, end: 12 },
+                    { title: "Película de Tarde", start: 15, end: 17 },
+                    { title: "Noticias", start: 17, end: 18 }
+                ],
+                "HBO Max": [
+                    { title: "Estreno de Película", start: 19, end: 21 },
+                    { title: "Serie de Fantasía", start: 21, end: 22 },
+                    { title: "Documental", start: 22, end: 23 }
+                ],
+                "Deportes": [
+                    { title: "Noticias Deportivas", start: 8, end: 9 },
+                    { title: "Fútbol en vivo", start: 12, end: 14 },
+                    { title: "Resumen de la Jornada", start: 20, end: 21 }
+                ]
+            };
 
             fileInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
-                if (!file) {
-                    return;
-                }
+                if (!file) return;
 
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     const content = event.target.result;
-                    parseM3u(content);
+                    const channels = parseM3u(content);
+                    displayChannels(channels);
+
+                    if (channels.length > 0) {
+                        const firstChannelElement = document.querySelector('.list-group-item');
+                        playChannel(channels[0], firstChannelElement);
+                    }
                 };
                 reader.readAsText(file);
             });
@@ -250,22 +317,22 @@
                 for (const line of lines) {
                     const trimmedLine = line.trim();
                     if (trimmedLine.startsWith('#EXTINF')) {
-                        const match = trimmedLine.match(/tvg-name="([^"]*)"(?:.*tvg-logo="([^"]*)")?(?:.*group-title="([^"]*)")?/);
-                        if (match) {
-                            currentChannel = {
-                                name: match[1] || 'Nombre Desconocido',
-                                logo: match[2] || '',
-                                category: match[3] || 'Sin Categoría'
-                            };
-                        }
+                        const tvgNameMatch = trimmedLine.match(/tvg-name="([^"]*)"/);
+                        const tvgLogoMatch = trimmedLine.match(/tvg-logo="([^"]*)"/);
+                        const groupTitleMatch = trimmedLine.match(/group-title="([^"]*)"/);
+
+                        currentChannel = {
+                            name: tvgNameMatch ? tvgNameMatch[1] : 'Nombre Desconocido',
+                            logo: tvgLogoMatch ? tvgLogoMatch[1] : '',
+                            category: groupTitleMatch ? groupTitleMatch[1] : 'Sin Categoría'
+                        };
                     } else if (trimmedLine.startsWith('http') && currentChannel) {
                         currentChannel.url = trimmedLine;
                         channels.push(currentChannel);
                         currentChannel = null;
                     }
                 }
-
-                displayChannels(channels);
+                return channels;
             }
 
             function displayChannels(channels) {
@@ -279,14 +346,14 @@
                     const categoryCard = document.createElement('div');
                     categoryCard.className = 'card mb-2';
                     categoryCard.innerHTML = `
-                        <div class="card-header bg-dark p-0" id="heading-${category.replace(/\s/g, '-')}" style="border: none;">
+                        <div class="card-header bg-dark p-0" style="border: none;">
                             <h5 class="mb-0">
                                 <button class="btn btn-link w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${category.replace(/\s/g, '-')}" aria-expanded="true" aria-controls="collapse-${category.replace(/\s/g, '-')}">
                                     <i class="fas fa-caret-down me-2"></i> ${category}
                                 </button>
                             </h5>
                         </div>
-                        <div id="collapse-${category.replace(/\s/g, '-')}" class="collapse show" aria-labelledby="heading-${category.replace(/\s/g, '-')}" data-bs-parent="#channelList">
+                        <div id="collapse-${category.replace(/\s/g, '-')}" class="collapse show">
                             <div class="card-body p-0">
                                 <ul class="list-group list-group-flush"></ul>
                             </div>
@@ -297,10 +364,8 @@
                     groupedChannels[category].forEach(channel => {
                         const li = document.createElement('li');
                         li.className = 'list-group-item';
-                        li.dataset.url = channel.url;
-                        li.dataset.name = channel.name;
                         li.innerHTML = `
-                            <img src="${channel.logo || 'https://placehold.co/40x40/2e2e2e/fff?text=TV'}" class="channel-logo" onerror="this.onerror=null;this.src='https://placehold.co/40x40/2e2e2e/fff?text=TV';">
+                            <img src="${channel.logo || 'https://placehold.co/50x50/2e2e2e/fff?text=TV'}" class="channel-logo" onerror="this.onerror=null;this.src='https://placehold.co/50x50/2e2e2e/fff?text=TV';">
                             <div class="channel-details">
                                 <span class="channel-name">${channel.name}</span>
                             </div>
@@ -312,29 +377,76 @@
                 }
             }
 
+            function displayEpg(channelName) {
+                epgTableBody.innerHTML = '';
+                const now = new Date();
+                const currentHour = now.getHours();
+                const programs = epgData[channelName] || [];
+
+                if (programs.length === 0) {
+                    epgTableBody.innerHTML = `<tr><td colspan="2">No hay datos EPG disponibles para este canal.</td></tr>`;
+                    return;
+                }
+
+                programs.forEach(program => {
+                    const tr = document.createElement('tr');
+                    let isCurrent = (currentHour >= program.start && currentHour < program.end);
+                    if (isCurrent) {
+                        tr.classList.add('current-program');
+                    }
+                    tr.innerHTML = `
+                        <td>${String(program.start).padStart(2, '0')}:00 - ${String(program.end).padStart(2, '0')}:00</td>
+                        <td>${program.title}</td>
+                    `;
+                    epgTableBody.appendChild(tr);
+                });
+            }
+
             function playChannel(channel, element) {
-                // Remove 'active' class from all channels
                 const allChannels = document.querySelectorAll('.list-group-item');
                 allChannels.forEach(item => item.classList.remove('active'));
-                
-                // Add 'active' class to the clicked channel
                 element.classList.add('active');
 
-                // Update 'Now Playing' display
-                nowPlaying.innerHTML = `<h4 class="m-0">${channel.name}</h4><p class="m-0 text-muted">${channel.category}</p>`;
+                nowPlayingTitle.textContent = channel.name;
+                nowPlayingCategory.textContent = channel.category;
+                displayEpg(channel.name);
+
+                if (hls) {
+                    hls.destroy();
+                }
 
                 if (Hls.isSupported()) {
-                    const hls = new Hls();
+                    hls = new Hls();
                     hls.loadSource(channel.url);
                     hls.attachMedia(player.tech().el());
                     hls.on(Hls.Events.MANIFEST_PARSED, function() {
                         player.play();
                     });
+                    hls.on(Hls.Events.ERROR, function (event, data) {
+                        if (data.fatal) {
+                            switch (data.type) {
+                                case Hls.ErrorTypes.NETWORK_ERROR:
+                                    console.error("fatal network error, trying to recover");
+                                    hls.recoverMediaError();
+                                    break;
+                                case Hls.ErrorTypes.MEDIA_ERROR:
+                                    console.error("fatal media error, trying to recover");
+                                    hls.recoverMediaError();
+                                    break;
+                                default:
+                                    console.error("fatal error, destroying HLS instance");
+                                    hls.destroy();
+                                    break;
+                            }
+                        }
+                    });
                 } else if (player.canPlayType('application/vnd.apple.mpegurl')) {
                     player.src(channel.url);
                     player.play();
                 } else {
-                    nowPlaying.innerHTML = `<h4 class="text-danger m-0">Error: El formato de video no es compatible con tu navegador.</h4>`;
+                    nowPlayingTitle.textContent = 'Error: No se puede reproducir este canal.';
+                    nowPlayingCategory.textContent = 'El formato de video no es compatible con tu navegador.';
+                    epgTableBody.innerHTML = `<tr><td colspan="2">Error al cargar la lista.</td></tr>`;
                 }
             }
         });
