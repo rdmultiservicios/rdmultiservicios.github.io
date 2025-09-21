@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App de Canales de TV</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.com/8.14.0/video-js.css" rel="stylesheet" />
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --sidebar-bg: #1a1a1a;
+            --card-bg: #242424;
+            --text-color: #fff;
+            --muted-text: #a8a8a8;
+            --accent-color: #673ab7;
+            --hover-color: #333;
+            --border-radius-lg: 0.75rem;
+            --border-radius-sm: 0.5rem;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        @media (min-width: 992px) {
+            .main-container {
+                flex-direction: row;
+            }
+        }
+        .video-player-container {
+            background-color: var(--bg-color);
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            border-left: 1px solid #222;
+        }
+        @media (min-width: 992px) {
+            .sidebar {
+                width: 450px;
+                flex-shrink: 0;
+            }
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            flex-grow: 1;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .video-js {
+            border-radius: var(--border-radius-lg);
+        }
+        .channel-list .list-group-item {
+            cursor: pointer;
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 1rem;
+            border-radius: var(--border-radius-sm);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+        .channel-list .list-group-item:hover,
+        .channel-list .list-group-item.active {
+            background-color: var(--card-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .channel-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius-sm);
+            margin-right: 1rem;
+            object-fit: contain;
+            background-color: transparent;
+        }
+        .channel-name {
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.1rem;
+        }
+        .category-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--muted-text);
+            padding: 1rem 0;
+            margin-top: 1rem;
+            border-bottom: 1px solid var(--hover-color);
+        }
+        .now-playing-container {
+            background-color: var(--sidebar-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .epg-table-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-sm);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .epg-table {
+            width: 100%;
+            font-size: 0.95rem;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+        .epg-table th, .epg-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--hover-color);
+        }
+        .epg-table tr.current-program {
+            background-color: var(--accent-color);
+            color: #fff;
+            font-weight: bold;
+            border-radius: var(--border-radius-sm);
+        }
+        .epg-table th {
+            text-align: left;
+            color: var(--muted-text);
+        }
+        .epg-table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .epg-table-container::-webkit-scrollbar-track {
+            background: var(--card-bg);
+        }
+        .epg-table-container::-webkit-scrollbar-thumb {
+            background-color: var(--muted-text);
+            border-radius: 4px;
+        }
+        .file-upload-container {
+            background-color: var(--sidebar-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .upload-btn {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 0.75rem 2rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            font-weight: bold;
+        }
+        .upload-btn:hover {
+            background-color: #7943b0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+        #fileInput {
+            display: none;
+        }
+        .channel-info-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <div class="container-fluid main-container">
+        <!-- Columna del reproductor de video -->
+        <div class="video-player-container">
+            <div class="d-flex flex-column h-100">
+                <div class="now-playing-container">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <h4 class="m-0" id="nowPlayingTitle">Selecciona un canal para comenzar a ver.</h4>
+                            <p class="m-0 text-muted" id="nowPlayingCategory"></p>
+                        </div>
+                    </div>
+                    <div id="epgDisplayContainer" class="epg-table-container">
+                         <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5>Guía de Programación</h5>
+                            <button id="epgSummaryBtn" class="btn btn-sm btn-outline-light float-end">
+                                ✨ ¿Qué hay de nuevo?
+                            </button>
+                        </div>
+                        <table class="epg-table">
+                            <thead>
+                                <tr>
+                                    <th>Horario</th>
+                                    <th>Programa</th>
+                                </tr>
+                            </thead>
+                            <tbody id="epgTableBody">
+                                <tr><td colspan="2">No hay datos EPG para este canal.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="video-container flex-grow-1 mb-3">
+                    <video id="my-video" class="video-js vjs-theme-forest" controls preload="auto" data-setup='{}'>
+                        <p class="vjs-no-js">
+                            Para ver este video, por favor habilita JavaScript y considera
+                            actualizar a un navegador que
+                            <a href="https://videojs.com/html5-video-support/" target="_blank">soporte video HTML5</a>
+                        </p>
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna de la lista de canales -->
+        <div class="sidebar-col p-3">
+            <div class="sidebar d-flex flex-column h-100">
+                <h2 class="text-center my-3">Canales</h2>
+                <div class="channel-list flex-grow-1" id="channelList">
+                    <div id="upload-prompt" class="file-upload-container">
+                        <i class="fas fa-satellite-dish fa-3x mb-3 text-secondary"></i>
+                        <h5 class="mb-3">¡Bienvenido!</h5>
+                        <p class="text-muted">Carga tu lista de canales M3U para comenzar a ver.</p>
+                        <label for="fileInput" class="upload-btn">
+                            <i class="fas fa-upload me-2"></i> Cargar M3U
+                        </label>
+                        <input type="file" id="fileInput" accept=".m3u">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para el resumen -->
+    <div class="modal fade" id="summaryModal" tabindex="-1" aria-labelledby="summaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: var(--card-bg); border-radius: var(--border-radius-lg);">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="summaryModalLabel" style="color: var(--text-color);"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body pt-0" style="color: var(--muted-text);">
+                    <div id="summaryContent"></div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Video.js y HLS.js -->
+    <script src="https://vjs.zencdn.com/8.14.0/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.8/hls.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const channelList = document.getElementById('channelList');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+            const nowPlayingCategory = document.getElementById('nowPlayingCategory');
+            const epgTableBody = document.getElementById('epgTableBody');
+            const epgSummaryBtn = document.getElementById('epgSummaryBtn');
+            const summaryModal = new bootstrap.Modal(document.getElementById('summaryModal'));
+            const summaryModalLabel = document.getElementById('summaryModalLabel');
+            const summaryContent = document.getElementById('summaryContent');
+            const player = videojs('my-video');
+            let hls;
+
+            // La URL de una EPG "dinámica" simulada.
+            const EPG_API_URL = 'https://raw.githubusercontent.com/L4RGEG/public-resources/main/epg.json';
+            let allEpgData = {};
+
+            const apiKey = ""; // API key is automatically provided by the platform.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            // Cargar los datos del EPG al inicio
+            fetch(EPG_API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    allEpgData = data;
+                })
+                .catch(error => {
+                    console.error('Error al cargar la EPG:', error);
+                    nowPlayingTitle.textContent = "Error de conexión";
+                    nowPlayingCategory.textContent = "No se pudo cargar la Guía de Programación.";
+                });
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const content = event.target.result;
+                        const channels = parseM3u(content);
+                        if (channels.length === 0) {
+                            showUploadPrompt('El archivo M3U no contiene canales válidos.');
+                            return;
+                        }
+                        displayChannels(channels);
+                        const firstChannelElement = document.querySelector('.list-group-item');
+                        playChannel(channels[0], firstChannelElement);
+                    } catch (error) {
+                        console.error('Error al procesar el archivo M3U:', error);
+                        showUploadPrompt('Error al procesar el archivo. Asegúrate de que el formato sea correcto.');
+                    }
+                };
+                reader.onerror = () => {
+                    showUploadPrompt('Error de lectura del archivo. Intenta de nuevo.');
+                };
+                reader.readAsText(file);
+            });
+
+            epgSummaryBtn.addEventListener('click', generateEpgSummary);
+
+            function showUploadPrompt(message) {
+                channelList.innerHTML = `
+                    <div id="upload-prompt" class="file-upload-container">
+                        <i class="fas fa-satellite-dish fa-3x mb-3 text-secondary"></i>
+                        <h5 class="mb-3">${message}</h5>
+                        <p class="text-muted">Por favor, carga una lista de canales válida.</p>
+                        <label for="fileInput" class="upload-btn">
+                            <i class="fas fa-upload me-2"></i> Cargar M3U
+                        </label>
+                    </div>
+                `;
+            }
+
+            function parseM3u(content) {
+                const channels = [];
+                const lines = content.split('\n');
+                let currentChannel = null;
+
+                for (const line of lines) {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith('#EXTINF')) {
+                        const tvgNameMatch = trimmedLine.match(/tvg-name="([^"]*)"/);
+                        const tvgLogoMatch = trimmedLine.match(/tvg-logo="([^"]*)"/);
+                        const groupTitleMatch = trimmedLine.match(/group-title="([^"]*)"/);
+
+                        currentChannel = {
+                            name: tvgNameMatch ? tvgNameMatch[1] : 'Nombre Desconocido',
+                            logo: tvgLogoMatch ? tvgLogoMatch[1] : '',
+                            category: groupTitleMatch ? groupTitleMatch[1] : 'Sin Categoría'
+                        };
+                    } else if (trimmedLine.startsWith('http') && currentChannel) {
+                        currentChannel.url = trimmedLine;
+                        channels.push(currentChannel);
+                        currentChannel = null;
+                    }
+                }
+                return channels;
+            }
+
+            function displayChannels(channels) {
+                const uploadPrompt = document.getElementById('upload-prompt');
+                if (uploadPrompt) {
+                    uploadPrompt.remove();
+                }
+                channelList.innerHTML = '';
+                const groupedChannels = channels.reduce((acc, channel) => {
+                    (acc[channel.category] = acc[channel.category] || []).push(channel);
+                    return acc;
+                }, {});
+
+                for (const category in groupedChannels) {
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'card mb-2';
+                    categoryCard.innerHTML = `
+                        <div class="card-header bg-dark p-0" style="border: none;">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${category.replace(/\s/g, '-')}" aria-expanded="true" aria-controls="collapse-${category.replace(/\s/g, '-')}">
+                                    <i class="fas fa-caret-down me-2"></i> ${category}
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapse-${category.replace(/\s/g, '-')}" class="collapse show">
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush"></ul>
+                            </div>
+                        </div>
+                    `;
+
+                    const ul = categoryCard.querySelector('ul');
+                    groupedChannels[category].forEach(channel => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item d-flex align-items-center justify-content-between';
+                        li.innerHTML = `
+                            <div class="d-flex align-items-center">
+                                <img src="${channel.logo || 'https://placehold.co/60x60/2e2e2e/fff?text=TV'}" class="channel-logo" onerror="this.onerror=null;this.src='https://placehold.co/60x60/2e2e2e/fff?text=TV';">
+                                <div class="channel-info-container">
+                                    <span class="channel-name">${channel.name}</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-light ms-2 flex-shrink-0" onclick="generateChannelSummary(event, '${channel.name}', '${channel.category}')">✨ Resumen</button>
+                        `;
+                        li.addEventListener('click', (e) => {
+                            if (!e.target.closest('button')) {
+                                playChannel(channel, li);
+                            }
+                        });
+                        ul.appendChild(li);
+                    });
+                    channelList.appendChild(categoryCard);
+                }
+            }
+            
+            async function generateChannelSummary(event, channelName, category) {
+                event.stopPropagation();
+                summaryModalLabel.textContent = `Resumen de ${channelName}`;
+                summaryContent.textContent = "Cargando resumen... por favor espera.";
+                summaryModal.show();
+                
+                const prompt = `Actúa como un experto en televisión. Proporciona una descripción atractiva y concisa del canal '${channelName}' en la categoría '${category}'. El texto debe ser breve y en un solo párrafo.`;
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    tools: [{ "google_search": {} }],
+                    systemInstruction: {
+                        parts: [{ text: "Genera una descripción breve y concisa de un canal de TV. Proporciona una sola oración o dos oraciones cortas." }]
+                    },
+                };
+            
+                try {
+                    let response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // Retries with exponential backoff
+                    let retries = 0;
+                    const maxRetries = 5;
+                    while (!response.ok && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        retries++;
+                    }
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el resumen. Intenta de nuevo.";
+                    summaryContent.textContent = text;
+                } catch (error) {
+                    console.error('Error al generar el resumen del canal:', error);
+                    summaryContent.textContent = "Error al generar el resumen. Por favor, revisa la consola para más detalles.";
+                }
+            }
+
+            async function generateEpgSummary(event) {
+                event.stopPropagation();
+                summaryModalLabel.textContent = `Resumen de la Programación`;
+                summaryContent.textContent = "Cargando resumen... por favor espera.";
+                summaryModal.show();
+
+                const programs = Array.from(epgTableBody.querySelectorAll('tr')).map(row => {
+                    return Array.from(row.querySelectorAll('td')).map(td => td.textContent).join(' ');
+                });
+                
+                if (programs.length === 0 || programs[0].includes("No hay datos EPG")) {
+                    summaryContent.textContent = "No hay datos de programación para resumir.";
+                    return;
+                }
+                const prompt = `Actúa como un crítico de televisión. Basado en la siguiente lista de programas, genera un resumen de lo que está por venir en el canal de hoy. Lista de programas:\n${programs.join('\n')}`;
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: {
+                        parts: [{ text: "Genera un resumen breve y conciso de una lista de programas de TV." }]
+                    },
+                };
+                
+                try {
+                    let response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    // Retries with exponential backoff
+                    let retries = 0;
+                    const maxRetries = 5;
+                    while (!response.ok && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        retries++;
+                    }
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || "No se pudo generar el resumen. Intenta de nuevo.";
+                    summaryContent.textContent = text;
+                } catch (error) {
+                    console.error('Error al generar el resumen del EPG:', error);
+                    summaryContent.textContent = "Error al generar el resumen. Por favor, revisa la consola para más detalles.";
+                }
+            }
+
+            function displayEpg(channelName) {
+                epgTableBody.innerHTML = '<tr><td colspan="2"><i class="fas fa-spinner fa-spin me-2"></i>Cargando EPG...</td></tr>';
+                
+                const programs = allEpgData[channelName] || [];
+
+                epgTableBody.innerHTML = '';
+
+                if (programs.length === 0) {
+                    epgTableBody.innerHTML = `<tr><td colspan="2">No hay datos EPG disponibles para este canal.</td></tr>`;
+                    return;
+                }
+
+                const now = new Date();
+                programs.forEach(program => {
+                    const tr = document.createElement('tr');
+                    const programStart = new Date(program.start);
+                    const programEnd = new Date(program.end);
+                    
+                    let isCurrent = (now >= programStart && now <= programEnd);
+                    if (isCurrent) {
+                        tr.classList.add('current-program');
+                    }
+                    tr.innerHTML = `
+                        <td>${programStart.getHours().toString().padStart(2, '0')}:${programStart.getMinutes().toString().padStart(2, '0')} - ${programEnd.getHours().toString().padStart(2, '0')}:${programEnd.getMinutes().toString().padStart(2, '0')}</td>
+                        <td>${program.title}</td>
+                    `;
+                    epgTableBody.appendChild(tr);
+                });
+            }
+
+            function playChannel(channel, element) {
+                const allChannels = document.querySelectorAll('.list-group-item');
+                allChannels.forEach(item => item.classList.remove('active'));
+                element.classList.add('active');
+
+                nowPlayingTitle.textContent = `Cargando ${channel.name}...`;
+                nowPlayingCategory.textContent = channel.category;
+                displayEpg(channel.name);
+
+                if (hls) {
+                    hls.destroy();
+                }
+
+                if (Hls.isSupported()) {
+                    hls = new Hls();
+                    hls.loadSource(channel.url);
+                    hls.attachMedia(player.tech().el());
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                        player.play();
+                        nowPlayingTitle.textContent = channel.name;
+                    });
+                    hls.on(Hls.Events.ERROR, function (event, data) {
+                        if (data.fatal) {
+                            switch (data.type) {
+                                case Hls.ErrorTypes.NETWORK_ERROR:
+                                    console.error("Error de red fatal, intentando recuperar");
+                                    nowPlayingTitle.textContent = "Error de red";
+                                    nowPlayingCategory.textContent = "No se pudo conectar al stream.";
+                                    hls.recoverMediaError();
+                                    break;
+                                case Hls.ErrorTypes.MEDIA_ERROR:
+                                    console.error("Error de medio fatal, intentando recuperar");
+                                    nowPlayingTitle.textContent = "Error de medio";
+                                    nowPlayingCategory.textContent = "El stream está dañado o no es compatible.";
+                                    hls.recoverMediaError();
+                                    break;
+                                default:
+                                    console.error("Error fatal, destruyendo la instancia de HLS");
+                                    nowPlayingTitle.textContent = "Error desconocido";
+                                    nowPlayingCategory.textContent = "No se pudo reproducir el canal.";
+                                    hls.destroy();
+                                    break;
+                            }
+                        }
+                    });
+                } else if (player.canPlayType('application/vnd.apple.mpegurl')) {
+                    player.src(channel.url);
+                    player.play();
+                } else {
+                    nowPlayingTitle.textContent = 'Error: No se puede reproducir este canal.';
+                    nowPlayingCategory.textContent = 'El formato de video no es compatible con tu navegador.';
+                    epgTableBody.innerHTML = `<tr><td colspan="2">Error al cargar la lista.</td></tr>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
