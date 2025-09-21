@@ -5,23 +5,11 @@
     <desc>Las últimas noticias de la mañana.</desc>
   </programme>
   <programme start="20250920110000 +0000" stop="20250920120000 +0000" channel="channel1">
-    <title>Reportajes Especiales</title>
-    <desc>Investigaciones y reportajes.</desc>
+    <title>Noticias al mediodía</title>
+    <desc>Resumen de noticias del día.</desc>
   </programme>
-  <programme start="20250920100000 +0000" stop="20250920113000 +0000" channel="channel2">
+  <programme start="20250920100000 +0000" stop="20250920110000 +0000" channel="channel2">
     <title>Fútbol en vivo</title>
     <desc>Partido de fútbol local.</desc>
-  </programme>
-  <programme start="20250920113000 +0000" stop="20250920120000 +0000" channel="channel2">
-    <title>Resumen deportivo</title>
-    <desc>Lo más destacado del día.</desc>
-  </programme>
-  <programme start="20250920100000 +0000" stop="20250920103000 +0000" channel="channel3">
-    <title>Serie de comedia</title>
-    <desc>Episodio 5 - Temporada 2.</desc>
-  </programme>
-  <programme start="20250920103000 +0000" stop="20250920110000 +0000" channel="channel3">
-    <title>Talk Show</title>
-    <desc>Entrevistas y humor.</desc>
   </programme>
 </tv>
