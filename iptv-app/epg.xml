@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tv>
-  <channel id="canal1">
+  <channel id="nature1">
     <display-name>Nature TV</display-name>
-    <icon src="https://example.com/logo1.png" />
   </channel>
-  <channel id="canal2">
-    <display-name>News Live</display-name>
-    <icon src="https://example.com/logo2.png" />
+  <channel id="news1">
+    <display-name>Noticias 24</display-name>
+  </channel>
+  <channel id="sports1">
+    <display-name>Deportes Live</display-name>
+  </channel>
+  <channel id="movie1">
+    <display-name>Cine Clásico</display-name>
   </channel>
 
-  <programme start="20250920120000 +0000" stop="20250920130000 +0000" channel="canal1">
-    <title lang="es">Naturaleza: Mañana</title>
-    <desc>Documental sobre bosques y fauna.</desc>
+  <programme start="20250920120000 +0000" stop="20250920130000 +0000" channel="nature1">
+    <title>Documental Animales</title>
+    <desc>Un recorrido por la fauna salvaje.</desc>
   </programme>
-  <programme start="20250920130000 +0000" stop="20250920140000 +0000" channel="canal1">
-    <title lang="es">Vida Salvaje</title>
-    <desc>Explorando la fauna en su hábitat natural.</desc>
+  <programme start="20250920130000 +0000" stop="20250920140000 +0000" channel="nature1">
+    <title>Explorando el Océano</title>
+    <desc>Maravillas submarinas y ecosistemas marinos.</desc>
   </programme>
 
-  <programme start="20250920120000 +0000" stop="20250920123000 +0000" channel="canal2">
-    <title lang="es">Noticias del mediodía</title>
-    <desc>Resumen de las noticias más importantes.</desc>
+  <programme start="20250920120000 +0000" stop="20250920123000 +0000" channel="news1">
+    <title>Noticias Internacionales</title>
+    <desc>Últimas noticias del mundo.</desc>
   </programme>
-  <programme start="20250920123000 +0000" stop="20250920130000 +0000" channel="canal2">
-    <title lang="es">Noticias internacionales</title>
-    <desc>Noticias desde distintos países.</desc>
+  <programme start="20250920123000 +0000" stop="20250920130000 +0000" channel="news1">
+    <title>Noticias Locales</title>
+    <desc>Eventos y sucesos en la ciudad.</desc>
+  </programme>
+
+  <programme start="20250920120000 +0000" stop="20250920140000 +0000" channel="sports1">
+    <title>Fútbol en Vivo</title>
+    <desc>Partido en directo.</desc>
+  </programme>
+
+  <programme start="20250920120000 +0000" stop="20250920130000 +0000" channel="movie1">
+    <title>Clásicos del Cine</title>
+    <desc>Películas inolvidables de los años 50.</desc>
   </programme>
 </tv>
