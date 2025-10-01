@@ -1,138 +1,95 @@
-const m3uFileInput = document.getElementById('m3uFile');
-const urlInput = document.getElementById('urlInput');
-const loadUrlBtn = document.getElementById('loadUrlBtn');
-const channelListEl = document.getElementById('channelList');
-const video = document.getElementById('videoPlayer');
-const channelNameEl = document.getElementById('channelName');
-const channelCategoryEl = document.getElementById('channelCategory');
-const channelUrlEl = document.getElementById('channelUrl');
-const epgNowEl = document.getElementById('epgNow');
+const canalesLista = document.getElementById('canales-lista');
+const playerSection = document.getElementById('player-section');
+const player = document.getElementById('player');
+const playerTitle = document.getElementById('player-title');
+const backBtn = document.getElementById('back-btn');
 
-let channels = [];
-let currentChannelIndex = -1;
-let epgData = {};
-let hls = null;
+let canales = [];
 
-function clearPlayer() {
-  if (hls) {
-    hls.destroy();
-    hls = null;
-  }
-  video.pause();
-  video.removeAttribute('src');
-  video.load();
-}
+// Función para parsear M3U
+function parseM3U(text) {
+  const lines = text.split('\n').map(l => l.trim());
+  let result = [];
+  let currentChannel = null;
 
-function updateEPGDisplay(channel) {
-  // intentar obtener EPG por id, luego por nombre
-  let progList = [];
-  if (channel.id && epgData[channel.id]) {
-    progList = epgData[channel.id];
-  } else if (epgData[channel.name]) {
-    progList = epgData[channel.name];
-  }
-  if (!progList || progList.length === 0) {
-    epgNowEl.textContent = 'Guía: —';
-    return;
-  }
-  const now = new Date();
-  const current = progList.find(p => {
-    const st = parseXMLTVDate(p.start);
-    const en = parseXMLTVDate(p.stop);
-    return now >= st && now <= en;
-  });
-  epgNowEl.textContent = current ? `Ahora: ${current.title}` : 'Guía: —';
-}
+  for (let line of lines) {
+    if (line.startsWith('#EXTINF:')) {
+      const info = line.substring(8);
+      // Ejemplo #EXTINF:-1 tvg-id="xxx" tvg-name="xxx" tvg-logo="url" group-title="xxx",Nombre Canal
+      let nameMatch = info.match(/,(.*)$/);
+      let name = nameMatch ? nameMatch[1] : 'Sin nombre';
+      let tvgLogoMatch = info.match(/tvg-logo="([^"]+)"/);
+      let tvgLogo = tvgLogoMatch ? tvgLogoMatch[1] : '';
+      let groupMatch = info.match(/group-title="([^"]+)"/);
+      let group = groupMatch ? groupMatch[1] : 'Sin categoría';
 
-function playChannel(channel) {
-  clearPlayer();
-
-  channelNameEl.textContent = channel.name;
-  channelCategoryEl.textContent = `Categoría: ${channel.group || '—'}`;
-  channelUrlEl.textContent = channel.url;
-
-  if (Hls.isSupported()) {
-    hls = new Hls();
-    hls.loadSource(channel.url);
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play();
-      updateEPGDisplay(channel);
-    });
-  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = channel.url;
-    video.addEventListener('loadedmetadata', () => {
-      video.play();
-      updateEPGDisplay(channel);
-    });
-  } else {
-    alert('Tu navegador no soporta reproducción HLS.');
-  }
-}
-
-function renderChannels() {
-  channelListEl.innerHTML = '';
-  channels.forEach((channel, idx) => {
-    const card = document.createElement('div');
-    card.className = 'channel-card';
-    if (idx === currentChannelIndex) {
-      card.classList.add('active');
+      currentChannel = { name, tvgLogo, group, url: '' };
+    } else if (line && !line.startsWith('#')) {
+      // La URL del canal
+      if (currentChannel) {
+        currentChannel.url = line;
+        result.push(currentChannel);
+        currentChannel = null;
+      }
     }
-    card.tabIndex = 0;
+  }
+  return result;
+}
 
-    const logoUrl = channel.logo || 'https://via.placeholder.com/60x34?text=Logo';
+// Cargar lista M3U desde archivo local canales.m3u
+async function cargarLista() {
+  try {
+    const response = await fetch('canales.m3u');
+    const text = await response.text();
+    canales = parseM3U(text);
+    mostrarCanales();
+  } catch (err) {
+    console.error('Error cargando lista M3U:', err);
+    canalesLista.textContent = 'Error cargando la lista de canales.';
+  }
+}
 
-    card.innerHTML = `
-      <img src="${logoUrl}" alt="${channel.name}" />
-      <div class="channel-details">
-        <div class="channel-name">${channel.name}</div>
-        <div class="channel-category">${channel.group}</div>
+// Mostrar canales en pantalla
+function mostrarCanales() {
+  canalesLista.innerHTML = '';
+  for (const canal of canales) {
+    const div = document.createElement('div');
+    div.classList.add('canal');
+    div.innerHTML = `
+      <img src="${canal.tvgLogo || 'https://via.placeholder.com/320x180?text=No+Logo'}" alt="${canal.name}" />
+      <div class="canal-info">
+        <h3>${canal.name}</h3>
+        <p>${canal.group}</p>
       </div>
     `;
-
-    card.addEventListener('click', () => {
-      currentChannelIndex = idx;
-      playChannel(channel);
-      renderChannels();
-    });
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.click();
-      }
-    });
-
-    channelListEl.appendChild(card);
-  });
+    div.onclick = () => reproducirCanal(canal);
+    canalesLista.appendChild(div);
+  }
 }
 
-m3uFileInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    channels = parseM3U(reader.result);
-    currentChannelIndex = 0;
-    renderChannels();
-    if (channels.length) playChannel(channels[0]);
-  };
-  reader.readAsText(file);
-});
+// Reproducir canal seleccionado
+function reproducirCanal(canal) {
+  player.src = canal.url;
+  playerTitle.textContent = canal.name;
+  playerSection.hidden = false;
+  canalesLista.style.display = 'none';
+}
 
-loadUrlBtn.addEventListener('click', async () => {
-  const url = urlInput.value.trim();
-  if (!url) {
-    alert('Por favor ingresa una URL válida.');
-    return;
+// Volver a la lista
+backBtn.onclick = () => {
+  player.pause();
+  player.src = '';
+  playerSection.hidden = true;
+  canalesLista.style.display = 'grid';
+};
+
+window.onload = () => {
+  cargarLista();
+
+  // Registrar service worker para PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').then(() => {
+      console.log('Service Worker registrado');
+    }).catch(console.error);
   }
-  try {
-    const resp = await fetch(url);
-    const text = await resp.text();
-    channels = parseM3U(text);
-    currentChannelIndex = 0;
-    renderChannels();
-    if (channels.length) playChannel(channels[0]);
-  } catch (err) {
-    alert('No se pudo cargar la lista: ' + err.message);
-  }
-});
+};
