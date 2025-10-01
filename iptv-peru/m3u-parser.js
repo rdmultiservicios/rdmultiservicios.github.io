@@ -1,4 +1,4 @@
-// Parse M3U string y retorna array de objetos con propiedades: name, url, group, id
+// Parse M3U y extrae canales con nombre, url, grupo, imagen, id etc.
 
 function parseM3U(text) {
   const lines = text.split(/\r?\n/);
@@ -7,12 +7,15 @@ function parseM3U(text) {
 
   for (const line of lines) {
     if (line.startsWith('#EXTINF')) {
-      const match = line.match(/#EXTINF:-?\d+,(.*)/);
+      const nameMatch = line.match(/#EXTINF:-?\d+,(.*)/);
       const groupMatch = line.match(/group-title="([^"]+)"/i);
+      const logoMatch = line.match(/tvg-logo="([^"]+)"/i);
       const tvgIdMatch = line.match(/tvg-id="([^"]+)"/i);
+
       current = {
-        name: match ? match[1].trim() : 'Sin nombre',
-        group: groupMatch ? groupMatch[1].trim() : '',
+        name: nameMatch ? nameMatch[1].trim() : 'Sin nombre',
+        group: groupMatch ? groupMatch[1].trim() : 'Sin grupo',
+        logo: logoMatch ? logoMatch[1].trim() : '',
         id: tvgIdMatch ? tvgIdMatch[1].trim() : '',
         url: ''
       };
