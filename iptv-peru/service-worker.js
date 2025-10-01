@@ -5,6 +5,7 @@ const urlsToCache = [
   './style.css',
   './app.js',
   './m3u-parser.js',
+  './epg-parser.js',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
   'https://cdn.jsdelivr.net/npm/hls.js@latest'
@@ -20,10 +21,9 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => 
+    caches.keys().then(keys =>
       Promise.all(
-        keys.filter(key => key !== CACHE_NAME)
-            .map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       )
     ).then(() => self.clients.claim())
   );
@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(response => response || fetch(event.request))
       .catch(() => {
-        // Opcional: fallback o página offline
+        // fallback si quieres
       })
   );
 });
