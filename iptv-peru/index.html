@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>IPTV Web Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>IPTV Player</h1>
+    <input type="file" id="m3uInput" accept=".m3u">
+    <input type="text" id="m3uUrl" placeholder="URL de lista M3U">
+    <button id="loadUrlBtn">Cargar URL</button>
+    <input type="file" id="epgInput" accept=".xml">
+    <input type="password" id="parentalPin" placeholder="PIN (opcional)">
+  </header>
+
+  <main>
+    <aside id="channelList" tabindex="0"></aside>
+
+    <section id="playerSection">
+      <video id="videoPlayer" controls autoplay></video>
+      <div id="channelInfo">
+        <h2 id="channelTitle"></h2>
+        <p id="epgNow"></p>
+        <button id="favBtn">★ Favorito</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="m3u-parser.js"></script>
+  <script src="epg-parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
