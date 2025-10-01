@@ -2,104 +2,49 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>IPTV Web Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Bootstrap 5 CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUa6Y6Xb1zOA0H+PZ+6dUxP+m+vVdNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous"
-  />
-
+  <title>Win IPTV Player</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="icon" href="icons/icon-192.png" />
-
-  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0078d7" />
+  <link href="style.css" rel="stylesheet" />
 </head>
-<body class="bg-dark text-light">
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">IPTV Player</a>
-
-      <form class="d-flex flex-wrap ms-auto" role="search" onsubmit="return false;">
-        <input class="form-control me-2 my-1" type="file" id="m3uInput" accept=".m3u" title="Cargar archivo M3U" />
-        <input class="form-control me-2 my-1" type="text" id="m3uUrl" placeholder="URL de lista M3U" />
-        <button class="btn btn-outline-success me-2 my-1" id="loadUrlBtn">Cargar URL</button>
-        <input class="form-control me-2 my-1" type="file" id="epgInput" accept=".xml" title="Cargar EPG" />
-        <input
-          class="form-control me-2 my-1"
-          type="password"
-          id="parentalPin"
-          placeholder="PIN parental"
-          title="Control parental: 1234"
-        />
-      </form>
-    </div>
-  </nav>
-
-  <div class="container-fluid mt-2">
-    <div class="row">
-
-      <div class="col-lg-3 col-md-4 col-sm-12">
-        <div
-          id="channelList"
-          class="list-group list-group-flush"
-          tabindex="0"
-          style="max-height: calc(100vh - 80px); overflow-y: auto;"
-        >
-          <!-- Canales aquí -->
-        </div>
+<body>
+  <div class="app-container d-flex">
+    <aside class="sidebar bg-dark text-light">
+      <div class="p-3">
+        <h2 class="app-title">Win IPTV</h2>
+        <input type="file" id="m3uFile" accept=".m3u,.txt" class="form-control mb-3" />
+        <input type="text" id="urlInput" placeholder="URL lista M3U" class="form-control mb-3" />
+        <button id="loadUrlBtn" class="btn btn-primary w-100 mb-3">Cargar URL</button>
       </div>
+      <div id="channelList" class="channel-list"></div>
+    </aside>
 
-      <div class="col-lg-9 col-md-8 col-sm-12 d-flex flex-column">
-
-        <div class="ratio ratio-16x9 bg-black">
-          <video
-            id="videoPlayer"
-            controls
-            autoplay
-            class="w-100 h-100 bg-black"
-          ></video>
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center bg-secondary p-2 mt-2 rounded">
-          <div>
-            <h5 id="channelTitle" class="mb-0">Selecciona un canal</h5>
-            <small id="epgNow" class="text-muted">Guía de programas</small>
-          </div>
-          <button class="btn btn-warning" id="favBtn" disabled>★ Favorito</button>
-        </div>
-
+    <main class="player-section flex-grow-1 d-flex flex-column">
+      <div class="video-wrapper">
+        <video id="videoPlayer" controls autoplay></video>
       </div>
-
-    </div>
+      <div id="channelInfo" class="channel-info p-3 bg-secondary text-light">
+        <h3 id="channelName">Selecciona un canal</h3>
+        <p id="channelCategory"></p>
+        <p id="channelUrl" class="text-truncate"></p>
+      </div>
+    </main>
   </div>
 
-  <!-- Bootstrap JS Bundle con Popper -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoA6V6E/Jvtn/2Fb6C/ZT+0IB0Uj/tH9W+8dKHc3w5B/wCp"
-    crossorigin="anonymous"
-  ></script>
-
-  <!-- HLS.js -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-  <!-- Scripts del proyecto -->
   <script src="m3u-parser.js"></script>
-  <script src="epg-parser.js"></script>
   <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('service-worker.js')
-        .then(() => console.log('Service Worker registrado'))
-        .catch(err => console.error('Error al registrar SW:', err));
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker registrado:', reg.scope))
+          .catch(err => console.error('Error registrando Service Worker:', err));
+      });
     }
   </script>
 </body>
