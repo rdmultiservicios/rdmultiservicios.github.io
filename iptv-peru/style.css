@@ -11,10 +11,56 @@ body, html {
   overflow: hidden;
 }
 
+.main-player {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #444;
+  background-color: #000;
+}
+
+.video-wrapper {
+  flex: 1;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+video {
+  max-width: 100%;
+  max-height: 100%;
+  background-color: black;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #0078d7aa;
+}
+
+.channel-info {
+  min-height: 100px;
+  border-top: 2px solid #0078d7;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1rem;
+}
+
+.channel-info h3 {
+  margin-bottom: 0.4rem;
+}
+
+.channel-info p {
+  margin: 0 0 .2rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .sidebar {
   width: 320px;
   overflow-y: auto;
-  border-right: 2px solid #444;
+  background-color: #1e1e1e;
 }
 
 .app-title {
@@ -35,25 +81,25 @@ body, html {
 .channel-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.4rem 0.6rem;
+  gap: 0.75rem;
+  padding: 0.5rem;
   border-radius: 8px;
   cursor: pointer;
   background: #1f1f1f;
-  transition: background 0.3s ease;
+  transition: background 0.25s ease;
   user-select: none;
 }
 
 .channel-card:hover,
 .channel-card.active {
   background: #0078d7;
-  color: white;
+  color: #fff;
 }
 
 .channel-card img {
-  width: 50px;
-  height: 28px;
-  object-fit: contain;
+  width: 60px;
+  height: 34px;
+  object-fit: cover;
   border-radius: 4px;
   background-color: #222;
   flex-shrink: 0;
@@ -75,51 +121,6 @@ body, html {
 .channel-category {
   font-size: 0.85rem;
   opacity: 0.6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.player-section {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #000;
-}
-
-.video-wrapper {
-  flex-grow: 1;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-}
-
-video {
-  max-width: 100%;
-  max-height: 100%;
-  background-color: black;
-  border-radius: 8px;
-  box-shadow: 0 0 20px #0078d7aa;
-}
-
-.channel-info {
-  height: 100px;
-  border-top: 2px solid #0078d7;
-  font-size: 1rem;
-  padding-left: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.channel-info h3 {
-  margin-bottom: 0.3rem;
-}
-
-.channel-info p {
-  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
