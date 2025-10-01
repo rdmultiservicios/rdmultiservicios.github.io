@@ -75,14 +75,14 @@ function seleccionarCanal(canal) {
 }
 
 // Cuando se selecciona canal:
-function setCanal(canal) {
-  player.src = canal.url;
-  player.play().catch(() => {}); // intentar play
-  player.autoplay = true;
-  player.volume = 1.0; // volumen máximo
-  document.getElementById('player-title').textContent = canal.name;
-  updateEPG(canal.epg);
-}
+//function setCanal(canal) {
+  //player.src = canal.url;
+  //player.play().catch(() => {}); // intentar play
+  //player.autoplay = true;
+  //player.volume = 1.0; // volumen máximo
+  //document.getElementById('player-title').textContent = canal.name;
+  //updateEPG(canal.epg);
+//}
 
 function actualizarEPG(epgData) {
   if (!epgData) {
