@@ -6,10 +6,12 @@ const video = document.getElementById('videoPlayer');
 const channelNameEl = document.getElementById('channelName');
 const channelCategoryEl = document.getElementById('channelCategory');
 const channelUrlEl = document.getElementById('channelUrl');
+const epgNowEl = document.getElementById('epgNow');
 
 let channels = [];
 let currentChannelIndex = -1;
-let hls;
+let epgData = {};
+let hls = null;
 
 function clearPlayer() {
   if (hls) {
@@ -21,11 +23,32 @@ function clearPlayer() {
   video.load();
 }
 
+function updateEPGDisplay(channel) {
+  // intentar obtener EPG por id, luego por nombre
+  let progList = [];
+  if (channel.id && epgData[channel.id]) {
+    progList = epgData[channel.id];
+  } else if (epgData[channel.name]) {
+    progList = epgData[channel.name];
+  }
+  if (!progList || progList.length === 0) {
+    epgNowEl.textContent = 'Guía: —';
+    return;
+  }
+  const now = new Date();
+  const current = progList.find(p => {
+    const st = parseXMLTVDate(p.start);
+    const en = parseXMLTVDate(p.stop);
+    return now >= st && now <= en;
+  });
+  epgNowEl.textContent = current ? `Ahora: ${current.title}` : 'Guía: —';
+}
+
 function playChannel(channel) {
   clearPlayer();
 
   channelNameEl.textContent = channel.name;
-  channelCategoryEl.textContent = `Categoría: ${channel.group}`;
+  channelCategoryEl.textContent = `Categoría: ${channel.group || '—'}`;
   channelUrlEl.textContent = channel.url;
 
   if (Hls.isSupported()) {
@@ -34,11 +57,13 @@ function playChannel(channel) {
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED, () => {
       video.play();
+      updateEPGDisplay(channel);
     });
   } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
     video.src = channel.url;
     video.addEventListener('loadedmetadata', () => {
       video.play();
+      updateEPGDisplay(channel);
     });
   } else {
     alert('Tu navegador no soporta reproducción HLS.');
@@ -47,14 +72,18 @@ function playChannel(channel) {
 
 function renderChannels() {
   channelListEl.innerHTML = '';
-  channels.forEach((channel, index) => {
+  channels.forEach((channel, idx) => {
     const card = document.createElement('div');
     card.className = 'channel-card';
-    if (index === currentChannelIndex) card.classList.add('active');
+    if (idx === currentChannelIndex) {
+      card.classList.add('active');
+    }
     card.tabIndex = 0;
 
+    const logoUrl = channel.logo || 'https://via.placeholder.com/60x34?text=Logo';
+
     card.innerHTML = `
-      <img src="${channel.logo || 'https://via.placeholder.com/50x28?text=No+Logo'}" alt="${channel.name}" />
+      <img src="${logoUrl}" alt="${channel.name}" />
       <div class="channel-details">
         <div class="channel-name">${channel.name}</div>
         <div class="channel-category">${channel.group}</div>
@@ -62,12 +91,11 @@ function renderChannels() {
     `;
 
     card.addEventListener('click', () => {
-      currentChannelIndex = index;
+      currentChannelIndex = idx;
       playChannel(channel);
       renderChannels();
     });
-
-    card.addEventListener('keydown', (e) => {
+    card.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         card.click();
@@ -93,11 +121,13 @@ m3uFileInput.addEventListener('change', e => {
 
 loadUrlBtn.addEventListener('click', async () => {
   const url = urlInput.value.trim();
-  if (!url) return alert('Por favor ingresa una URL válida.');
+  if (!url) {
+    alert('Por favor ingresa una URL válida.');
+    return;
+  }
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('Error al cargar la lista.');
-    const text = await res.text();
+    const resp = await fetch(url);
+    const text = await resp.text();
     channels = parseM3U(text);
     currentChannelIndex = 0;
     renderChannels();
