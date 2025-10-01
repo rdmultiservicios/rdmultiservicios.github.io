@@ -12,19 +12,19 @@
   <h1>Mi IPTV</h1>
 </header>
 <main>
-  <section id="player-epg-container">
-    <div id="player-container">
+  <div id="app-container">
+    <div id="player-section">
       <h2 id="player-title">Selecciona un canal</h2>
       <video id="player" controls autoplay muted></video>
-    </div>
-    <div id="epg-container">
-      <h3>Guía de Programas (EPG)</h3>
-      <div id="epg-content">
-        <p>No hay información EPG disponible.</p>
+      <div id="epg-container">
+        <h3>Guía de Programas (EPG)</h3>
+        <div id="epg-content">
+          <p>No hay información EPG disponible.</p>
+        </div>
       </div>
     </div>
-  </section>
-  <section id="canales-lista"></section>
+    <aside id="canales-lista"></aside>
+  </div>
 </main>
 <script src="app.js"></script>
 </body>
