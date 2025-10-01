@@ -1,127 +1,68 @@
-body, html {
-  height: 100%;
+body {
   margin: 0;
-  background-color: #121212;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
   color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.app-container {
-  height: 100vh;
-  overflow: hidden;
-}
-
-.main-player {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  border-right: 2px solid #444;
-  background-color: #000;
-}
-
-.video-wrapper {
-  flex: 1;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-}
-
-video {
-  max-width: 100%;
-  max-height: 100%;
-  background-color: black;
-  border-radius: 8px;
-  box-shadow: 0 0 20px #0078d7aa;
-}
-
-.channel-info {
-  min-height: 100px;
-  border-top: 2px solid #0078d7;
-  font-size: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 1rem;
-}
-
-.channel-info h3 {
-  margin-bottom: 0.4rem;
-}
-
-.channel-info p {
-  margin: 0 0 .2rem 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sidebar {
-  width: 320px;
-  overflow-y: auto;
-  background-color: #1e1e1e;
-}
-
-.app-title {
-  font-weight: 700;
-  font-size: 1.8rem;
+header {
+  background: #1e1e1e;
+  padding: 1rem;
   text-align: center;
-  margin-bottom: 1rem;
-  letter-spacing: 3px;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
-
-.channel-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 0 1rem 1rem 1rem;
+#canales-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
 }
-
-.channel-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
+.canal {
+  background: #222;
   border-radius: 8px;
+  overflow: hidden;
   cursor: pointer;
-  background: #1f1f1f;
-  transition: background 0.25s ease;
-  user-select: none;
+  transition: transform 0.2s ease;
 }
-
-.channel-card:hover,
-.channel-card.active {
-  background: #0078d7;
-  color: #fff;
+.canal:hover {
+  transform: scale(1.05);
 }
-
-.channel-card img {
-  width: 60px;
-  height: 34px;
+.canal img {
+  width: 100%;
+  height: 90px;
   object-fit: cover;
-  border-radius: 4px;
-  background-color: #222;
-  flex-shrink: 0;
+  display: block;
 }
-
-.channel-details {
-  flex-grow: 1;
-  overflow: hidden;
+.canal-info {
+  padding: 0.5rem;
+  text-align: center;
 }
-
-.channel-name {
-  font-weight: 600;
+.canal-info h3 {
+  margin: 0.2rem 0;
   font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-
-.channel-category {
-  font-size: 0.85rem;
-  opacity: 0.6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.canal-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+#player-section {
+  padding: 1rem;
+  text-align: center;
+}
+#player {
+  width: 100%;
+  max-width: 720px;
+  height: 405px;
+  background: black;
+}
+#back-btn {
+  margin-bottom: 1rem;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #444;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
 }
