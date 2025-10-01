@@ -1,20 +1,26 @@
-function parseM3U(content) {
-  const lines = content.split('\n');
+// Parse M3U string y retorna array de objetos con propiedades: name, url, group, id
+
+function parseM3U(text) {
+  const lines = text.split(/\r?\n/);
   const channels = [];
-  let current = {};
+  let current = null;
 
-  lines.forEach(line => {
-    line = line.trim();
+  for (const line of lines) {
     if (line.startsWith('#EXTINF')) {
-      const name = line.split(',')[1]?.trim() || 'Canal desconocido';
-      const logo = line.match(/tvg-logo="(.*?)"/)?.[1] || '';
-      const group = line.match(/group-title="(.*?)"/)?.[1] || 'General';
-      current = { name, logo, group };
-    } else if (line && !line.startsWith('#')) {
-      current.url = line;
-      channels.push({ ...current });
+      const match = line.match(/#EXTINF:-?\d+,(.*)/);
+      const groupMatch = line.match(/group-title="([^"]+)"/i);
+      const tvgIdMatch = line.match(/tvg-id="([^"]+)"/i);
+      current = {
+        name: match ? match[1].trim() : 'Sin nombre',
+        group: groupMatch ? groupMatch[1].trim() : '',
+        id: tvgIdMatch ? tvgIdMatch[1].trim() : '',
+        url: ''
+      };
+    } else if (line.trim() && !line.startsWith('#') && current) {
+      current.url = line.trim();
+      channels.push(current);
+      current = null;
     }
-  });
-
+  }
   return channels;
 }
