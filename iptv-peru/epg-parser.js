@@ -1,41 +1,42 @@
-// Parse XMLTV y genera objeto con clave = nombre canal o id y valor = array de programas
+// Parse XMLTV y retorna un objeto de programas por canal (key = canal id o nombre)
 
 function parseXMLTV(xmlText) {
   const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xmlText, "application/xml");
-  const programsByChannel = {};
+  const xmlDoc = parser.parseFromString(xmlText, 'application/xml');
+  const programMap = {};
 
-  const programs = xmlDoc.querySelectorAll('programme');
-
-  programs.forEach(prog => {
-    const channel = prog.getAttribute('channel');
+  const programmes = xmlDoc.querySelectorAll('programme');
+  programmes.forEach(prog => {
+    const chan = prog.getAttribute('channel');  // canal id
     const start = prog.getAttribute('start');
     const stop = prog.getAttribute('stop');
     const titleEl = prog.querySelector('title');
-    const title = titleEl ? titleEl.textContent : 'Sin título';
+    const title = titleEl ? titleEl.textContent : '';
 
-    if (!programsByChannel[channel]) {
-      programsByChannel[channel] = [];
+    if (!programMap[chan]) {
+      programMap[chan] = [];
     }
-    programsByChannel[channel].push({ start, stop, title });
+    programMap[chan].push({ start, stop, title });
   });
 
-  // Ordenar programas por fecha inicio
-  for (const ch in programsByChannel) {
-    programsByChannel[ch].sort((a, b) => parseXMLTVDate(a.start) - parseXMLTVDate(b.start));
+  // Ordenar cronológicamente
+  for (const chan in programMap) {
+    programMap[chan].sort((a, b) => {
+      return parseXMLTVDate(a.start) - parseXMLTVDate(b.start);
+    });
   }
 
-  return programsByChannel;
+  return programMap;
 }
 
-function parseXMLTVDate(dateStr) {
-  // Formato XMLTV típico: 20251001120000 +0000 (YYYYMMDDHHMMSS +TZ)
-  // Parse simple, ignorando TZ
-  const y = dateStr.substr(0, 4);
-  const m = dateStr.substr(4, 2);
-  const d = dateStr.substr(6, 2);
-  const H = dateStr.substr(8, 2);
-  const M = dateStr.substr(10, 2);
-  const S = dateStr.substr(12, 2);
-  return new Date(`${y}-${m}-${d}T${H}:${M}:${S}Z`);
+function parseXMLTVDate(dt) {
+  // formato: YYYYMMDDHHMMSS +TZ o sin zona
+  const s = dt.trim().split(' ')[0];
+  const year = s.slice(0,4);
+  const month = s.slice(4,6);
+  const day = s.slice(6,8);
+  const hour = s.slice(8,10);
+  const minute = s.slice(10,12);
+  const second = s.slice(12,14) || '00';
+  return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}Z`);
 }
