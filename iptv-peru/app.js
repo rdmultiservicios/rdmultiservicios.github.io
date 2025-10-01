@@ -74,6 +74,16 @@ function seleccionarCanal(canal) {
   actualizarEPG(canal.epg);
 }
 
+// Cuando se selecciona canal:
+function setCanal(canal) {
+  player.src = canal.url;
+  player.play().catch(() => {}); // intentar play
+  player.autoplay = true;
+  player.volume = 1.0; // volumen máximo
+  document.getElementById('player-title').textContent = canal.name;
+  updateEPG(canal.epg);
+}
+
 function actualizarEPG(epgData) {
   if (!epgData) {
     epgContent.innerHTML = '<p>No hay información EPG disponible para este canal.</p>';
