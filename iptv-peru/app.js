@@ -1,12 +1,12 @@
 const canalesLista = document.getElementById('canales-lista');
-const playerSection = document.getElementById('player-section');
 const player = document.getElementById('player');
 const playerTitle = document.getElementById('player-title');
-const backBtn = document.getElementById('back-btn');
+const epgContent = document.getElementById('epg-content');
 
 let canales = [];
+let canalActual = null;
 
-// Función para parsear M3U
+// Función para parsear M3U y extraer EPG si hay
 function parseM3U(text) {
   const lines = text.split('\n').map(l => l.trim());
   let result = [];
@@ -23,7 +23,14 @@ function parseM3U(text) {
       let groupMatch = info.match(/group-title="([^"]+)"/);
       let group = groupMatch ? groupMatch[1] : 'Sin categoría';
 
-      currentChannel = { name, tvgLogo, group, url: '' };
+      // Extraer datos EPG (ejemplo si hay tvg-shift o tvg-name para EPG)
+      // Para este ejemplo asumiremos que el EPG está en un atributo llamado "tvg-epg" o similar, si no hay, será null
+      // Como ejemplo, también puedes agregar el atributo 'epg' en la lista para probar
+
+      let epgMatch = info.match(/epg="([^"]+)"/);
+      let epg = epgMatch ? epgMatch[1] : null;
+
+      currentChannel = { name, tvgLogo, group, url: '', epg };
     } else if (line && !line.startsWith('#')) {
       // La URL del canal
       if (currentChannel) {
@@ -43,6 +50,10 @@ async function cargarLista() {
     const text = await response.text();
     canales = parseM3U(text);
     mostrarCanales();
+
+    if (canales.length > 0) {
+      seleccionarCanal(canales[0]);
+    }
   } catch (err) {
     console.error('Error cargando lista M3U:', err);
     canalesLista.textContent = 'Error cargando la lista de canales.';
@@ -62,26 +73,33 @@ function mostrarCanales() {
         <p>${canal.group}</p>
       </div>
     `;
-    div.onclick = () => reproducirCanal(canal);
+    div.onclick = () => seleccionarCanal(canal);
     canalesLista.appendChild(div);
   }
 }
 
-// Reproducir canal seleccionado
-function reproducirCanal(canal) {
+// Seleccionar canal para reproducir y mostrar EPG
+function seleccionarCanal(canal) {
+  if (!canal.url) return;
+  canalActual = canal;
   player.src = canal.url;
   playerTitle.textContent = canal.name;
-  playerSection.hidden = false;
-  canalesLista.style.display = 'none';
+  actualizarEPG(canal.epg);
 }
 
-// Volver a la lista
-backBtn.onclick = () => {
-  player.pause();
-  player.src = '';
-  playerSection.hidden = true;
-  canalesLista.style.display = 'grid';
-};
+// Actualizar el contenido de la guía EPG
+function actualizarEPG(epgData) {
+  if (!epgData) {
+    epgContent.innerHTML = '<p>No hay información EPG disponible para este canal.</p>';
+    return;
+  }
+
+  // Ejemplo simple: si el epgData es texto plano o JSON simple, se podría parsear aquí.
+  // Para este ejemplo, asumimos que epgData es un string con la info que quieres mostrar directamente.
+  // Puedes adaptar esto para tu formato real de EPG.
+
+  epgContent.textContent = epgData;
+}
 
 window.onload = () => {
   cargarLista();
