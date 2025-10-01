@@ -184,3 +184,47 @@ header {
     font-size: 0.85rem;
   }
 }
+
+/* Navbar */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: #222;
+  color: #eee;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  z-index: 999;
+  user-select: none;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Ajuste para que el contenido no quede debajo del navbar */
+header {
+  margin-top: 50px; /* altura navbar */
+}
+
+#app-container {
+  margin-top: 0; /* header ya tiene margen, este no */
+  height: calc(100vh - 50px - 60px); /* navbar + header */
+}
+
+/* En móvil también ajustamos */
+@media (max-width: 768px) {
+  #app-container {
+    height: auto; /* Para que no tenga height fijo */
+    margin-top: 0;
+  }
+}
+
