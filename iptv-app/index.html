@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TV360 - En Vivo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     body, html {
@@ -13,43 +13,52 @@
       padding: 0;
     }
 
+    /* Container principal para ocupar toda la altura menos navbar */
     .main-container {
-      display: flex;
-      flex-direction: row;
-      height: calc(100vh - 56px); /* Restar navbar */
+      height: calc(100vh - 56px);
+      padding: 1rem;
     }
 
-    .left-panel {
-      flex: 1;
-      border-right: 1px solid #ddd;
+    /* Usamos flex y bootstrap grid para alinear todo */
+    .row.align-items-center {
+      height: 100%;
+    }
+
+    /* EPG con scroll y altura fija */
+    #epgContainer {
+      max-height: 450px;
       overflow-y: auto;
-      padding: 1rem;
       background-color: #f8f9fa;
-    }
-
-    .right-panel {
-      flex: 2;
-      display: flex;
-      flex-direction: column;
       padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
+      font-size: 0.9rem;
     }
 
+    /* Video dentro del col 8 */
     #videoWrapper {
-      flex: 1;
-      position: relative;
+      height: 450px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      border-radius: 5px;
+      box-shadow: 0 0 8px rgb(0 0 0 / 0.15);
     }
 
     video {
       width: 100%;
       height: 100%;
-      background-color: black;
       object-fit: contain;
+      border-radius: 5px;
     }
 
+    /* Canales scroll horizontal debajo */
     .channel-scroll {
       margin-top: 1rem;
       overflow-x: auto;
       white-space: nowrap;
+      padding-bottom: 0.5rem;
     }
 
     .channel-card {
@@ -59,76 +68,88 @@
       cursor: pointer;
       vertical-align: top;
       transition: transform 0.2s;
+      border-radius: 5px;
+      box-shadow: 0 0 6px rgb(0 0 0 / 0.1);
+      background: white;
+      user-select: none;
     }
 
     .channel-card:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 12px rgb(0 0 0 / 0.2);
     }
 
     .channel-card img {
       width: 100%;
       height: auto;
-      border-radius: 4px;
+      border-radius: 5px 5px 0 0;
     }
 
     .channel-card .card-title {
       font-size: 0.9rem;
       text-align: center;
-      margin-top: 0.3rem;
+      margin: 0.4rem 0 0.6rem 0;
+      padding: 0 0.3rem;
+      color: #333;
     }
 
-    @media(max-width: 768px) {
-      .main-container {
-        flex-direction: column;
+    /* Responsive - en móviles apilar */
+    @media (max-width: 768px) {
+      #videoWrapper {
+        height: 250px;
+        margin-bottom: 1rem;
       }
-      .left-panel {
-        height: 200px;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-      }
-      .right-panel {
-        flex: 1;
+
+      #epgContainer {
+        max-height: 200px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
-      <input class="form-control ms-auto w-50" type="text" placeholder="Buscar canal..." id="searchInput">
+      <input
+        class="form-control ms-auto w-50"
+        type="text"
+        placeholder="Buscar canal..."
+        id="searchInput"
+      />
     </div>
   </nav>
 
-  <!-- CUERPO PRINCIPAL -->
-  <div class="main-container">
-    <!-- Panel Izquierdo: EPG -->
-    <div class="left-panel">
-      <h5>Programación</h5>
-      <div id="epgContainer">
-        <!-- Aquí va la programación del canal seleccionado -->
+  <!-- Contenedor Principal -->
+  <div class="container-fluid main-container">
+    <div class="row align-items-center">
+      <!-- EPG: 4 columnas -->
+      <div class="col-md-4">
+        <h5>Programación</h5>
+        <div id="epgContainer">
+          <!-- Programación se inserta aquí -->
+        </div>
       </div>
-    </div>
 
-    <!-- Panel Derecho: Video y Canales -->
-    <div class="right-panel">
-      <div id="videoWrapper">
-        <video id="livePlayer" controls autoplay></video>
-      </div>
-      <div class="channel-scroll" id="channelScroll">
-        <!-- Aquí se renderizan los canales -->
+      <!-- Reproductor: 8 columnas -->
+      <div class="col-md-8">
+        <div id="videoWrapper">
+          <video id="livePlayer" controls autoplay></video>
+        </div>
+        <div class="channel-scroll" id="channelScroll">
+          <!-- Canales scroll horizontal -->
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- Scripts -->
   <script>
     let channels = [];
     let currentHls = null;
 
-    // Cargar archivo M3U
+    // Carga y parsea archivo M3U
     async function loadM3U(url) {
       try {
         const response = await fetch(url);
@@ -152,6 +173,7 @@
                 epg: [
                   { time: "08:00", title: `Inicio de ${name}` },
                   { time: "09:00", title: `Programa especial de ${name}` },
+                  { time: "10:00", title: `Continuación de ${name}` }
                 ]
               });
             }
@@ -165,7 +187,7 @@
       }
     }
 
-    // Reproducir canal
+    // Reproducir canal seleccionado
     function playChannel(channel) {
       const video = document.getElementById("livePlayer");
 
@@ -194,7 +216,7 @@
       showEPG(channel);
     }
 
-    // Mostrar EPG
+    // Mostrar programación EPG
     function showEPG(channel) {
       const container = document.getElementById("epgContainer");
       container.innerHTML = "";
@@ -205,7 +227,7 @@
       });
     }
 
-    // Mostrar canales
+    // Construir lista de canales scroll horizontal
     function buildChannelScroll() {
       const scroll = document.getElementById("channelScroll");
       scroll.innerHTML = "";
@@ -230,7 +252,7 @@
       });
     }
 
-    // Buscador
+    // Buscador de canales
     document.getElementById("searchInput").addEventListener("input", function () {
       const query = this.value.toLowerCase();
       const cards = document.querySelectorAll(".channel-card");
@@ -255,6 +277,5 @@
 
     document.addEventListener("DOMContentLoaded", initializeApp);
   </script>
-
 </body>
 </html>
