@@ -78,7 +78,7 @@ function displayChannels(channels) {
     div.onclick = () => playChannel(i, channels);
 
     div.innerHTML = `
-      <img src="${channel.logo}" alt="${channel.name}" class="channel-logo">
+      <img src="${channel.logo}" alt="${channel.name}" class="channel-logo" />
       <div class="channel-info">
         <div class="channel-name">${channel.name}</div>
         <div class="channel-group">${channel.group}</div>
@@ -89,4 +89,15 @@ function displayChannels(channels) {
   });
 
   window.filteredChannelList = channels;
+}
+
+// Nueva función para filtrar desde botones
+function filterByGroup(groupName) {
+  document.getElementById('groupFilter').value = groupName;
+  filterChannels();
+
+  // Actualizar botones activos
+  document.querySelectorAll('.btn-outline-light').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() === (groupName || 'Todas'));
+  });
 }
