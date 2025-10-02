@@ -7,316 +7,304 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #333333;
-      --epg-bg: #f5f5f5;
-      --channel-bg: #fafafa;
-      --highlight-color: #0d6efd;
-      --card-bg: #fff;
-      --card-text: #444;
-      --nav-bg: #fff;
-      --footer-bg: #f2f2f2;
-    }
-    [data-theme="dark"] {
-      --bg-color: #121212;
-      --text-color: #f1f1f1;
-      --epg-bg: #1e1e1e;
-      --channel-bg: #1a1a1a;
-      --highlight-color: #0d6efd;
-      --card-bg: #2a2a2a;
-      --card-text: #ccc;
-      --nav-bg: #1a1a1a;
-      --footer-bg: #1e1e1e;
-    }
-
+    /* Estilo general: fondo oscuro, texto claro */
     body, html {
+      height: 100%;
       margin: 0;
       padding: 0;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      background-color: #121212;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      color: #f1f1f1;
     }
 
-    /* NAVBAR */
+    /* Navbar oscuro y moderno */
     nav.navbar {
-      background-color: var(--nav-bg);
-      transition: background-color 0.3s ease;
+      background-color: #000;
+      box-shadow: 0 2px 6px rgba(237, 44, 37, 0.6);
+      padding: 0.5rem 1rem;
     }
-    .navbar-brand {
-      font-weight: bold;
-      color: var(--highlight-color);
-      font-size: 1.5rem;
-      transition: color 0.3s ease;
+    nav.navbar .navbar-brand {
+      color: #ED2C25;
+      font-weight: 700;
+      font-size: 1.6rem;
+      user-select: none;
     }
-    .form-control {
-      background-color: var(--epg-bg);
+    nav.navbar .navbar-nav .nav-link {
+      color: #f1f1f1;
+      font-weight: 600;
+      transition: color 0.3s;
+      user-select: none;
+    }
+    nav.navbar .navbar-nav .nav-link:hover {
+      color: #ED2C25;
+    }
+    nav.navbar .form-control {
+      background-color: #222;
       border: none;
-      color: var(--text-color);
-      border-radius: 20px;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      color: #f1f1f1;
     }
-    .navbar-nav .nav-link {
-      color: var(--text-color);
-      transition: color 0.3s ease;
+    nav.navbar .form-control::placeholder {
+      color: #999;
     }
-    .navbar-nav .nav-link:hover {
-      color: var(--highlight-color);
-    }
-
-    .theme-toggle-btn {
-      background: none;
+    nav.navbar .form-control:focus {
+      background-color: #333;
+      color: #f1f1f1;
       border: none;
-      color: var(--text-color);
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    .theme-toggle-btn:hover {
-      color: var(--highlight-color);
+      box-shadow: none;
     }
 
-    .container-main {
-      padding: 1rem 2rem;
+    /* Contenedor principal */
+    .main-container {
+      padding: 1rem 1rem 3rem 1rem;
     }
 
-    #epgContainer,
-    #videoWrapper {
-      height: 450px;
+    /* Layout columnas: EPG y reproductor */
+    .row.align-items-start {
+      gap: 1rem;
     }
     #epgContainer {
-      background-color: var(--epg-bg);
-      padding: 1rem;
+      background: transparent;
+      padding: 0;
+      height: 450px;
       overflow-y: auto;
-      transition: background-color 0.3s ease;
     }
     #epgContainer h5 {
-      color: var(--highlight-color);
-      font-weight: 600;
+      color: #ED2C25;
+      font-weight: 700;
       margin-bottom: 1rem;
-      border-bottom: 1px solid var(--highlight-color);
-      padding-bottom: 0.5rem;
-      transition: color 0.3s ease, border-color 0.3s ease;
+      user-select: none;
+      border-bottom: 2px solid #ED2C25;
+      padding-bottom: 0.3rem;
     }
     #epgList {
       list-style: none;
-      padding: 0;
+      padding-left: 0;
       margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #ccc;
     }
     #epgList li {
       padding: 0.4rem 0;
-      font-size: 0.95rem;
-      border-bottom: 1px solid var(--channel-bg);
-      transition: border-color 0.3s ease;
+      border-bottom: 1px solid #333;
+      user-select: none;
     }
     #epgList li:last-child {
       border-bottom: none;
     }
 
+    /* Video wrapper */
     #videoWrapper {
-      position: relative;
-      background-color: black;
-      overflow: hidden;
+      height: 450px;
+      background-color: #000;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(237, 44, 37, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    video {
+    video#livePlayer {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      border-radius: 10px;
       background-color: black;
-      opacity: 1;
-      transition: opacity 0.5s ease;
+      outline: none;
     }
 
-    #channelGroupsList {
+    /* Lista de canales debajo (col-12) */
+    #channelGroups {
       margin-top: 1.5rem;
+      width: 100%;
     }
-    .group-block {
+
+    .channel-group {
       margin-bottom: 2rem;
     }
-    .group-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--highlight-color);
+    .channel-group-title {
+      font-weight: 700;
+      font-size: 1.3rem;
       margin-bottom: 0.8rem;
-      transition: color 0.3s ease;
+      color: #ED2C25;
+      user-select: none;
+      border-bottom: 2px solid #ED2C25;
+      padding-bottom: 0.3rem;
     }
+
+    /* Carrusel de canales horizontal */
     .channel-scroll {
-      white-space: nowrap;
+      display: flex;
       overflow-x: auto;
-      padding-bottom: 0.5rem;
+      gap: 1rem;
+      padding-bottom: 0.3rem;
       scrollbar-width: thin;
-      scrollbar-color: var(--highlight-color) transparent;
+      scrollbar-color: #ED2C25 #222;
+      -webkit-overflow-scrolling: touch;
     }
     .channel-scroll::-webkit-scrollbar {
       height: 8px;
     }
-    .channel-scroll::-webkit-scrollbar-thumb {
-      background: var(--highlight-color);
+    .channel-scroll::-webkit-scrollbar-track {
+      background: #222;
       border-radius: 10px;
     }
+    .channel-scroll::-webkit-scrollbar-thumb {
+      background-color: #ED2C25;
+      border-radius: 10px;
+      border: 2px solid #222;
+    }
 
+    /* Tarjetas de canal con tamaño fijo */
     .channel-card {
-      display: inline-block;
+      flex: 0 0 auto;
       width: 140px;
-      margin-right: 0.75rem;
       cursor: pointer;
-      background: transparent;
-      transition: transform 0.2s ease, filter 0.2s ease;
-      text-align: center;
+      background: #222;
+      border-radius: 10px;
+      user-select: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #f1f1f1;
     }
-    .channel-card:hover {
+    .channel-card:hover, .channel-card.active {
       transform: scale(1.05);
-      filter: brightness(1.1);
-    }
-    .channel-card.active {
-      transform: scale(1.05);
-      filter: brightness(1.2);
+      box-shadow: 0 0 12px #ED2C25;
+      border-color: #ED2C25;
+      background: #2b2b2b;
     }
     .channel-card img {
-      width: 140px;
+      width: 100%;
       height: 84px;
       object-fit: cover;
-      border-radius: 8px;
-      background-color: var(--card-bg);
-      transition: background-color 0.3s ease;
+      border-radius: 10px 10px 0 0;
+      pointer-events: none;
+      user-select: none;
     }
     .channel-card .card-title {
-      margin-top: 0.5rem;
+      margin: 0.5rem 0 0.7rem 0;
       font-size: 0.9rem;
-      color: var(--card-text);
+      font-weight: 600;
+      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: color 0.3s ease;
-    }
-    .channel-card:hover .card-title,
-    .channel-card.active .card-title {
-      color: var(--highlight-color);
+      width: 100%;
+      padding: 0 0.3rem;
     }
 
+    /* Footer oscuro */
+    footer {
+      background-color: #000;
+      color: #666;
+      text-align: center;
+      padding: 1rem 0;
+      user-select: none;
+      border-top: 1px solid #222;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
     @media (max-width: 991.98px) {
-      #epgContainer, #videoWrapper {
-        height: auto;
+      #epgContainer {
+        height: 300px;
+      }
+      #videoWrapper {
+        height: 300px;
       }
     }
 
-    /* FOOTER */
-    footer.footer {
-      background-color: var(--footer-bg);
-      color: var(--text-color);
-      padding: 1rem 2rem;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-    }
-    footer.footer a {
-      color: var(--text-color);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    footer.footer a:hover {
-      color: var(--highlight-color);
+    @media (max-width: 767.98px) {
+      nav.navbar .form-control {
+        width: 100% !important;
+        margin-top: 0.5rem;
+      }
+      .row.align-items-start {
+        flex-direction: column;
+      }
+      #epgContainer, #videoWrapper {
+        height: 250px;
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- NAVBAR con menú -->
-  <nav class="navbar navbar-expand-lg px-3">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarMenu"
+        aria-controls="navbarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Acerca de</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">TV</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Películas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Suscripciones</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
         </ul>
         <input
-          class="form-control me-3 w-50"
-          type="text"
+          class="form-control ms-lg-auto w-50"
+          type="search"
           placeholder="Buscar canal..."
           id="searchInput"
           autocomplete="off"
+          aria-label="Buscar canales"
         />
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
       </div>
     </div>
   </nav>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <div class="container-fluid container-main">
-    <div class="row">
-      <div class="col-lg-4 col-12 mb-3 mb-lg-0">
+  <!-- Contenido principal -->
+  <div class="container-fluid main-container">
+    <div class="row align-items-start">
+      <div class="col-lg-4 col-md-12">
         <div id="epgContainer">
           <h5>Programación</h5>
           <ul id="epgList"></ul>
         </div>
       </div>
-      <div class="col-lg-8 col-12">
+      <div class="col-lg-8 col-md-12">
         <div id="videoWrapper">
-          <video id="livePlayer" controls></video>
+          <video id="livePlayer" controls autoplay></video>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div id="channelGroupsList"></div>
-      </div>
-    </div>
+    <!-- Lista de canales debajo (col-12) -->
+    <div id="channelGroups"></div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div>
-      © 2025 TV360. Todos los derechos reservados.
-    </div>
-    <div>
-      <a href="#">Política de Privacidad</a> | <a href="#">Términos de servicio</a> | <a href="#">Ayuda</a>
-    </div>
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 TV360. Todos los derechos reservados.
   </footer>
 
   <script>
     let channels = [];
     let groupedChannels = {};
     let currentHls = null;
-    let currentChannelCard = null;
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("tv360-theme", theme);
-      const btn = document.getElementById("themeToggleBtn");
-      btn.textContent = theme === "dark" ? "☀️" : "🌙";
-    }
-
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute("data-theme");
-      applyTheme(current === "dark" ? "light" : "dark");
-    }
-
-    document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
-
-    const saved = localStorage.getItem("tv360-theme");
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      applyTheme(prefersDark ? "dark" : "light");
-    }
+    let currentChannel = null;
 
     async function loadM3U(url) {
       try {
-        const resp = await fetch(url);
-        const text = await resp.text();
+        const response = await fetch(url);
+        const text = await response.text();
         const lines = text.split('\n');
         const parsed = [];
+
         for (let i = 0; i < lines.length; i++) {
           if (lines[i].startsWith('#EXTINF')) {
             const nameMatch = lines[i].match(/,(.*)$/);
@@ -325,7 +313,8 @@
             const name = nameMatch ? nameMatch[1] : 'Canal';
             const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/140x84?text=Canal';
             const group = groupMatch ? groupMatch[1] : 'Otros';
-            const streamUrl = lines[i+1]?.trim();
+            const streamUrl = lines[i + 1]?.trim();
+
             if (streamUrl && streamUrl.startsWith('http')) {
               parsed.push({
                 name,
@@ -341,25 +330,31 @@
             }
           }
         }
+
         return parsed;
-      } catch (err) {
-        console.error("Error al cargar M3U:", err);
+      } catch (error) {
+        console.error("Error al cargar el M3U:", error);
         return [];
       }
     }
 
     function groupChannels(channels) {
       const groups = {};
-      channels.forEach(ch => {
-        if (!groups[ch.group]) groups[ch.group] = [];
-        groups[ch.group].push(ch);
+      channels.forEach(channel => {
+        if (!groups[channel.group]) groups[channel.group] = [];
+        groups[channel.group].push(channel);
       });
       return groups;
     }
 
-    function playChannel(channel, cardElement) {
+    function playChannel(channel) {
       const video = document.getElementById("livePlayer");
-      video.style.opacity = 0;
+
+      // Desactivar highlight anterior
+      if(currentChannel){
+        const prevCard = document.querySelector(`.channel-card.active`);
+        if(prevCard) prevCard.classList.remove('active');
+      }
 
       if (currentHls) {
         currentHls.destroy();
@@ -370,31 +365,31 @@
         const hls = new Hls();
         hls.loadSource(channel.url);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
           video.play();
-          setTimeout(() => video.style.opacity = 1, 200);
         });
         currentHls = hls;
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = channel.url;
         video.addEventListener('loadedmetadata', () => {
           video.play();
-          setTimeout(() => video.style.opacity = 1, 200);
         });
       } else {
         alert("Tu navegador no soporta reproducción HLS.");
       }
 
-      video.muted = false;
       showEPG(channel);
+      currentChannel = channel;
 
-      if (currentChannelCard) {
-        currentChannelCard.classList.remove("active");
-      }
-      if (cardElement) {
-        cardElement.classList.add("active");
-        currentChannelCard = cardElement;
-      }
+      // Activar highlight en canal seleccionado
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.channel-card');
+        cards.forEach(card => {
+          if(card.getAttribute('data-name') === channel.name.toLowerCase()){
+            card.classList.add('active');
+          }
+        });
+      }, 100);
     }
 
     function showEPG(channel) {
@@ -407,17 +402,18 @@
       });
     }
 
-    function buildChannelGroupsUI() {
-      const container = document.getElementById("channelGroupsList");
+    function buildChannelGroups() {
+      const container = document.getElementById("channelGroups");
       container.innerHTML = "";
+
       for (const groupName in groupedChannels) {
-        const block = document.createElement("div");
-        block.className = "group-block";
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "channel-group";
 
         const title = document.createElement("div");
-        title.className = "group-title";
+        title.className = "channel-group-title";
         title.innerText = groupName;
-        block.appendChild(title);
+        groupDiv.appendChild(title);
 
         const scroll = document.createElement("div");
         scroll.className = "channel-scroll";
@@ -426,54 +422,49 @@
           const card = document.createElement("div");
           card.className = "channel-card";
           card.setAttribute("data-name", channel.name.toLowerCase());
-          card.onclick = () => playChannel(channel, card);
+          card.onclick = () => playChannel(channel);
 
           const img = document.createElement("img");
           img.src = channel.logo;
           img.alt = channel.name;
 
-          const t = document.createElement("div");
-          t.className = "card-title";
-          t.innerText = channel.name;
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.innerText = channel.name;
 
           card.appendChild(img);
-          card.appendChild(t);
+          card.appendChild(title);
           scroll.appendChild(card);
         });
 
-        block.appendChild(scroll);
-        container.appendChild(block);
+        groupDiv.appendChild(scroll);
+        container.appendChild(groupDiv);
       }
     }
 
+    // Buscador de canales
     document.getElementById("searchInput").addEventListener("input", function () {
-      const q = this.value.toLowerCase();
-      document.querySelectorAll(".channel-card").forEach(card => {
+      const query = this.value.toLowerCase();
+
+      const cards = document.querySelectorAll(".channel-card");
+      cards.forEach(card => {
         const name = card.getAttribute("data-name");
-        card.style.display = name.includes(q) ? "inline-block" : "none";
+        card.style.display = name.includes(query) ? "flex" : "none";
       });
     });
 
     async function initializeApp() {
       channels = await loadM3U("canales.m3u");
+
       if (channels.length === 0) {
         alert("No se encontraron canales.");
         return;
       }
+
       groupedChannels = groupChannels(channels);
-      buildChannelGroupsUI();
 
-      const firstGroup = Object.keys(groupedChannels)[0];
-      const firstChannel = groupedChannels[firstGroup][0];
-      const allCards = document.querySelectorAll(".channel-card");
-      let firstCardElem = null;
-      allCards.forEach(card => {
-        if (card.getAttribute("data-name") === firstChannel.name.toLowerCase()) {
-          firstCardElem = card;
-        }
-      });
-
-      playChannel(firstChannel, firstCardElem);
+      buildChannelGroups();
+      playChannel(channels[0]);
     }
 
     document.addEventListener("DOMContentLoaded", initializeApp);
