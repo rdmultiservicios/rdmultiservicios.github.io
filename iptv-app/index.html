@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV360 - En Vivo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: row;
+      height: calc(100vh - 56px); /* Restar navbar */
+    }
+
+    .left-panel {
+      flex: 1;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      padding: 1rem;
+      background-color: #f8f9fa;
+    }
+
+    .right-panel {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    #videoWrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      object-fit: contain;
+    }
+
+    .channel-scroll {
+      margin-top: 1rem;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .channel-card {
+      display: inline-block;
+      width: 150px;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      vertical-align: top;
+      transition: transform 0.2s;
+    }
+
+    .channel-card:hover {
+      transform: scale(1.05);
+    }
+
+    .channel-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .channel-card .card-title {
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+
+    @media(max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .left-panel {
+        height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+      .right-panel {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TV360</a>
+      <input class="form-control ms-auto w-50" type="text" placeholder="Buscar canal..." id="searchInput">
+    </div>
+  </nav>
+
+  <!-- CUERPO PRINCIPAL -->
+  <div class="main-container">
+    <!-- Panel Izquierdo: EPG -->
+    <div class="left-panel">
+      <h5>Programación</h5>
+      <div id="epgContainer">
+        <!-- Aquí va la programación del canal seleccionado -->
+      </div>
+    </div>
+
+    <!-- Panel Derecho: Video y Canales -->
+    <div class="right-panel">
+      <div id="videoWrapper">
+        <video id="livePlayer" controls autoplay></video>
+      </div>
+      <div class="channel-scroll" id="channelScroll">
+        <!-- Aquí se renderizan los canales -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    let channels = [];
+    let currentHls = null;
+
+    // Cargar archivo M3U
+    async function loadM3U(url) {
+      try {
+        const response = await fetch(url);
+        const text = await response.text();
+        const lines = text.split('\n');
+        const parsed = [];
+
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].startsWith('#EXTINF')) {
+            const nameMatch = lines[i].match(/,(.*)$/);
+            const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
+            const name = nameMatch ? nameMatch[1] : 'Canal';
+            const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/150x84?text=Canal';
+            const streamUrl = lines[i + 1]?.trim();
+
+            if (streamUrl && streamUrl.startsWith('http')) {
+              parsed.push({
+                name: name,
+                logo: logo,
+                url: streamUrl,
+                epg: [
+                  { time: "08:00", title: `Inicio de ${name}` },
+                  { time: "09:00", title: `Programa especial de ${name}` },
+                ]
+              });
+            }
+          }
+        }
+
+        return parsed;
+      } catch (error) {
+        console.error("Error al cargar el M3U:", error);
+        return [];
+      }
+    }
+
+    // Reproducir canal
+    function playChannel(channel) {
+      const video = document.getElementById("livePlayer");
+
+      if (currentHls) {
+        currentHls.destroy();
+        currentHls = null;
+      }
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(channel.url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+        currentHls = hls;
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = channel.url;
+        video.addEventListener('loadedmetadata', () => {
+          video.play();
+        });
+      } else {
+        alert("Tu navegador no soporta reproducción HLS.");
+      }
+
+      showEPG(channel);
+    }
+
+    // Mostrar EPG
+    function showEPG(channel) {
+      const container = document.getElementById("epgContainer");
+      container.innerHTML = "";
+      channel.epg.forEach(item => {
+        const div = document.createElement("div");
+        div.innerText = `${item.time} — ${item.title}`;
+        container.appendChild(div);
+      });
+    }
+
+    // Mostrar canales
+    function buildChannelScroll() {
+      const scroll = document.getElementById("channelScroll");
+      scroll.innerHTML = "";
+
+      channels.forEach(channel => {
+        const card = document.createElement("div");
+        card.className = "channel-card";
+        card.setAttribute("data-name", channel.name.toLowerCase());
+        card.onclick = () => playChannel(channel);
+
+        const img = document.createElement("img");
+        img.src = channel.logo;
+        img.alt = channel.name;
+
+        const title = document.createElement("div");
+        title.className = "card-title";
+        title.innerText = channel.name;
+
+        card.appendChild(img);
+        card.appendChild(title);
+        scroll.appendChild(card);
+      });
+    }
+
+    // Buscador
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
+      const cards = document.querySelectorAll(".channel-card");
+      cards.forEach(card => {
+        const name = card.getAttribute("data-name");
+        card.style.display = name.includes(query) ? "inline-block" : "none";
+      });
+    });
+
+    // Inicialización
+    async function initializeApp() {
+      channels = await loadM3U("canales.m3u");
+
+      if (channels.length === 0) {
+        alert("No se encontraron canales.");
+        return;
+      }
+
+      buildChannelScroll();
+      playChannel(channels[0]);
+    }
+
+    document.addEventListener("DOMContentLoaded", initializeApp);
+  </script>
+
+</body>
+</html>
