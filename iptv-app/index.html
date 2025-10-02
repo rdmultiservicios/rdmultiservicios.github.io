@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
+    /* Modo claro: fondo blanco, texto oscuro */
     body, html {
       height: 100%;
       margin: 0;
@@ -16,259 +17,224 @@
       color: #222;
     }
 
-    /* Navbar y footer */
+    /* Navbar claro y moderno */
     nav.navbar {
-      background-color: #007bff;
-      color: white;
-      padding: 0.5rem 1rem;
-    }
-    nav.navbar a.navbar-brand {
-      color: white;
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
-    nav.navbar input.form-control {
-      max-width: 300px;
-    }
-    footer {
       background-color: #f8f9fa;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #ddd;
-    }
-
-    /* Layout principal */
-    .main-container {
-      padding: 1rem;
-      min-height: calc(100vh - 112px); /* navbar + footer */
-    }
-
-    /* EPG y video lado a lado con misma altura */
-    .row.main-row {
-      gap: 1rem;
-      height: 450px;
-    }
-
-    #epgContainer {
-      height: 100%;
-      overflow-y: auto;
+      border-bottom: 1px solid #ddd;
       padding: 0.5rem 1rem;
+    }
+    nav.navbar .navbar-brand {
+      color: #dc3545; /* rojo bootstrap */
+      font-weight: 700;
+      font-size: 1.6rem;
+      user-select: none;
+    }
+    nav.navbar .navbar-nav .nav-link {
       color: #333;
-      border: none;
-      background: transparent;
+      font-weight: 600;
+      transition: color 0.3s;
+      user-select: none;
+    }
+    nav.navbar .navbar-nav .nav-link:hover {
+      color: #dc3545;
+    }
+    nav.navbar .form-control {
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      color: #333;
+    }
+    nav.navbar .form-control::placeholder {
+      color: #999;
+    }
+    nav.navbar .form-control:focus {
+      background-color: #fff;
+      color: #333;
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
     }
 
+    /* Contenedor principal */
+    .main-container {
+      padding: 1rem 1rem 3rem 1rem;
+    }
+
+    /* Layout columnas: EPG y reproductor con misma altura */
+    .row.align-items-start {
+      gap: 1rem;
+    }
+    #epgContainer {
+      background: transparent;
+      padding: 0;
+      height: 450px;
+      overflow-y: auto;
+    }
     #epgContainer h5 {
+      color: #dc3545;
       font-weight: 700;
       margin-bottom: 1rem;
       user-select: none;
-      border-bottom: 2px solid #007bff;
+      border-bottom: 2px solid #dc3545;
       padding-bottom: 0.3rem;
-      color: #007bff;
     }
-
     #epgList {
       list-style: none;
-      padding: 0;
+      padding-left: 0;
       margin: 0;
       font-size: 0.95rem;
-      line-height: 1.4;
+      line-height: 1.5;
       color: #444;
     }
-
     #epgList li {
-      padding: 0.3rem 0;
+      padding: 0.4rem 0;
       border-bottom: 1px solid #eee;
+      user-select: none;
+    }
+    #epgList li:last-child {
+      border-bottom: none;
     }
 
-    /* Video player */
+    /* Video wrapper sin sombras ni bordes */
     #videoWrapper {
-      height: 100%;
+      height: 450px;
       background-color: #000;
       border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      box-sizing: border-box;
     }
     video#livePlayer {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      background-color: black;
       border-radius: 8px;
+      background-color: black;
+      outline: none;
     }
 
     /* Lista de canales debajo (col-12) */
     #channelGroups {
       margin-top: 1.5rem;
-      padding: 0 0.5rem;
-      max-height: 300px;
-      overflow-y: auto;
+      width: 100%;
     }
 
     .channel-group {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
-
     .channel-group-title {
-      font-weight: 600;
-      font-size: 1.15rem;
-      margin-bottom: 0.7rem;
-      color: #007bff;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: #dc3545;
       user-select: none;
+      border-bottom: 2px solid #dc3545;
+      padding-bottom: 0.3rem;
     }
 
-    /* Scroll horizontal de canales */
+    /* Carrusel de canales horizontal */
     .channel-scroll {
+      display: flex;
       overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 0.5rem;
-      -webkit-overflow-scrolling: touch;
+      gap: 1rem;
+      padding-bottom: 0.3rem;
       scrollbar-width: thin;
-      scrollbar-color: #007bff #e9ecef;
+      scrollbar-color: #dc3545 #f1f1f1;
+      -webkit-overflow-scrolling: touch;
     }
-
     .channel-scroll::-webkit-scrollbar {
       height: 8px;
     }
-
     .channel-scroll::-webkit-scrollbar-track {
-      background: #e9ecef;
+      background: #f1f1f1;
       border-radius: 10px;
     }
-
     .channel-scroll::-webkit-scrollbar-thumb {
-      background-color: #007bff;
+      background-color: #dc3545;
       border-radius: 10px;
-      border: 2px solid #e9ecef;
+      border: 2px solid #f1f1f1;
     }
 
-    /* Tarjetas canales (uniformes) */
+    /* Tarjetas de canal con tamaño fijo */
     .channel-card {
-      display: inline-block;
+      flex: 0 0 auto;
       width: 140px;
-      margin-right: 0.7rem;
       cursor: pointer;
-      vertical-align: top;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: #fff;
       border-radius: 8px;
-      background: #f8f9fa;
       user-select: none;
-      border: 1px solid transparent;
-      text-align: center;
-      padding: 0.3rem 0.2rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #222;
+      box-shadow: none;
     }
-
-    .channel-card:hover {
-      transform: scale(1.07);
-      border-color: #007bff;
-      background: #e7f1ff;
+    .channel-card:hover, .channel-card.active {
+      transform: scale(1.05);
+      border-color: #dc3545;
+      background: #ffe5e5;
+      box-shadow: none;
     }
-
     .channel-card img {
       width: 100%;
       height: 84px;
       object-fit: cover;
-      border-radius: 6px;
-      margin-bottom: 0.4rem;
-    }
-
-    .card-title {
-      font-size: 0.9rem;
-      color: #222;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Películas relacionadas */
-    #relatedMovies {
-      margin-top: 2rem;
-      padding: 0 0.5rem;
-    }
-
-    #relatedMovies h5 {
-      color: #007bff;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      user-select: none;
-    }
-
-    .related-scroll {
-      display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      padding-bottom: 0.5rem;
-      scrollbar-width: thin;
-      scrollbar-color: #007bff #e9ecef;
-    }
-
-    .related-scroll::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .related-scroll::-webkit-scrollbar-track {
-      background: #e9ecef;
-      border-radius: 10px;
-    }
-
-    .related-scroll::-webkit-scrollbar-thumb {
-      background-color: #007bff;
-      border-radius: 10px;
-      border: 2px solid #e9ecef;
-    }
-
-    .related-card {
-      flex: 0 0 150px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      user-select: none;
-      overflow: hidden;
-      box-shadow: none;
-      text-align: center;
-    }
-
-    .related-card:hover {
-      transform: scale(1.05);
-      background: #e7f1ff;
-    }
-
-    .related-card img {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
       border-radius: 8px 8px 0 0;
+      pointer-events: none;
+      user-select: none;
     }
-
-    .related-card-title {
-      padding: 0.4rem 0.5rem;
+    .channel-card .card-title {
+      margin: 0.5rem 0 0.7rem 0;
       font-size: 0.9rem;
       font-weight: 600;
-      color: #222;
+      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      width: 100%;
+      padding: 0 0.3rem;
+    }
+
+    /* Footer claro */
+    footer {
+      background-color: #f8f9fa;
+      color: #555;
+      text-align: center;
+      padding: 1rem 0;
+      user-select: none;
+      border-top: 1px solid #ddd;
+      font-size: 0.9rem;
     }
 
     /* Responsive */
-    @media (max-width: 991px) {
-      .row.main-row {
+    @media (max-width: 991.98px) {
+      #epgContainer {
+        height: 300px;
+      }
+      #videoWrapper {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      nav.navbar .form-control {
+        width: 100% !important;
+        margin-top: 0.5rem;
+      }
+      .row.align-items-start {
         flex-direction: column;
-        height: auto;
       }
       #epgContainer, #videoWrapper {
-        height: 300px;
+        height: 250px;
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-
-  <nav class="navbar navbar-expand-lg">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
       <button
@@ -282,63 +248,56 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">TV</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Películas</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Suscripciones</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
         </ul>
         <input
-          class="form-control ms-auto"
+          class="form-control ms-lg-auto w-50"
           type="search"
           placeholder="Buscar canal..."
           id="searchInput"
           autocomplete="off"
-          style="max-width: 300px;"
+          aria-label="Buscar canales"
         />
       </div>
     </div>
   </nav>
 
+  <!-- Contenido principal -->
   <div class="container-fluid main-container">
-    <div class="row main-row">
-      <div class="col-lg-4 col-md-12" id="epgContainer">
-        <h5>Programación</h5>
-        <ul id="epgList"></ul>
+    <div class="row align-items-start">
+      <div class="col-lg-4 col-md-12">
+        <div id="epgContainer">
+          <h5>Programación</h5>
+          <ul id="epgList"></ul>
+        </div>
       </div>
-      <div class="col-lg-8 col-md-12" id="videoWrapper">
-        <video id="livePlayer" controls autoplay muted></video>
+      <div class="col-lg-8 col-md-12">
+        <div id="videoWrapper">
+          <video id="livePlayer" controls autoplay></video>
+        </div>
       </div>
     </div>
 
+    <!-- Lista de canales debajo (col-12) -->
     <div id="channelGroups"></div>
-
-    <div id="relatedMovies">
-      <h5>Películas Relacionadas</h5>
-      <div class="related-scroll" id="relatedMoviesList">
-        <!-- Tarjetas generadas por JS -->
-      </div>
-    </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    © 2025 TV360 - Todos los derechos reservados.
+    &copy; 2025 TV360. Todos los derechos reservados.
   </footer>
 
   <script>
     let channels = [];
     let groupedChannels = {};
     let currentHls = null;
-
-    // Datos simulados de películas relacionadas (ejemplo)
-    const relatedMoviesData = [
-      { title: "El Señor de los Anillos", img: "https://via.placeholder.com/150x210?text=El+Señor+de+los+Anillos", url: "#" },
-      { title: "El Hobbit 2", img: "https://via.placeholder.com/150x210?text=El+Hobbit+2", url: "#" },
-      { title: "Harry Potter", img: "https://via.placeholder.com/150x210?text=Harry+Potter", url: "#" },
-      { title: "Narnia", img: "https://via.placeholder.com/150x210?text=Narnia", url: "#" },
-      { title: "Avatar", img: "https://via.placeholder.com/150x210?text=Avatar", url: "#" }
-    ];
+    let currentChannel = null;
 
     async function loadM3U(url) {
       try {
@@ -353,7 +312,7 @@
             const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
             const groupMatch = lines[i].match(/group-title="(.*?)"/);
             const name = nameMatch ? nameMatch[1] : 'Canal';
-            const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/150x84?text=Canal';
+            const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/140x84?text=Canal';
             const group = groupMatch ? groupMatch[1] : 'Otros';
             const streamUrl = lines[i + 1]?.trim();
 
@@ -392,6 +351,12 @@
     function playChannel(channel) {
       const video = document.getElementById("livePlayer");
 
+      // Desactivar highlight anterior
+      if(currentChannel){
+        const prevCard = document.querySelector(`.channel-card.active`);
+        if(prevCard) prevCard.classList.remove('active');
+      }
+
       if (currentHls) {
         currentHls.destroy();
         currentHls = null;
@@ -403,20 +368,29 @@
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, function () {
           video.play();
-          video.muted = false; // iniciar con audio activo
         });
         currentHls = hls;
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = channel.url;
         video.addEventListener('loadedmetadata', () => {
           video.play();
-          video.muted = false; // iniciar con audio activo
         });
       } else {
         alert("Tu navegador no soporta reproducción HLS.");
       }
 
       showEPG(channel);
+      currentChannel = channel;
+
+      // Activar highlight en canal seleccionado
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.channel-card');
+        cards.forEach(card => {
+          if(card.getAttribute('data-name') === channel.name.toLowerCase()){
+            card.classList.add('active');
+          }
+        });
+      }, 100);
     }
 
     function showEPG(channel) {
@@ -457,7 +431,7 @@
 
           const title = document.createElement("div");
           title.className = "card-title";
-          title.textContent = channel.name;
+          title.innerText = channel.name;
 
           card.appendChild(img);
           card.appendChild(title);
@@ -469,54 +443,32 @@
       }
     }
 
-    function buildRelatedMovies() {
-      const container = document.getElementById("relatedMoviesList");
-      relatedMoviesData.forEach(movie => {
-        const card = document.createElement("a");
-        card.href = movie.url;
-        card.className = "related-card";
-        card.title = movie.title;
+    // Buscador de canales
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const query = this.value.toLowerCase();
 
-        const img = document.createElement("img");
-        img.src = movie.img;
-        img.alt = movie.title;
-
-        const title = document.createElement("div");
-        title.className = "related-card-title";
-        title.textContent = movie.title;
-
-        card.appendChild(img);
-        card.appendChild(title);
-        container.appendChild(card);
-      });
-    }
-
-    // Buscador canales
-    document.getElementById("searchInput").addEventListener("input", e => {
-      const filter = e.target.value.toLowerCase();
       const cards = document.querySelectorAll(".channel-card");
       cards.forEach(card => {
         const name = card.getAttribute("data-name");
-        if (name.includes(filter)) {
-          card.style.display = "inline-block";
-        } else {
-          card.style.display = "none";
-        }
+        card.style.display = name.includes(query) ? "flex" : "none";
       });
     });
 
-    async function init() {
-      channels = await loadM3U("canales.m3u"); // Cambia esta URL por la de tu M3U real
-      groupedChannels = groupChannels(channels);
-      buildChannelGroups();
-      buildRelatedMovies();
+    async function initializeApp() {
+      channels = await loadM3U("canales.m3u");
 
-      if (channels.length > 0) {
-        playChannel(channels[0]); // reproducir el primer canal automáticamente con audio activo
+      if (channels.length === 0) {
+        alert("No se encontraron canales.");
+        return;
       }
+
+      groupedChannels = groupChannels(channels);
+
+      buildChannelGroups();
+      playChannel(channels[0]);
     }
 
-    init();
+    document.addEventListener("DOMContentLoaded", initializeApp);
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
