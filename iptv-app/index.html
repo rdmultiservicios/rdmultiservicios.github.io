@@ -7,50 +7,50 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
-    /* Estilo general: fondo oscuro, texto claro */
+    /* Modo claro: fondo blanco, texto oscuro */
     body, html {
       height: 100%;
       margin: 0;
       padding: 0;
-      background-color: #121212;
+      background-color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #f1f1f1;
+      color: #222;
     }
 
-    /* Navbar oscuro y moderno */
+    /* Navbar claro y moderno */
     nav.navbar {
-      background-color: #000;
-      box-shadow: 0 2px 6px rgba(237, 44, 37, 0.6);
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #ddd;
       padding: 0.5rem 1rem;
     }
     nav.navbar .navbar-brand {
-      color: #ED2C25;
+      color: #dc3545; /* rojo bootstrap */
       font-weight: 700;
       font-size: 1.6rem;
       user-select: none;
     }
     nav.navbar .navbar-nav .nav-link {
-      color: #f1f1f1;
+      color: #333;
       font-weight: 600;
       transition: color 0.3s;
       user-select: none;
     }
     nav.navbar .navbar-nav .nav-link:hover {
-      color: #ED2C25;
+      color: #dc3545;
     }
     nav.navbar .form-control {
-      background-color: #222;
-      border: none;
-      color: #f1f1f1;
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      color: #333;
     }
     nav.navbar .form-control::placeholder {
       color: #999;
     }
     nav.navbar .form-control:focus {
-      background-color: #333;
-      color: #f1f1f1;
-      border: none;
-      box-shadow: none;
+      background-color: #fff;
+      color: #333;
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
     }
 
     /* Contenedor principal */
@@ -58,7 +58,7 @@
       padding: 1rem 1rem 3rem 1rem;
     }
 
-    /* Layout columnas: EPG y reproductor */
+    /* Layout columnas: EPG y reproductor con misma altura */
     .row.align-items-start {
       gap: 1rem;
     }
@@ -69,11 +69,11 @@
       overflow-y: auto;
     }
     #epgContainer h5 {
-      color: #ED2C25;
+      color: #dc3545;
       font-weight: 700;
       margin-bottom: 1rem;
       user-select: none;
-      border-bottom: 2px solid #ED2C25;
+      border-bottom: 2px solid #dc3545;
       padding-bottom: 0.3rem;
     }
     #epgList {
@@ -82,32 +82,32 @@
       margin: 0;
       font-size: 0.95rem;
       line-height: 1.5;
-      color: #ccc;
+      color: #444;
     }
     #epgList li {
       padding: 0.4rem 0;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #eee;
       user-select: none;
     }
     #epgList li:last-child {
       border-bottom: none;
     }
 
-    /* Video wrapper */
+    /* Video wrapper sin sombras ni bordes */
     #videoWrapper {
       height: 450px;
       background-color: #000;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(237, 44, 37, 0.7);
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
     video#livePlayer {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 10px;
+      border-radius: 8px;
       background-color: black;
       outline: none;
     }
@@ -125,9 +125,9 @@
       font-weight: 700;
       font-size: 1.3rem;
       margin-bottom: 0.8rem;
-      color: #ED2C25;
+      color: #dc3545;
       user-select: none;
-      border-bottom: 2px solid #ED2C25;
+      border-bottom: 2px solid #dc3545;
       padding-bottom: 0.3rem;
     }
 
@@ -138,20 +138,20 @@
       gap: 1rem;
       padding-bottom: 0.3rem;
       scrollbar-width: thin;
-      scrollbar-color: #ED2C25 #222;
+      scrollbar-color: #dc3545 #f1f1f1;
       -webkit-overflow-scrolling: touch;
     }
     .channel-scroll::-webkit-scrollbar {
       height: 8px;
     }
     .channel-scroll::-webkit-scrollbar-track {
-      background: #222;
+      background: #f1f1f1;
       border-radius: 10px;
     }
     .channel-scroll::-webkit-scrollbar-thumb {
-      background-color: #ED2C25;
+      background-color: #dc3545;
       border-radius: 10px;
-      border: 2px solid #222;
+      border: 2px solid #f1f1f1;
     }
 
     /* Tarjetas de canal con tamaño fijo */
@@ -159,27 +159,28 @@
       flex: 0 0 auto;
       width: 140px;
       cursor: pointer;
-      background: #222;
-      border-radius: 10px;
+      background: #fff;
+      border-radius: 8px;
       user-select: none;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       border: 2px solid transparent;
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #f1f1f1;
+      color: #222;
+      box-shadow: none;
     }
     .channel-card:hover, .channel-card.active {
       transform: scale(1.05);
-      box-shadow: 0 0 12px #ED2C25;
-      border-color: #ED2C25;
-      background: #2b2b2b;
+      border-color: #dc3545;
+      background: #ffe5e5;
+      box-shadow: none;
     }
     .channel-card img {
       width: 100%;
       height: 84px;
       object-fit: cover;
-      border-radius: 10px 10px 0 0;
+      border-radius: 8px 8px 0 0;
       pointer-events: none;
       user-select: none;
     }
@@ -195,14 +196,14 @@
       padding: 0 0.3rem;
     }
 
-    /* Footer oscuro */
+    /* Footer claro */
     footer {
-      background-color: #000;
-      color: #666;
+      background-color: #f8f9fa;
+      color: #555;
       text-align: center;
       padding: 1rem 0;
       user-select: none;
-      border-top: 1px solid #222;
+      border-top: 1px solid #ddd;
       font-size: 0.9rem;
     }
 
@@ -233,7 +234,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
       <button
