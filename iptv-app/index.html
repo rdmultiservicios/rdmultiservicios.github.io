@@ -8,24 +8,22 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     body, html {
-      height: 100%;
       margin: 0;
       padding: 0;
       background-color: #121212;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #eee;
+      color: #f1f1f1;
     }
 
     /* Navbar moderno */
     nav.navbar {
       background-color: #1f1f1f;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
     }
 
     .navbar-brand {
-      font-weight: 700;
-      font-size: 1.6rem;
+      font-weight: bold;
       color: #0d6efd;
+      font-size: 1.5rem;
     }
 
     .form-control {
@@ -33,56 +31,43 @@
       border: none;
       color: #eee;
       border-radius: 20px;
-      padding-left: 1.2rem;
-      transition: background-color 0.3s ease;
-    }
-    .form-control::placeholder {
-      color: #bbb;
-    }
-    .form-control:focus {
-      background-color: #3b3b3b;
-      box-shadow: none;
-      color: #fff;
     }
 
-    /* Contenedor principal con bootstrap grid */
+    /* Contenedor principal */
     .container-main {
       padding: 1rem 2rem;
-      box-sizing: border-box;
-      min-height: calc(100vh - 56px);
     }
 
-    /* Estilos EPG */
+    /* EPG y Reproductor: misma altura */
+    #epgContainer,
+    #videoWrapper {
+      height: 450px;
+    }
+
     #epgContainer {
       background-color: #1e1e1e;
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
-      max-height: 350px;
+      padding: 1rem;
       overflow-y: auto;
-      user-select: none;
-      color: #ccc;
     }
 
     #epgContainer h5 {
-      font-weight: 700;
-      border-bottom: 2px solid #0d6efd;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
       color: #0d6efd;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #0d6efd;
+      padding-bottom: 0.5rem;
     }
 
     #epgList {
       list-style: none;
-      padding-left: 0;
+      padding: 0;
       margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.5;
     }
 
     #epgList li {
       padding: 0.4rem 0;
-      border-bottom: 1px solid #333;
+      font-size: 0.95rem;
+      border-bottom: 1px solid #2a2a2a;
     }
 
     #epgList li:last-child {
@@ -91,103 +76,74 @@
 
     /* Reproductor */
     #videoWrapper {
-      width: 100%;
-      height: 450px;
-      background-color: #000;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(13, 110, 253, 0.7);
-      overflow: hidden;
-      user-select: none;
-      margin-bottom: 1rem;
+      background-color: black;
+      border-radius: 0;
     }
 
     video {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 15px;
       background-color: black;
     }
 
-    /* Listado canales debajo del video */
+    /* Lista de canales abajo, col-12 */
     #channelList {
-      background-color: #1e1e1e;
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
-      user-select: none;
-      overflow-x: auto;
+      padding: 1rem 0 0 0;
+      margin-top: 1rem;
       white-space: nowrap;
+      overflow-x: auto;
       scrollbar-width: thin;
-      scrollbar-color: #0d6efd #2a2a2a;
+      scrollbar-color: #0d6efd transparent;
     }
 
     #channelList::-webkit-scrollbar {
       height: 8px;
     }
 
-    #channelList::-webkit-scrollbar-track {
-      background: #2a2a2a;
-      border-radius: 10px;
-    }
-
     #channelList::-webkit-scrollbar-thumb {
-      background-color: #0d6efd;
+      background: #0d6efd;
       border-radius: 10px;
-      border: 2px solid #2a2a2a;
     }
 
-    /* Tarjetas canales tamaño uniforme */
     .channel-card {
       display: inline-block;
       width: 140px;
-      margin-right: 0.8rem;
+      margin-right: 0.75rem;
       cursor: pointer;
-      vertical-align: top;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
-      background: #2a2a2a;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border: 2px solid transparent;
+      background: transparent;
+      transition: transform 0.2s ease;
       text-align: center;
-    }
-
-    .channel-card:hover, .channel-card.active {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #0d6efd;
-      border-color: #0d6efd;
-      background: #171717;
     }
 
     .channel-card img {
       width: 140px;
       height: 84px;
       object-fit: cover;
-      border-radius: 10px 10px 0 0;
-      user-select: none;
+      border-radius: 8px;
+      background-color: #333;
     }
 
     .channel-card .card-title {
-      font-size: 0.95rem;
-      color: #ddd;
-      padding: 0.5rem 0.3rem 0.7rem 0.3rem;
-      font-weight: 600;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #ccc;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* Responsive */
+    .channel-card:hover .card-title,
+    .channel-card.active .card-title {
+      color: #0d6efd;
+    }
+
     @media (max-width: 991.98px) {
-      #videoWrapper {
-        height: 280px;
+      #epgContainer, #videoWrapper {
+        height: auto;
       }
-      .channel-card {
-        width: 110px;
-      }
-      .channel-card img {
-        width: 110px;
-        height: 66px;
+      #channelList {
+        padding-left: 0.5rem;
       }
     }
   </style>
@@ -207,20 +163,24 @@
     </div>
   </nav>
 
-  <div class="container container-main">
-    <div class="row g-4">
-      <div class="col-12 col-lg-4">
+  <div class="container-fluid container-main">
+    <div class="row">
+      <div class="col-lg-4 col-12 mb-3 mb-lg-0">
         <div id="epgContainer">
           <h5>Programación</h5>
           <ul id="epgList"></ul>
         </div>
       </div>
-
-      <div class="col-12 col-lg-8 d-flex flex-column">
+      <div class="col-lg-8 col-12">
         <div id="videoWrapper">
           <video id="livePlayer" controls autoplay muted></video>
         </div>
-        <div id="channelList" title="Lista de canales"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div id="channelList"></div>
       </div>
     </div>
   </div>
@@ -265,7 +225,7 @@
 
         return parsed;
       } catch (error) {
-        console.error("Error al cargar el M3U:", error);
+        console.error("Error al cargar M3U:", error);
         return [];
       }
     }
@@ -282,26 +242,21 @@
         const hls = new Hls();
         hls.loadSource(channel.url);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () {
-          video.play();
-        });
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
         currentHls = hls;
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = channel.url;
-        video.addEventListener('loadedmetadata', () => {
-          video.play();
-        });
+        video.addEventListener('loadedmetadata', () => video.play());
       } else {
         alert("Tu navegador no soporta reproducción HLS.");
       }
 
       showEPG(channel);
 
-      // Resaltar canal seleccionado
       if (currentChannelCard) {
         currentChannelCard.classList.remove("active");
       }
-      if(cardElement){
+      if (cardElement) {
         cardElement.classList.add("active");
         currentChannelCard = cardElement;
       }
@@ -341,10 +296,8 @@
       });
     }
 
-    // Buscador de canales
     document.getElementById("searchInput").addEventListener("input", function () {
       const query = this.value.toLowerCase();
-
       document.querySelectorAll(".channel-card").forEach(card => {
         const name = card.getAttribute("data-name");
         card.style.display = name.includes(query) ? "inline-block" : "none";
@@ -353,16 +306,9 @@
 
     async function initializeApp() {
       channels = await loadM3U("canales.m3u");
-
-      if (channels.length === 0) {
-        alert("No se encontraron canales.");
-        return;
-      }
-
+      if (channels.length === 0) return alert("No se encontraron canales.");
       buildChannelList();
-      // Reproducir primer canal y marcarlo activo
-      const firstCard = document.querySelector(".channel-card");
-      playChannel(channels[0], firstCard);
+      playChannel(channels[0], document.querySelector(".channel-card"));
     }
 
     document.addEventListener("DOMContentLoaded", initializeApp);
