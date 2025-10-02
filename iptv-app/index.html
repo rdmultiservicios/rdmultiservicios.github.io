@@ -11,6 +11,9 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      background-color: #f5f6fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
     }
 
     .main-container {
@@ -18,108 +21,185 @@
       padding: 1rem;
     }
 
-    .row.align-items-center {
+    .row.align-items-start {
       height: 100%;
     }
 
-    /* EPG con altura limitada igual al reproductor y scroll */
+    /* EPG con altura fija y diseño moderno */
     #epgContainer {
-      height: 450px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.12);
+      padding: 1rem 1.5rem;
+      max-height: 300px;
       overflow-y: auto;
-      background-color: #f8f9fa;
-      padding: 1rem;
-      border-radius: 5px;
-      box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
-      font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
 
+    #epgContainer h5 {
+      font-weight: 700;
+      border-bottom: 2px solid #0d6efd;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+      color: #0d6efd;
+      user-select: none;
+    }
+
+    #epgContainer ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    #epgContainer ul li {
+      padding: 0.45rem 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    #epgContainer ul li:last-child {
+      border-bottom: none;
+    }
+
+    /* Contenedor canales agrupados debajo de EPG, scroll vertical */
+    #channelGroups {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.12);
+      padding: 0.8rem 1rem;
+      overflow-y: auto;
+      max-height: calc(100% - 320px);
+    }
+
+    .channel-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .channel-group-title {
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-bottom: 0.6rem;
+      color: #444;
+      user-select: none;
+    }
+
+    /* Scroll horizontal personalizado */
+    .channel-scroll {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: #0d6efd #e9ecef;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .channel-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .channel-scroll::-webkit-scrollbar-track {
+      background: #e9ecef;
+      border-radius: 10px;
+    }
+
+    .channel-scroll::-webkit-scrollbar-thumb {
+      background-color: #0d6efd;
+      border-radius: 10px;
+      border: 2px solid #e9ecef;
+    }
+
+    /* Tarjetas de canal */
+    .channel-card {
+      display: inline-block;
+      width: 140px;
+      margin-right: 0.7rem;
+      cursor: pointer;
+      vertical-align: top;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+      background: #fff;
+      user-select: none;
+      border: 1px solid transparent;
+    }
+
+    .channel-card:hover {
+      transform: scale(1.07);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.18);
+      border-color: #0d6efd;
+    }
+
+    .channel-card img {
+      width: 100%;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .channel-card .card-title {
+      font-size: 0.9rem;
+      text-align: center;
+      margin: 0.5rem 0 0.7rem 0;
+      padding: 0 0.3rem;
+      color: #222;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Reproductor con tamaño fijo y centrado vertical */
     #videoWrapper {
       height: 450px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: black;
-      border-radius: 5px;
-      box-shadow: 0 0 8px rgb(0 0 0 / 0.15);
+      background-color: #000;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.25);
+      margin-bottom: 1rem;
     }
 
     video {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 5px;
+      border-radius: 10px;
+      background-color: black;
     }
 
-    /* Canales agrupados verticalmente */
-    .channel-groups {
-      margin-top: 1rem;
-      overflow-y: auto;
-      max-height: 350px; /* para que no crezca mucho debajo del video */
-      padding-right: 0.5rem;
-    }
-
-    .channel-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .channel-group-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
-      color: #333;
-      padding-left: 0.3rem;
-    }
-
-    .channel-scroll {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 0.3rem;
-    }
-
-    .channel-card {
-      display: inline-block;
-      width: 150px;
-      margin-right: 0.5rem;
-      cursor: pointer;
-      vertical-align: top;
-      transition: transform 0.2s;
-      border-radius: 5px;
-      box-shadow: 0 0 6px rgb(0 0 0 / 0.1);
-      background: white;
-      user-select: none;
-    }
-
-    .channel-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgb(0 0 0 / 0.2);
-    }
-
-    .channel-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 5px 5px 0 0;
-    }
-
-    .channel-card .card-title {
-      font-size: 0.9rem;
-      text-align: center;
-      margin: 0.4rem 0 0.6rem 0;
-      padding: 0 0.3rem;
-      color: #333;
-    }
-
-    @media (max-width: 768px) {
-      #videoWrapper {
-        height: 250px;
-        margin-bottom: 1rem;
+    /* Layout columnas */
+    @media (min-width: 992px) {
+      /* Desktop: EPG + canales a la izquierda (4 cols), video a la derecha (8 cols) */
+      .row.align-items-start > div:first-child {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
+    }
 
+    /* Scroll horizontal en móvil no visible */
+    @media (max-width: 767.98px) {
       #epgContainer {
-        height: 250px;
+        max-height: 220px;
+        padding: 0.8rem 1rem;
       }
 
-      .channel-groups {
-        max-height: 200px;
+      #channelGroups {
+        max-height: 250px;
+        padding: 0.5rem 0.8rem;
+      }
+
+      .channel-scroll {
+        overflow-x: visible !important;
+        -webkit-overflow-scrolling: auto !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+
+      .channel-scroll::-webkit-scrollbar {
+        display: none !important;
       }
     }
   </style>
@@ -134,23 +214,25 @@
         type="text"
         placeholder="Buscar canal..."
         id="searchInput"
+        autocomplete="off"
       />
     </div>
   </nav>
 
   <div class="container-fluid main-container">
-    <div class="row align-items-center">
-      <div class="col-md-4">
-        <h5>Programación</h5>
-        <div id="epgContainer"></div>
+    <div class="row align-items-start">
+      <div class="col-lg-4 col-md-12">
+        <div id="epgContainer">
+          <h5>Programación</h5>
+          <ul id="epgList"></ul>
+        </div>
+        <div id="channelGroups"></div>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-lg-8 col-md-12">
         <div id="videoWrapper">
-          <video id="livePlayer" controls autoplay></video>
+          <video id="livePlayer" controls autoplay muted></video>
         </div>
-
-        <div class="channel-groups" id="channelGroups"></div>
       </div>
     </div>
   </div>
@@ -238,12 +320,12 @@
     }
 
     function showEPG(channel) {
-      const container = document.getElementById("epgContainer");
-      container.innerHTML = "";
+      const epgList = document.getElementById("epgList");
+      epgList.innerHTML = "";
       channel.epg.forEach(item => {
-        const div = document.createElement("div");
-        div.innerText = `${item.time} — ${item.title}`;
-        container.appendChild(div);
+        const li = document.createElement("li");
+        li.textContent = `${item.time} — ${item.title}`;
+        epgList.appendChild(li);
       });
     }
 
@@ -291,7 +373,6 @@
     document.getElementById("searchInput").addEventListener("input", function () {
       const query = this.value.toLowerCase();
 
-      // Iteramos todos los canales para filtrar
       for (const groupName in groupedChannels) {
         groupedChannels[groupName].forEach(channel => {
           const cardElements = [...document.querySelectorAll(`.channel-card`)];
