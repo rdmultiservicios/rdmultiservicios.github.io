@@ -5,12 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("fileInput");
   const currentProgramEl = document.getElementById("currentProgram");
   const upcomingProgramsEl = document.getElementById("upcomingPrograms");
+  
+  // URL pública EPG Perú (XMLTV)
   const epgUrl = "https://raw.githubusercontent.com/mudstein/XML/main/Peru/peru.xml";
 
   let channels = [];
   let filteredChannels = [];
   let xmlEPG = null;
   let currentHls = null;
+  let activeChannel = null;
 
   // Carga archivo EPG XML
   function loadEPG(url) {
@@ -54,19 +57,26 @@ document.addEventListener("DOMContentLoaded", () => {
     channelListEl.innerHTML = "";
     chList.forEach(ch => {
       const item = document.createElement("div");
-      item.className = "channel-item d-flex align-items-center mb-3";
-      item.style.cursor = "pointer";
+      item.className = "channel-item d-flex align-items-center mb-2";
       item.title = ch.name;
 
+      if(activeChannel && activeChannel.url === ch.url) {
+        item.classList.add("active");
+      }
+
       item.innerHTML = `
-        <img src="${ch.logo}" alt="${ch.name}" class="me-2 channel-logo" />
+        <img src="${ch.logo}" alt="${ch.name}" class="channel-logo" />
         <div>
-          <div class="fw-bold">${ch.name}</div>
-          <div class="text-muted small">${ch.group}</div>
+          <div class="fw-semibold">${ch.name}</div>
+          <small class="text-muted">${ch.group}</small>
         </div>
       `;
 
-      item.onclick = () => loadChannel(ch);
+      item.onclick = () => {
+        activeChannel = ch;
+        loadChannel(ch);
+        renderChannels(filteredChannels);
+      };
 
       channelListEl.appendChild(item);
     });
@@ -148,79 +158,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(prog.actual) {
       const title = prog.actual.querySelector('title');
-      currentProgramEl.textContent = `Ahora: ${title ? title.textContent : 'Sin título'}`;
+      currentProgramEl.textContent = `Ahora: ${title ? title.textContent : "Sin título"}`;
     } else {
-      currentProgramEl.textContent = "Actualmente no hay programa activo";
+      currentProgramEl.textContent = "No hay programa actual";
     }
 
     upcomingProgramsEl.innerHTML = "";
     prog.siguientes.forEach(p => {
+      const title = p.querySelector('title');
+      const start = parseXMLTVDate(p.getAttribute("start"));
       const li = document.createElement("li");
       li.className = "list-group-item";
-      const start = parseXMLTVDate(p.getAttribute("start"));
-      const title = p.querySelector('title');
-      li.textContent = `${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${title ? title.textContent : 'Sin título'}`;
+      li.textContent = `${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${title ? title.textContent : "Sin título"}`;
       upcomingProgramsEl.appendChild(li);
     });
   }
 
-  // Filtra canales por grupo
-  function filterChannelsByGroup(group) {
-    if (group === "all") {
+  // Carga archivo M3U default y EPG
+  async function init() {
+    try {
+      // Ejemplo: carga archivo M3U inicial (reemplaza con URL o local)
+      const m3uUrl = "https://tu-servidor.com/tu-archivo.m3u"; // Cambia a tu fuente real
+      const m3uResponse = await fetch(m3uUrl);
+      const m3uText = await m3uResponse.text();
+      channels = parseM3U(m3uText);
+
+      // Carga EPG XML
+      xmlEPG = await loadEPG(epgUrl);
+
+      setupFilters();
+      applyFilter();
+      if(channels.length) {
+        activeChannel = channels[0];
+        loadChannel(activeChannel);
+      }
+    } catch(e) {
+      alert("Error cargando canales o EPG: " + e.message);
+    }
+  }
+
+  // Configura filtro de grupos
+  function setupFilters() {
+    const groups = [...new Set(channels.map(c => c.group))].sort();
+    groupFilterEl.innerHTML = `<option value="all">Todos los grupos</option>` +
+      groups.map(g => `<option value="${g}">${g}</option>`).join('');
+    
+    groupFilterEl.onchange = () => {
+      applyFilter();
+    };
+  }
+
+  function applyFilter() {
+    const selectedGroup = groupFilterEl.value;
+    if(selectedGroup === "all") {
       filteredChannels = channels;
     } else {
-      filteredChannels = channels.filter(c => c.group === group);
+      filteredChannels = channels.filter(ch => ch.group === selectedGroup);
     }
     renderChannels(filteredChannels);
-    if(filteredChannels.length > 0) loadChannel(filteredChannels[0]);
   }
 
-  // Llena selector de grupos
-  function loadGroups() {
-    const groups = [...new Set(channels.map(c => c.group))].sort();
-    groupFilterEl.innerHTML = '<option value="all">Todos</option>';
-    groups.forEach(g => {
-      const option = document.createElement("option");
-      option.value = g;
-      option.textContent = g;
-      groupFilterEl.appendChild(option);
-    });
-  }
-
-  // Maneja archivo m3u personalizado
+  // Carga archivo .m3u local
   fileInput.addEventListener("change", e => {
     const file = e.target.files[0];
-    if (!file) return;
+    if(!file) return;
+
     const reader = new FileReader();
     reader.onload = () => {
       channels = parseM3U(reader.result);
-      loadGroups();
-      filterChannelsByGroup("all");
+      setupFilters();
+      applyFilter();
+      if(channels.length) {
+        activeChannel = channels[0];
+        loadChannel(activeChannel);
+      }
     };
     reader.readAsText(file);
   });
 
-  // Cambio de filtro grupo
-  groupFilterEl.addEventListener("change", e => {
-    filterChannelsByGroup(e.target.value);
-  });
-
-  // Carga inicial .m3u y EPG
-  fetch("canales.m3u")
-    .then(res => res.text())
-    .then(text => {
-      channels = parseM3U(text);
-      loadGroups();
-      filterChannelsByGroup("all");
-    });
-
-  loadEPG(epgUrl).then(xml => {
-    xmlEPG = xml;
-    // Actualizar EPG para canal inicial (si existe)
-    if(filteredChannels && filteredChannels.length > 0) {
-      updateEPGDisplay(filteredChannels[0]);
-    }
-  }).catch(() => {
-    currentProgramEl.textContent = "No se pudo cargar la EPG.";
-  });
+  // Inicia la app
+  init();
 });
