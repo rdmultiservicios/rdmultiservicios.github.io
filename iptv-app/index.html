@@ -7,27 +7,74 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --epg-bg: #f5f5f5;
+      --channel-bg: #fafafa;
+      --highlight-color: #0d6efd;
+      --card-bg: #fff;
+      --card-text: #444;
+      --nav-bg: #fff;
+      --footer-bg: #f2f2f2;
+    }
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f1f1f1;
+      --epg-bg: #1e1e1e;
+      --channel-bg: #1a1a1a;
+      --highlight-color: #0d6efd;
+      --card-bg: #2a2a2a;
+      --card-text: #ccc;
+      --nav-bg: #1a1a1a;
+      --footer-bg: #1e1e1e;
+    }
+
     body, html {
       margin: 0;
       padding: 0;
-      background-color: #121212;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #f1f1f1;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* NAVBAR */
     nav.navbar {
-      background-color: #1f1f1f;
+      background-color: var(--nav-bg);
+      transition: background-color 0.3s ease;
     }
     .navbar-brand {
       font-weight: bold;
-      color: #0d6efd;
+      color: var(--highlight-color);
       font-size: 1.5rem;
+      transition: color 0.3s ease;
     }
     .form-control {
-      background-color: #2a2a2a;
+      background-color: var(--epg-bg);
       border: none;
-      color: #eee;
+      color: var(--text-color);
       border-radius: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .navbar-nav .nav-link {
+      color: var(--text-color);
+      transition: color 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--highlight-color);
+    }
+
+    .theme-toggle-btn {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .theme-toggle-btn:hover {
+      color: var(--highlight-color);
     }
 
     .container-main {
@@ -39,16 +86,18 @@
       height: 450px;
     }
     #epgContainer {
-      background-color: #1e1e1e;
+      background-color: var(--epg-bg);
       padding: 1rem;
       overflow-y: auto;
+      transition: background-color 0.3s ease;
     }
     #epgContainer h5 {
-      color: #0d6efd;
+      color: var(--highlight-color);
       font-weight: 600;
       margin-bottom: 1rem;
-      border-bottom: 1px solid #0d6efd;
+      border-bottom: 1px solid var(--highlight-color);
       padding-bottom: 0.5rem;
+      transition: color 0.3s ease, border-color 0.3s ease;
     }
     #epgList {
       list-style: none;
@@ -58,26 +107,29 @@
     #epgList li {
       padding: 0.4rem 0;
       font-size: 0.95rem;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid var(--channel-bg);
+      transition: border-color 0.3s ease;
     }
     #epgList li:last-child {
       border-bottom: none;
     }
 
     #videoWrapper {
+      position: relative;
       background-color: black;
+      overflow: hidden;
     }
     video {
       width: 100%;
       height: 100%;
       object-fit: contain;
       background-color: black;
+      opacity: 1;
+      transition: opacity 0.5s ease;
     }
 
-    /* Lista de canales por grupos debajo */
     #channelGroupsList {
       margin-top: 1.5rem;
-      /* No borders, fondo limpio */
     }
     .group-block {
       margin-bottom: 2rem;
@@ -85,21 +137,22 @@
     .group-title {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #0d6efd;
+      color: var(--highlight-color);
       margin-bottom: 0.8rem;
+      transition: color 0.3s ease;
     }
     .channel-scroll {
       white-space: nowrap;
       overflow-x: auto;
       padding-bottom: 0.5rem;
       scrollbar-width: thin;
-      scrollbar-color: #0d6efd transparent;
+      scrollbar-color: var(--highlight-color) transparent;
     }
     .channel-scroll::-webkit-scrollbar {
       height: 8px;
     }
     .channel-scroll::-webkit-scrollbar-thumb {
-      background: #0d6efd;
+      background: var(--highlight-color);
       border-radius: 10px;
     }
 
@@ -109,27 +162,37 @@
       margin-right: 0.75rem;
       cursor: pointer;
       background: transparent;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, filter 0.2s ease;
       text-align: center;
+    }
+    .channel-card:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+    .channel-card.active {
+      transform: scale(1.05);
+      filter: brightness(1.2);
     }
     .channel-card img {
       width: 140px;
       height: 84px;
       object-fit: cover;
       border-radius: 8px;
-      background-color: #333;
+      background-color: var(--card-bg);
+      transition: background-color 0.3s ease;
     }
     .channel-card .card-title {
       margin-top: 0.5rem;
       font-size: 0.9rem;
-      color: #ccc;
+      color: var(--card-text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      transition: color 0.3s ease;
     }
     .channel-card:hover .card-title,
     .channel-card.active .card-title {
-      color: #0d6efd;
+      color: var(--highlight-color);
     }
 
     @media (max-width: 991.98px) {
@@ -137,22 +200,57 @@
         height: auto;
       }
     }
+
+    /* FOOTER */
+    footer.footer {
+      background-color: var(--footer-bg);
+      color: var(--text-color);
+      padding: 1rem 2rem;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+    footer.footer a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer.footer a:hover {
+      color: var(--highlight-color);
+    }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg">
+
+  <!-- NAVBAR con menú -->
+  <nav class="navbar navbar-expand-lg px-3">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
-      <input
-        class="form-control ms-auto w-50"
-        type="text"
-        placeholder="Buscar canal..."
-        id="searchInput"
-        autocomplete="off"
-      />
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Acerca de</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+        </ul>
+        <input
+          class="form-control me-3 w-50"
+          type="text"
+          placeholder="Buscar canal..."
+          id="searchInput"
+          autocomplete="off"
+        />
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
+      </div>
     </div>
   </nav>
 
+  <!-- CONTENIDO PRINCIPAL -->
   <div class="container-fluid container-main">
     <div class="row">
       <div class="col-lg-4 col-12 mb-3 mb-lg-0">
@@ -175,11 +273,43 @@
     </div>
   </div>
 
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      © 2025 TV360. Todos los derechos reservados.
+    </div>
+    <div>
+      <a href="#">Política de Privacidad</a> | <a href="#">Términos de servicio</a> | <a href="#">Ayuda</a>
+    </div>
+  </footer>
+
   <script>
     let channels = [];
     let groupedChannels = {};
     let currentHls = null;
     let currentChannelCard = null;
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("tv360-theme", theme);
+      const btn = document.getElementById("themeToggleBtn");
+      btn.textContent = theme === "dark" ? "☀️" : "🌙";
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      applyTheme(current === "dark" ? "light" : "dark");
+    }
+
+    document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
+
+    const saved = localStorage.getItem("tv360-theme");
+    if (saved) {
+      applyTheme(saved);
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      applyTheme(prefersDark ? "dark" : "light");
+    }
 
     async function loadM3U(url) {
       try {
@@ -229,6 +359,7 @@
 
     function playChannel(channel, cardElement) {
       const video = document.getElementById("livePlayer");
+      video.style.opacity = 0;
 
       if (currentHls) {
         currentHls.destroy();
@@ -241,18 +372,20 @@
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
           video.play();
+          setTimeout(() => video.style.opacity = 1, 200);
         });
         currentHls = hls;
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = channel.url;
-        video.addEventListener('loadedmetadata', () => video.play());
+        video.addEventListener('loadedmetadata', () => {
+          video.play();
+          setTimeout(() => video.style.opacity = 1, 200);
+        });
       } else {
         alert("Tu navegador no soporta reproducción HLS.");
       }
 
-      // Quitar silencio
       video.muted = false;
-
       showEPG(channel);
 
       if (currentChannelCard) {
@@ -330,11 +463,8 @@
       groupedChannels = groupChannels(channels);
       buildChannelGroupsUI();
 
-      // escoger primer canal del primer grupo
       const firstGroup = Object.keys(groupedChannels)[0];
       const firstChannel = groupedChannels[firstGroup][0];
-
-      // encontrar su tarjeta
       const allCards = document.querySelectorAll(".channel-card");
       let firstCardElem = null;
       allCards.forEach(card => {
@@ -348,5 +478,7 @@
 
     document.addEventListener("DOMContentLoaded", initializeApp);
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
