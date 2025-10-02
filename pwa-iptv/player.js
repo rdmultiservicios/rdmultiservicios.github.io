@@ -3,13 +3,17 @@ let epgInfoDiv = document.getElementById('epgInfo');
 
 async function playChannel(index, list) {
   const channel = list[index];
-  document.getElementById('channelTitle').innerText = channel.name;
+  document.getElementById('channelTitle')?.innerText = channel.name || '';
+
   epgInfoDiv.innerHTML = 'Cargando EPG...';
 
   if (Hls.isSupported()) {
-    const hls = new Hls();
-    hls.loadSource(channel.url);
-    hls.attachMedia(videoElement);
+    if (window.hls) {
+      window.hls.destroy();
+    }
+    window.hls = new Hls();
+    window.hls.loadSource(channel.url);
+    window.hls.attachMedia(videoElement);
   } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
     videoElement.src = channel.url;
   } else {
@@ -17,7 +21,7 @@ async function playChannel(index, list) {
   }
 
   const epg = await fetchEPG(channel.name);
-  epgInfoDiv.innerHTML = epg || 'EPG no disponible.';
+  epgInfoDiv.innerHTML = epg || 'Sin horario de transmisión';
 }
 
 async function fetchEPG(channelName) {
