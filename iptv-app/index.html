@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TV360 - IPTV Simple</title>
+  <title>TV360 - En Vivo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     :root {
       --bg-color: #ffffff;
-      --text-color: #333333;
+      --text-color: #333;
       --epg-bg: #f5f5f5;
-      --channel-bg: #fafafa;
       --highlight-color: #0d6efd;
       --card-bg: #fff;
       --card-text: #444;
@@ -20,513 +21,260 @@
       --bg-color: #121212;
       --text-color: #f1f1f1;
       --epg-bg: #1e1e1e;
-      --channel-bg: #1a1a1a;
       --highlight-color: #0d6efd;
       --card-bg: #2a2a2a;
       --card-text: #ccc;
       --nav-bg: #1a1a1a;
       --footer-bg: #1e1e1e;
     }
-
     body, html {
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-color);
+      margin: 0; padding: 0;
+      background: var(--bg-color);
       color: var(--text-color);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 0.3s, color 0.3s;
     }
-
-    /* NAVBAR */
-    nav.navbar {
-      background-color: var(--nav-bg);
-      transition: background-color 0.3s ease;
+    nav.navbar { background: var(--nav-bg); }
+    .navbar-brand { font-weight: bold; color: var(--highlight-color); }
+    .form-control { background: var(--epg-bg); color: var(--text-color); border: none; border-radius: 20px; }
+    .navbar-nav .nav-link { color: var(--text-color); }
+    .navbar-nav .nav-link:hover { color: var(--highlight-color); }
+    .theme-toggle-btn { background: none; border: none; font-size: 1.2rem; color: var(--text-color); cursor: pointer; }
+    .container-main { padding: 1rem 2rem; }
+    #epgContainer, #videoWrapper { height: 450px; }
+    #epgContainer { background: var(--epg-bg); padding: 1rem; overflow-y: auto; }
+    #epgContainer h5 { color: var(--highlight-color); font-weight: 600; border-bottom: 1px solid var(--highlight-color); padding-bottom: 0.5rem; }
+    #epgList { list-style: none; padding: 0; margin: 0; }
+    #epgList li { padding: 0.4rem 0; border-bottom: 1px solid var(--card-bg); }
+    #videoWrapper { position: relative; background: black; overflow: hidden; }
+    #livePlayer { width: 100%; height: 100%; object-fit: contain; background: black; }
+    #loadingOverlay {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7); color: white;
+      display: none; align-items: center; justify-content: center;
+      font-size: 1.5rem; z-index: 10;
     }
-    .navbar-brand {
-      font-weight: bold;
-      color: var(--highlight-color);
-      font-size: 1.5rem;
-      transition: color 0.3s ease;
-    }
-    .form-control {
-      background-color: var(--epg-bg);
-      border: none;
-      color: var(--text-color);
-      border-radius: 20px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .navbar-nav .nav-link {
-      color: var(--text-color);
-      transition: color 0.3s ease;
-    }
-    .navbar-nav .nav-link:hover {
-      color: var(--highlight-color);
-    }
-
-    .theme-toggle-btn {
-      background: none;
-      border: none;
-      color: var(--text-color);
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    .theme-toggle-btn:hover {
-      color: var(--highlight-color);
-    }
-
-    .container-main {
-      padding: 1rem 2rem;
-    }
-
-    /* Contenedor EPG y Video lado a lado */
-    #playerEpgContainer {
-      display: flex;
-      gap: 1rem;
-      height: 450px;
-      margin-bottom: 1.5rem;
-    }
-    #epgContainer {
-      flex: 0 0 32%;
-      background-color: var(--epg-bg);
-      padding: 1rem;
-      overflow-y: auto;
-      transition: background-color 0.3s ease;
-      border-radius: 6px;
-    }
-    #epgContainer h5 {
-      color: var(--highlight-color);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--highlight-color);
-      padding-bottom: 0.5rem;
-      transition: color 0.3s ease, border-color 0.3s ease;
-    }
-    #epgList {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    #epgList li {
-      padding: 0.4rem 0;
-      font-size: 0.95rem;
-      border-bottom: 1px solid var(--channel-bg);
-      transition: border-color 0.3s ease;
-    }
-    #epgList li:last-child {
-      border-bottom: none;
-    }
-
-    #videoWrapper {
-      flex: 0 0 66%;
-      position: relative;
-      background-color: black;
-      overflow: hidden;
-      border-radius: 6px;
-    }
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background-color: black;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-    }
-
-    #channelGroupsList {
-      margin-top: 1.5rem;
-    }
-    .group-block {
-      margin-bottom: 2rem;
-    }
-    .group-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--highlight-color);
-      margin-bottom: 0.8rem;
-      transition: color 0.3s ease;
-    }
-    .channel-scroll {
-      white-space: nowrap;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--highlight-color) transparent;
-    }
-    .channel-scroll::-webkit-scrollbar {
-      height: 8px;
-    }
-    .channel-scroll::-webkit-scrollbar-thumb {
-      background: var(--highlight-color);
-      border-radius: 10px;
-    }
-
-    .channel-card {
-      display: inline-block;
-      width: 140px;
-      margin-right: 0.75rem;
-      cursor: pointer;
-      background: transparent;
-      transition: transform 0.2s ease, filter 0.2s ease;
-      text-align: center;
-      box-shadow: none !important;  /* Sin sombra */
-      outline: none !important;     /* Sin borde foco */
-    }
-    .channel-card:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
-    }
-    .channel-card.active {
-      transform: scale(1.05);
-      filter: brightness(1.2);
-      box-shadow: none !important;  /* Sin sombra al activo */
-      outline: none !important;     /* Sin borde foco al activo */
-    }
-    .channel-card:focus {
-      box-shadow: none !important;  /* Sin sombra al focus */
-      outline: none !important;     /* Sin borde foco al focus */
-    }
-    .channel-card img {
-      width: 140px;
-      height: 84px;
-      object-fit: cover;
-      border-radius: 8px;
-      background-color: var(--card-bg);
-      transition: background-color 0.3s ease;
-    }
-    .channel-card .card-title {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: var(--card-text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition: color 0.3s ease;
-    }
-    .channel-card:hover .card-title,
-    .channel-card.active .card-title {
-      color: var(--highlight-color);
-    }
-
-    @media (max-width: 991.98px) {
-      #playerEpgContainer {
-        flex-direction: column;
-        height: auto;
-      }
-      #epgContainer,
-      #videoWrapper {
-        flex: 1 1 100%;
-        height: auto;
-        margin-bottom: 1rem;
-      }
-    }
-
-    /* FOOTER */
+    .channel-scroll { overflow-x: auto; white-space: nowrap; scrollbar-width: thin; scrollbar-color: var(--highlight-color) transparent; }
+    .channel-card { display: inline-block; width: 140px; margin-right: 0.75rem; cursor: pointer; text-align: center; }
+    .channel-card img { width: 140px; height: 84px; object-fit: cover; border-radius: 8px; background: var(--card-bg); }
+    .card-title { margin-top: 0.5rem; font-size: 0.9rem; color: var(--card-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .channel-card:hover .card-title, .channel-card.active .card-title { color: var(--highlight-color); }
     footer.footer {
-      background-color: var(--footer-bg);
-      color: var(--text-color);
-      padding: 1rem 2rem;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      margin-top: 2rem;
-      font-size: 0.9rem;
+      background: var(--footer-bg); color: var(--text-color);
+      padding: 1rem 2rem; text-align: center;
     }
-    footer.footer a {
-      color: var(--text-color);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    footer.footer a:hover {
-      color: var(--highlight-color);
+    @media (max-width: 991.98px) {
+      #epgContainer, #videoWrapper { height: auto; }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
-  <header>
-    <h1>TV360 - IPTV Simple</h1>
-    <button
-      class="theme-toggle-btn"
-      id="themeToggleBtn"
-      title="Alternar tema"
-      aria-pressed="false"
-    >🌙</button>
-  </header>
-  <main>
-    <input
-      type="search"
-      id="searchInput"
-      placeholder="Buscar canal..."
-      aria-label="Buscar canal"
-      autocomplete="off"
-    />
 
-    <div id="playerEpgContainer" aria-label="Contenedor reproductor y programación">
-      <ul id="epgList" aria-label="Lista de programación (EPG)"></ul>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg px-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TV360</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+      </ul>
+      <input class="form-control me-2 w-50" type="text" id="searchInput" placeholder="Buscar canal..." />
+      <input type="file" id="m3uInput" accept=".m3u" class="form-control me-2" />
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
+    </div>
+  </div>
+</nav>
 
-      <div id="videoWrapper" aria-label="Reproductor de video">
-        <video
-          id="livePlayer"
-          controls
-          playsinline
-          muted
-          preload="auto"
-          aria-live="polite"
-        ></video>
-        <div id="playerMessage" role="alert" aria-live="assertive"></div>
+<!-- CONTENIDO -->
+<div class="container-fluid container-main">
+  <div class="row">
+    <div class="col-lg-4 col-12 mb-3">
+      <div id="epgContainer">
+        <h5>Programación</h5>
+        <ul id="epgList"></ul>
       </div>
     </div>
+    <div class="col-lg-8 col-12">
+      <div id="videoWrapper">
+        <div id="loadingOverlay">Cargando...</div>
+        <video id="livePlayer" controls></video>
+      </div>
+    </div>
+  </div>
 
-    <div id="channelGroupsList" aria-live="polite" aria-atomic="true"></div>
-  </main>
+  <div class="row mt-4">
+    <div class="col-12">
+      <div id="channelGroupsList"></div>
+    </div>
+  </div>
+</div>
 
-  <script>
-    let channels = [];
-    let groupedChannels = {};
-    let currentHls = null;
-    let currentChannelCard = null;
+<!-- FOOTER -->
+<footer class="footer">
+  <div>© 2025 TV360. Todos los derechos reservados.</div>
+  <div><a href="#">Privacidad</a> | <a href="#">Términos</a></div>
+</footer>
 
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("tv360-theme", theme);
-      const btn = document.getElementById("themeToggleBtn");
-      btn.textContent = theme === "dark" ? "☀️" : "🌙";
-      btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-    }
+<!-- SCRIPT -->
+<script>
+let channels = [], groupedChannels = {}, currentHls = null, currentChannelCard = null;
 
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute("data-theme");
-      applyTheme(current === "dark" ? "light" : "dark");
-    }
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("tv360-theme", theme);
+  document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
+}
+document.getElementById("themeToggleBtn").onclick = () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  applyTheme(current === "dark" ? "light" : "dark");
+};
+applyTheme(localStorage.getItem("tv360-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
 
-    document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
-
-    const saved = localStorage.getItem("tv360-theme");
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      applyTheme(prefersDark ? "dark" : "light");
-    }
-
-    async function loadM3U(url) {
-      try {
-        const resp = await fetch(url);
-        const text = await resp.text();
-        const lines = text.split('\n');
-        const parsed = [];
-        for (let i = 0; i < lines.length; i++) {
-          if (lines[i].startsWith('#EXTINF')) {
-            const nameMatch = lines[i].match(/,(.*)$/);
-            const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
-            const groupMatch = lines[i].match(/group-title="(.*?)"/);
-            const name = nameMatch ? nameMatch[1] : 'Canal';
-            const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/140x84?text=Canal';
-            const group = groupMatch ? groupMatch[1] : 'Otros';
-            const streamUrl = lines[i+1]?.trim();
-            if (streamUrl && streamUrl.startsWith('http')) {
-              const epg = [];
-              for (let h = 8; h <= 22; h++) {
-                epg.push({
-                  time: `${h.toString().padStart(2, '0')}:00`,
-                  title: `Programa de ${name} a las ${h}:00`
-                });
-              }
-              parsed.push({ name, logo, url: streamUrl, group, epg });
-            }
-          }
-        }
-        return parsed;
-      } catch (err) {
-        console.error("Error al cargar M3U:", err);
-        return [];
-      }
-    }
-
-    function groupChannels(channels) {
-      const groups = {};
-      channels.forEach(ch => {
-        if (!groups[ch.group]) groups[ch.group] = [];
-        groups[ch.group].push(ch);
-      });
-      return groups;
-    }
-
-    function showMessage(message, isError = false) {
-      let msgEl = document.getElementById('playerMessage');
-      if (!msgEl) {
-        msgEl = document.createElement('div');
-        msgEl.id = 'playerMessage';
-        msgEl.style.position = 'absolute';
-        msgEl.style.top = '50%';
-        msgEl.style.left = '50%';
-        msgEl.style.transform = 'translate(-50%, -50%)';
-        msgEl.style.padding = '10px 20px';
-        msgEl.style.backgroundColor = isError ? 'rgba(255, 0, 0, 0.8)' : 'rgba(0,0,0,0.7)';
-        msgEl.style.color = '#fff';
-        msgEl.style.borderRadius = '8px';
-        msgEl.style.zIndex = '10';
-        document.getElementById('videoWrapper').appendChild(msgEl);
-      }
-      msgEl.textContent = message;
-      msgEl.style.display = 'block';
-    }
-
-    function hideMessage() {
-      const msgEl = document.getElementById('playerMessage');
-      if (msgEl) msgEl.style.display = 'none';
-    }
-
-    function playChannel(channel, cardElement) {
-      const video = document.getElementById("livePlayer");
-      video.style.opacity = 0;
-      showMessage("Cargando canal...");
-
-      if (currentHls) {
-        currentHls.destroy();
-        currentHls = null;
-      }
-
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(channel.url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play().catch(() => {});
-          setTimeout(() => {
-            video.style.opacity = 1;
-            hideMessage();
-          }, 200);
+async function parseM3U(text) {
+  const lines = text.split("\n");
+  const parsed = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith("#EXTINF")) {
+      const name = (lines[i].match(/,(.*)$/) || [])[1] || "Canal";
+      const logo = (lines[i].match(/tvg-logo="(.*?)"/) || [])[1] || "https://via.placeholder.com/140x84?text=Canal";
+      const group = (lines[i].match(/group-title="(.*?)"/) || [])[1] || "Otros";
+      const url = lines[i + 1]?.trim();
+      if (url && url.startsWith("http"))
+        parsed.push({
+          name, logo, group, url,
+          epg: [
+            { time: "08:00", title: `Inicio de ${name}` },
+            { time: "09:00", title: `Programa de ${name}` },
+            { time: "10:00", title: `Más de ${name}` }
+          ]
         });
-        hls.on(Hls.Events.ERROR, function(event, data) {
-          if (data.fatal) {
-            showMessage("Error al cargar el canal. Intenta con otro.", true);
-          }
-        });
-        currentHls = hls;
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = channel.url;
-        video.addEventListener('loadedmetadata', () => {
-          video.play().catch(() => {});
-          setTimeout(() => {
-            video.style.opacity = 1;
-            hideMessage();
-          }, 200);
-        }, {once: true});
-        video.addEventListener('error', () => {
-          showMessage("Error al cargar el canal. Intenta con otro.", true);
-        }, {once: true});
-      } else {
-        alert("Tu navegador no soporta reproducción HLS.");
-        hideMessage();
-      }
-
-      video.muted = false;
-      showEPG(channel);
-
-      if (currentChannelCard) {
-        currentChannelCard.classList.remove("active");
-      }
-      if (cardElement) {
-        cardElement.classList.add("active");
-        currentChannelCard = cardElement;
-      }
-
-      localStorage.setItem('tv360-last-channel', channel.name);
     }
+  }
+  return parsed;
+}
 
-    function showEPG(channel) {
-      const epgList = document.getElementById("epgList");
-      epgList.innerHTML = "";
-      channel.epg.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.time} — ${item.title}`;
-        epgList.appendChild(li);
-      });
-    }
+function groupChannels(chs) {
+  const grouped = {};
+  chs.forEach(ch => {
+    if (!grouped[ch.group]) grouped[ch.group] = [];
+    grouped[ch.group].push(ch);
+  });
+  return grouped;
+}
 
-    function buildChannelGroupsUI() {
-      const container = document.getElementById("channelGroupsList");
-      container.innerHTML = "";
-      for (const groupName in groupedChannels) {
-        const channelsInGroup = groupedChannels[groupName];
-        if (channelsInGroup.length === 0) continue;
+function showEPG(channel) {
+  const epgList = document.getElementById("epgList");
+  epgList.innerHTML = "";
+  channel.epg.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.time} — ${item.title}`;
+    epgList.appendChild(li);
+  });
+}
 
-        const block = document.createElement("div");
-        block.className = "group-block";
+function playChannel(channel, cardElem) {
+  const video = document.getElementById("livePlayer");
+  const overlay = document.getElementById("loadingOverlay");
+  overlay.style.display = "flex";
+  video.style.opacity = 0;
 
-        const title = document.createElement("div");
-        title.className = "group-title";
-        title.innerText = groupName;
-        block.appendChild(title);
+  if (currentHls) {
+    currentHls.destroy();
+    currentHls = null;
+  }
 
-        const scroll = document.createElement("div");
-        scroll.className = "channel-scroll";
-
-        channelsInGroup.forEach(channel => {
-          const card = document.createElement("div");
-          card.className = "channel-card";
-          card.setAttribute("data-name", channel.name.toLowerCase());
-          card.setAttribute("role", "button");
-          card.setAttribute("tabindex", "0");
-          card.onclick = () => playChannel(channel, card);
-          card.onkeypress = (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              playChannel(channel, card);
-              e.preventDefault();
-            }
-          };
-
-          const img = document.createElement("img");
-          img.src = channel.logo;
-          img.alt = channel.name;
-
-          const t = document.createElement("div");
-          t.className = "card-title";
-          t.innerText = channel.name;
-
-          card.appendChild(img);
-          card.appendChild(t);
-          scroll.appendChild(card);
-        });
-
-        block.appendChild(scroll);
-        container.appendChild(block);
-      }
-    }
-
-    document.getElementById("searchInput").addEventListener("input", function () {
-      const filter = this.value.toLowerCase();
-      document.querySelectorAll(".channel-card").forEach(card => {
-        const name = card.getAttribute("data-name");
-        if (name.includes(filter)) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(channel.url);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play();
+      setTimeout(() => {
+        video.style.opacity = 1;
+        overlay.style.display = "none";
+      }, 300);
     });
-
-    async function init() {
-      // Aquí pon la URL real de tu lista M3U
-      const m3uUrl = "https://rdmultiservicios.github.io/canales.m3u";
-      channels = await loadM3U(m3uUrl);
-      groupedChannels = groupChannels(channels);
-      buildChannelGroupsUI();
-
-      // Reproducir último canal guardado
-      const lastChannelName = localStorage.getItem('tv360-last-channel');
-      if (lastChannelName) {
-        const lastChannel = channels.find(ch => ch.name === lastChannelName);
-        if (lastChannel) {
-          // Buscar el card correspondiente para marcar activo
-          const card = [...document.querySelectorAll('.channel-card')].find(c => c.getAttribute('data-name') === lastChannelName.toLowerCase());
-          playChannel(lastChannel, card);
-        }
+    hls.on(Hls.Events.ERROR, (event, data) => {
+      if (data.fatal) {
+        alert("Error de reproducción. Intenta otro canal.");
+        overlay.style.display = "none";
       }
-    }
+    });
+    currentHls = hls;
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = channel.url;
+    video.oncanplay = () => {
+      video.play();
+      setTimeout(() => {
+        video.style.opacity = 1;
+        overlay.style.display = "none";
+      }, 300);
+    };
+  } else {
+    alert("Tu navegador no soporta HLS.");
+    overlay.style.display = "none";
+  }
 
-    window.onload = init;
-  </script>
+  if (currentChannelCard) currentChannelCard.classList.remove("active");
+  if (cardElem) {
+    cardElem.classList.add("active");
+    currentChannelCard = cardElem;
+  }
+
+  showEPG(channel);
+}
+
+function buildChannelGroupsUI() {
+  const container = document.getElementById("channelGroupsList");
+  container.innerHTML = "";
+  for (const group in groupedChannels) {
+    const block = document.createElement("div");
+    const title = document.createElement("div");
+    title.className = "fw-bold text-primary mb-2";
+    title.textContent = group;
+    const scroll = document.createElement("div");
+    scroll.className = "channel-scroll mb-3";
+    groupedChannels[group].forEach(channel => {
+      const card = document.createElement("div");
+      card.className = "channel-card";
+      card.setAttribute("data-name", channel.name.toLowerCase());
+      card.onclick = () => playChannel(channel, card);
+      card.innerHTML = `<img src="${channel.logo}" alt="${channel.name}"><div class="card-title">${channel.name}</div>`;
+      scroll.appendChild(card);
+    });
+    block.appendChild(title);
+    block.appendChild(scroll);
+    container.appendChild(block);
+  }
+}
+
+document.getElementById("searchInput").addEventListener("input", function () {
+  const query = this.value.toLowerCase();
+  document.querySelectorAll(".channel-card").forEach(card => {
+    card.style.display = card.getAttribute("data-name").includes(query) ? "inline-block" : "none";
+  });
+});
+
+document.getElementById("m3uInput").addEventListener("change", async function () {
+  const file = this.files[0];
+  if (!file) return;
+  const text = await file.text();
+  channels = await parseM3U(text);
+  if (channels.length === 0) return alert("Archivo inválido.");
+  groupedChannels = groupChannels(channels);
+  buildChannelGroupsUI();
+  const first = groupedChannels[Object.keys(groupedChannels)[0]][0];
+  const firstCard = [...document.querySelectorAll(".channel-card")].find(c => c.getAttribute("data-name") === first.name.toLowerCase());
+  playChannel(first, firstCard);
+});
+
+// Cargar canal inicial (opcional)
+// Puedes incluir canales predeterminados si lo deseas aquí
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
