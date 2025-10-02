@@ -52,33 +52,37 @@ document.addEventListener("DOMContentLoaded", () => {
     return result;
   }
 
-  // Renderiza lista de canales según filtro
+  // Renderiza lista de canales según filtro (diseño tarjeta + grid)
   function renderChannels(chList) {
     channelListEl.innerHTML = "";
     chList.forEach(ch => {
-      const item = document.createElement("div");
-      item.className = "channel-item d-flex align-items-center mb-2";
-      item.title = ch.name;
+      // Crear columna responsive: en móvil 2 cols, en md 1 col vertical
+      const col = document.createElement("div");
+      col.className = "col-6 col-md-12";
 
-      if(activeChannel && activeChannel.url === ch.url) {
-        item.classList.add("active");
+      const card = document.createElement("div");
+      card.className = "channel-card";
+      if (activeChannel && activeChannel.url === ch.url) {
+        card.classList.add("active");
       }
+      card.title = ch.name;
 
-      item.innerHTML = `
-        <img src="${ch.logo}" alt="${ch.name}" class="channel-logo" />
-        <div>
-          <div class="fw-semibold">${ch.name}</div>
-          <small class="text-muted">${ch.group}</small>
+      card.innerHTML = `
+        <img src="${ch.logo}" alt="${ch.name}" />
+        <div class="channel-info">
+          <div class="channel-name">${ch.name}</div>
+          <div class="channel-group">${ch.group}</div>
         </div>
       `;
 
-      item.onclick = () => {
+      card.onclick = () => {
         activeChannel = ch;
         loadChannel(ch);
         renderChannels(filteredChannels);
       };
 
-      channelListEl.appendChild(item);
+      col.appendChild(card);
+      channelListEl.appendChild(col);
     });
   }
 
@@ -174,16 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Carga archivo M3U default y EPG
+  // Inicializa app: carga M3U y EPG, setea filtros
   async function init() {
     try {
-      // Ejemplo: carga archivo M3U inicial (reemplaza con URL o local)
-      const m3uUrl = "https://tu-servidor.com/tu-archivo.m3u"; // Cambia a tu fuente real
+      // URL ejemplo para demo (reemplazar con URL real o archivo local)
+      const m3uUrl = "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/m3u/latin-america.m3u";
+
       const m3uResponse = await fetch(m3uUrl);
       const m3uText = await m3uResponse.text();
       channels = parseM3U(m3uText);
 
-      // Carga EPG XML
       xmlEPG = await loadEPG(epgUrl);
 
       setupFilters();
@@ -192,12 +196,12 @@ document.addEventListener("DOMContentLoaded", () => {
         activeChannel = channels[0];
         loadChannel(activeChannel);
       }
-    } catch(e) {
+    } catch (e) {
       alert("Error cargando canales o EPG: " + e.message);
     }
   }
 
-  // Configura filtro de grupos
+  // Setup filtro de grupos
   function setupFilters() {
     const groups = [...new Set(channels.map(c => c.group))].sort();
     groupFilterEl.innerHTML = `<option value="all">Todos los grupos</option>` +
@@ -208,6 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+  // Aplica filtro de grupo
   function applyFilter() {
     const selectedGroup = groupFilterEl.value;
     if(selectedGroup === "all") {
@@ -218,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderChannels(filteredChannels);
   }
 
-  // Carga archivo .m3u local
+  // Carga archivo m3u local y refresca UI
   fileInput.addEventListener("change", e => {
     const file = e.target.files[0];
     if(!file) return;
@@ -236,6 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
     reader.readAsText(file);
   });
 
-  // Inicia la app
+  // Ejecuta inicialización
   init();
 });
