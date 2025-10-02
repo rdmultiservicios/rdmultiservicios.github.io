@@ -1,15 +1,20 @@
 let videoElement = document.getElementById('videoPlayer');
-let modal = new bootstrap.Modal(document.getElementById('playerModal'));
 let epgInfoDiv = document.getElementById('epgInfo');
 
-async function playChannel(index) {
-  const channel = window.channelList[index];
-
+async function playChannel(index, list) {
+  const channel = list[index];
   document.getElementById('channelTitle').innerText = channel.name;
-  videoElement.src = channel.url;
   epgInfoDiv.innerHTML = 'Cargando EPG...';
 
-  modal.show();
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(channel.url);
+    hls.attachMedia(videoElement);
+  } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+    videoElement.src = channel.url;
+  } else {
+    epgInfoDiv.innerHTML = 'Tu navegador no soporta este formato.';
+  }
 
   const epg = await fetchEPG(channel.name);
   epgInfoDiv.innerHTML = epg || 'EPG no disponible.';
@@ -17,7 +22,6 @@ async function playChannel(index) {
 
 async function fetchEPG(channelName) {
   try {
-    // Simulación. Usa un XMLTV a JSON si tienes acceso real
     const response = await fetch('epg.json');
     const data = await response.json();
     const now = new Date();
