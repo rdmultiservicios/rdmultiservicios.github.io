@@ -1,25 +1,20 @@
-const CACHE_NAME = 'iptv-cache-v1';
-const urlsToCache = [
-  './',
-  './index.html',
-  './style.css',
-  './app.js',
-  './manifest.json',
-  './canales.m3u'
-];
-
-self.addEventListener('install', event => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
+    caches.open("tv360-cache").then((cache) => {
+      return cache.addAll([
+        "index.html",
+        "style.css",
+        "main.js",
+        "manifest.json",
+        "canales.m3u",
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      ]);
     })
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request).then((res) => res || fetch(event.request))
   );
 });
