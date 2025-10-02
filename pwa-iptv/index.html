@@ -37,5 +37,17 @@
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="app.js"></script>
   <script src="player.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(channel.url);
+      hls.attachMedia(videoElement);
+    } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+      videoElement.src = channel.url;
+    }
+  </script>
+
 </body>
 </html>
