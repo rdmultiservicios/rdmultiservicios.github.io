@@ -11,86 +11,127 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      background-color: #f5f6fa;
+      background-color: #121212;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
+      color: #eee;
     }
 
+    /* Navbar moderno */
+    nav.navbar {
+      background-color: #1f1f1f;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #0d6efd;
+    }
+
+    .form-control {
+      background-color: #2a2a2a;
+      border: none;
+      color: #eee;
+      border-radius: 20px;
+      padding-left: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+    .form-control::placeholder {
+      color: #bbb;
+    }
+    .form-control:focus {
+      background-color: #3b3b3b;
+      box-shadow: none;
+      color: #fff;
+    }
+
+    /* Contenedor principal */
     .main-container {
       height: calc(100vh - 56px);
-      padding: 1rem;
+      padding: 1rem 2rem;
+      display: flex;
+      gap: 1.5rem;
+      box-sizing: border-box;
     }
 
-    .row.align-items-start {
-      height: 100%;
-    }
-
-    /* EPG con altura fija y diseño moderno */
-    #epgContainer {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 3px 8px rgb(0 0 0 / 0.12);
-      padding: 1rem 1.5rem;
-      max-height: 300px;
+    /* Columna izquierda */
+    .left-column {
+      flex: 0 0 33.3333%; /* col-4 */
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
       overflow-y: auto;
-      margin-bottom: 1rem;
+      max-height: 100%;
+    }
+
+    /* Contenedor programación EPG */
+    #epgContainer {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+      flex-shrink: 0;
+      max-height: 350px;
+      overflow-y: auto;
+      user-select: none;
     }
 
     #epgContainer h5 {
       font-weight: 700;
       border-bottom: 2px solid #0d6efd;
-      padding-bottom: 0.4rem;
+      padding-bottom: 0.5rem;
       margin-bottom: 1rem;
       color: #0d6efd;
-      user-select: none;
     }
 
-    #epgContainer ul {
+    #epgList {
       list-style: none;
       padding-left: 0;
       margin: 0;
       font-size: 0.95rem;
       line-height: 1.5;
+      color: #ccc;
     }
 
-    #epgContainer ul li {
-      padding: 0.45rem 0;
-      border-bottom: 1px solid #e9ecef;
+    #epgList li {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #333;
     }
 
-    #epgContainer ul li:last-child {
+    #epgList li:last-child {
       border-bottom: none;
     }
 
-    /* Contenedor canales agrupados debajo de EPG, scroll vertical */
+    /* Contenedor grupos canales */
     #channelGroups {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 3px 8px rgb(0 0 0 / 0.12);
-      padding: 0.8rem 1rem;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+      flex-grow: 1;
       overflow-y: auto;
-      max-height: calc(100% - 320px);
+      user-select: none;
     }
 
     .channel-group {
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.5rem;
     }
 
     .channel-group-title {
       font-weight: 600;
-      font-size: 1.15rem;
-      margin-bottom: 0.6rem;
-      color: #444;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #0d6efd;
       user-select: none;
     }
 
-    /* Scroll horizontal personalizado */
+    /* Scroll horizontal de canales */
     .channel-scroll {
       overflow-x: auto;
       white-space: nowrap;
       padding-bottom: 0.5rem;
       scrollbar-width: thin;
-      scrollbar-color: #0d6efd #e9ecef;
+      scrollbar-color: #0d6efd #2a2a2a;
       -webkit-overflow-scrolling: touch;
     }
 
@@ -99,114 +140,119 @@
     }
 
     .channel-scroll::-webkit-scrollbar-track {
-      background: #e9ecef;
+      background: #2a2a2a;
       border-radius: 10px;
     }
 
     .channel-scroll::-webkit-scrollbar-thumb {
       background-color: #0d6efd;
       border-radius: 10px;
-      border: 2px solid #e9ecef;
+      border: 2px solid #2a2a2a;
     }
 
-    /* Tarjetas de canal */
+    /* Tarjetas canales con tamaño uniforme */
     .channel-card {
       display: inline-block;
       width: 140px;
-      margin-right: 0.7rem;
+      margin-right: 0.8rem;
       cursor: pointer;
       vertical-align: top;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+      background: #2a2a2a;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-      background: #fff;
+      border: 2px solid transparent;
+      text-align: center;
       user-select: none;
-      border: 1px solid transparent;
     }
 
-    .channel-card:hover {
-      transform: scale(1.07);
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.18);
+    .channel-card:hover, .channel-card.active {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #0d6efd;
       border-color: #0d6efd;
+      background: #171717;
     }
 
     .channel-card img {
-      width: 100%;
+      width: 140px;
       height: 84px;
       object-fit: cover;
-      border-radius: 8px 8px 0 0;
+      border-radius: 10px 10px 0 0;
+      user-select: none;
     }
 
     .channel-card .card-title {
-      font-size: 0.9rem;
-      text-align: center;
-      margin: 0.5rem 0 0.7rem 0;
-      padding: 0 0.3rem;
-      color: #222;
+      font-size: 0.95rem;
+      color: #ddd;
+      padding: 0.5rem 0.3rem 0.7rem 0.3rem;
       font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* Reproductor con tamaño fijo y centrado vertical */
-    #videoWrapper {
-      height: 450px;
+    /* Columna derecha con reproductor */
+    .right-column {
+      flex: 0 0 66.6666%; /* col-8 */
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+    }
+
+    #videoWrapper {
+      width: 100%;
+      height: 450px;
       background-color: #000;
-      border-radius: 10px;
-      box-shadow: 0 6px 15px rgb(0 0 0 / 0.25);
-      margin-bottom: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(13, 110, 253, 0.7);
+      overflow: hidden;
+      user-select: none;
     }
 
     video {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 10px;
+      border-radius: 15px;
       background-color: black;
     }
 
-    /* Layout columnas */
-    @media (min-width: 992px) {
-      /* Desktop: EPG + canales a la izquierda (4 cols), video a la derecha (8 cols) */
-      .row.align-items-start > div:first-child {
-        display: flex;
+    /* Responsive */
+    @media (max-width: 991.98px) {
+      .main-container {
         flex-direction: column;
-        height: 100%;
+        padding: 1rem;
+        height: auto;
       }
-    }
-
-    /* Scroll horizontal en móvil no visible */
-    @media (max-width: 767.98px) {
+      .left-column, .right-column {
+        flex: 1 1 100%;
+        max-height: none;
+      }
       #epgContainer {
-        max-height: 220px;
-        padding: 0.8rem 1rem;
+        max-height: 250px;
       }
-
       #channelGroups {
         max-height: 250px;
-        padding: 0.5rem 0.8rem;
+        margin-top: 1rem;
       }
-
-      .channel-scroll {
-        overflow-x: visible !important;
-        -webkit-overflow-scrolling: auto !important;
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
+      #videoWrapper {
+        height: 280px;
+        margin-top: 1rem;
       }
-
-      .channel-scroll::-webkit-scrollbar {
-        display: none !important;
+      .channel-card {
+        width: 110px;
+      }
+      .channel-card img {
+        width: 110px;
+        height: 66px;
       }
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
       <input
@@ -219,20 +265,19 @@
     </div>
   </nav>
 
-  <div class="container-fluid main-container">
-    <div class="row align-items-start">
-      <div class="col-lg-4 col-md-12">
-        <div id="epgContainer">
-          <h5>Programación</h5>
-          <ul id="epgList"></ul>
-        </div>
-        <div id="channelGroups"></div>
+  <div class="main-container">
+    <div class="left-column">
+      <div id="epgContainer">
+        <h5>Programación</h5>
+        <ul id="epgList"></ul>
       </div>
 
-      <div class="col-lg-8 col-md-12">
-        <div id="videoWrapper">
-          <video id="livePlayer" controls autoplay muted></video>
-        </div>
+      <div id="channelGroups"></div>
+    </div>
+
+    <div class="right-column">
+      <div id="videoWrapper">
+        <video id="livePlayer" controls autoplay muted></video>
       </div>
     </div>
   </div>
@@ -241,6 +286,7 @@
     let channels = [];
     let groupedChannels = {};
     let currentHls = null;
+    let currentChannelCard = null;
 
     async function loadM3U(url) {
       try {
@@ -255,7 +301,7 @@
             const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
             const groupMatch = lines[i].match(/group-title="(.*?)"/);
             const name = nameMatch ? nameMatch[1] : 'Canal';
-            const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/150x84?text=Canal';
+            const logo = logoMatch ? logoMatch[1] : 'https://via.placeholder.com/140x84?text=Canal';
             const group = groupMatch ? groupMatch[1] : 'Otros';
             const streamUrl = lines[i + 1]?.trim();
 
@@ -291,7 +337,7 @@
       return groups;
     }
 
-    function playChannel(channel) {
+    function playChannel(channel, cardElement) {
       const video = document.getElementById("livePlayer");
 
       if (currentHls) {
@@ -317,6 +363,15 @@
       }
 
       showEPG(channel);
+
+      // Resaltar canal seleccionado
+      if (currentChannelCard) {
+        currentChannelCard.classList.remove("active");
+      }
+      if(cardElement){
+        cardElement.classList.add("active");
+        currentChannelCard = cardElement;
+      }
     }
 
     function showEPG(channel) {
@@ -349,7 +404,7 @@
           const card = document.createElement("div");
           card.className = "channel-card";
           card.setAttribute("data-name", channel.name.toLowerCase());
-          card.onclick = () => playChannel(channel);
+          card.onclick = () => playChannel(channel, card);
 
           const img = document.createElement("img");
           img.src = channel.logo;
@@ -373,16 +428,10 @@
     document.getElementById("searchInput").addEventListener("input", function () {
       const query = this.value.toLowerCase();
 
-      for (const groupName in groupedChannels) {
-        groupedChannels[groupName].forEach(channel => {
-          const cardElements = [...document.querySelectorAll(`.channel-card`)];
-          cardElements.forEach(card => {
-            if (card.getAttribute("data-name") === channel.name.toLowerCase()) {
-              card.style.display = channel.name.toLowerCase().includes(query) ? "inline-block" : "none";
-            }
-          });
-        });
-      }
+      document.querySelectorAll(".channel-card").forEach(card => {
+        const name = card.getAttribute("data-name");
+        card.style.display = name.includes(query) ? "inline-block" : "none";
+      });
     });
 
     async function initializeApp() {
@@ -396,7 +445,9 @@
       groupedChannels = groupChannels(channels);
 
       buildChannelGroups();
-      playChannel(channels[0]);
+      // Reproducir primer canal y marcarlo activo
+      const firstCard = document.querySelector(".channel-card");
+      playChannel(channels[0], firstCard);
     }
 
     document.addEventListener("DOMContentLoaded", initializeApp);
