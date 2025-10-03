@@ -6,6 +6,7 @@
   <title>TV360 - En Vivo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     :root {
       --bg-color: #ffffff;
@@ -37,6 +38,9 @@
       color: var(--text-color);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       transition: background-color 0.3s ease, color 0.3s ease;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     nav.navbar {
@@ -46,12 +50,6 @@
       font-weight: bold;
       color: var(--highlight-color);
       font-size: 1.5rem;
-    }
-    .form-control {
-      background-color: var(--epg-bg);
-      border: none;
-      color: var(--text-color);
-      border-radius: 20px;
     }
     .navbar-nav .nav-link {
       color: var(--text-color);
@@ -68,8 +66,57 @@
       cursor: pointer;
     }
 
+    /* Inputs dentro del navbar, en línea y responsivos */
+    #urlInput, #m3uInput, #loadUrlBtn {
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.9rem;
+      margin-right: 0.5rem;
+      max-width: 250px;
+      transition: border-color 0.3s ease;
+    }
+    #urlInput:focus, #m3uInput:focus {
+      outline: none;
+      border-color: var(--highlight-color);
+      box-shadow: none;
+    }
+    #m3uInput {
+      padding: 0.375rem 0.75rem;
+      cursor: pointer;
+      max-width: 150px;
+    }
+    #loadUrlBtn {
+      background-color: var(--highlight-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 0.375rem 1rem;
+      transition: background-color 0.3s ease;
+    }
+    #loadUrlBtn:hover, #loadUrlBtn:focus {
+      background-color: #0b5ed7;
+      outline: none;
+    }
+
+    /* En móviles inputs pegados sin espacio entre ellos */
+    @media (max-width: 576px) {
+      #urlInput, #m3uInput, #loadUrlBtn {
+        max-width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      #navbarInputsContainer {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
     .container-main {
       padding: 1rem 2rem;
+      flex: 1 0 auto;
+      overflow-y: auto;
     }
 
     #epgContainer,
@@ -81,6 +128,7 @@
       background-color: var(--epg-bg);
       padding: 1rem;
       overflow-y: auto;
+      border-radius: 8px;
     }
 
     #epgContainer h5 {
@@ -104,6 +152,7 @@
       position: relative;
       background-color: black;
       overflow: hidden;
+      border-radius: 8px;
     }
 
     video {
@@ -112,13 +161,14 @@
       object-fit: contain;
       background-color: black;
       opacity: 1;
-      transition: opacity 0.5s ease;
+      transition: none; /* Sin animación */
     }
 
     .channel-scroll {
       white-space: nowrap;
       overflow-x: auto;
       padding-bottom: 0.5rem;
+      margin-top: 0.5rem;
     }
 
     .channel-card {
@@ -127,13 +177,27 @@
       margin-right: 0.75rem;
       cursor: pointer;
       text-align: center;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent; /* eliminar foco en móviles */
+      outline: none;
+      border: none;
+      box-shadow: none !important; /* eliminar sombras */
+      transition: none !important; /* eliminar animaciones */
+    }
+    .channel-card:focus {
+      outline: none !important;
+      box-shadow: none !important;
     }
 
     .channel-card img {
       width: 140px;
       height: 84px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 8px 8px 0 0;
+      pointer-events: none;
+      user-select: none;
     }
 
     .channel-card .card-title {
@@ -143,10 +207,11 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .channel-card.active .card-title,
-    .channel-card:hover .card-title {
+    .channel-card.active .card-title {
       color: var(--highlight-color);
     }
 
@@ -162,6 +227,7 @@
       padding: 1rem 2rem;
       text-align: center;
       margin-top: 2rem;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -169,18 +235,32 @@
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg px-3">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex flex-wrap align-items-center">
       <a class="navbar-brand" href="#">TV360</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarMenu">
+      <div class="collapse navbar-collapse flex-grow-1" id="navbarMenu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
         </ul>
-        <input class="form-control me-2 w-50" type="text" placeholder="Buscar canal..." id="searchInput" />
-        <input type="file" id="m3uInput" accept=".m3u,.txt" class="me-2" />
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
+        <div id="navbarInputsContainer" class="d-flex align-items-center flex-wrap gap-2">
+          <input
+            type="text"
+            class="form-control"
+            id="urlInput"
+            placeholder="Pegar URL lista M3U"
+            aria-label="Pegar URL lista M3U"
+          />
+          <button id="loadUrlBtn" aria-label="Cargar URL lista M3U">Cargar</button>
+          <input
+            type="file"
+            id="m3uInput"
+            accept=".m3u,.txt"
+            aria-label="Cargar archivo lista M3U"
+          />
+          <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema" aria-label="Alternar tema">🌙</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -189,22 +269,20 @@
   <div class="container-fluid container-main">
     <div class="row">
       <div class="col-lg-4 col-12 mb-3">
-        <div id="epgContainer">
+        <div id="epgContainer" tabindex="0" aria-label="Programación de canal">
           <h5>Programación</h5>
           <ul id="epgList"></ul>
         </div>
       </div>
       <div class="col-lg-8 col-12">
         <div id="videoWrapper">
-          <video id="livePlayer" controls autoplay></video>
+          <video id="livePlayer" controls autoplay playsinline></video>
         </div>
       </div>
     </div>
 
     <div class="row mt-4">
-      <div class="col-12">
-        <div id="channelGroupsList"></div>
-      </div>
+      <div class="col-12" id="channelGroupsList" aria-label="Lista de canales"></div>
     </div>
   </div>
 
@@ -216,7 +294,10 @@
   </footer>
 
   <script>
-    let channels = [], groupedChannels = {}, currentHls = null, currentChannelCard = null;
+    let channels = [];
+    let groupedChannels = {};
+    let currentHls = null;
+    let currentChannelCard = null;
 
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
@@ -231,18 +312,25 @@
 
     applyTheme(localStorage.getItem("tv360-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
 
+    // Parse M3U text into channel objects
     async function parseM3U(text) {
       const lines = text.split("\n");
       const parsed = [];
       for (let i = 0; i < lines.length; i++) {
         if (lines[i].startsWith("#EXTINF")) {
-          const name = (lines[i].match(/,(.*)$/) || [])[1] || "Canal";
-          const logo = (lines[i].match(/tvg-logo="(.*?)"/) || [])[1] || "https://via.placeholder.com/140x84?text=Canal";
-          const group = (lines[i].match(/group-title="(.*?)"/) || [])[1] || "Otros";
+          const nameMatch = lines[i].match(/,(.*)$/);
+          const name = nameMatch ? nameMatch[1].trim() : "Canal";
+          const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
+          const logo = logoMatch ? logoMatch[1] : "https://via.placeholder.com/140x84?text=Canal";
+          const groupMatch = lines[i].match(/group-title="(.*?)"/);
+          const group = groupMatch ? groupMatch[1] : "Otros";
           const url = lines[i + 1]?.trim();
           if (url && url.startsWith("http")) {
             parsed.push({
-              name, logo, group, url,
+              name,
+              logo,
+              group,
+              url,
               epg: [
                 { time: "08:00", title: `Inicio de ${name}` },
                 { time: "09:00", title: `Programa de ${name}` },
@@ -255,23 +343,7 @@
       return parsed;
     }
 
-    async function loadM3UFromFile(file) {
-      const text = await file.text();
-      channels = await parseM3U(text);
-      buildApp();
-    }
-
-    async function loadDefaultM3U() {
-      try {
-        const res = await fetch("canales.m3u");
-        const text = await res.text();
-        channels = await parseM3U(text);
-        buildApp();
-      } catch (err) {
-        alert("No se pudo cargar canales.m3u por defecto.");
-      }
-    }
-
+    // Agrupa canales por grupo
     function groupChannels(list) {
       const grouped = {};
       list.forEach(ch => {
@@ -281,36 +353,79 @@
       return grouped;
     }
 
-    function playChannel(channel, card) {
-      const video = document.getElementById("livePlayer");
-      video.style.opacity = 0;
-      if (currentHls) currentHls.destroy();
-      if (Hls.isSupported()) {
-        currentHls = new Hls();
-        currentHls.loadSource(channel.url);
-        currentHls.attachMedia(video);
-        currentHls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play();
-          setTimeout(() => video.style.opacity = 1, 200);
+    // Renderiza canales en el DOM
+    function renderChannels(grouped) {
+      const container = document.getElementById("channelGroupsList");
+      container.innerHTML = "";
+
+      for (const groupName in grouped) {
+        const block = document.createElement("div");
+        block.className = "group-block";
+        const title = document.createElement("h6");
+        title.className = "group-title";
+        title.textContent = groupName;
+        block.appendChild(title);
+
+        const scroll = document.createElement("div");
+        scroll.className = "channel-scroll";
+
+        grouped[groupName].forEach(channel => {
+          const card = document.createElement("div");
+          card.className = "channel-card";
+          card.setAttribute("data-name", channel.name.toLowerCase());
+          card.setAttribute("tabindex", "-1"); // no focus keyboard
+          card.onclick = () => selectChannel(channel, card);
+          card.innerHTML = `
+            <img src="${channel.logo}" alt="${channel.name}" draggable="false" />
+            <div class="card-title">${channel.name}</div>
+          `;
+          scroll.appendChild(card);
         });
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = channel.url;
-        video.addEventListener("loadedmetadata", () => {
-          video.play();
-          setTimeout(() => video.style.opacity = 1, 200);
-        });
-      } else {
-        alert("Tu navegador no soporta HLS.");
-      }
-      showEPG(channel);
-      if (currentChannelCard) currentChannelCard.classList.remove("active");
-      if (card) {
-        card.classList.add("active");
-        currentChannelCard = card;
+
+        block.appendChild(scroll);
+        container.appendChild(block);
       }
     }
 
-    function showEPG(channel) {
+    // Selecciona canal y reproduce
+    function selectChannel(channel, card) {
+      if (currentChannelCard) {
+        currentChannelCard.classList.remove("active");
+        currentChannelCard.setAttribute("aria-pressed", "false");
+      }
+      if (card) {
+        card.classList.add("active");
+        card.setAttribute("aria-pressed", "true");
+        currentChannelCard = card;
+      }
+
+      const video = document.getElementById("livePlayer");
+
+      if (currentHls) {
+        currentHls.destroy();
+        currentHls = null;
+      }
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(channel.url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play().catch(() => {});
+        });
+        currentHls = hls;
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = channel.url;
+        video.play().catch(() => {});
+      } else {
+        Swal.fire("Error", "Tu navegador no soporta reproducción HLS.", "error");
+      }
+
+      renderEPG(channel);
+    }
+
+    // Mostrar programación del canal
+    function renderEPG(channel) {
       const epgList = document.getElementById("epgList");
       epgList.innerHTML = "";
       channel.epg.forEach(item => {
@@ -320,54 +435,88 @@
       });
     }
 
-    function buildApp() {
-      groupedChannels = groupChannels(channels);
-      const container = document.getElementById("channelGroupsList");
-      container.innerHTML = "";
-      for (const groupName in groupedChannels) {
-        const block = document.createElement("div");
-        block.className = "group-block";
-        const title = document.createElement("h6");
-        title.className = "group-title";
-        title.textContent = groupName;
-        const scroll = document.createElement("div");
-        scroll.className = "channel-scroll";
-        groupedChannels[groupName].forEach(channel => {
-          const card = document.createElement("div");
-          card.className = "channel-card";
-          card.setAttribute("data-name", channel.name.toLowerCase());
-          card.onclick = () => playChannel(channel, card);
-          card.innerHTML = `<img src="${channel.logo}" alt="${channel.name}"><div class="card-title">${channel.name}</div>`;
-          scroll.appendChild(card);
-        });
-        block.appendChild(title);
-        block.appendChild(scroll);
-        container.appendChild(block);
-      }
+    // Cargar archivo local M3U
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
 
-      // Autoplay primer canal
-      const firstGroup = Object.keys(groupedChannels)[0];
-      if (firstGroup) {
-        const firstChannel = groupedChannels[firstGroup][0];
-        const card = [...document.querySelectorAll(".channel-card")].find(c => c.getAttribute("data-name") === firstChannel.name.toLowerCase());
-        playChannel(firstChannel, card);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        parseM3U(e.target.result)
+          .then(chs => {
+            if (chs.length === 0) {
+              Swal.fire("Aviso", "Archivo M3U vacío o inválido.", "warning");
+              return;
+            }
+            channels = chs;
+            groupedChannels = groupChannels(channels);
+            renderChannels(groupedChannels);
+            selectChannel(channels[0], null);
+          })
+          .catch(() => {
+            Swal.fire("Error", "No se pudo leer la lista M3U.", "error");
+          });
+      };
+      reader.readAsText(file);
+      event.target.value = ""; // Reset input para poder cargar el mismo archivo otra vez
+    }
+
+    // Cargar URL M3U
+    async function handleLoadUrl() {
+      const urlInput = document.getElementById("urlInput");
+      const url = urlInput.value.trim();
+      if (!url) {
+        Swal.fire("Aviso", "Por favor ingresa una URL válida.", "warning");
+        return;
+      }
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Error al cargar la URL");
+        const text = await res.text();
+        const chs = await parseM3U(text);
+        if (chs.length === 0) {
+          Swal.fire("Aviso", "La lista M3U no contiene canales válidos.", "warning");
+          return;
+        }
+        channels = chs;
+        groupedChannels = groupChannels(channels);
+        renderChannels(groupedChannels);
+        selectChannel(channels[0], null);
+      } catch (err) {
+        Swal.fire("Error", "No se pudo cargar la lista desde la URL.", "error");
       }
     }
 
-    document.getElementById("searchInput").addEventListener("input", function () {
-      const q = this.value.toLowerCase();
-      document.querySelectorAll(".channel-card").forEach(card => {
-        const name = card.getAttribute("data-name");
-        card.style.display = name.includes(q) ? "inline-block" : "none";
-      });
+    // Cargar lista por defecto al iniciar
+    async function loadDefaultM3U() {
+      try {
+        const res = await fetch("canales.m3u");
+        if (!res.ok) throw new Error("Archivo no encontrado");
+        const text = await res.text();
+        const chs = await parseM3U(text);
+        if (chs.length > 0) {
+          channels = chs;
+          groupedChannels = groupChannels(channels);
+          renderChannels(groupedChannels);
+          selectChannel(channels[0], null);
+        }
+      } catch {
+        // No mostrar error si no existe archivo default
+      }
+    }
+
+    document.getElementById("m3uInput").addEventListener("change", handleFileSelect);
+    document.getElementById("loadUrlBtn").addEventListener("click", handleLoadUrl);
+    document.getElementById("urlInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleLoadUrl();
+      }
     });
 
-    document.getElementById("m3uInput").addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) loadM3UFromFile(file);
+    window.addEventListener("load", () => {
+      loadDefaultM3U();
     });
-
-    document.addEventListener("DOMContentLoaded", loadDefaultM3U);
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
