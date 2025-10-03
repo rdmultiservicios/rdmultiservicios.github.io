@@ -179,7 +179,15 @@
           <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
         </ul>
         <input class="form-control me-2 w-50" type="text" placeholder="Buscar canal..." id="searchInput" />
-        <input type="file" id="m3uInput" accept=".m3u,.txt" class="me-2" />
+
+        <!-- Botón estilizado para cargar archivo -->
+        <label for="m3uInput" class="btn btn-outline-secondary me-2 mb-2 mb-lg-0">
+          📂 Cargar archivo M3U
+        </label>
+        <input type="file" id="m3uInput" accept=".m3u,.txt" style="display: none;" />
+        <span id="fileName" class="text-muted small d-block mt-1"></span>
+
+        <!-- Botón tema -->
         <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
       </div>
     </div>
@@ -364,7 +372,10 @@
 
     document.getElementById("m3uInput").addEventListener("change", function () {
       const file = this.files[0];
-      if (file) loadM3UFromFile(file);
+      if (file) {
+        document.getElementById("fileName").textContent = `Archivo: ${file.name}`;
+        loadM3UFromFile(file);
+      }
     });
 
     document.addEventListener("DOMContentLoaded", loadDefaultM3U);
