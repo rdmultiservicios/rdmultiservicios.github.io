@@ -17,6 +17,7 @@
       --card-text: #444;
       --nav-bg: #fff;
       --footer-bg: #f2f2f2;
+      --primary-color: #0d6efd;
     }
     [data-theme="dark"] {
       --bg-color: #121212;
@@ -28,6 +29,7 @@
       --card-text: #ccc;
       --nav-bg: #1a1a1a;
       --footer-bg: #1e1e1e;
+      --primary-color: #0d6efd;
     }
 
     body, html {
@@ -39,22 +41,27 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* NAVBAR */
     nav.navbar {
       background-color: var(--nav-bg);
+      transition: background-color 0.3s ease;
     }
     .navbar-brand {
       font-weight: bold;
       color: var(--highlight-color);
       font-size: 1.5rem;
+      transition: color 0.3s ease;
     }
     .form-control {
       background-color: var(--epg-bg);
       border: none;
       color: var(--text-color);
       border-radius: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .navbar-nav .nav-link {
       color: var(--text-color);
+      transition: color 0.3s ease;
     }
     .navbar-nav .nav-link:hover {
       color: var(--highlight-color);
@@ -66,6 +73,10 @@
       color: var(--text-color);
       font-size: 1.2rem;
       cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .theme-toggle-btn:hover {
+      color: var(--highlight-color);
     }
 
     .container-main {
@@ -76,28 +87,33 @@
     #videoWrapper {
       height: 450px;
     }
-
     #epgContainer {
       background-color: var(--epg-bg);
       padding: 1rem;
       overflow-y: auto;
+      transition: background-color 0.3s ease;
     }
-
     #epgContainer h5 {
       color: var(--highlight-color);
       font-weight: 600;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--highlight-color);
+      padding-bottom: 0.5rem;
+      transition: color 0.3s ease, border-color 0.3s ease;
     }
-
     #epgList {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-
     #epgList li {
       padding: 0.4rem 0;
       font-size: 0.95rem;
       border-bottom: 1px solid var(--channel-bg);
+      transition: border-color 0.3s ease;
+    }
+    #epgList li:last-child {
+      border-bottom: none;
     }
 
     #videoWrapper {
@@ -105,7 +121,6 @@
       background-color: black;
       overflow: hidden;
     }
-
     video {
       width: 100%;
       height: 100%;
@@ -115,27 +130,77 @@
       transition: opacity 0.5s ease;
     }
 
+    #channelGroupsList {
+      margin-top: 1.5rem;
+    }
+    .group-block {
+      margin-bottom: 2rem;
+    }
+    .group-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--highlight-color);
+      margin-bottom: 0.8rem;
+      transition: color 0.3s ease;
+    }
     .channel-scroll {
       white-space: nowrap;
       overflow-x: auto;
       padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--highlight-color) transparent;
+    }
+    .channel-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+    .channel-scroll::-webkit-scrollbar-thumb {
+      background: var(--highlight-color);
+      border-radius: 10px;
     }
 
     .channel-card {
       display: inline-block;
       width: 140px;
       margin-right: 0.75rem;
-      cursor: pointer;
+      background: transparent;
       text-align: center;
+      transition: transform 0.2s ease, filter 0.2s ease, outline 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 3px;
+      outline-offset: 2px;
+    }
+    /* Hover solo en no activo */
+    .channel-card:hover:not(.active) {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+      outline: 2px solid var(--primary-color);
+      box-shadow: 0 0 8px var(--primary-color);
+    }
+    /* Estilo canal activo sin hover */
+    .channel-card.active {
+      transform: none;
+      filter: brightness(1.2);
+      outline: 3px solid var(--primary-color);
+      box-shadow: 0 0 12px var(--primary-color);
+      cursor: default;
+    }
+    .channel-card.active:hover {
+      transform: none;
+      filter: brightness(1.2);
+      outline: 3px solid var(--primary-color);
+      box-shadow: 0 0 12px var(--primary-color);
+      cursor: default;
     }
 
     .channel-card img {
       width: 140px;
       height: 84px;
       object-fit: cover;
+      background-color: var(--card-bg);
       border-radius: 8px;
+      transition: background-color 0.3s ease;
     }
-
     .channel-card .card-title {
       margin-top: 0.5rem;
       font-size: 0.9rem;
@@ -143,10 +208,10 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      transition: color 0.3s ease;
     }
-
-    .channel-card.active .card-title,
-    .channel-card:hover .card-title {
+    .channel-card:hover .card-title,
+    .channel-card.active .card-title {
       color: var(--highlight-color);
     }
 
@@ -156,39 +221,81 @@
       }
     }
 
+    /* FOOTER */
     footer.footer {
       background-color: var(--footer-bg);
       color: var(--text-color);
       padding: 1rem 2rem;
       text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
       margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+    footer.footer a {
+      color: var(--text-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer.footer a:hover {
+      color: var(--highlight-color);
+    }
+
+    /* Archivo input y checkbox */
+    #fileInput {
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+    #disableFileInput {
+      margin-left: 10px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR con menú -->
   <nav class="navbar navbar-expand-lg px-3">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Acerca de</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
         </ul>
-        <input class="form-control me-2 w-50" type="text" placeholder="Buscar canal..." id="searchInput" />
-        <input type="file" id="m3uInput" accept=".m3u,.txt" class="me-2" />
+        <input
+          class="form-control me-3 w-50"
+          type="text"
+          placeholder="Buscar canal..."
+          id="searchInput"
+          autocomplete="off"
+        />
         <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
       </div>
     </div>
   </nav>
 
+  <!-- Controles para archivo M3U -->
+  <div class="container-fluid container-main">
+    <div class="row mb-3">
+      <div class="col-12">
+        <label for="fileInput" class="form-label">Cargar archivo M3U (opcional):</label>
+        <input type="file" id="fileInput" accept=".m3u,.m3u8" />
+        <input type="checkbox" id="disableFileInput" />
+        <label for="disableFileInput">Deshabilitar carga de archivo M3U</label>
+      </div>
+    </div>
+  </div>
+
   <!-- CONTENIDO PRINCIPAL -->
   <div class="container-fluid container-main">
     <div class="row">
-      <div class="col-lg-4 col-12 mb-3">
+      <div class="col-lg-4 col-12 mb-3 mb-lg-0">
         <div id="epgContainer">
           <h5>Programación</h5>
           <ul id="epgList"></ul>
@@ -196,12 +303,12 @@
       </div>
       <div class="col-lg-8 col-12">
         <div id="videoWrapper">
-          <video id="livePlayer" controls autoplay></video>
+          <video id="livePlayer" controls></video>
         </div>
       </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row">
       <div class="col-12">
         <div id="channelGroupsList"></div>
       </div>
@@ -213,161 +320,254 @@
     <div>
       © 2025 TV360. Todos los derechos reservados.
     </div>
+    <div>
+      <a href="#">Política de Privacidad</a> | <a href="#">Términos de servicio</a> | <a href="#">Ayuda</a>
+    </div>
   </footer>
 
   <script>
-    let channels = [], groupedChannels = {}, currentHls = null, currentChannelCard = null;
+    let channels = [];
+    let groupedChannels = {};
+    let currentHls = null;
+    let currentChannelCard = null;
 
+    const video = document.getElementById("livePlayer");
+    const epgList = document.getElementById("epgList");
+    const fileInput = document.getElementById("fileInput");
+    const disableFileInputCheckbox = document.getElementById("disableFileInput");
+
+    // Tema
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("tv360-theme", theme);
+      localStorage.setItem("theme", theme);
       document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
     }
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      applyTheme(current === "light" ? "dark" : "light");
+    }
+    document.getElementById("themeToggleBtn").addEventListener("click", toggleTheme);
+    // Aplicar tema guardado o por defecto
+    applyTheme(localStorage.getItem("theme") || "light");
 
-    document.getElementById("themeToggleBtn").onclick = () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      applyTheme(current === "dark" ? "light" : "dark");
-    };
+    // Manejo checkbox deshabilitar input file
+    disableFileInputCheckbox.addEventListener("change", () => {
+      fileInput.disabled = disableFileInputCheckbox.checked;
+      fileInput.style.display = disableFileInputCheckbox.checked ? "none" : "block";
+    });
 
-    applyTheme(localStorage.getItem("tv360-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+    // Manejo de carga y parseo de archivo M3U
+    fileInput.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
 
-    async function parseM3U(text) {
-      const lines = text.split("\n");
-      const parsed = [];
+      try {
+        const text = await file.text();
+        parseM3U(text);
+        renderChannels();
+        playDefaultChannel();
+      } catch (error) {
+        alert("Error al leer el archivo: " + error.message);
+      }
+    });
+
+    // Parsear M3U simple (soporta grupo-title y tvg-logo)
+    function parseM3U(text) {
+      channels = [];
+      const lines = text.split(/\r?\n/);
+      let currentChannel = null;
+
       for (let i = 0; i < lines.length; i++) {
-        if (lines[i].startsWith("#EXTINF")) {
-          const name = (lines[i].match(/,(.*)$/) || [])[1] || "Canal";
-          const logo = (lines[i].match(/tvg-logo="(.*?)"/) || [])[1] || "https://via.placeholder.com/140x84?text=Canal";
-          const group = (lines[i].match(/group-title="(.*?)"/) || [])[1] || "Otros";
-          const url = lines[i + 1]?.trim();
-          if (url && url.startsWith("http")) {
-            parsed.push({
-              name, logo, group, url,
-              epg: [
-                { time: "08:00", title: `Inicio de ${name}` },
-                { time: "09:00", title: `Programa de ${name}` },
-                { time: "10:00", title: `Más de ${name}` }
-              ]
-            });
-          }
+        const line = lines[i].trim();
+        if (line.startsWith("#EXTINF:")) {
+          // Ejemplo: #EXTINF:-1 tvg-logo="logo.png" group-title="Noticias",Canal 1
+          const groupMatch = line.match(/group-title="([^"]*)"/i);
+          const logoMatch = line.match(/tvg-logo="([^"]*)"/i);
+          const nameMatch = line.match(/,(.*)$/);
+          currentChannel = {
+            name: nameMatch ? nameMatch[1].trim() : "Sin nombre",
+            group: groupMatch ? groupMatch[1].trim() : "General",
+            logo: logoMatch ? logoMatch[1].trim() : "https://via.placeholder.com/140x84?text=Sin+Logo",
+            url: null,
+            epgUrl: null // se podría agregar lógica para epg dinámico si tienes URL
+          };
+        } else if (line && !line.startsWith("#") && currentChannel) {
+          currentChannel.url = line;
+          channels.push(currentChannel);
+          currentChannel = null;
         }
       }
-      return parsed;
+
+      groupChannels();
     }
 
-    async function loadM3UFromFile(file) {
-      const text = await file.text();
-      channels = await parseM3U(text);
-      buildApp();
-    }
-
-    async function loadDefaultM3U() {
-      try {
-        const res = await fetch("canales.m3u");
-        const text = await res.text();
-        channels = await parseM3U(text);
-        buildApp();
-      } catch (err) {
-        alert("No se pudo cargar canales.m3u por defecto.");
-      }
-    }
-
-    function groupChannels(list) {
-      const grouped = {};
-      list.forEach(ch => {
-        grouped[ch.group] = grouped[ch.group] || [];
-        grouped[ch.group].push(ch);
-      });
-      return grouped;
-    }
-
-    function playChannel(channel, card) {
-      const video = document.getElementById("livePlayer");
-      video.style.opacity = 0;
-      if (currentHls) currentHls.destroy();
-      if (Hls.isSupported()) {
-        currentHls = new Hls();
-        currentHls.loadSource(channel.url);
-        currentHls.attachMedia(video);
-        currentHls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play();
-          setTimeout(() => video.style.opacity = 1, 200);
-        });
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = channel.url;
-        video.addEventListener("loadedmetadata", () => {
-          video.play();
-          setTimeout(() => video.style.opacity = 1, 200);
-        });
-      } else {
-        alert("Tu navegador no soporta HLS.");
-      }
-      showEPG(channel);
-      if (currentChannelCard) currentChannelCard.classList.remove("active");
-      if (card) {
-        card.classList.add("active");
-        currentChannelCard = card;
-      }
-    }
-
-    function showEPG(channel) {
-      const epgList = document.getElementById("epgList");
-      epgList.innerHTML = "";
-      channel.epg.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.time} — ${item.title}`;
-        epgList.appendChild(li);
+    // Agrupar canales por grupo
+    function groupChannels() {
+      groupedChannels = {};
+      channels.forEach((ch) => {
+        if (!groupedChannels[ch.group]) {
+          groupedChannels[ch.group] = [];
+        }
+        groupedChannels[ch.group].push(ch);
       });
     }
 
-    function buildApp() {
-      groupedChannels = groupChannels(channels);
+    // Renderizar los canales en la UI
+    function renderChannels() {
       const container = document.getElementById("channelGroupsList");
       container.innerHTML = "";
-      for (const groupName in groupedChannels) {
-        const block = document.createElement("div");
-        block.className = "group-block";
+
+      Object.keys(groupedChannels).forEach((group) => {
+        const groupBlock = document.createElement("div");
+        groupBlock.className = "group-block";
+
         const title = document.createElement("h6");
         title.className = "group-title";
-        title.textContent = groupName;
-        const scroll = document.createElement("div");
-        scroll.className = "channel-scroll";
-        groupedChannels[groupName].forEach(channel => {
+        title.textContent = group;
+        groupBlock.appendChild(title);
+
+        const channelScroll = document.createElement("div");
+        channelScroll.className = "channel-scroll";
+
+        groupedChannels[group].forEach((channel, idx) => {
           const card = document.createElement("div");
           card.className = "channel-card";
-          card.setAttribute("data-name", channel.name.toLowerCase());
-          card.onclick = () => playChannel(channel, card);
-          card.innerHTML = `<img src="${channel.logo}" alt="${channel.name}"><div class="card-title">${channel.name}</div>`;
-          scroll.appendChild(card);
-        });
-        block.appendChild(title);
-        block.appendChild(scroll);
-        container.appendChild(block);
-      }
+          card.tabIndex = 0;
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-pressed", "false");
+          card.dataset.url = channel.url;
 
-      // Autoplay primer canal
-      const firstGroup = Object.keys(groupedChannels)[0];
-      if (firstGroup) {
-        const firstChannel = groupedChannels[firstGroup][0];
-        const card = [...document.querySelectorAll(".channel-card")].find(c => c.getAttribute("data-name") === firstChannel.name.toLowerCase());
-        playChannel(firstChannel, card);
+          card.innerHTML = `
+            <img src="${channel.logo}" alt="Logo ${channel.name}" />
+            <div class="card-title">${channel.name}</div>
+          `;
+
+          // Al hacer click o enter
+          card.addEventListener("click", () => selectChannel(card, channel));
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              selectChannel(card, channel);
+            }
+          });
+
+          channelScroll.appendChild(card);
+        });
+
+        groupBlock.appendChild(channelScroll);
+        container.appendChild(groupBlock);
+      });
+    }
+
+    // Seleccionar y reproducir canal
+    function selectChannel(card, channel) {
+      if (currentChannelCard) {
+        currentChannelCard.classList.remove("active");
+        currentChannelCard.setAttribute("aria-pressed", "false");
+      }
+      card.classList.add("active");
+      card.setAttribute("aria-pressed", "true");
+      currentChannelCard = card;
+      playStream(channel.url);
+      fetchEpg(channel);
+    }
+
+    // Reproducir stream con hls.js o nativo
+    function playStream(url) {
+      if (!url) return;
+      if (currentHls) {
+        currentHls.destroy();
+        currentHls = null;
+      }
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play();
+        });
+        currentHls = hls;
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = url;
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+        });
+      } else {
+        alert("Tu navegador no soporta reproducción HLS");
       }
     }
 
-    document.getElementById("searchInput").addEventListener("input", function () {
-      const q = this.value.toLowerCase();
+    // Mostrar programación EPG (simulada con URL dinámico)
+    async function fetchEpg(channel) {
+      epgList.innerHTML = "";
+      if (!channel.epgUrl) {
+        epgList.innerHTML = "<li>No hay programación disponible para este canal.</li>";
+        return;
+      }
+      try {
+        // Aquí deberías hacer fetch a channel.epgUrl
+        // Ejemplo simulado con timeout
+        epgList.innerHTML = "<li>Cargando programación...</li>";
+
+        // Simulamos fetch (reemplazar por fetch real si tienes URL)
+        await new Promise(res => setTimeout(res, 1000));
+        const epgData = [
+          { time: "08:00", title: "Noticias Matutinas" },
+          { time: "09:00", title: "Programa Deportivo" },
+          { time: "10:00", title: "Serie Favorita" }
+        ];
+
+        epgList.innerHTML = "";
+        epgData.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = `${item.time} - ${item.title}`;
+          epgList.appendChild(li);
+        });
+      } catch (error) {
+        epgList.innerHTML = `<li>Error cargando programación: ${error.message}</li>`;
+      }
+    }
+
+    // Renderiza canales por defecto cargando el archivo m3u desde servidor (mismo folder)
+    async function loadDefaultChannels() {
+      try {
+        const response = await fetch("canales.m3u");
+        if (!response.ok) throw new Error("No se pudo cargar canales.m3u");
+        const text = await response.text();
+        parseM3U(text);
+        renderChannels();
+        playDefaultChannel();
+      } catch (error) {
+        alert("Error cargando canales por defecto: " + error.message);
+      }
+    }
+
+    // Reproduce el primer canal por defecto (primero del primer grupo)
+    function playDefaultChannel() {
+      if (!channels.length) return;
+      const firstChannel = channels[0];
+      // Buscar el card correspondiente para marcarlo
+      const cards = document.querySelectorAll(".channel-card");
+      cards.forEach(card => {
+        if (card.dataset.url === firstChannel.url) {
+          selectChannel(card, firstChannel);
+        }
+      });
+    }
+
+    // Filtrar canales en base al input búsqueda
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const searchTerm = e.target.value.toLowerCase();
       document.querySelectorAll(".channel-card").forEach(card => {
-        const name = card.getAttribute("data-name");
-        card.style.display = name.includes(q) ? "inline-block" : "none";
+        const name = card.querySelector(".card-title").textContent.toLowerCase();
+        card.style.display = name.includes(searchTerm) ? "inline-block" : "none";
       });
     });
 
-    document.getElementById("m3uInput").addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) loadM3UFromFile(file);
+    // Iniciar app
+    window.addEventListener("load", () => {
+      loadDefaultChannels();
     });
-
-    document.addEventListener("DOMContentLoaded", loadDefaultM3U);
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
