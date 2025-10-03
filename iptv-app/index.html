@@ -127,7 +127,6 @@
       margin-right: 0.75rem;
       cursor: pointer;
       text-align: center;
-      position: relative;
     }
 
     .channel-card img {
@@ -151,17 +150,6 @@
       color: var(--highlight-color);
     }
 
-    .channel-info-popup {
-      display: none;
-      position: absolute;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      max-width: 200px;
-      font-size: 0.85rem;
-    }
-
     @media (max-width: 991.98px) {
       #epgContainer, #videoWrapper {
         height: auto;
@@ -174,13 +162,6 @@
       padding: 1rem 2rem;
       text-align: center;
       margin-top: 2rem;
-    }
-
-    /* Spinner de carga */
-    #loadingSpinner {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -216,12 +197,6 @@
       <div class="col-lg-8 col-12">
         <div id="videoWrapper">
           <video id="livePlayer" controls autoplay></video>
-          <!-- Spinner de carga -->
-          <div id="loadingSpinner">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Cargando...</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -231,11 +206,6 @@
         <div id="channelGroupsList"></div>
       </div>
     </div>
-  </div>
-
-  <!-- Popup de información del canal -->
-  <div class="channel-info-popup">
-    <p id="channelName">Información del Canal</p>
   </div>
 
   <!-- FOOTER -->
@@ -266,23 +236,54 @@
       const parsed = [];
       for (let i = 0; i < lines.length; i++) {
         if (lines[i].startsWith("#EXTINF")) {
-          const name = (lines[i].match(/,(.*)$/) || [])[1];
-          const url = lines[i + 1];
-          parsed.push({ name, url });
+          const name = (lines[i].match(/,(.*)$/) || [])[1] || "Canal";
+          const logo = (lines[i].match(/tvg-logo="(.*?)"/) || [])[1] || "https://via.placeholder.com/140x84?text=Canal";
+          const group = (lines[i].match(/group-title="(.*?)"/) || [])[1] || "Otros";
+          const url = lines[i + 1]?.trim();
+          if (url && url.startsWith("http")) {
+            parsed.push({
+              name, logo, group, url,
+              epg: [
+                { time: "08:00", title: `Inicio de ${name}` },
+                { time: "09:00", title: `Programa de ${name}` },
+                { time: "10:00", title: `Más de ${name}` }
+              ]
+            });
+          }
         }
       }
       return parsed;
     }
 
-    function showLoadingSpinner(show) {
-      document.getElementById("loadingSpinner").style.display = show ? "block" : "none";
+    async function loadM3UFromFile(file) {
+      const text = await file.text();
+      channels = await parseM3U(text);
+      buildApp();
+    }
+
+    async function loadDefaultM3U() {
+      try {
+        const res = await fetch("canales.m3u");
+        const text = await res.text();
+        channels = await parseM3U(text);
+        buildApp();
+      } catch (err) {
+        alert("No se pudo cargar canales.m3u por defecto.");
+      }
+    }
+
+    function groupChannels(list) {
+      const grouped = {};
+      list.forEach(ch => {
+        grouped[ch.group] = grouped[ch.group] || [];
+        grouped[ch.group].push(ch);
+      });
+      return grouped;
     }
 
     function playChannel(channel, card) {
       const video = document.getElementById("livePlayer");
       video.style.opacity = 0;
-      showLoadingSpinner(true); 
-
       if (currentHls) currentHls.destroy();
       if (Hls.isSupported()) {
         currentHls = new Hls();
@@ -291,19 +292,17 @@
         currentHls.on(Hls.Events.MANIFEST_PARSED, () => {
           video.play();
           setTimeout(() => video.style.opacity = 1, 200);
-          showLoadingSpinner(false); 
         });
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         video.src = channel.url;
         video.addEventListener("loadedmetadata", () => {
           video.play();
           setTimeout(() => video.style.opacity = 1, 200);
-          showLoadingSpinner(false);
         });
       } else {
         alert("Tu navegador no soporta HLS.");
       }
-
+      showEPG(channel);
       if (currentChannelCard) currentChannelCard.classList.remove("active");
       if (card) {
         card.classList.add("active");
@@ -311,69 +310,66 @@
       }
     }
 
-    document.getElementById("livePlayer").addEventListener("ended", function () {
-      const currentGroup = Object.keys(groupedChannels)[0];
-      const currentChannelIndex = groupedChannels[currentGroup].indexOf(currentChannelCard.channel);
-      const nextChannel = groupedChannels[currentGroup][(currentChannelIndex + 1) % groupedChannels[currentGroup].length];
-      const nextCard = [...document.querySelectorAll(".channel-card")].find(c => c.getAttribute("data-name") === nextChannel.name.toLowerCase());
-      playChannel(nextChannel, nextCard);
-    });
-
     function showEPG(channel) {
       const epgList = document.getElementById("epgList");
-      epgList.innerHTML = ""; // Limpiar lista de programación
-      // Simulación de EPG, usa datos reales si los tienes
-      const epgData = ["Película 1", "Película 2", "Noticiero", "Deportes"]; // Cambia esto con tu EPG real
-      epgData.forEach(program => {
+      epgList.innerHTML = "";
+      channel.epg.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = program;
+        li.textContent = `${item.time} — ${item.title}`;
         epgList.appendChild(li);
       });
     }
 
-    function loadChannels(m3uText) {
-      parseM3U(m3uText).then(parsedChannels => {
-        channels = parsedChannels;
-        groupedChannels = { "Canales": channels }; // Agrupar canales
-        const channelGroupsList = document.getElementById("channelGroupsList");
-        channelGroupsList.innerHTML = "";
-        Object.keys(groupedChannels).forEach(group => {
-          const groupDiv = document.createElement("div");
-          groupDiv.classList.add("channel-scroll");
-          groupedChannels[group].forEach(channel => {
-            const card = document.createElement("div");
-            card.classList.add("channel-card");
-            card.setAttribute("data-name", channel.name.toLowerCase());
-            card.innerHTML = `
-              <img src="https://via.placeholder.com/140x84.png?text=${channel.name}" alt="${channel.name}">
-              <div class="card-title">${channel.name}</div>
-            `;
-            card.onclick = () => playChannel(channel, card);
-            groupDiv.appendChild(card);
-          });
-          channelGroupsList.appendChild(groupDiv);
+    function buildApp() {
+      groupedChannels = groupChannels(channels);
+      const container = document.getElementById("channelGroupsList");
+      container.innerHTML = "";
+      for (const groupName in groupedChannels) {
+        const block = document.createElement("div");
+        block.className = "group-block";
+        const title = document.createElement("h6");
+        title.className = "group-title";
+        title.textContent = groupName;
+        const scroll = document.createElement("div");
+        scroll.className = "channel-scroll";
+        groupedChannels[groupName].forEach(channel => {
+          const card = document.createElement("div");
+          card.className = "channel-card";
+          card.setAttribute("data-name", channel.name.toLowerCase());
+          card.onclick = () => playChannel(channel, card);
+          card.innerHTML = `<img src="${channel.logo}" alt="${channel.name}"><div class="card-title">${channel.name}</div>`;
+          scroll.appendChild(card);
         });
-      });
+        block.appendChild(title);
+        block.appendChild(scroll);
+        container.appendChild(block);
+      }
+
+      // Autoplay primer canal
+      const firstGroup = Object.keys(groupedChannels)[0];
+      if (firstGroup) {
+        const firstChannel = groupedChannels[firstGroup][0];
+        const card = [...document.querySelectorAll(".channel-card")].find(c => c.getAttribute("data-name") === firstChannel.name.toLowerCase());
+        playChannel(firstChannel, card);
+      }
     }
 
-    document.getElementById("m3uInput").addEventListener("change", function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => loadChannels(e.target.result);
-        reader.readAsText(file);
-      }
-    });
-
     document.getElementById("searchInput").addEventListener("input", function () {
-      const searchQuery = this.value.toLowerCase();
-      const cards = document.querySelectorAll(".channel-card");
-      cards.forEach(card => {
-        const cardTitle = card.querySelector(".card-title").textContent.toLowerCase();
-        card.style.display = cardTitle.includes(searchQuery) ? "inline-block" : "none";
+      const q = this.value.toLowerCase();
+      document.querySelectorAll(".channel-card").forEach(card => {
+        const name = card.getAttribute("data-name");
+        card.style.display = name.includes(q) ? "inline-block" : "none";
       });
     });
+
+    document.getElementById("m3uInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) loadM3UFromFile(file);
+    });
+
+    document.addEventListener("DOMContentLoaded", loadDefaultM3U);
   </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
