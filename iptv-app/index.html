@@ -215,11 +215,10 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
         </ul>
-
-        <form class="d-flex">
-          <input id="urlInput" class="form-control" type="text" placeholder="Pegar URL de lista M3U" aria-label="Pegar URL de lista M3U" />
+        <form class="d-flex d-lg-none w-100 mt-2">
+          <input id="urlInput" class="form-control" type="text" placeholder="Pegar URL de lista M3U" />
           <button id="loadUrlBtn" type="button" class="btn btn-primary">Cargar URL</button>
-          <input id="m3uInput" type="file" accept=".m3u,.txt" class="form-control" aria-label="Cargar archivo M3U" />
+          <input id="m3uInput" type="file" accept=".m3u,.txt" class="form-control" />
           <button id="themeToggleBtn" type="button" class="btn btn-outline-secondary" title="Alternar tema">🌙</button>
         </form>
       </div>
