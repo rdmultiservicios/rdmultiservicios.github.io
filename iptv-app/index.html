@@ -39,154 +39,75 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* NAVBAR */
     nav.navbar {
       background-color: var(--nav-bg);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       padding: 0.5rem 1rem;
     }
-
-    .navbar .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
     .navbar-brand {
       font-weight: 700;
       color: var(--highlight-color);
-      font-size: 1.8rem;
-      flex-shrink: 0;
+      font-size: 1.5rem;
       white-space: nowrap;
     }
-
-    #navbarInputsContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-      flex-grow: 1;
-      justify-content: flex-end;
-      min-width: 0;
-    }
-
-    #urlInput {
-      flex-grow: 1;
-      min-width: 200px;
-      max-width: 350px;
-      border-radius: 25px;
+    .form-control {
+      background-color: var(--epg-bg);
       border: 1px solid #ccc;
-      padding: 0.375rem 1rem;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
+      color: var(--text-color);
+      border-radius: 0.375rem;
+      min-width: 150px;
     }
-    #urlInput:focus {
+    .form-control:focus {
       outline: none;
       border-color: var(--highlight-color);
       box-shadow: none;
     }
-
-    #loadUrlBtn {
-      border-radius: 25px;
-      background-color: var(--highlight-color);
-      color: white;
-      border: none;
-      padding: 0.375rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
+    button.btn {
       white-space: nowrap;
-      transition: background-color 0.3s ease;
-      flex-shrink: 0;
     }
-    #loadUrlBtn:hover, #loadUrlBtn:focus {
-      background-color: #0b5ed7;
+    #themeToggleBtn {
+      min-width: 40px;
+      font-size: 1.2rem;
+      padding: 0 0.5rem;
+    }
+
+    /* Remove focus outline and hover effects on channel cards */
+    .channel-card {
+      display: inline-block;
+      width: 140px;
+      margin-right: 0.75rem;
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
       outline: none;
+      box-shadow: none !important;
+      transition: none !important;
     }
-
-    #m3uInput {
-      cursor: pointer;
-      border-radius: 25px;
-      border: 1px solid #ccc;
-      padding: 0.375rem 0.75rem;
-      font-size: 1rem;
-      flex-shrink: 0;
-      max-width: 160px;
-    }
-
-    #m3uInput::-webkit-file-upload-button {
-      cursor: pointer;
-      border-radius: 25px;
-      padding: 0.375rem 1rem;
-      background-color: var(--highlight-color);
-      color: white;
-      border: none;
-      transition: background-color 0.3s ease;
-    }
-    #m3uInput::-webkit-file-upload-button:hover {
-      background-color: #0b5ed7;
-    }
-
-    .theme-toggle-btn {
+    .channel-card:hover, .channel-card:focus, .channel-card.active {
+      color: var(--highlight-color);
       background: none;
-      border: none;
-      color: var(--text-color);
-      font-size: 1.4rem;
-      cursor: pointer;
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      transition: background-color 0.3s ease;
-      flex-shrink: 0;
-    }
-    .theme-toggle-btn:hover, .theme-toggle-btn:focus {
-      background-color: var(--highlight-color);
-      color: white;
-      outline: none;
+      box-shadow: none !important;
     }
 
-    /* Responsive para móviles */
-    @media (max-width: 575.98px) {
-      .navbar .container {
-        justify-content: center;
-        gap: 0.75rem;
-      }
-
-      #navbarInputsContainer {
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-        width: 100%;
-        gap: 0.5rem;
-        margin-top: 0.25rem;
-      }
-
-      #urlInput, #loadUrlBtn, #m3uInput {
-        max-width: 100%;
-        min-width: auto;
-        width: 100%;
-        border-radius: 1.25rem;
-        font-size: 1.1rem;
-      }
-
-      #loadUrlBtn {
-        padding: 0.5rem;
-      }
-
-      #m3uInput::-webkit-file-upload-button {
-        padding: 0.5rem;
-        font-size: 1.1rem;
-        border-radius: 1.25rem;
-      }
-
-      .theme-toggle-btn {
-        align-self: center;
-        padding: 0.5rem 1rem;
-        font-size: 1.6rem;
-      }
+    .channel-card img {
+      width: 140px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 8px;
     }
 
-    /* CONTENIDO PRINCIPAL */
+    .channel-card .card-title {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--card-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .channel-card.active .card-title {
+      color: var(--highlight-color);
+    }
+
     .container-main {
       padding: 1rem 2rem;
     }
@@ -231,54 +152,13 @@
       object-fit: contain;
       background-color: black;
       opacity: 1;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.3s ease;
     }
 
     .channel-scroll {
       white-space: nowrap;
       overflow-x: auto;
       padding-bottom: 0.5rem;
-    }
-
-    .channel-card {
-      display: inline-block;
-      width: 140px;
-      margin-right: 0.75rem;
-      cursor: pointer;
-      text-align: center;
-      outline: none; /* quitar foco */
-    }
-
-    .channel-card img {
-      width: 140px;
-      height: 84px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: none !important; /* quitar sombras */
-      transition: none !important; /* quitar animaciones */
-    }
-
-    .channel-card .card-title {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: var(--card-text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      user-select: none;
-    }
-
-    .channel-card.active .card-title,
-    /* deshabilitar hover también */
-    /* .channel-card:hover .card-title removed to disable hover effects */
-    .channel-card:hover {
-      color: var(--card-text);
-    }
-
-    @media (max-width: 991.98px) {
-      #epgContainer, #videoWrapper {
-        height: auto;
-      }
     }
 
     footer.footer {
@@ -288,43 +168,63 @@
       text-align: center;
       margin-top: 2rem;
     }
+
+    /* Responsive navbar form */
+    form.d-flex {
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    @media(min-width: 992px) {
+      form.d-flex {
+        width: auto;
+        margin-top: 0;
+      }
+    }
+
+    /* Inputs and buttons flex grow */
+    #urlInput, #m3uInput {
+      flex-grow: 1;
+      min-width: 180px;
+    }
+    #loadUrlBtn, #themeToggleBtn {
+      flex-grow: 0;
+    }
+
+    /* Fix m3uInput styling for file input */
+    input[type="file"] {
+      padding: 0.25rem 0.5rem;
+    }
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-primary" href="#">TV360</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
-      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">TV360</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+        </ul>
 
-      <form class="d-flex align-items-center flex-wrap gap-2 w-100 w-lg-auto">
-        <!-- Input para URL -->
-        <input id="urlInput" class="form-control flex-grow-1" type="text" placeholder="Pegar URL de lista M3U" aria-label="Pegar URL de lista M3U" />
-
-        <!-- Botón para cargar URL -->
-        <button id="loadUrlBtn" type="button" class="btn btn-primary px-3">
-          Cargar URL
-        </button>
-
-        <!-- Input para archivo -->
-        <input id="m3uInput" type="file" accept=".m3u,.txt" class="form-control flex-grow-1" aria-label="Cargar archivo M3U" />
-
-        <!-- Botón toggle tema -->
-        <button id="themeToggleBtn" type="button" class="btn btn-outline-secondary" title="Alternar tema">🌙</button>
-      </form>
+        <form class="d-flex">
+          <input id="urlInput" class="form-control" type="text" placeholder="Pegar URL de lista M3U" aria-label="Pegar URL de lista M3U" />
+          <button id="loadUrlBtn" type="button" class="btn btn-primary">Cargar URL</button>
+          <input id="m3uInput" type="file" accept=".m3u,.txt" class="form-control" aria-label="Cargar archivo M3U" />
+          <button id="themeToggleBtn" type="button" class="btn btn-outline-secondary" title="Alternar tema">🌙</button>
+        </form>
+      </div>
     </div>
-  </div>
-</nav>
-
+  </nav>
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="container-fluid container-main">
@@ -337,7 +237,7 @@
       </div>
       <div class="col-lg-8 col-12">
         <div id="videoWrapper">
-          <video id="livePlayer" controls autoplay></video>
+          <video id="livePlayer" controls autoplay muted playsinline></video>
         </div>
       </div>
     </div>
@@ -405,141 +305,131 @@
     async function loadM3UFromURL(url) {
       try {
         const res = await fetch(url);
-        if (!res.ok) throw new Error("No se pudo cargar la lista M3U");
+        if (!res.ok) throw new Error("Error al cargar URL");
         const text = await res.text();
         channels = await parseM3U(text);
         buildApp();
-      } catch (e) {
-        alert("Error al cargar lista M3U: " + e.message);
+      } catch (err) {
+        alert("No se pudo cargar la lista desde la URL.");
+        console.error(err);
       }
     }
 
-    function groupChannels(channels) {
-      const groups = {};
-      channels.forEach(c => {
-        if (!groups[c.group]) groups[c.group] = [];
-        groups[c.group].push(c);
+    async function loadDefaultM3U() {
+      try {
+        const res = await fetch("canales.m3u");
+        if (!res.ok) throw new Error("Error al cargar canales.m3u");
+        const text = await res.text();
+        channels = await parseM3U(text);
+        buildApp();
+      } catch (err) {
+        alert("No se pudo cargar canales.m3u por defecto.");
+        console.error(err);
+      }
+    }
+
+    function groupChannels(list) {
+      const grouped = {};
+      list.forEach(ch => {
+        grouped[ch.group] = grouped[ch.group] || [];
+        grouped[ch.group].push(ch);
       });
-      return groups;
+      return grouped;
     }
 
-    function clearChildren(node) {
-      while (node.firstChild) {
-        node.removeChild(node.firstChild);
-      }
-    }
-
-    function buildApp() {
-      groupedChannels = groupChannels(channels);
-      buildGroupsList();
-      if (channels.length) {
-        selectChannel(channels[0]);
-      }
-    }
-
-    function buildGroupsList() {
-      const container = document.getElementById("channelGroupsList");
-      clearChildren(container);
-      Object.keys(groupedChannels).forEach(groupName => {
-        const groupChannels = groupedChannels[groupName];
-        const groupDiv = document.createElement("div");
-        const groupTitle = document.createElement("h4");
-        groupTitle.textContent = groupName;
-        groupTitle.style.color = "var(--highlight-color)";
-        groupDiv.appendChild(groupTitle);
-
-        const channelScroll = document.createElement("div");
-        channelScroll.className = "channel-scroll";
-
-        groupChannels.forEach(channel => {
-          const card = document.createElement("div");
-          card.className = "channel-card";
-          card.setAttribute("tabindex", "0");
-          card.setAttribute("role", "button");
-          card.setAttribute("aria-label", `Canal ${channel.name}`);
-          card.innerHTML = `
-            <img src="${channel.logo}" alt="Logo de ${channel.name}" loading="lazy" />
-            <div class="card-title">${channel.name}</div>
-          `;
-          card.onclick = () => selectChannel(channel, card);
-          card.onkeydown = e => { if(e.key === "Enter" || e.key === " ") { e.preventDefault(); selectChannel(channel, card);} };
-          channelScroll.appendChild(card);
-        });
-
-        groupDiv.appendChild(channelScroll);
-        container.appendChild(groupDiv);
-      });
-    }
-
-    function selectChannel(channel, cardElement) {
-      if (currentChannelCard) currentChannelCard.classList.remove("active");
-      if (cardElement) cardElement.classList.add("active");
-      currentChannelCard = cardElement || null;
-
+    function playChannel(channel, card) {
       const video = document.getElementById("livePlayer");
+      video.style.opacity = 0;
       if (currentHls) {
         currentHls.destroy();
         currentHls = null;
       }
-
       if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(channel.url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play().catch(() => {});
+        currentHls = new Hls();
+        currentHls.loadSource(channel.url);
+        currentHls.attachMedia(video);
+        currentHls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play();
+          video.muted = false; // activar audio
+          setTimeout(() => video.style.opacity = 1, 200);
         });
-        currentHls = hls;
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         video.src = channel.url;
-        video.play().catch(() => {});
+        video.muted = false;
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+          setTimeout(() => video.style.opacity = 1, 200);
+        });
       } else {
-        alert("Este navegador no soporta reproducción HLS.");
+        alert("Tu navegador no soporta HLS.");
       }
+      showEPG(channel);
+      if (currentChannelCard) currentChannelCard.classList.remove("active");
+      if (card) {
+        card.classList.add("active");
+        currentChannelCard = card;
+      }
+    }
 
-      // Mostrar EPG (mock)
+    function showEPG(channel) {
       const epgList = document.getElementById("epgList");
-      clearChildren(epgList);
-      channel.epg.forEach(prog => {
+      epgList.innerHTML = "";
+      channel.epg.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${prog.time} - ${prog.title}`;
+        li.textContent = `${item.time} — ${item.title}`;
         epgList.appendChild(li);
       });
     }
 
-    // EVENTOS UI
+    function buildApp() {
+      groupedChannels = groupChannels(channels);
+      const container = document.getElementById("channelGroupsList");
+      container.innerHTML = "";
+      for (const groupName in groupedChannels) {
+        const block = document.createElement("div");
+        block.className = "group-block";
+        const title = document.createElement("h6");
+        title.className = "group-title";
+        title.textContent = groupName;
+        const scroll = document.createElement("div");
+        scroll.className = "channel-scroll";
+        groupedChannels[groupName].forEach(channel => {
+          const card = document.createElement("div");
+          card.className = "channel-card";
+          card.setAttribute("data-name", channel.name.toLowerCase());
+          card.tabIndex = -1;
+          card.innerHTML = `
+            <img src="${channel.logo}" alt="${channel.name} logo" />
+            <div class="card-title">${channel.name}</div>
+          `;
+          card.onclick = () => playChannel(channel, card);
+          scroll.appendChild(card);
+        });
+        block.appendChild(title);
+        block.appendChild(scroll);
+        container.appendChild(block);
+      }
+      // Play first channel by default if exists
+      if (channels.length > 0) playChannel(channels[0], null);
+    }
+
+    // Eventos Inputs y botones
+    document.getElementById("m3uInput").addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (file) loadM3UFromFile(file);
+      e.target.value = ""; // reset input
+    });
+
     document.getElementById("loadUrlBtn").addEventListener("click", () => {
       const url = document.getElementById("urlInput").value.trim();
-      if (!url) {
-        alert("Por favor, pega una URL válida.");
-        return;
-      }
-      loadM3UFromURL(url);
+      if (url) loadM3UFromURL(url);
+      else alert("Por favor, ingresa una URL válida.");
     });
 
-    document.getElementById("m3uInput").addEventListener("change", e => {
-      if (e.target.files.length) {
-        loadM3UFromFile(e.target.files[0]);
-      }
-    });
-
-    // Cargar canales.m3u por defecto (desde la misma carpeta)
-    window.addEventListener("load", () => {
-      fetch("canales.m3u")
-        .then(res => {
-          if (!res.ok) throw new Error("No se encontró canales.m3u");
-          return res.text();
-        })
-        .then(text => {
-          parseM3U(text).then(parsed => {
-            channels = parsed;
-            buildApp();
-          });
-        })
-        .catch(() => {
-          console.warn("No se pudo cargar canales.m3u por defecto.");
-        });
-    });
+    // Cargar lista por defecto al inicio
+    window.addEventListener("load", loadDefaultM3U);
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
