@@ -9,8 +9,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-  <!-- Animate.css para animaciones -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- HLS.js -->
@@ -139,7 +137,7 @@
       overflow: hidden;
       height: 450px;
       border-radius: 8px;
-      box-shadow: 0 0 15px rgb(0 0 0 / 0.6);
+      /* sombras quitadas */
     }
     video {
       width: 100%;
@@ -165,22 +163,22 @@
       text-align: center;
       vertical-align: top;
       user-select: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* sombras y animaciones quitadas */
       border-radius: 8px;
       background-color: var(--card-bg);
-      box-shadow: 0 0 5px rgb(0 0 0 / 0.1);
       padding: 0.25rem;
+      transition: none;
     }
     .channel-card:hover {
-      box-shadow: 0 4px 15px rgb(13 110 253 / 0.4);
-      transform: scale(1.05);
-      z-index: 2;
+      /* Sin animación ni sombra */
+      transform: none;
+      box-shadow: none;
     }
     .channel-card.active {
       border: 2px solid var(--highlight-color);
-      box-shadow: 0 0 20px var(--highlight-color);
-      transform: scale(1.1);
-      z-index: 3;
+      /* Sin sombra ni escala */
+      transform: none;
+      box-shadow: none;
     }
     .channel-card img {
       width: 140px;
@@ -198,8 +196,7 @@
       text-overflow: ellipsis;
       user-select: none;
     }
-    .channel-card.active .card-title,
-    .channel-card:hover .card-title {
+    .channel-card.active .card-title {
       color: var(--highlight-color);
     }
 
@@ -233,6 +230,24 @@
       }
     }
 
+    /* Ajustes para input y botón URL separados y no pegados en móvil */
+    .url-load-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 350px;
+    }
+    .url-load-group input[type="text"] {
+      flex-grow: 1;
+      min-width: 0;
+      border-radius: 20px;
+    }
+    .url-load-group button {
+      white-space: nowrap;
+      border-radius: 20px;
+    }
+
     @media (max-width: 575.98px) {
       .channel-card {
         width: 110px;
@@ -248,6 +263,9 @@
         width: 100% !important;
         margin-top: 0.5rem;
         border-radius: 12px;
+      }
+      .url-load-group {
+        max-width: 100%;
       }
     }
 
@@ -265,90 +283,119 @@
   </style>
 </head>
 <body>
-
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg px-3">
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+
+      <button class="theme-toggle-btn" aria-label="Cambiar tema" title="Cambiar tema" id="themeToggleBtn">
+        <i class="bi bi-moon-stars-fill"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarMenu">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-        </ul>
-
-        <!-- Buscador -->
-        <input class="form-control me-2 w-50" type="text" placeholder="Buscar canal..." id="searchInput" aria-label="Buscar canal" />
-
-        <!-- Input para URL M3U -->
-        <input type="text" id="urlInput" class="form-control me-2" placeholder="Pegar URL archivo M3U" aria-label="URL archivo M3U" />
-        <button class="btn btn-primary me-2" id="loadUrlBtn" title="Cargar lista desde URL" aria-label="Cargar lista desde URL">
-          <i class="bi bi-cloud-arrow-down"></i> Cargar URL
-        </button>
-
-        <!-- Input para archivo M3U -->
-        <input type="file" id="m3uInput" accept=".m3u,.txt" class="form-control me-2" style="max-width: 200px;" aria-label="Cargar archivo M3U" />
-
-        <!-- Toggle Tema -->
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema" aria-label="Alternar tema">🌙</button>
-      </div>
     </div>
   </nav>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <div class="container-fluid container-main">
-    <div class="row">
-      <div class="col-lg-4 col-12 mb-3">
-        <div id="epgContainer" aria-live="polite" aria-atomic="true" role="region">
-          <h5>Programación</h5>
-          <ul id="epgList"></ul>
-        </div>
+  <main class="container-main">
+    <div class="row g-3 align-items-center mb-3">
+      <div class="col-12 col-md-6">
+        <label for="m3uInput" class="form-label" style="font-weight:600;">Cargar archivo M3U</label>
+        <input
+          class="form-control"
+          type="file"
+          id="m3uInput"
+          accept=".m3u,.txt"
+          aria-describedby="m3uHelp"
+        />
+        <div id="m3uHelp" class="form-text">Archivo .m3u o .txt con lista de canales.</div>
       </div>
-      <div class="col-lg-8 col-12">
-        <div id="videoWrapper">
-          <video id="livePlayer" controls autoplay muted playsinline></video>
+      <div class="col-12 col-md-6">
+        <label for="urlInput" class="form-label" style="font-weight:600;">Cargar lista desde URL</label>
+        <div class="url-load-group">
+          <input
+            class="form-control"
+            type="text"
+            id="urlInput"
+            placeholder="Pega aquí la URL de la lista M3U"
+            aria-label="URL de lista M3U"
+          />
+          <button class="btn btn-primary" id="loadUrlBtn" aria-label="Cargar lista desde URL">Cargar URL</button>
         </div>
       </div>
     </div>
 
-    <div class="row mt-4">
-      <div class="col-12" id="channelGroupsList" aria-label="Lista de canales"></div>
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div id="videoWrapper" role="region" aria-label="Reproductor de video">
+          <video
+            id="livePlayer"
+            controls
+            autoplay
+            playsinline
+            preload="auto"
+            controlsList="nodownload"
+            crossorigin="anonymous"
+            muted="false"
+          >
+            Tu navegador no soporta la etiqueta video.
+          </video>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div id="epgContainer" role="region" aria-label="Guía de programación EPG">
+          <h5>Guía de Programación (EPG)</h5>
+          <ul id="epgList" tabindex="0" aria-live="polite" aria-relevant="additions"></ul>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- FOOTER -->
+    <hr />
+
+    <section aria-label="Grupos y canales">
+      <div id="channelGroupsList" tabindex="0"></div>
+    </section>
+  </main>
+
   <footer class="footer">
-    <div>
-      © 2025 TV360. Todos los derechos reservados.
-    </div>
+    © 2025 TV360 - Todos los derechos reservados.
   </footer>
 
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
-    let channels = [], groupedChannels = {}, currentHls = null, currentChannelCard = null;
+    let currentHls = null;
+    let currentChannelCard = null;
+    let channels = [];
+    let groupedChannels = {};
 
-    // Aplicar tema guardado o por defecto (prefiere sistema)
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("tv360-theme", theme);
-      document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
+    // Tema oscuro / claro
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const savedTheme = localStorage.getItem("theme");
+    const root = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === "dark") {
+        root.setAttribute("data-theme", "dark");
+        themeToggleBtn.innerHTML = '<i class="bi bi-sun-fill" aria-hidden="true"></i>';
+      } else {
+        root.setAttribute("data-theme", "light");
+        themeToggleBtn.innerHTML = '<i class="bi bi-moon-stars-fill" aria-hidden="true"></i>';
+      }
+      localStorage.setItem("theme", theme);
     }
 
-    document.getElementById("themeToggleBtn").onclick = () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      applyTheme(current === "dark" ? "light" : "dark");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      setTheme(prefersDark ? "dark" : "light");
+    }
+
+    themeToggleBtn.onclick = () => {
+      const newTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      setTheme(newTheme);
     };
 
-    applyTheme(localStorage.getItem("tv360-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-
-    // Parsear texto M3U a lista de canales
+    // Parse M3U simple (extrae canales con grupo, logo y url)
     async function parseM3U(text) {
       const lines = text.split(/\r?\n/).map(l => l.trim());
       let result = [];
-      let groupTitle = "Sin grupo";
+      let defaultGroup = "Sin grupo";
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         if (!line || line.startsWith("#EXTM3U")) continue;
@@ -357,7 +404,7 @@
           const groupMatch = line.match(/group-title="([^"]*)"/i);
           const logoMatch = line.match(/tvg-logo="([^"]*)"/i);
           let name = info ? info[1].trim() : "Canal desconocido";
-          let group = groupMatch ? groupMatch[1].trim() : groupTitle;
+          let group = groupMatch ? groupMatch[1].trim() : defaultGroup;
           let logo = logoMatch ? logoMatch[1].trim() : "";
           let url = lines[i + 1] || "";
           i++;
@@ -378,7 +425,7 @@
       return groups;
     }
 
-    // Mostrar canales agrupados en el DOM
+    // Renderizar grupos y canales
     function renderChannels(groups) {
       const container = document.getElementById("channelGroupsList");
       container.innerHTML = "";
@@ -396,7 +443,7 @@
         scroll.setAttribute("tabindex", "0");
         scroll.setAttribute("aria-label", `Canales del grupo ${group}`);
 
-        groups[group].forEach((channel, idx) => {
+        groups[group].forEach(channel => {
           const card = document.createElement("div");
           card.className = "channel-card";
           card.setAttribute("role", "button");
@@ -425,14 +472,13 @@
       }
     }
 
-    // Mostrar la programación EPG para el canal seleccionado
+    // Render EPG (demo simple)
     function renderEPG(channel) {
       const epgList = document.getElementById("epgList");
       epgList.innerHTML = "";
 
-      // Para demo, muestra solo el nombre y url (normalmente vendría de otro lado)
       if (!channel) return;
-      const now = new Date();
+
       const prog = [
         { time: "12:00", title: `Inicio de transmisión: ${channel.name}` },
         { time: "13:00", title: "Programa de ejemplo" },
@@ -447,7 +493,7 @@
       });
     }
 
-    // Seleccionar canal y cargar video
+    // Seleccionar canal y reproducir
     function selectChannel(channel, card) {
       if (currentChannelCard) {
         currentChannelCard.classList.remove("active");
@@ -529,7 +575,6 @@
           text: err.message,
         });
       }
-      // reset input
       e.target.value = "";
     });
 
@@ -548,9 +593,7 @@
       try {
         Swal.fire({
           title: 'Cargando lista desde URL...',
-          didOpen: () => {
-            Swal.showLoading();
-          },
+          didOpen: () => Swal.showLoading(),
           allowOutsideClick: false,
           allowEscapeKey: false,
         });
@@ -590,29 +633,9 @@
       }
     });
 
-    // Filtrado en vivo de canales por búsqueda
-    document.getElementById("searchInput").addEventListener("input", e => {
+    // Búsqueda en vivo
+    document.getElementById("searchInput")?.addEventListener("input", e => {
       const query = e.target.value.toLowerCase();
-      for (const group in groupedChannels) {
-        const cards = document.querySelectorAll(`#channelGroupsList .group-block:has(h4:contains('${group}')) .channel-card`);
-        groupedChannels[group].forEach((channel, idx) => {
-          const card = [...document.querySelectorAll(".channel-card")].find(c => c.querySelector(".card-title").textContent === channel.name);
-          if (!card) return;
-          if (channel.name.toLowerCase().includes(query) || group.toLowerCase().includes(query)) {
-            card.style.display = "";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      }
-    });
-
-    // Polyfill for :has() selector and :contains() for compatibility
-    // Since :has() and :contains() are not widely supported, implement filtering differently:
-    document.getElementById("searchInput").addEventListener("input", e => {
-      const query = e.target.value.toLowerCase();
-
-      // Mostrar u ocultar grupos y canales según búsqueda
       const groupBlocks = document.querySelectorAll("#channelGroupsList .group-block");
       groupBlocks.forEach(groupBlock => {
         const groupTitle = groupBlock.querySelector(".group-title").textContent.toLowerCase();
@@ -628,11 +651,42 @@
             card.style.display = "none";
           }
         });
-
         groupBlock.style.display = anyVisible ? "" : "none";
       });
     });
 
+    // Al cargar, intenta cargar canales.m3u por defecto
+    async function loadDefaultList() {
+      try {
+        const response = await fetch("canales.m3u");
+        if (!response.ok) return;
+        const text = await response.text();
+        channels = await parseM3U(text);
+        if (channels.length > 0) {
+          groupedChannels = groupChannels(channels);
+          renderChannels(groupedChannels);
+          // Selecciona el primer canal automáticamente
+          if (channels[0]) {
+            // Encontrar la tarjeta correspondiente:
+            setTimeout(() => {
+              const cards = document.querySelectorAll(".channel-card");
+              for (const card of cards) {
+                if (card.querySelector(".card-title").textContent === channels[0].name) {
+                  selectChannel(channels[0], card);
+                  break;
+                }
+              }
+            }, 300);
+          }
+        }
+      } catch {
+        // No hacer nada si falla la carga
+      }
+    }
+
+    window.addEventListener("load", () => {
+      loadDefaultList();
+    });
   </script>
 </body>
 </html>
