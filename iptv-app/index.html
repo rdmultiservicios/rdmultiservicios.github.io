@@ -3,17 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TV360 - En Vivo Mejorado</title>
-
-  <!-- Bootstrap CSS -->
+  <title>TV360 - En Vivo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- HLS.js -->
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
   <style>
     :root {
       --bg-color: #ffffff;
@@ -25,7 +17,6 @@
       --card-text: #444;
       --nav-bg: #fff;
       --footer-bg: #f2f2f2;
-      --input-bg: #e9ecef;
     }
     [data-theme="dark"] {
       --bg-color: #121212;
@@ -37,7 +28,6 @@
       --card-text: #ccc;
       --nav-bg: #1a1a1a;
       --footer-bg: #1e1e1e;
-      --input-bg: #343a40;
     }
 
     body, html {
@@ -47,39 +37,24 @@
       color: var(--text-color);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       transition: background-color 0.3s ease, color 0.3s ease;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     nav.navbar {
       background-color: var(--nav-bg);
-      box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
     }
     .navbar-brand {
       font-weight: bold;
       color: var(--highlight-color);
       font-size: 1.5rem;
-      user-select: none;
     }
-    .form-control, input[type="file"], input[type="text"] {
-      background-color: var(--input-bg);
+    .form-control {
+      background-color: var(--epg-bg);
       border: none;
       color: var(--text-color);
       border-radius: 20px;
-      transition: background-color 0.3s ease;
-    }
-    .form-control::placeholder, input[type="text"]::placeholder {
-      color: var(--text-color);
-      opacity: 0.6;
-    }
-    input[type="file"] {
-      padding: 6px 12px;
-      cursor: pointer;
     }
     .navbar-nav .nav-link {
       color: var(--text-color);
-      user-select: none;
     }
     .navbar-nav .nav-link:hover {
       color: var(--highlight-color);
@@ -89,56 +64,48 @@
       background: none;
       border: none;
       color: var(--text-color);
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       cursor: pointer;
-      user-select: none;
-      transition: color 0.3s ease;
-    }
-    .theme-toggle-btn:hover {
-      color: var(--highlight-color);
     }
 
     .container-main {
       padding: 1rem 2rem;
-      flex: 1 0 auto;
+    }
+
+    #epgContainer,
+    #videoWrapper {
+      height: 450px;
     }
 
     #epgContainer {
       background-color: var(--epg-bg);
       padding: 1rem;
       overflow-y: auto;
-      height: 450px;
-      border-radius: 8px;
-      box-shadow: inset 0 0 8px rgb(0 0 0 / 0.05);
-      user-select: none;
     }
+
     #epgContainer h5 {
       color: var(--highlight-color);
       font-weight: 600;
-      margin-bottom: 1rem;
     }
+
     #epgList {
       list-style: none;
       padding: 0;
       margin: 0;
     }
+
     #epgList li {
       padding: 0.4rem 0;
       font-size: 0.95rem;
       border-bottom: 1px solid var(--channel-bg);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     #videoWrapper {
       position: relative;
       background-color: black;
       overflow: hidden;
-      height: 450px;
-      border-radius: 8px;
-      /* sombras quitadas */
     }
+
     video {
       width: 100%;
       height: 100%;
@@ -152,7 +119,6 @@
       white-space: nowrap;
       overflow-x: auto;
       padding-bottom: 0.5rem;
-      margin-top: 0.25rem;
     }
 
     .channel-card {
@@ -161,32 +127,15 @@
       margin-right: 0.75rem;
       cursor: pointer;
       text-align: center;
-      vertical-align: top;
-      user-select: none;
-      /* sombras y animaciones quitadas */
-      border-radius: 8px;
-      background-color: var(--card-bg);
-      padding: 0.25rem;
-      transition: none;
     }
-    .channel-card:hover {
-      /* Sin animación ni sombra */
-      transform: none;
-      box-shadow: none;
-    }
-    .channel-card.active {
-      border: 2px solid var(--highlight-color);
-      /* Sin sombra ni escala */
-      transform: none;
-      box-shadow: none;
-    }
+
     .channel-card img {
       width: 140px;
       height: 84px;
       object-fit: cover;
-      border-radius: 6px;
-      user-select: none;
+      border-radius: 8px;
     }
+
     .channel-card .card-title {
       margin-top: 0.5rem;
       font-size: 0.9rem;
@@ -194,21 +143,17 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      user-select: none;
     }
-    .channel-card.active .card-title {
+
+    .channel-card.active .card-title,
+    .channel-card:hover .card-title {
       color: var(--highlight-color);
     }
 
-    .group-block {
-      margin-bottom: 2rem;
-      user-select: none;
-    }
-    .group-title {
-      font-weight: 600;
-      color: var(--highlight-color);
-      margin-bottom: 0.5rem;
-      user-select: none;
+    @media (max-width: 991.98px) {
+      #epgContainer, #videoWrapper {
+        height: auto;
+      }
     }
 
     footer.footer {
@@ -217,476 +162,214 @@
       padding: 1rem 2rem;
       text-align: center;
       margin-top: 2rem;
-      flex-shrink: 0;
-      user-select: none;
-      font-size: 0.9rem;
-      box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.1);
-    }
-
-    /* Responsive */
-    @media (max-width: 991.98px) {
-      #epgContainer, #videoWrapper {
-        height: auto;
-      }
-    }
-
-    /* Ajustes para input y botón URL separados y no pegados en móvil */
-    .url-load-group {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-      max-width: 350px;
-    }
-    .url-load-group input[type="text"] {
-      flex-grow: 1;
-      min-width: 0;
-      border-radius: 20px;
-    }
-    .url-load-group button {
-      white-space: nowrap;
-      border-radius: 20px;
-    }
-
-    @media (max-width: 575.98px) {
-      .channel-card {
-        width: 110px;
-      }
-      .channel-card img {
-        width: 110px;
-        height: 66px;
-      }
-      .navbar-nav {
-        margin-bottom: 0.5rem;
-      }
-      .form-control {
-        width: 100% !important;
-        margin-top: 0.5rem;
-        border-radius: 12px;
-      }
-      .url-load-group {
-        max-width: 100%;
-      }
-    }
-
-    /* Scrollbar personalizado para channel scroll */
-    .channel-scroll::-webkit-scrollbar {
-      height: 8px;
-    }
-    .channel-scroll::-webkit-scrollbar-track {
-      background: var(--epg-bg);
-    }
-    .channel-scroll::-webkit-scrollbar-thumb {
-      background-color: var(--highlight-color);
-      border-radius: 4px;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg px-3">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">TV360</a>
-
-      <button class="theme-toggle-btn" aria-label="Cambiar tema" title="Cambiar tema" id="themeToggleBtn">
-        <i class="bi bi-moon-stars-fill"></i>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+        </ul>
+        <input class="form-control me-2 w-50" type="text" placeholder="Buscar canal..." id="searchInput" />
+        <input type="file" id="m3uInput" accept=".m3u,.txt" class="me-2" />
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema">🌙</button>
+      </div>
     </div>
   </nav>
 
-  <main class="container-main">
-    <div class="row g-3 align-items-center mb-3">
-      <div class="col-12 col-md-6">
-        <label for="m3uInput" class="form-label" style="font-weight:600;">Cargar archivo M3U</label>
-        <input
-          class="form-control"
-          type="file"
-          id="m3uInput"
-          accept=".m3u,.txt"
-          aria-describedby="m3uHelp"
-        />
-        <div id="m3uHelp" class="form-text">Archivo .m3u o .txt con lista de canales.</div>
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container-fluid container-main">
+    <div class="row">
+      <div class="col-lg-4 col-12 mb-3">
+        <div id="epgContainer">
+          <h5>Programación</h5>
+          <ul id="epgList"></ul>
+        </div>
       </div>
-      <div class="col-12 col-md-6">
-        <label for="urlInput" class="form-label" style="font-weight:600;">Cargar lista desde URL</label>
-        <div class="url-load-group">
-          <input
-            class="form-control"
-            type="text"
-            id="urlInput"
-            placeholder="Pega aquí la URL de la lista M3U"
-            aria-label="URL de lista M3U"
-          />
-          <button class="btn btn-primary" id="loadUrlBtn" aria-label="Cargar lista desde URL">Cargar URL</button>
+      <div class="col-lg-8 col-12">
+        <div id="videoWrapper">
+          <video id="livePlayer" controls autoplay></video>
         </div>
       </div>
     </div>
 
-    <div class="row g-4">
-      <div class="col-lg-8">
-        <div id="videoWrapper" role="region" aria-label="Reproductor de video">
-          <video
-            id="livePlayer"
-            controls
-            autoplay
-            playsinline
-            preload="auto"
-            controlsList="nodownload"
-            crossorigin="anonymous"
-            muted="false"
-          >
-            Tu navegador no soporta la etiqueta video.
-          </video>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div id="epgContainer" role="region" aria-label="Guía de programación EPG">
-          <h5>Guía de Programación (EPG)</h5>
-          <ul id="epgList" tabindex="0" aria-live="polite" aria-relevant="additions"></ul>
-        </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div id="channelGroupsList"></div>
       </div>
     </div>
+  </div>
 
-    <hr />
-
-    <section aria-label="Grupos y canales">
-      <div id="channelGroupsList" tabindex="0"></div>
-    </section>
-  </main>
-
+  <!-- FOOTER -->
   <footer class="footer">
-    © 2025 TV360 - Todos los derechos reservados.
+    <div>
+      © 2025 TV360. Todos los derechos reservados.
+    </div>
   </footer>
 
   <script>
-    let currentHls = null;
-    let currentChannelCard = null;
-    let channels = [];
-    let groupedChannels = {};
+    let channels = [], groupedChannels = {}, currentHls = null, currentChannelCard = null;
 
-    // Tema oscuro / claro
-    const themeToggleBtn = document.getElementById("themeToggleBtn");
-    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-    const root = document.documentElement;
-
-    function setTheme(theme) {
-      if (theme === "dark") {
-        root.setAttribute("data-theme", "dark");
-        themeToggleBtn.innerHTML = '<i class="bi bi-sun-fill" aria-hidden="true"></i>';
-      } else {
-        root.setAttribute("data-theme", "light");
-        themeToggleBtn.innerHTML = '<i class="bi bi-moon-stars-fill" aria-hidden="true"></i>';
-      }
-      localStorage.setItem("theme", theme);
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("tv360-theme", theme);
+      document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
     }
 
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme(prefersDark ? "dark" : "light");
-    }
-
-    themeToggleBtn.onclick = () => {
-      const newTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      setTheme(newTheme);
+    document.getElementById("themeToggleBtn").onclick = () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      applyTheme(current === "dark" ? "light" : "dark");
     };
 
-    // Parse M3U simple (extrae canales con grupo, logo y url)
+    applyTheme(localStorage.getItem("tv360-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+
     async function parseM3U(text) {
-      const lines = text.split(/\r?\n/).map(l => l.trim());
-      let result = [];
-      let defaultGroup = "Sin grupo";
+      const lines = text.split("\n");
+      const parsed = [];
       for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        if (!line || line.startsWith("#EXTM3U")) continue;
-        if (line.startsWith("#EXTINF")) {
-          const info = line.match(/#EXTINF:-?\d+.*,(.*)/);
-          const groupMatch = line.match(/group-title="([^"]*)"/i);
-          const logoMatch = line.match(/tvg-logo="([^"]*)"/i);
-          let name = info ? info[1].trim() : "Canal desconocido";
-          let group = groupMatch ? groupMatch[1].trim() : defaultGroup;
-          let logo = logoMatch ? logoMatch[1].trim() : "";
-          let url = lines[i + 1] || "";
-          i++;
-          if (!url.startsWith("http")) continue; // solo url válidas
-          result.push({name, group, logo, url});
+        if (lines[i].startsWith("#EXTINF")) {
+          const name = (lines[i].match(/,(.*)$/) || [])[1] || "Canal";
+          const logo = (lines[i].match(/tvg-logo="(.*?)"/) || [])[1] || "https://via.placeholder.com/140x84?text=Canal";
+          const group = (lines[i].match(/group-title="(.*?)"/) || [])[1] || "Otros";
+          const url = lines[i + 1]?.trim();
+          if (url && url.startsWith("http")) {
+            parsed.push({
+              name, logo, group, url,
+              epg: [
+                { time: "08:00", title: `Inicio de ${name}` },
+                { time: "09:00", title: `Programa de ${name}` },
+                { time: "10:00", title: `Más de ${name}` }
+              ]
+            });
+          }
         }
       }
-      return result;
+      return parsed;
     }
 
-    // Agrupar canales por grupo
-    function groupChannels(channels) {
-      const groups = {};
-      channels.forEach(c => {
-        if (!groups[c.group]) groups[c.group] = [];
-        groups[c.group].push(c);
-      });
-      return groups;
+    async function loadM3UFromFile(file) {
+      const text = await file.text();
+      channels = await parseM3U(text);
+      buildApp();
     }
 
-    // Renderizar grupos y canales
-    function renderChannels(groups) {
-      const container = document.getElementById("channelGroupsList");
-      container.innerHTML = "";
-      for (const group in groups) {
-        const groupBlock = document.createElement("div");
-        groupBlock.className = "group-block";
-
-        const title = document.createElement("h4");
-        title.className = "group-title";
-        title.textContent = group;
-        groupBlock.appendChild(title);
-
-        const scroll = document.createElement("div");
-        scroll.className = "channel-scroll";
-        scroll.setAttribute("tabindex", "0");
-        scroll.setAttribute("aria-label", `Canales del grupo ${group}`);
-
-        groups[group].forEach(channel => {
-          const card = document.createElement("div");
-          card.className = "channel-card";
-          card.setAttribute("role", "button");
-          card.setAttribute("tabindex", "0");
-          card.setAttribute("aria-pressed", "false");
-          card.setAttribute("aria-label", `Canal ${channel.name}`);
-
-          card.innerHTML = `
-            <img src="${channel.logo || 'https://via.placeholder.com/140x84?text=No+Logo'}" alt="Logo de ${channel.name}" loading="lazy" />
-            <div class="card-title">${channel.name}</div>
-          `;
-
-          card.onclick = () => selectChannel(channel, card);
-          card.onkeydown = (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              selectChannel(channel, card);
-            }
-          };
-
-          scroll.appendChild(card);
-        });
-
-        groupBlock.appendChild(scroll);
-        container.appendChild(groupBlock);
+    async function loadDefaultM3U() {
+      try {
+        const res = await fetch("canales.m3u");
+        const text = await res.text();
+        channels = await parseM3U(text);
+        buildApp();
+      } catch (err) {
+        alert("No se pudo cargar canales.m3u por defecto.");
       }
     }
 
-    // Render EPG (demo simple)
-    function renderEPG(channel) {
-      const epgList = document.getElementById("epgList");
-      epgList.innerHTML = "";
-
-      if (!channel) return;
-
-      const prog = [
-        { time: "12:00", title: `Inicio de transmisión: ${channel.name}` },
-        { time: "13:00", title: "Programa de ejemplo" },
-        { time: "14:00", title: "Noticias" },
-        { time: "15:00", title: "Show de variedades" }
-      ];
-
-      prog.forEach(p => {
-        const li = document.createElement("li");
-        li.textContent = `${p.time} - ${p.title}`;
-        epgList.appendChild(li);
+    function groupChannels(list) {
+      const grouped = {};
+      list.forEach(ch => {
+        grouped[ch.group] = grouped[ch.group] || [];
+        grouped[ch.group].push(ch);
       });
+      return grouped;
     }
 
-    // Seleccionar canal y reproducir
-    function selectChannel(channel, card) {
-      if (currentChannelCard) {
-        currentChannelCard.classList.remove("active");
-        currentChannelCard.setAttribute("aria-pressed", "false");
-      }
-      currentChannelCard = card;
-      card.classList.add("active");
-      card.setAttribute("aria-pressed", "true");
-
+    function playChannel(channel, card) {
       const video = document.getElementById("livePlayer");
-
-      if (currentHls) {
-        currentHls.destroy();
-        currentHls = null;
-      }
-
+      video.style.opacity = 0;
+      if (currentHls) currentHls.destroy();
       if (Hls.isSupported()) {
         currentHls = new Hls();
         currentHls.loadSource(channel.url);
         currentHls.attachMedia(video);
         currentHls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play().catch(() => {});
+          video.play();
+          setTimeout(() => video.style.opacity = 1, 200);
         });
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         video.src = channel.url;
-        video.play().catch(() => {});
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Tu navegador no soporta reproducción de streams HLS.",
+        video.addEventListener("loadedmetadata", () => {
+          video.play();
+          setTimeout(() => video.style.opacity = 1, 200);
         });
-        return;
+      } else {
+        alert("Tu navegador no soporta HLS.");
       }
-
-      renderEPG(channel);
+      showEPG(channel);
+      if (currentChannelCard) currentChannelCard.classList.remove("active");
+      if (card) {
+        card.classList.add("active");
+        currentChannelCard = card;
+      }
     }
 
-    // Cargar lista desde archivo
-    document.getElementById("m3uInput").addEventListener("change", async e => {
-      const file = e.target.files[0];
-      if (!file) return;
+    function showEPG(channel) {
+      const epgList = document.getElementById("epgList");
+      epgList.innerHTML = "";
+      channel.epg.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.time} — ${item.title}`;
+        epgList.appendChild(li);
+      });
+    }
 
-      if (!file.name.toLowerCase().endsWith(".m3u") && !file.name.toLowerCase().endsWith(".txt")) {
-        Swal.fire({
-          icon: "warning",
-          title: "Formato no soportado",
-          text: "Por favor, selecciona un archivo con extensión .m3u o .txt",
+    function buildApp() {
+      groupedChannels = groupChannels(channels);
+      const container = document.getElementById("channelGroupsList");
+      container.innerHTML = "";
+      for (const groupName in groupedChannels) {
+        const block = document.createElement("div");
+        block.className = "group-block";
+        const title = document.createElement("h6");
+        title.className = "group-title";
+        title.textContent = groupName;
+        const scroll = document.createElement("div");
+        scroll.className = "channel-scroll";
+        groupedChannels[groupName].forEach(channel => {
+          const card = document.createElement("div");
+          card.className = "channel-card";
+          card.setAttribute("data-name", channel.name.toLowerCase());
+          card.onclick = () => playChannel(channel, card);
+          card.innerHTML = `<img src="${channel.logo}" alt="${channel.name}"><div class="card-title">${channel.name}</div>`;
+          scroll.appendChild(card);
         });
-        return;
+        block.appendChild(title);
+        block.appendChild(scroll);
+        container.appendChild(block);
       }
 
-      try {
-        const text = await file.text();
-        channels = await parseM3U(text);
-        if (channels.length === 0) {
-          Swal.fire({
-            icon: "info",
-            title: "Archivo vacío o no válido",
-            text: "No se encontraron canales en el archivo.",
-          });
-          return;
-        }
-        groupedChannels = groupChannels(channels);
-        renderChannels(groupedChannels);
-        Swal.fire({
-          icon: "success",
-          title: "Lista cargada",
-          text: `${channels.length} canales cargados desde archivo.`,
-          timer: 1500,
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-        });
-      } catch (err) {
-        Swal.fire({
-          icon: "error",
-          title: "Error al leer archivo",
-          text: err.message,
-        });
+      // Autoplay primer canal
+      const firstGroup = Object.keys(groupedChannels)[0];
+      if (firstGroup) {
+        const firstChannel = groupedChannels[firstGroup][0];
+        const card = [...document.querySelectorAll(".channel-card")].find(c => c.getAttribute("data-name") === firstChannel.name.toLowerCase());
+        playChannel(firstChannel, card);
       }
-      e.target.value = "";
-    });
+    }
 
-    // Cargar lista desde URL
-    document.getElementById("loadUrlBtn").addEventListener("click", async () => {
-      const url = document.getElementById("urlInput").value.trim();
-      if (!url) {
-        Swal.fire({
-          icon: "warning",
-          title: "URL vacía",
-          text: "Por favor ingresa una URL válida para cargar la lista.",
-        });
-        return;
-      }
-
-      try {
-        Swal.fire({
-          title: 'Cargando lista desde URL...',
-          didOpen: () => Swal.showLoading(),
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-        });
-
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Error HTTP ${response.status}`);
-
-        const text = await response.text();
-        channels = await parseM3U(text);
-        if (channels.length === 0) {
-          Swal.fire({
-            icon: "info",
-            title: "Lista vacía o inválida",
-            text: "No se encontraron canales en la URL proporcionada.",
-          });
-          return;
-        }
-        groupedChannels = groupChannels(channels);
-        renderChannels(groupedChannels);
-        Swal.close();
-        Swal.fire({
-          icon: "success",
-          title: "Lista cargada",
-          text: `${channels.length} canales cargados desde URL.`,
-          timer: 1500,
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-        });
-      } catch (err) {
-        Swal.close();
-        Swal.fire({
-          icon: "error",
-          title: "Error al cargar URL",
-          text: err.message,
-        });
-      }
-    });
-
-    // Búsqueda en vivo
-    document.getElementById("searchInput")?.addEventListener("input", e => {
-      const query = e.target.value.toLowerCase();
-      const groupBlocks = document.querySelectorAll("#channelGroupsList .group-block");
-      groupBlocks.forEach(groupBlock => {
-        const groupTitle = groupBlock.querySelector(".group-title").textContent.toLowerCase();
-        const channelCards = groupBlock.querySelectorAll(".channel-card");
-        let anyVisible = false;
-
-        channelCards.forEach(card => {
-          const channelName = card.querySelector(".card-title").textContent.toLowerCase();
-          if (channelName.includes(query) || groupTitle.includes(query)) {
-            card.style.display = "";
-            anyVisible = true;
-          } else {
-            card.style.display = "none";
-          }
-        });
-        groupBlock.style.display = anyVisible ? "" : "none";
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll(".channel-card").forEach(card => {
+        const name = card.getAttribute("data-name");
+        card.style.display = name.includes(q) ? "inline-block" : "none";
       });
     });
 
-    // Al cargar, intenta cargar canales.m3u por defecto
-    async function loadDefaultList() {
-      try {
-        const response = await fetch("canales.m3u");
-        if (!response.ok) return;
-        const text = await response.text();
-        channels = await parseM3U(text);
-        if (channels.length > 0) {
-          groupedChannels = groupChannels(channels);
-          renderChannels(groupedChannels);
-          // Selecciona el primer canal automáticamente
-          if (channels[0]) {
-            // Encontrar la tarjeta correspondiente:
-            setTimeout(() => {
-              const cards = document.querySelectorAll(".channel-card");
-              for (const card of cards) {
-                if (card.querySelector(".card-title").textContent === channels[0].name) {
-                  selectChannel(channels[0], card);
-                  break;
-                }
-              }
-            }, 300);
-          }
-        }
-      } catch {
-        // No hacer nada si falla la carga
-      }
-    }
-
-    window.addEventListener("load", () => {
-      loadDefaultList();
+    document.getElementById("m3uInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) loadM3UFromFile(file);
     });
+
+    document.addEventListener("DOMContentLoaded", loadDefaultM3U);
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
