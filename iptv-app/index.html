@@ -293,29 +293,38 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg" role="navigation" aria-label="Menú principal">
-    <div class="container">
-      <a class="navbar-brand" href="#">TV360</a>
-      <div id="navbarInputsContainer" role="search" aria-label="Formulario para cargar lista M3U">
-        <input
-          type="text"
-          class="form-control"
-          id="urlInput"
-          placeholder="Pegar URL lista M3U"
-          aria-label="Pegar URL lista M3U"
-        />
-        <button id="loadUrlBtn" aria-label="Cargar URL lista M3U">Cargar</button>
-        <input
-          type="file"
-          id="m3uInput"
-          accept=".m3u,.txt"
-          aria-label="Cargar archivo lista M3U"
-          title="Cargar archivo lista M3U"
-        />
-        <button class="theme-toggle-btn" id="themeToggleBtn" title="Alternar tema" aria-label="Alternar tema">🌙</button>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold text-primary" href="#">TV360</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+      </ul>
+
+      <form class="d-flex align-items-center flex-wrap gap-2 w-100 w-lg-auto">
+        <!-- Input para URL -->
+        <input id="urlInput" class="form-control flex-grow-1" type="text" placeholder="Pegar URL de lista M3U" aria-label="Pegar URL de lista M3U" />
+
+        <!-- Botón para cargar URL -->
+        <button id="loadUrlBtn" type="button" class="btn btn-primary px-3">
+          Cargar URL
+        </button>
+
+        <!-- Input para archivo -->
+        <input id="m3uInput" type="file" accept=".m3u,.txt" class="form-control flex-grow-1" aria-label="Cargar archivo M3U" />
+
+        <!-- Botón toggle tema -->
+        <button id="themeToggleBtn" type="button" class="btn btn-outline-secondary" title="Alternar tema">🌙</button>
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="container-fluid container-main">
