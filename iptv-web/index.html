@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>IPTV Web Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #channel-list {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    .channel {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      cursor: pointer;
+    }
+
+    .channel:hover {
+      background: #444;
+    }
+
+    .channel img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+
+    video {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 20px;
+    }
+
+    #toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 12px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    body.light {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    body.light #channel-list {
+      background: #f0f0f0;
+      border-color: #ccc;
+    }
+
+    body.light .channel:hover {
+      background: #ddd;
+    }
+
+    body.dark {
+      background: #1c1c1c;
+      color: #f0f0f0;
+    }
+
+    body.dark #channel-list {
+      background: #2a2a2a;
+      border-color: #333;
+    }
+
+    body.dark .channel:hover {
+      background: #444;
+    }
+
+    body.light #toggle-theme {
+      background: #e0e0e0;
+      color: #000;
+    }
+
+    button.favorite {
+      background: transparent;
+      border: none;
+      color: #ffd700;
+      cursor: pointer;
+      font-size: 20px;
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>IPTV Web Player</h1>
+  <button id="toggle-theme">🌙 Modo oscuro</button>
+
+  <input type="file" id="m3u-file" accept=".m3u, .m3u8"><br>
+  <input type="file" id="epg-file" accept=".xml"><br>
+
+  <select id="category-select">
+    <option value="Todas">Todas las categorías</option>
+  </select>
+
+  <label>
+    <input type="checkbox" id="show-favorites"> Mostrar solo favoritos
+  </label>
+
+  <div id="channel-list"></div>
+
+  <video id="video-player" controls autoplay></video>
+
+  <!-- HLS.js para reproducir streams HLS (.m3u8) -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <script>
+    const fileInput = document.getElementById("m3u-file");
+    const epgInput = document.getElementById("epg-file");
+    const categorySelect = document.getElementById("category-select");
+    const favoritesCheckbox = document.getElementById("show-favorites");
+    const videoPlayer = document.getElementById("video-player");
+    const channelList = document.getElementById("channel-list");
+
+    let channels = [];
+    let epgData = {};
+
+    // ---------- PARSE M3U ----------
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        channels = parseM3U(e.target.result);
+        populateCategories(channels);
+        displayChannels(channels);
+      };
+      reader.readAsText(file);
+    });
+
+    function parseM3U(m3uContent) {
+      const lines = m3uContent.split("\n");
+      const result = [];
+      let current = {};
+
+      for (let line of lines) {
+        line = line.trim();
+        if (line.startsWith("#EXTINF")) {
+          const name = line.match(/,(.*)$/)?.[1] || "Sin nombre";
+          const logo = line.match(/tvg-logo="(.*?)"/)?.[1] || "";
+          const group = line.match(/group-title="(.*?)"/)?.[1] || "Sin categoría";
+          const id = line.match(/tvg-id="(.*?)"/)?.[1] || null;
+
+          current = { name, logo, group, tvg_id: id };
+        } else if (line && !line.startsWith("#")) {
+          current.url = line;
+          result.push(current);
+          current = {};
+        }
+      }
+      return result;
+    }
+
+    // ---------- PARSE EPG XML ----------
+    epgInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(e.target.result, "text/xml");
+        epgData = parseEPG(xml);
+        displayChannels(channels, categorySelect.value);
+      };
+      reader.readAsText(file);
+    });
+
+    function parseEPG(xml) {
+      const programmes = xml.getElementsByTagName("programme");
+      const epg = {};
+
+      for (let prog of programmes) {
+        const id = prog.getAttribute("channel");
+        const start = parseEPGDate(prog.getAttribute("start").split(" ")[0]);
+        const stop = parseEPGDate(prog.getAttribute("stop").split(" ")[0]);
+        const title = prog.getElementsByTagName("title")[0]?.textContent || "";
+        const desc = prog.getElementsByTagName("desc")[0]?.textContent || "";
+
+        if (!epg[id]) epg[id] = [];
+        epg[id].push({ start, stop, title, desc });
+      }
+      return epg;
+    }
+
+    function parseEPGDate(str) {
+      const y = +str.slice(0, 4);
+      const m = +str.slice(4, 6) - 1;
+      const d = +str.slice(6, 8);
+      const h = +str.slice(8, 10);
+      const min = +str.slice(10, 12);
+      const s = +str.slice(12, 14);
+      return new Date(Date.UTC(y, m, d, h, min, s));
+    }
+
+    // ---------- FAVORITOS ----------
+    function getFavorites() {
+      return JSON.parse(localStorage.getItem("favorites") || "[]");
+    }
+
+    function toggleFavorite(url) {
+      const favs = getFavorites();
+      const index = favs.indexOf(url);
+      if (index === -1) favs.push(url);
+      else favs.splice(index, 1);
+      localStorage.setItem("favorites", JSON.stringify(favs));
+    }
+
+    function isFavorite(url) {
+      return getFavorites().includes(url);
+    }
+
+    // ---------- CATEGORÍAS ----------
+    function populateCategories(channels) {
+      const cats = ["Todas", ...new Set(channels.map(c => c.group))];
+      categorySelect.innerHTML = "";
+      cats.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categorySelect.appendChild(opt);
+      });
+    }
+
+    categorySelect.addEventListener("change", () => {
+      displayChannels(channels, categorySelect.value);
+    });
+
+    favoritesCheckbox.addEventListener("change", () => {
+      displayChannels(channels, categorySelect.value);
+    });
+
+    // ---------- MOSTRAR CANALES ----------
+    function displayChannels(list, selectedCategory = "Todas") {
+      const favs = getFavorites();
+      const filtered = selectedCategory === "Todas"
+        ? list
+        : list.filter(c => c.group === selectedCategory);
+
+      const onlyFavs = favoritesCheckbox.checked
+        ? filtered.filter(c => favs.includes(c.url))
+        : filtered;
+
+      onlyFavs.sort((a, b) => {
+        const aFav = favs.includes(a.url);
+        const bFav = favs.includes(b.url);
+        return aFav === bFav ? 0 : aFav ? -1 : 1;
+      });
+
+      channelList.innerHTML = "";
+
+      onlyFavs.forEach(channel => {
+        const div = document.createElement("div");
+        div.className = "channel";
+
+        const img = document.createElement("img");
+        img.src = channel.logo;
+        img.onerror = () => img.style.display = "none";
+
+        const content = document.createElement("div");
+        const title = document.createElement("strong");
+        title.textContent = channel.name;
+        content.appendChild(title);
+
+        if (channel.tvg_id && epgData[channel.tvg_id]) {
+          const now = new Date();
+          const progs = epgData[channel.tvg_id];
+          const current = progs.find(p => now >= p.start && now < p.stop);
+          const next = progs.find(p => p.start > now);
+
+          const currentEl = document.createElement("div");
+          currentEl.textContent = current ? `▶️ Ahora: ${current.title}` : "Sin info";
+
+          const nextEl = document.createElement("div");
+          nextEl.textContent = next ? `⏭ Siguiente: ${next.title}` : "";
+
+          content.appendChild(currentEl);
+          content.appendChild(nextEl);
+        }
+
+        const favBtn = document.createElement("button");
+        favBtn.className = "favorite";
+        favBtn.textContent = isFavorite(channel.url) ? "⭐" : "☆";
+        favBtn.onclick = (e) => {
+          e.stopPropagation();
+          toggleFavorite(channel.url);
+          displayChannels(channels, categorySelect.value);
+        };
+
+        div.appendChild(img);
+        div.appendChild(content);
+        div.appendChild(favBtn);
+
+        div.onclick = () => playChannel(channel.url);
+        channelList.appendChild(div);
+      });
+    }
+
+    // ---------- REPRODUCTOR ----------
+    function playChannel(url) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(videoPlayer);
+      } else if (videoPlayer.canPlayType("application/vnd.apple.mpegurl")) {
+        videoPlayer.src = url;
+      }
+    }
+
+    // ---------- TEMA OSCURO / CLARO ----------
+    function applyTheme(theme) {
+      document.body.classList.remove("light", "dark");
+      document.body.classList.add(theme);
+      localStorage.setItem("theme", theme);
+      document.getElementById("toggle-theme").textContent =
+        theme === "dark" ? "☀️ Modo claro" : "🌙 Modo oscuro";
+    }
+
+    function toggleTheme() {
+      const current = localStorage.getItem("theme") || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
+    }
+
+    document.getElementById("toggle-theme").addEventListener("click", toggleTheme);
+    applyTheme(localStorage.getItem("theme") || "dark");
+  </script>
+</body>
+</html>
