@@ -23,6 +23,7 @@ body.light {
 .channel-card:hover {
   transform: scale(1.02);
 }
+
 .remote-control {
   z-index: 1000;
 }
