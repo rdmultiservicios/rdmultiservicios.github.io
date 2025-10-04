@@ -1,0 +1,28 @@
+body.dark {
+  background-color: #121212;
+  color: #f8f9fa;
+}
+body.light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+}
+
+#video-player {
+  max-height: 500px;
+}
+
+.channel-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.channel-card:hover {
+  transform: scale(1.02);
+}
+.remote-control {
+  z-index: 1000;
+}
