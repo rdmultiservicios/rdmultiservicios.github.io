@@ -8,7 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
       renderChannels(allChannels);
     });
 
-  document.getElementById("searchInput").addEventListener("input", (e) => {
+  // Desktop search
+  document.getElementById("searchInput")?.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
+    renderChannels(filtered);
+  });
+
+  // Mobile search
+  document.getElementById("searchInputMobile")?.addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
     const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
     renderChannels(filtered);
@@ -40,27 +48,47 @@ function parseM3U(content) {
 }
 
 function renderChannels(channels) {
+  // Desktop
   const container = document.getElementById("channelList");
-  container.innerHTML = "";
+  if (container) {
+    container.innerHTML = "";
+    channels.forEach(channel => {
+      const btn = document.createElement("div");
+      btn.className = "channel-button";
+      btn.innerHTML = `
+        <img src="${channel.logo}" alt="${channel.name}">
+        <span>${channel.name}</span>
+      `;
+      btn.onclick = () => playChannel(channel, false);
+      container.appendChild(btn);
+    });
+  }
 
-  channels.forEach(channel => {
-    const btn = document.createElement("div");
-    btn.className = "channel-button";
-    btn.innerHTML = `
-      <img src="${channel.logo}" alt="${channel.name}">
-      <span>${channel.name}</span>
-    `;
-    btn.onclick = () => playChannel(channel);
-    container.appendChild(btn);
-  });
+  // Mobile
+  const mobileGrid = document.getElementById("channelGridMobile");
+  if (mobileGrid) {
+    mobileGrid.innerHTML = "";
+    channels.forEach(channel => {
+      const btn = document.createElement("div");
+      btn.className = "channel-button";
+      btn.innerHTML = `
+        <img src="${channel.logo}" alt="${channel.name}" style="width:40px;height:40px;border-radius:4px;">
+        <small>${channel.name}</small>
+      `;
+      btn.onclick = () => playChannel(channel, true);
+      mobileGrid.appendChild(btn);
+    });
+  }
 }
 
-function playChannel(channel) {
-  const container = document.getElementById("videoContainer");
+function playChannel(channel, isMobile = false) {
+  const targetContainer = isMobile
+    ? document.getElementById("videoContainerMobile")
+    : document.getElementById("videoContainer");
 
-  container.innerHTML = `
+  targetContainer.innerHTML = `
     <h5>${channel.name}</h5>
-    <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay width="100%" height="400"></video>
+    <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay width="100%" height="300"></video>
   `;
 
   const player = videojs('videoPlayer', {
@@ -76,5 +104,12 @@ function playChannel(channel) {
     hls.attachMedia(player.tech().el_);
   } else {
     player.src({ type: "application/x-mpegURL", src: channel.url });
+  }
+
+  // En móvil, hacer scroll hacia el reproductor
+  if (isMobile) {
+    setTimeout(() => {
+      targetContainer.scrollIntoView({ behavior: "smooth" });
+    }, 300);
   }
 }
