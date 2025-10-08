@@ -1,94 +1,196 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <title>TV en Vivo - TDT Clone</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi IPTV Web</title>
 
   <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
   <!-- Video.js -->
-  <link href="https://vjs.zencdn.net/8.5.2/video-js.css" rel="stylesheet" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    .canal-item img {
+      width: 100%;
+      height: auto;
+      max-height: 100px;
+      object-fit: contain;
+    }
+    .epg {
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">TDTChannels</a>
-      <button class="btn btn-outline-light ms-auto" id="toggleTheme">🌙</button>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary px-3">
+  <a class="navbar-brand" href="#">IPTV</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Películas</a></li>
+    </ul>
+    <button id="toggleTheme" class="btn btn-outline-secondary"><i class="bi bi-moon-fill"></i></button>
+  </div>
+</nav>
+
+<!-- Contenido Principal -->
+<div class="container-fluid mt-3">
+  <div class="row">
+    <!-- Columna Izquierda -->
+    <div class="col-lg-3 col-md-4 col-12 mb-4">
+      <input type="text" id="buscar" class="form-control mb-2" placeholder="Buscar canal...">
+      <select id="filtroGrupo" class="form-select mb-3">
+        <option value="">Todos los grupos</option>
+      </select>
+      <div id="listaCanales" class="row gy-2"></div>
     </div>
-  </nav>
 
-  <!-- Desktop layout -->
-  <div class="container-fluid d-none d-md-block">
-    <div class="row vh-100">
+    <!-- Columna Central -->
+    <div class="col-lg-6 col-md-8 col-12 mb-4">
+      <video id="player" class="video-js vjs-default-skin vjs-16-9 w-100" controls preload="auto"></video>
+      <div class="epg mt-3" id="epgInfo">Cargando programación...</div>
+    </div>
 
-      <!-- Sidebar canales desktop -->
-      <div class="col-md-3 p-3 border-end bg-light channel-sidebar">
-        <h5>Televisión</h5>
-        <input id="searchInput" class="form-control mb-3" type="text" placeholder="Buscar..." />
-        <div id="channelList" class="d-flex flex-column gap-2 overflow-auto h-100"></div>
-      </div>
-
-      <!-- Reproductor desktop -->
-      <div class="col-md-6 p-3 d-flex flex-column align-items-center justify-content-center bg-white" id="videoContainer">
-        <p class="text-muted text-center">Selecciona algún canal para empezar</p>
-      </div>
-
-      <!-- Publicidad desktop -->
-      <div class="col-md-3 p-3 border-start bg-light">
-        <h5>Publicidad</h5>
-        <img src="https://via.placeholder.com/250x250?text=Publicidad+1" class="img-fluid mb-3" alt="Ad 1" />
-        <img src="https://via.placeholder.com/250x250?text=Publicidad+2" class="img-fluid mb-3" alt="Ad 2" />
-        <img src="https://via.placeholder.com/250x250?text=Publicidad+3" class="img-fluid" alt="Ad 3" />
-      </div>
+    <!-- Columna Derecha -->
+    <div class="col-lg-3 d-none d-lg-block">
+      <!-- Adsense -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="yyyyyyyyyy"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   </div>
+</div>
 
-  <!-- Mobile layout -->
-  <div class="d-md-none">
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Canales móviles -->
-    <div class="container p-3">
-      <h5>Canales</h5>
-      <input id="searchInputMobile" class="form-control mb-3" type="text" placeholder="Buscar..." />
-      <div id="channelGridMobile" class="channel-grid-mobile"></div>
-    </div>
+<script>
+  // Dark/Light mode toggle
+  document.getElementById('toggleTheme').addEventListener('click', function () {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-bs-theme');
+    html.setAttribute('data-bs-theme', current === 'light' ? 'dark' : 'light');
+    this.innerHTML = current === 'light' ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
+  });
 
-    <!-- Reproductor móvil -->
-    <div class="container p-3" id="videoContainerMobile">
-      <p class="text-muted text-center">Selecciona un canal</p>
-    </div>
+  const listaCanales = document.getElementById('listaCanales');
+  const filtroGrupo = document.getElementById('filtroGrupo');
+  const buscar = document.getElementById('buscar');
+  const epgInfo = document.getElementById('epgInfo');
 
-    <!-- Publicidad móvil -->
-    <div class="container p-3">
-      <h5>Publicidad</h5>
-      <div class="row g-2">
-        <div class="col-6">
-          <img src="https://via.placeholder.com/300x300?text=Ad1" class="img-fluid" />
+  const player = videojs('player', {
+    autoplay: false,
+    controls: true,
+    preload: 'auto'
+  });
+
+  let canales = [];
+
+  // Cargar canales.m3u
+  async function cargarCanales() {
+    const res = await fetch('canales.m3u');
+    const texto = await res.text();
+    const lineas = texto.split('\n');
+    let grupoSet = new Set();
+
+    for (let i = 0; i < lineas.length; i++) {
+      if (lineas[i].startsWith('#EXTINF')) {
+        const info = lineas[i];
+        const url = lineas[i + 1]?.trim();
+        const nombre = info.match(/,(.*)/)?.[1] || 'Canal';
+        const logo = info.match(/tvg-logo="(.*?)"/)?.[1] || '';
+        const grupo = info.match(/group-title="(.*?)"/)?.[1] || 'General';
+        grupoSet.add(grupo);
+        canales.push({ nombre, logo, grupo, url });
+      }
+    }
+
+    // Llenar filtro de grupo
+    grupoSet.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g;
+      opt.textContent = g;
+      filtroGrupo.appendChild(opt);
+    });
+
+    renderCanales();
+  }
+
+  function renderCanales() {
+    const filtro = buscar.value.toLowerCase();
+    const grupoSel = filtroGrupo.value;
+    listaCanales.innerHTML = '';
+
+    canales.filter(c => {
+      return c.nombre.toLowerCase().includes(filtro) &&
+        (grupoSel === '' || c.grupo === grupoSel);
+    }).forEach(canal => {
+      const col = document.createElement('div');
+      col.className = 'col-6 col-md-12';
+      col.innerHTML = `
+        <div class="card canal-item" onclick="reproducir('${canal.url}', '${canal.nombre}')">
+          <img src="${canal.logo}" class="card-img-top" alt="${canal.nombre}">
+          <div class="card-body p-2">
+            <p class="card-text text-center">${canal.nombre}</p>
+          </div>
         </div>
-        <div class="col-6">
-          <img src="https://via.placeholder.com/300x300?text=Ad2" class="img-fluid" />
-        </div>
-        <div class="col-12">
-          <img src="https://via.placeholder.com/600x150?text=Ad3" class="img-fluid" />
-        </div>
-      </div>
-    </div>
-  </div>
+      `;
+      listaCanales.appendChild(col);
+    });
+  }
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3 mt-3">
-    &copy; 2025 TDTChannels Clone | Proyecto educativo
-  </footer>
+  function reproducir(url, nombre) {
+    player.src({ type: 'application/x-mpegURL', src: url });
+    player.play();
+    cargarEPG(nombre);
+  }
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://vjs.zencdn.net/8.5.2/video.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.0/dist/hls.min.js"></script>
-  <script src="js/app.js"></script>
+  // Cargar EPG XML (demo simple)
+  async function cargarEPG(nombreCanal) {
+    try {
+      const res = await fetch('epg.xml');
+      const texto = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(texto, 'application/xml');
+      const programas = xml.querySelectorAll('programme');
+
+      let html = '';
+      programas.forEach(p => {
+        const canal = p.getAttribute('channel');
+        if (canal.toLowerCase().includes(nombreCanal.toLowerCase())) {
+          const inicio = p.getAttribute('start');
+          const fin = p.getAttribute('stop');
+          const titulo = p.querySelector('title')?.textContent || '';
+          html += `<div><strong>${titulo}</strong> (${inicio} - ${fin})</div>`;
+        }
+      });
+
+      epgInfo.innerHTML = html || 'Sin programación disponible.';
+    } catch (e) {
+      epgInfo.textContent = 'No se pudo cargar la programación.';
+    }
+  }
+
+  buscar.addEventListener('input', renderCanales);
+  filtroGrupo.addEventListener('change', renderCanales);
+
+  cargarCanales();
+</script>
+
 </body>
 </html>
