@@ -34,9 +34,22 @@
       </div>
 
       <!-- Reproductor desktop -->
-      <div class="col-md-6 p-3 d-flex flex-column align-items-center justify-content-center bg-white" id="videoContainer">
+      <!-- <div class="col-md-6 p-3 d-flex flex-column align-items-center justify-content-center bg-white" id="videoContainer">
         <p class="text-muted text-center">Selecciona algún canal para empezar</p>
+      </div> -->
+
+      <div id="videoContainer" class="col-md-6 p-3 d-flex flex-column align-items-center justify-content-center">
+        <h5 id="videoTitle">Selecciona un canal</h5>
+        <video
+          id="videoPlayer"
+          class="video-js vjs-default-skin"
+          controls
+          preload="auto"
+          width="100%"
+          height="360"
+        ></video>
       </div>
+
 
       <!-- Publicidad desktop -->
       <div class="col-md-3 p-3 border-start bg-light">
