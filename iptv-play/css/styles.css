@@ -1,35 +1,29 @@
 /* Scroll en lista de canales desktop */
 .channel-sidebar {
-  height: calc(100vh - 56px); /* navbar height */
+  height: calc(100vh - 56px);
   overflow-y: auto;
-  overflow-x: hidden; /* evitar scroll horizontal duplicado */
+  overflow-x: hidden;
 }
 
-/* Estilos botones canal desktop */
-.channel-button {
-  display: flex;
-  align-items: center;
+.channel-grid-desktop {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  padding: 6px 10px;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  height: calc(100vh - 56px - 130px);
+  overflow-y: auto;
+}
+
+.channel-grid-desktop .channel-button {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  height: 100px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.channel-button:hover {
-  background-color: #e9ecef;
-}
-
-.channel-button img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-/* Grilla canales móvil */
 .channel-grid-mobile {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -44,6 +38,29 @@
   font-size: 0.8rem;
   text-align: center;
   height: 100px;
+}
+
+.channel-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-direction: row;
+}
+
+.channel-button:hover {
+  background-color: #e9ecef;
+}
+
+.channel-button img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 /* Dark mode */
@@ -101,4 +118,5 @@ footer {
   bottom: 0;
   width: 100%;
   background-color: #000;
+  margin-top: 1rem;
 }
