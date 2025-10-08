@@ -1,5 +1,4 @@
 let allChannels = [];
-let player;
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("channels.m3u")
@@ -7,22 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       allChannels = parseM3U(data);
       renderChannels(allChannels);
-      initPlayer();
     });
 
-  // Filtros desktop
-  document.getElementById("searchInput").addEventListener("input", applyFilters);
-  document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+  // Desktop search
+  document.getElementById("searchInput")?.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
+    renderChannels(filtered);
+  });
 
-  // Filtros móvil
-  const searchInputMobile = document.getElementById("searchInputMobile");
-  if (searchInputMobile) {
-    searchInputMobile.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase();
-      const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
-      renderChannels(filtered);
-    });
-  }
+  // Mobile search
+  document.getElementById("searchInputMobile")?.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
+    renderChannels(filtered);
+  });
 
   // Toggle dark mode
   document.getElementById("toggleTheme").addEventListener("click", () => {
@@ -39,14 +37,9 @@ function parseM3U(content) {
       const name = lines[i].split(",")[1]?.trim() || "Canal";
       const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
       const logo = logoMatch ? logoMatch[1] : "https://via.placeholder.com/50x50?text=Logo";
-
-      // Extraemos categoría si existe (ejemplo: group-title="news")
-      const catMatch = lines[i].match(/group-title="(.*?)"/);
-      const category = catMatch ? catMatch[1].toLowerCase() : null;
-
       const url = lines[i + 1]?.trim();
       if (url && url.startsWith("http")) {
-        channels.push({ name, logo, url, category });
+        channels.push({ name, logo, url });
       }
     }
   }
@@ -55,24 +48,23 @@ function parseM3U(content) {
 }
 
 function renderChannels(channels) {
-  // Desktop grid
-  const desktopGrid = document.getElementById("channelGridDesktop");
-  if (desktopGrid) {
-    desktopGrid.innerHTML = "";
+  // Desktop
+  const container = document.getElementById("channelList");
+  if (container) {
+    container.innerHTML = "";
     channels.forEach(channel => {
       const btn = document.createElement("div");
       btn.className = "channel-button";
-      btn.title = channel.name;
       btn.innerHTML = `
-        <img src="${channel.logo}" alt="${channel.name}" style="width:50px;height:50px;border-radius:4px;">
-        <small>${channel.name}</small>
+        <img src="${channel.logo}" alt="${channel.name}">
+        <span>${channel.name}</span>
       `;
-      btn.onclick = () => playChannel(channel);
-      desktopGrid.appendChild(btn);
+      btn.onclick = () => playChannel(channel, false);
+      container.appendChild(btn);
     });
   }
 
-  // Móvil grid
+  // Mobile
   const mobileGrid = document.getElementById("channelGridMobile");
   if (mobileGrid) {
     mobileGrid.innerHTML = "";
@@ -83,41 +75,41 @@ function renderChannels(channels) {
         <img src="${channel.logo}" alt="${channel.name}" style="width:40px;height:40px;border-radius:4px;">
         <small>${channel.name}</small>
       `;
-      btn.onclick = () => playChannel(channel);
+      btn.onclick = () => playChannel(channel, true);
       mobileGrid.appendChild(btn);
     });
   }
 }
 
-function applyFilters() {
-  const searchValue = document.getElementById("searchInput").value.toLowerCase();
-  const categoryValue = document.getElementById("categoryFilter").value;
+function playChannel(channel, isMobile = false) {
+  const targetContainer = isMobile
+    ? document.getElementById("videoContainerMobile")
+    : document.getElementById("videoContainer");
 
-  const filtered = allChannels.filter(ch => {
-    const matchName = ch.name.toLowerCase().includes(searchValue);
-    const matchCategory = categoryValue === "all" || (ch.category && ch.category.toLowerCase() === categoryValue);
-    return matchName && matchCategory;
-  });
+  targetContainer.innerHTML = `
+    <h5>${channel.name}</h5>
+    <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay width="100%" height="300"></video>
+  `;
 
-  renderChannels(filtered);
-}
-
-function initPlayer() {
-  player = videojs('videoPlayer', {
+  const player = videojs('videoPlayer', {
     fluid: true,
-    autoplay: false,
+    autoplay: true,
     controls: true,
-    preload: 'auto',
-    html5: {
-      hls: {
-        overrideNative: true
-      }
-    }
+    preload: 'auto'
   });
-}
 
-function playChannel(channel) {
-  if (!player) return;
-  player.src({ src: channel.url, type: 'application/x-mpegURL' });
-  player.play();
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(channel.url);
+    hls.attachMedia(player.tech().el_);
+  } else {
+    player.src({ type: "application/x-mpegURL", src: channel.url });
+  }
+
+  // En móvil, hacer scroll hacia el reproductor
+  if (isMobile) {
+    setTimeout(() => {
+      targetContainer.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  }
 }
