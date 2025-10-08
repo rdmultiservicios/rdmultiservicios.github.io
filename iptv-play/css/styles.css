@@ -2,6 +2,7 @@
 .channel-sidebar {
   height: calc(100vh - 56px); /* navbar height */
   overflow-y: auto;
+  overflow-x: hidden; /* evitar scroll horizontal duplicado */
 }
 
 /* Estilos botones canal desktop */
@@ -68,6 +69,31 @@ body.dark-mode .channel-button {
 
 body.dark-mode .channel-button:hover {
   background-color: #3a3a3a;
+}
+
+/* Reproductor desktop: altura fija sin scroll */
+#videoContainer {
+  height: calc(100vh - 56px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Publicidad desktop: scroll vertical si excede altura */
+.col-md-3.bg-light.border-start {
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.col-md-3.bg-light.border-start img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 footer {
