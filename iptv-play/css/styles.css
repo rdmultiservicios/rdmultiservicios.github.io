@@ -1,4 +1,13 @@
-.card-img-top {
-  max-height: 180px;
-  object-fit: cover;
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#channelList button {
+  height: 100px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+#videoContainer {
+  min-height: 300px;
 }
