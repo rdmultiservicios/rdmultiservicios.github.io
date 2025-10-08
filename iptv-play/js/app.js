@@ -9,10 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
       renderChannels(allChannels);
     });
 
-  // Inicializa el player una sola vez
   initPlayer();
 
-  // Eventos búsqueda desktop y móvil
+  // Eventos de búsqueda desktop y móvil
   document.getElementById("searchInput")?.addEventListener("input", onSearch);
   document.getElementById("searchInputMobile")?.addEventListener("input", onSearch);
 
@@ -89,17 +88,19 @@ function initPlayer() {
     fluid: true,
     autoplay: false,
     controls: true,
-    preload: 'auto'
+    preload: 'auto',
+    playsinline: true,
   });
 }
 
 function playChannel(channel) {
   if (!player) return;
-  player.pause();
-  // Para HLS detecta si Hls.js es compatible y usa esa fuente
+  updatePlayerTitle(channel.name);
+
   if (window.Hls && Hls.isSupported()) {
     const tech = player.tech(true);
     if (tech) {
+      // destruye instancia anterior si existe
       if (player.hls) {
         player.hls.destroy();
         player.hls = null;
@@ -116,7 +117,6 @@ function playChannel(channel) {
     player.src({ src: channel.url, type: 'application/x-mpegURL' });
     player.play();
   }
-  updatePlayerTitle(channel.name);
 }
 
 function updatePlayerTitle(name) {
@@ -130,7 +130,9 @@ function scrollToPlayerMobile() {
   if (window.innerWidth < 768) {
     const container = document.getElementById("videoContainer");
     if (container) {
-      container.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        container.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 300);
     }
   }
 }
