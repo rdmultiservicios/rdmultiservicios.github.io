@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+  <channel id="Canal Demo 1">
+    <display-name>Canal Demo 1</display-name>
+  </channel>
+  <channel id="Canal Demo 2">
+    <display-name>Canal Demo 2</display-name>
+  </channel>
+  <channel id="Canal Demo 3">
+    <display-name>Canal Demo 3</display-name>
+  </channel>
+
+  <programme start="20251008120000 +0000" stop="20251008130000 +0000" channel="Canal Demo 1">
+    <title>Programa 1</title>
+  </programme>
+  <programme start="20251008130000 +0000" stop="20251008140000 +0000" channel="Canal Demo 1">
+    <title>Programa 2</title>
+  </programme>
+
+  <programme start="20251008120000 +0000" stop="20251008130000 +0000" channel="Canal Demo 2">
+    <title>Noticiero</title>
+  </programme>
+
+  <programme start="20251008120000 +0000" stop="20251008130000 +0000" channel="Canal Demo 3">
+    <title>Partido de fútbol</title>
+  </programme>
+</tv>
