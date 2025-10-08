@@ -10,10 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("searchInput").addEventListener("input", (e) => {
     const query = e.target.value.toLowerCase();
-    const filtered = allChannels.filter(ch =>
-      ch.name.toLowerCase().includes(query)
-    );
+    const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
     renderChannels(filtered);
+  });
+
+  // Toggle dark mode
+  document.getElementById("toggleTheme").addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
   });
 });
 
@@ -23,11 +26,10 @@ function parseM3U(content) {
 
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].startsWith("#EXTINF")) {
-      const name = lines[i].split(",")[1]?.trim() || "Canal sin nombre";
+      const name = lines[i].split(",")[1]?.trim() || "Canal";
       const logoMatch = lines[i].match(/tvg-logo="(.*?)"/);
-      const logo = logoMatch ? logoMatch[1] : "https://via.placeholder.com/100x100?text=Logo";
+      const logo = logoMatch ? logoMatch[1] : "https://via.placeholder.com/50x50?text=Logo";
       const url = lines[i + 1]?.trim();
-
       if (url && url.startsWith("http")) {
         channels.push({ name, logo, url });
       }
@@ -42,28 +44,37 @@ function renderChannels(channels) {
   container.innerHTML = "";
 
   channels.forEach(channel => {
-    const button = document.createElement("button");
-    button.className = "btn btn-outline-secondary d-flex flex-column align-items-center p-2";
-    button.style.width = "75px";
-    button.title = channel.name;
-    button.innerHTML = `
-      <img src="${channel.logo}" alt="${channel.name}" class="img-fluid rounded mb-1" style="width: 50px; height: 50px; object-fit: cover;">
-      <small class="text-truncate">${channel.name}</small>
+    const btn = document.createElement("div");
+    btn.className = "channel-button";
+    btn.innerHTML = `
+      <img src="${channel.logo}" alt="${channel.name}">
+      <span>${channel.name}</span>
     `;
-    button.onclick = () => playChannel(channel);
-    container.appendChild(button);
+    btn.onclick = () => playChannel(channel);
+    container.appendChild(btn);
   });
 }
 
 function playChannel(channel) {
-  const videoContainer = document.getElementById("videoContainer");
-  videoContainer.innerHTML = `
-    <div class="w-100">
-      <h5>${channel.name}</h5>
-      <video class="w-100" controls autoplay>
-        <source src="${channel.url}" type="application/x-mpegURL">
-        Tu navegador no soporta video HTML5.
-      </video>
-    </div>
+  const container = document.getElementById("videoContainer");
+
+  container.innerHTML = `
+    <h5>${channel.name}</h5>
+    <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay width="100%" height="400"></video>
   `;
+
+  const player = videojs('videoPlayer', {
+    fluid: true,
+    autoplay: true,
+    controls: true,
+    preload: 'auto'
+  });
+
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(channel.url);
+    hls.attachMedia(player.tech().el_);
+  } else {
+    player.src({ type: "application/x-mpegURL", src: channel.url });
+  }
 }
