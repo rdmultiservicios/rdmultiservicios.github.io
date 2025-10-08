@@ -1,5 +1,4 @@
 let allChannels = [];
-let player;
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("channels.m3u")
@@ -9,23 +8,25 @@ document.addEventListener("DOMContentLoaded", () => {
       renderChannels(allChannels);
     });
 
-  initPlayer();
+  // Desktop search
+  document.getElementById("searchInput")?.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
+    renderChannels(filtered);
+  });
 
-  // Eventos de búsqueda desktop y móvil
-  document.getElementById("searchInput")?.addEventListener("input", onSearch);
-  document.getElementById("searchInputMobile")?.addEventListener("input", onSearch);
+  // Mobile search
+  document.getElementById("searchInputMobile")?.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
+    renderChannels(filtered);
+  });
 
   // Toggle dark mode
-  document.getElementById("toggleTheme")?.addEventListener("click", () => {
+  document.getElementById("toggleTheme").addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
   });
 });
-
-function onSearch(e) {
-  const query = e.target.value.toLowerCase();
-  const filtered = allChannels.filter(ch => ch.name.toLowerCase().includes(query));
-  renderChannels(filtered);
-}
 
 function parseM3U(content) {
   const lines = content.split("\n");
@@ -47,7 +48,7 @@ function parseM3U(content) {
 }
 
 function renderChannels(channels) {
-  // Desktop container
+  // Desktop
   const container = document.getElementById("channelList");
   if (container) {
     container.innerHTML = "";
@@ -58,12 +59,12 @@ function renderChannels(channels) {
         <img src="${channel.logo}" alt="${channel.name}">
         <span>${channel.name}</span>
       `;
-      btn.onclick = () => playChannel(channel);
+      btn.onclick = () => playChannel(channel, false);
       container.appendChild(btn);
     });
   }
 
-  // Mobile container
+  // Mobile
   const mobileGrid = document.getElementById("channelGridMobile");
   if (mobileGrid) {
     mobileGrid.innerHTML = "";
@@ -74,65 +75,41 @@ function renderChannels(channels) {
         <img src="${channel.logo}" alt="${channel.name}" style="width:40px;height:40px;border-radius:4px;">
         <small>${channel.name}</small>
       `;
-      btn.onclick = () => {
-        playChannel(channel);
-        scrollToPlayerMobile();
-      };
+      btn.onclick = () => playChannel(channel, true);
       mobileGrid.appendChild(btn);
     });
   }
 }
 
-function initPlayer() {
-  player = videojs('videoPlayer', {
+function playChannel(channel, isMobile = false) {
+  const targetContainer = isMobile
+    ? document.getElementById("videoContainerMobile")
+    : document.getElementById("videoContainer");
+
+  targetContainer.innerHTML = `
+    <h5>${channel.name}</h5>
+    <video id="videoPlayer" class="video-js vjs-default-skin" controls autoplay width="100%" height="300"></video>
+  `;
+
+  const player = videojs('videoPlayer', {
     fluid: true,
-    autoplay: false,
+    autoplay: true,
     controls: true,
-    preload: 'auto',
-    playsinline: true,
+    preload: 'auto'
   });
-}
 
-function playChannel(channel) {
-  if (!player) return;
-  updatePlayerTitle(channel.name);
-
-  if (window.Hls && Hls.isSupported()) {
-    const tech = player.tech(true);
-    if (tech) {
-      // destruye instancia anterior si existe
-      if (player.hls) {
-        player.hls.destroy();
-        player.hls = null;
-      }
-      const hls = new Hls();
-      player.hls = hls;
-      hls.loadSource(channel.url);
-      hls.attachMedia(tech.el());
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        player.play();
-      });
-    }
+  if (Hls.isSupported()) {
+    const hls = new Hls();
+    hls.loadSource(channel.url);
+    hls.attachMedia(player.tech().el_);
   } else {
-    player.src({ src: channel.url, type: 'application/x-mpegURL' });
-    player.play();
+    player.src({ type: "application/x-mpegURL", src: channel.url });
   }
-}
 
-function updatePlayerTitle(name) {
-  const titleEl = document.getElementById("videoTitle");
-  if (titleEl) {
-    titleEl.textContent = name;
-  }
-}
-
-function scrollToPlayerMobile() {
-  if (window.innerWidth < 768) {
-    const container = document.getElementById("videoContainer");
-    if (container) {
-      setTimeout(() => {
-        container.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 300);
-    }
+  // En móvil, hacer scroll hacia el reproductor
+  if (isMobile) {
+    setTimeout(() => {
+      targetContainer.scrollIntoView({ behavior: "smooth" });
+    }, 300);
   }
 }
