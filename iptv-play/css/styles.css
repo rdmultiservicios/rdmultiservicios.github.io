@@ -1,10 +1,10 @@
-/* Scroll en lista de canales */
+/* Canal Sidebar (Desktop) */
 .channel-sidebar {
-  height: calc(100vh - 56px); /* menos navbar */
+  height: calc(100vh - 56px); /* ajuste por navbar */
   overflow-y: auto;
 }
 
-/* Estilos para botones de canal */
+/* Estilos de botones de canal */
 .channel-button {
   display: flex;
   align-items: center;
@@ -28,7 +28,31 @@
   border-radius: 4px;
 }
 
-/* Dark mode */
+/* Canal Grid en móvil */
+.channel-grid-mobile {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.channel-grid-mobile .channel-button {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-size: 0.8rem;
+  text-align: center;
+  height: 100px;
+}
+
+/* Footer */
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Dark Mode */
 body.dark-mode {
   background-color: #121212;
   color: #fff;
@@ -53,8 +77,6 @@ body.dark-mode .channel-button:hover {
   background-color: #3a3a3a;
 }
 
-footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
+.video-js {
+  width: 100% !important;
 }
