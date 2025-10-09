@@ -169,3 +169,6 @@ https://x4bnd7lq.fubohd.com/liga1max/mono.m3u8?token=98eb2d3540aa992e6eb04d3fef2
 
 #EXTINF:-1 tvg-id="folkloretv.pe" tvg-name="FOLKLORE TV" tvg-logo="https://folkloretv.pe/wp-content/uploads/2024/08/lado-1536x783.jpg" group-title="Nacional", Folklore TV
 https://tv.folkloretv.pe/folkloretv/tracks-v1a1/index.m3u8
+
+#EXTINF:-1 tvg-id="jn19television.com" tvg-name="JN19 TV" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Imagen_no_disponible.svg/1200px-Imagen_no_disponible.svg.png" group-title="Nacional", JN19 TV
+https://servilive.com:3028/live/jntv19live.m3u8
