@@ -167,5 +167,5 @@ https://video2.lhdserver.es/asiritv/live.m3u8
 #EXTINF:-1 tvg-id="" tvg-name="LIGA 1 MAX" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/29/06/1724886128623/dbb2ab453061_480_270.png" group-title="Deportes", Liga 1 Max
 https://x4bnd7lq.fubohd.com/liga1max/mono.m3u8?token=98eb2d3540aa992e6eb04d3fef2a7772f5cc956e-3b-1757965926-1757947926
 
-#EXTINF:-1 tvg-id="https://folkloretv.pe/" tvg-name="FOLKLORE TV" tvg-logo="https://folkloretv.pe/wp-content/uploads/2024/08/lado-1536x783.jpg" group-title="Nacional", Folklore TV
+#EXTINF:-1 tvg-id="folkloretv.pe" tvg-name="FOLKLORE TV" tvg-logo="https://folkloretv.pe/wp-content/uploads/2024/08/lado-1536x783.jpg" group-title="Nacional", Folklore TV
 https://tv.folkloretv.pe/folkloretv/tracks-v1a1/index.m3u8
