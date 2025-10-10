@@ -1,39 +1,41 @@
 let canales = [];
-let playerMobile;
-let playerDesktop;
+let player;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const res = await fetch('canales.m3u');
-  const data = await res.text();
-  canales = parseM3U(data);
+  try {
+    const res = await fetch('canales.m3u');
+    if (!res.ok) throw new Error('No se pudo cargar el archivo M3U');
+    const data = await res.text();
+    canales = parseM3U(data);
 
-  const categorias = [...new Set(canales.map(c => c.group))];
-  renderCategorias(categorias);
-  renderCanales(categorias[0]);
+    const categorias = [...new Set(canales.map(c => c.group))];
+    renderCategorias(categorias);
+    renderCanales(categorias[0]);
 
-  renderFiltros(categorias);
-  renderCanalesGrid();
+    renderFiltros(categorias);
+    renderCanalesGrid();
 
-  playerMobile = videojs('videoPlayer', {
-    autoplay: false,
-    controls: true,
-    fluid: true,
-  });
+    // Usar un solo reproductor con diseño fluido
+    const playerId = window.innerWidth <= 768 ? 'videoPlayer' : 'videoPlayerDesktop';
+    player = videojs(playerId, {
+      autoplay: false,
+      controls: true,
+      fluid: true,
+    });
 
-  playerDesktop = videojs('videoPlayerDesktop', {
-    autoplay: false,
-    controls: true,
-    fluid: true,
-  });
-
-  const primerCanal = canales.find(c => c.group === categorias[0]);
-  if (primerCanal) reproducirCanal(primerCanal.url);
+    const primerCanal = canales.find(c => c.group === categorias[0]);
+    if (primerCanal) reproducirCanal(primerCanal.url);
+  } catch (error) {
+    console.error(error);
+    document.getElementById('canales').innerHTML = '<p>Error al cargar los canales.</p>';
+  }
 });
 
-// Parseador M3U
+// Parseador M3U con validación
 function parseM3U(data) {
   const lines = data.split('\n');
   const parsed = [];
+
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].startsWith('#EXTINF')) {
       const name = lines[i].split(',')[1]?.trim();
@@ -41,22 +43,32 @@ function parseM3U(data) {
       const logo = lines[i].match(/tvg-logo="(.+?)"/)?.[1] || 'https://via.placeholder.com/100?text=Logo';
       const group = lines[i].match(/group-title="(.+?)"/)?.[1] || 'Otros';
       const url = lines[i + 1]?.trim();
-      if (url && name) parsed.push({ name, tvgId, logo, group, url });
+
+      if (url && /^https?:\/\//i.test(url) && name) {
+        parsed.push({ name, tvgId, logo, group, url });
+      }
     }
   }
+
   return parsed;
 }
 
-// Reproducir canal en ambos players
+// Normalizar texto para búsqueda (elimina tildes y convierte a minúsculas)
+function normalizeText(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+// Reproducir canal
 function reproducirCanal(url) {
-  if (playerMobile) {
-    playerMobile.src({ src: url, type: 'application/x-mpegURL' });
-    playerMobile.play();
+  if (player) {
+    player.src({ src: url, type: 'application/x-mpegURL' });
+    player.play();
   }
-  if (playerDesktop) {
-    playerDesktop.src({ src: url, type: 'application/x-mpegURL' });
-    playerDesktop.play();
-  }
+
+  // Marcar canal activo (opcional)
+  document.querySelectorAll('.card-canal.active').forEach(c => c.classList.remove('active'));
+  const matchingCards = document.querySelectorAll(`.card-canal[data-url="${url}"]`);
+  matchingCards.forEach(card => card.classList.add('active'));
 }
 
 // Slider móvil
@@ -67,11 +79,11 @@ function renderCategorias(categorias) {
     const btn = document.createElement('button');
     btn.className = 'categoria-btn' + (idx === 0 ? ' active' : '');
     btn.innerText = cat;
-    btn.onclick = () => {
+    btn.addEventListener('click', () => {
       document.querySelectorAll('.categoria-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderCanales(cat);
-    };
+    });
     container.appendChild(btn);
   });
 }
@@ -80,14 +92,23 @@ function renderCanales(categoria) {
   const container = document.getElementById('canales');
   container.innerHTML = '';
   const filtrados = canales.filter(c => c.group === categoria);
+
   filtrados.forEach(canal => {
     const col = document.createElement('div');
     col.className = 'col-4 col-md-2';
-    col.innerHTML = `
-      <div class="card-canal" onclick="reproducirCanal('${canal.url}')">
-        <img src="${canal.logo}" alt="${canal.name}">
-        <p class="small text-white">${canal.name}</p>
-      </div>`;
+
+    const card = document.createElement('div');
+    card.className = 'card-canal';
+    card.dataset.url = canal.url;
+
+    card.innerHTML = `
+      <img src="${canal.logo}" alt="${canal.name}">
+      <p class="small text-white">${canal.name}</p>
+    `;
+
+    card.addEventListener('click', () => reproducirCanal(canal.url));
+
+    col.appendChild(card);
     container.appendChild(col);
   });
 }
@@ -95,11 +116,13 @@ function renderCanales(categoria) {
 // Sidebar: filtros desktop
 function renderFiltros(categorias) {
   const container = document.getElementById('filtros');
+  container.innerHTML = '';
+
   categorias.forEach(cat => {
     const btn = document.createElement('button');
     btn.className = 'categoria-btn';
     btn.innerText = cat;
-    btn.onclick = () => renderCanalesGrid(cat);
+    btn.addEventListener('click', () => renderCanalesGrid(cat));
     container.appendChild(btn);
   });
 
@@ -111,23 +134,32 @@ function renderFiltros(categorias) {
 // Grid canales desktop
 function renderCanalesGrid(filtroCategoria = null) {
   const grid = document.getElementById('canales-grid');
-  const search = document.getElementById('busqueda').value.toLowerCase();
+  const search = normalizeText(document.getElementById('busqueda').value);
   grid.innerHTML = '';
 
   const filtrados = canales.filter(c => {
-    const matchNombre = c.name.toLowerCase().includes(search);
+    const nombreNormal = normalizeText(c.name);
+    const matchNombre = nombreNormal.includes(search);
     const matchCategoria = !filtroCategoria || c.group === filtroCategoria;
     return matchNombre && matchCategoria;
   });
 
   filtrados.forEach(canal => {
+    const col = document.createElement('div');
+    col.className = 'col';
+
     const card = document.createElement('div');
-    card.className = 'col';
+    card.className = 'card-canal';
+    card.dataset.url = canal.url;
+
     card.innerHTML = `
-      <div class="card-canal" onclick="reproducirCanal('${canal.url}')">
-        <img src="${canal.logo}" alt="${canal.name}">
-        <p class="small text-white">${canal.name}</p>
-      </div>`;
-    grid.appendChild(card);
+      <img src="${canal.logo}" alt="${canal.name}">
+      <p class="small text-white">${canal.name}</p>
+    `;
+
+    card.addEventListener('click', () => reproducirCanal(canal.url));
+
+    col.appendChild(card);
+    grid.appendChild(col);
   });
 }
