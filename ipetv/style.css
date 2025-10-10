@@ -1,0 +1,46 @@
+body {
+  background-color: #000;
+  color: white;
+}
+
+.card-canal {
+  background-color: #111;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card-canal:hover {
+  transform: scale(1.05);
+  background-color: #1a1a1a;
+}
+
+.card-canal img {
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.categoria-btn {
+  white-space: nowrap;
+  border: none;
+  background-color: #222;
+  color: #ccc;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.categoria-btn:hover,
+.categoria-btn.active {
+  background-color: #e50914;
+  color: white;
+}
+
+#canales-grid {
+  max-height: 70vh;
+  overflow-y: auto;
+}
