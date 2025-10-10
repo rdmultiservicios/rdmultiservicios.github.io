@@ -39,3 +39,8 @@ body {
   background-color: #e50914;
   color: white;
 }
+
+#canales-grid {
+  max-height: 70vh;
+  overflow-y: auto;
+}
