@@ -30,14 +30,16 @@ function parseM3U(data) {
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].startsWith('#EXTINF')) {
       const name = lines[i].split(',')[1].trim();
-      const tvgId = lines[i].match(/tvg-id="(.+?)"/)?.[1] || 'default';
+      const tvgId = lines[i].match(/tvg-id="(.+?)"/)?.[1] || '';
+      const logo = lines[i].match(/tvg-logo="(.+?)"/)?.[1] || 'default.png';
       const group = lines[i].match(/group-title="(.+?)"/)?.[1] || 'Otros';
-      const url = lines[i + 1];
-      parsed.push({ name, tvgId, group, url });
+      const url = lines[i + 1]?.trim();
+      parsed.push({ name, tvgId, logo, group, url });
     }
   }
   return parsed;
 }
+
 
 // Render categorías como botones scrollables
 function renderCategorias(categorias) {
@@ -69,7 +71,7 @@ function renderCanales(categoria) {
     const card = document.createElement('div');
     card.className = 'card-canal';
     card.innerHTML = `
-      <img src="assets/logos/${canal.tvgId}.png" alt="${canal.name}">
+      <img src="${canal.logo}" alt="${canal.name}" loading="lazy">
       <p class="small text-white">${canal.name}</p>
     `;
     card.onclick = () => reproducirCanal(canal.name, canal.url);
@@ -78,6 +80,7 @@ function renderCanales(categoria) {
     container.appendChild(col);
   });
 }
+
 
 // Reproduce el canal
 function reproducirCanal(nombre, url) {
