@@ -9,19 +9,19 @@ https://jireh-3-hls-video-us-isp.dps.live/hls-video/567ffde3fa319fadf3419efda256
 https://jireh-3-hls-video-us-isp.dps.live/hls-video/plus226/latina2/latina2.smil/latina2/livestream2/chunks.m3u8
 
 #EXTINF:-1 tvg-id="atv.pe" tvg-name="ATV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497771524/6ddb4622ebc8_480_270.png" group-title="Nacional", ATV HD
-https://live-evg20.tv360.bitel.com.pe/bitel/atv_abr/bitel/atv_360p/chunks.m3u8
+https://live-evg20.tv360.bitel.com.pe/bitel/Atv-UDP_abr/bitel/Atv-udp_360p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="atv.pe" tvg-name="ATV+ HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497854204/8ff5794d3f88_480_270.png" group-title="Nacional", ATV+ HD
-https://live-evg20.tv360.bitel.com.pe/bitel/atvmas_abr/bitel/atvmas_360p/chunks.m3u8
+https://live-evg20.tv360.bitel.com.pe/bitel/Atv+-UDP_abr/bitel/Atv+-udp_360p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="atv.pe" tvg-name="ATV Sur HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/15/05/1736895367519/57dbdf5188f3_480_270.png" group-title="Nacional", ATV Sur HD
-https://live-evg20.tv360.bitel.com.pe/bitel/atvsur_abr/bitel/atvsur_360p/chunks.m3u8
+https://live-evg18.tv360.bitel.com.pe/bitel/atvsur_abr/bitel/atvsur_360p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="exitosanoticias.pe" tvg-name="LA EXITOSA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/03/23/04/167952120589/8c00689813ad_480_270.png" group-title="Nacional", La Exitosa TV
 https://luna-1-video.mediaserver.digital/exitosatv_233b-4b49-a726-5a3cb0e3243c/index.m3u8
 
-#EXTINF:-1 tvg-id="creotvperu.com" tvg-name="CREO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/06/30/22/1751297879912/c4d705f4ff50_480_270.png" group-title="Nacional", Creotv
-https://live-evg25.tv360.bitel.com.pe/bitel/creoplus/chunks.m3u8
+#EXTINF:-1 tvg-id="creotvperu.com" tvg-name="CREO TV+" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/06/30/22/1751297879912/c4d705f4ff50_480_270.png" group-title="Nacional", Creotv
+https://live-evg18.tv360.bitel.com.pe/bitel/CreomasSRT/chunks.m3u8
 
 #EXTINF:-1 tvg-id="lakaribena.com.pe" tvg-name="LA KARIBENA TV" tvg-logo="https://statics.lakaribena.com.pe/2024/08/crop/66b3750ba3e36__580x340.webp" group-title="Música", La Karibena Tv
 https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/index.fmp4.m3u8
@@ -30,10 +30,10 @@ https://live-player.egostreaming.pe/karibenatv_685a-pe-a5676-584412/index.fmp4.m
 https://ott1.hdlatam.tv/live_abr/webtvVisionSur/playlist.m3u8
 
 #EXTINF:-1 tvg-id="pbo.pe" tvg-name="PBO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/07/17/03/1721162066598/2b612543c6e6_480_270.jpg" group-title="Nacional", PBO TV
-https://live-evg20.tv360.bitel.com.pe/bitel/pbo_abr/bitel/pbo_480p/chunks.m3u8
+https://live-evg11.tv360.bitel.com.pe/bitel/pbo_abr/bitel/pbo_360p/chunks.m3u8?uid=2779768
 
 #EXTINF:-1 tvg-id="willax.pe" tvg-name="WILLAX TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/03/15/03/1678824634442/20878967cb96_480_270.png" group-title="Nacional", Willax Tv
-https://live-evg20.tv360.bitel.com.pe/bitel/willax_abr/bitel/willax_720p/chunks.m3u8
+https://live-evg7.tv360.bitel.com.pe/bitel/willax_abr/bitel/willax_360p/chunks.m3u8?uid=1387984
 
 #EXTINF:-1 tvg-id="" tvg-name="Internacional | RT TV" tvg-logo="https://actualidad.rt.com/static/img/og/logo-rt-black.jpg" group-title="Noticias internacionales", RT TV Internacional
 https://rt-esp.rttv.com/dvr/rtesp/playlist.m3u8
@@ -48,25 +48,25 @@ https://www.chasquirouter.com/salida/sd/trivu.m3u8
 https://5c3fb01839654.streamlock.net:1963/iptvovacion1/liveovacion1tv/chunklist_w35115645.m3u8
 
 #EXTINF:-1 tvg-id="americatv.com.pe" tvg-name="AMERICA TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735835681860/c6e8bd31225d_480_270.png" group-title="Nacional", America TV
-https://live-evg20.tv360.bitel.com.pe/bitel/america_tv_abr/bitel/america_tv_360p/chunks.m3u8
+https://live-evg20.tv360.bitel.com.pe/bitel/America-UDP_abr/bitel/America-udp_360p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png" group-title="Nacional", TV Perú
 https://cdnhd.iblups.com/hls/777b4d4cc0984575a7d14f6ee57dbcaf.m3u8
 
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú Noticias" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png" group-title="Nacional", TV Perú Noticias
-https://cdnhd.iblups.com/hls/902c1a0395264f269f1160efa00660e4.m3u8
+https://cdnhd.iblups.com/hls/902c1a0395264f269f1160efa00660e47.m3u8
 
 #EXTINF:-1 tvg-id="tvperu.gob.pe" tvg-name="TV Perú Internacional" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png" group-title="Nacional", TV Perú Internacional
-https://cdnhd.iblups.com/hls/ee2450c81e554f4cae0e6292106993c2.m3u8
+https://cdnhd.iblups.com/hls/ee2450c81e554f4cae0e6292106993c27.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="NATIVA TV" tvg-logo="https://iptvpremium.com.pe/wp-content/uploads/2025/02/channels4_profile-300x300.jpg" group-title="Nacional", Nativa TV
 https://oneplay.iptvperu.tv:1936/static/nativa1.stream/playlist.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="PANAMERICANA TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/02/10/03/1675975326951/18caf2f51ca8_480_270.png" group-title="Nacional", Panamericana TV
-https://live-evg20.tv360.bitel.com.pe/bitel/panamericana_abr/bitel/panamericana_720p/chunks.m3u8
+https://live-evg20.tv360.bitel.com.pe/bitel/Panamericana-UDP_abr/bitel/Panamericana-udp_360p/chunks.m3u8
 
 #EXTINF:-1 tvg-id="neotv.pe" tvg-name="NEO TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/30/02/1738179913557/a2814d1fb8a4_480_270.jpg" group-title="Nacional", Neo Tv
-https://live-evg25.tv360.bitel.com.pe/bitel/neotv/bitel/neotv_ori_source/chunks.m3u8
+https://live-evg7.tv360.bitel.com.pe/bitel/neotvSRT/chunks.m3u8?uid=2779768
 
 #EXTINF:-1 tvg-id="conecta2.pe" tvg-name="CONECTA2 TV HD" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2023/06/06/22/1686064768681/9a1978fc185d_480_270.png" group-title="Nacional", Conecta2 TV
 https://live.obslivestream.com/conecta2/tracks-v1a1/mono.m3u8
@@ -93,7 +93,7 @@ https://live-evg25.tv360.bitel.com.pe/bitel/lambayeque/chunks.m3u8
 https://live-evg25.tv360.bitel.com.pe/bitel/toplatino/chunks.m3u8
 
 #EXTINF:-1 tvg-id="" tvg-name="GLOBAL TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/21/1735829804503/8dfc28d8c469_640_360.png" group-title="Nacional", Global TV
-https://live-evg20.tv360.bitel.com.pe/bitel/global_abr/bitel/global_720p/chunks.m3u8
+https://live-evg7.tv360.bitel.com.pe/bitel/global_abr/bitel/global_360p/chunks.m3u8?uid=10381014
 
 #EXTINF:-1 tvg-id="" tvg-name="BH TV" tvg-logo="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497196103/dd106731023a_480_270.jpg" group-title="Nacional", BH Nuestro Canal TV
 https://sc1.wasidata.com/Bhtv/tracks-v1a1/index.m3u8
