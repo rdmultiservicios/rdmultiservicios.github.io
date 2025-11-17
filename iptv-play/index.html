@@ -1,289 +1,79 @@
 <!DOCTYPE html>
-<html lang="es" data-bs-theme="light">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mi IPTV Web</title>
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Streaming Pro</title>
 
-  <!-- Video.js -->
-  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+<!-- Bootstrap CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+<link href="estilos-theme.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-  <style>
-    /* Canales grid - desktop */
-    #listaCanales {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 1fr;
-      gap: 10px;
-      max-height: calc(100vh - 140px);
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    #listaCanales > div.canal-item img {
-      width: 100%;
-      height: 100px;
-      object-fit: contain;
-    }
-
-    /* Móvil: grid 4 columnas, scroll horizontal */
-    @media (max-width: 767.98px) {
-      #listaCanales {
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-rows: auto;
-        max-height: none;
-        overflow-y: hidden;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-      #listaCanales > div.canal-item {
-        min-width: 120px;
-        display: inline-block;
-      }
-
-      /* Navbar fijo arriba */
-      nav.navbar {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1030;
-      }
-
-      /* Contenido con padding para navbar fijo */
-      .container-fluid {
-        padding-top: 70px;
-      }
-
-      /* Reordenar contenido móvil */
-      .container-fluid > .row {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .col-lg-6.col-md-8.col-12.mb-4 { order: 1; }    /* video */
-      #epgInfo { order: 2; margin-top: 10px; }        /* EPG */
-      .col-lg-3.d-none.d-lg-block {                   /* publicidad visible en móvil */
-        order: 3;
-        display: block !important;
-        width: 100%;
-      }
-      .col-lg-3.col-md-4.col-12.mb-4 { order: 4; }    /* canales */
-    }
-
-    /* Footer simple */
-    footer {
-      background-color: var(--bs-body-bg);
-      text-align: center;
-      padding: 15px 10px;
-      border-top: 1px solid #ddd;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--bs-body-color);
-    }
-  </style>
 </head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary px-3">
-    <a class="navbar-brand" href="#">IPTV</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarContent"
-      aria-controls="navbarContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Canales</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Películas</a></li>
-      </ul>
-      <button id="toggleTheme" class="btn btn-outline-secondary my-2 my-lg-0">
-        <i class="bi bi-moon-fill"></i>
-      </button>
+<body class="dark">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-stream px-3">
+
+    <span class="navbar-brand fw-bold fs-4">STREAMING PRO</span>
+
+    <!-- BUSCADOR GLOBAL -->
+    <input type="text" id="searchBox" class="form-control w-25 d-none d-md-block"
+           placeholder="Buscar películas, series, TV..." oninput="buscarGeneral()">
+
+    <div class="d-flex gap-3 ms-auto">
+        <button id="toggle-mode" class="btn btn-outline-light btn-sm">☀/🌙</button>
     </div>
-  </nav>
+</nav>
 
-  <!-- Contenido principal -->
-  <div class="container-fluid mt-3">
+<!-- FILTROS GLOBAL TV/PELICULAS -->
+<div class="filter-bar d-flex gap-3 px-3 py-2">
+    <button class="btn btn-outline-light btn-sm" onclick="mostrarSolo('tv')">TV</button>
+    <button class="btn btn-outline-light btn-sm" onclick="mostrarSolo('peliculas')">Películas</button>
+    <button class="btn btn-outline-light btn-sm" onclick="mostrarSolo('all')">Todo</button>
+</div>
+
+<div class="container-fluid mt-3">
     <div class="row">
-      <!-- Canales -->
-      <div class="col-lg-3 col-md-4 col-12 mb-4">
-        <input
-          type="text"
-          id="buscar"
-          class="form-control mb-2"
-          placeholder="Buscar canal..."
-        />
-        <select id="filtroGrupo" class="form-select mb-3">
-          <option value="">Todos los grupos</option>
-        </select>
-        <div id="listaCanales"></div>
-      </div>
 
-      <!-- Video -->
-      <div class="col-lg-6 col-md-8 col-12 mb-4">
-        <video
-          id="player"
-          class="video-js vjs-default-skin vjs-16-9 w-100"
-          controls
-          preload="auto"
-        ></video>
-        <div class="epg mt-3" id="epgInfo">Cargando programación...</div>
-      </div>
+        <!-- SIDEBAR TV -->
+        <aside class="col-md-2 d-none d-md-block sidebar">
+            <h5 class="text-light mt-3 mb-2">Canales TV</h5>
+            <div id="sidebar-categorias"></div>
+        </aside>
 
-      <!-- Publicidad -->
-      <div class="col-lg-3 d-none d-lg-block">
-        <ins
-          class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
-          data-ad-slot="yyyyyyyyyy"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div>
+        <!-- MAIN -->
+        <main class="col-md-8 col-12 p-3">
+
+            <!-- PLAYER -->
+            <div class="player-container mb-4">
+                <video id="player" class="w-100" controls autoplay></video>
+            </div>
+
+            <!-- CARRUSEL AUTOPLAY (tipo Pluto TV) -->
+            <h3 class="category-title">Recomendado</h3>
+            <div id="carruselAutoplay" class="row-scroll autoplay-row"></div>
+
+            <!-- SECCIONES -->
+            <div id="secciones-canales"></div>
+            <div id="secciones-peliculas"></div>
+        </main>
+
+        <!-- PUBLICIDAD -->
+        <aside class="col-md-2 d-none d-md-block p-3">
+            <div id="publicidad-desk"></div>
+        </aside>
+
     </div>
-  </div>
+</div>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Mi IPTV Web - Todos los derechos reservados
-  </footer>
+<!-- SCRIPTS -->
+<script src="script-hls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    // Toggle tema claro/oscuro
-    document.getElementById("toggleTheme").addEventListener("click", function () {
-      const html = document.documentElement;
-      const current = html.getAttribute("data-bs-theme");
-      html.setAttribute("data-bs-theme", current === "light" ? "dark" : "light");
-      this.innerHTML =
-        current === "light"
-          ? '<i class="bi bi-sun-fill"></i>'
-          : '<i class="bi bi-moon-fill"></i>';
-    });
-
-    const listaCanales = document.getElementById("listaCanales");
-    const filtroGrupo = document.getElementById("filtroGrupo");
-    const buscar = document.getElementById("buscar");
-    const epgInfo = document.getElementById("epgInfo");
-
-    const player = videojs("player", {
-      autoplay: false,
-      controls: true,
-      preload: "auto",
-    });
-
-    let canales = [];
-
-    async function cargarCanales() {
-      const res = await fetch("canales.m3u");
-      const texto = await res.text();
-      const lineas = texto.split("\n");
-      let grupoSet = new Set();
-
-      for (let i = 0; i < lineas.length; i++) {
-        if (lineas[i].startsWith("#EXTINF")) {
-          const info = lineas[i];
-          const url = lineas[i + 1]?.trim();
-          const nombre = info.match(/,(.*)/)?.[1] || "Canal";
-          const logo = info.match(/tvg-logo=\"(.*?)\"/)?.[1] || "";
-          const grupo = info.match(/group-title=\"(.*?)\"/)?.[1] || "General";
-          grupoSet.add(grupo);
-          canales.push({ nombre, logo, grupo, url });
-        }
-      }
-
-      grupoSet.forEach((g) => {
-        const opt = document.createElement("option");
-        opt.value = g;
-        opt.textContent = g;
-        filtroGrupo.appendChild(opt);
-      });
-
-      renderCanales();
-    }
-
-    function renderCanales() {
-      const filtro = buscar.value.toLowerCase();
-      const grupoSel = filtroGrupo.value;
-      listaCanales.innerHTML = "";
-
-      canales
-        .filter((c) => {
-          return (
-            c.nombre.toLowerCase().includes(filtro) &&
-            (grupoSel === "" || c.grupo === grupoSel)
-          );
-        })
-        .forEach((canal) => {
-          const div = document.createElement("div");
-          div.className = "canal-item card p-1";
-          div.style.cursor = "pointer";
-          div.title = canal.nombre;
-          div.onclick = () => reproducir(canal.url, canal.nombre);
-          div.innerHTML = `
-            <img src="${canal.logo}" alt="${canal.nombre}" />
-            <p class="text-center small mb-0">${canal.nombre}</p>
-          `;
-          listaCanales.appendChild(div);
-        });
-    }
-
-    function reproducir(url, nombre) {
-      player.src({ type: "application/x-mpegURL", src: url });
-      player.play();
-      cargarEPG(nombre);
-    }
-
-    async function cargarEPG(nombreCanal) {
-      try {
-        const res = await fetch("epg.xml");
-        const texto = await res.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(texto, "application/xml");
-        const programas = xml.querySelectorAll("programme");
-
-        let html = "";
-        programas.forEach((p) => {
-          const canal = p.getAttribute("channel");
-          if (canal.toLowerCase().includes(nombreCanal.toLowerCase())) {
-            const inicio = p.getAttribute("start");
-            const fin = p.getAttribute("stop");
-            const titulo = p.querySelector("title")?.textContent || "";
-            html += `<div><strong>${titulo}</strong> (${inicio} - ${fin})</div>`;
-          }
-        });
-
-        epgInfo.innerHTML = html || "Sin programación disponible.";
-      } catch (e) {
-        epgInfo.textContent = "No se pudo cargar la programación.";
-      }
-    }
-
-    buscar.addEventListener("input", renderCanales);
-    filtroGrupo.addEventListener("change", renderCanales);
-
-    cargarCanales();
-  </script>
 </body>
 </html>
