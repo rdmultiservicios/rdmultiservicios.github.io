@@ -1,0 +1,14 @@
+{
+  "peliculas": [
+    {
+      "id": "pel001",
+      "titulo": "Avengers Endgame",
+      "descripcion": "El equipo se reúne por última vez...",
+      "poster": "assets/posters/endgame.jpg",
+      "background": "assets/backgrounds/endgame.jpg",
+      "stream": "https://servidor/pelicula.m3u8",
+      "trailer": "assets/trailers/endgame.m3u8",
+      "categoria": "Acción"
+    }
+  ]
+}
