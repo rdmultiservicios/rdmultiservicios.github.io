@@ -29,20 +29,29 @@ body {
     overflow-x: auto;
     white-space: nowrap;
 }
+
 .channel-card {
     display: inline-block;
-    width: 200px;
-    margin: 0 10px;
+    width: 200px;       /* Tamaño fijo para todas las miniaturas */
+    height: 120px;      /* Altura fija para uniformidad */
+    margin: 0 5px;
     cursor: pointer;
-    transition: transform 0.3s, border 0.3s;
+    position: relative;
 }
+
 .channel-card img {
     width: 100%;
-    border-radius: 10px;
+    height: 100%;
+    object-fit: cover;   /* Mantiene proporción, recorta si es necesario */
+    border-radius: 0;    /* Sin bordes redondeados */
 }
+
+/* Eliminamos todos los estilos de enfoque para desktop y móvil */
 .channel-card.focused {
-    transform: scale(1.2);
-    border: 3px solid #f39c12;
+    transform: none;
+    border: none;
+}
+
 }
 </style>
 </head>
