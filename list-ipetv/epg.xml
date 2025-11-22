@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv generator-info-name="AI-EPG" generator-info-url="https://example.com">
+
+<!-- ======== CANALES ======== -->
+CHANNELS_PLACEHOLDER
+
+<!-- ======== PROGRAMACIÓN ======== -->
+PROGRAMS_PLACEHOLDER
+
+</tv>
