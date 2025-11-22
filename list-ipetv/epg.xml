@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tv generator-info-name="AI-EPG" generator-info-url="https://example.com">
+<tv generator-info-name="EPG Compacto Perú" source-info-name="Lista M3U">
+  <!-- Canales -->
+  <channel id="latina.pe">
+    <display-name>Latina HD</display-name>
+    <icon src="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735835839459/7f9e192ef8c6_480_270.png"/>
+  </channel>
+  <channel id="latina.pe.not">
+    <display-name>Latina Noticias</display-name>
+    <icon src="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/07/07/23/1751905735481/73e911a7acb4_480_270.png"/>
+  </channel>
+  <channel id="atv.pe">
+    <display-name>ATV HD</display-name>
+    <icon src="https://img-evg3.tv360.bitel.com.pe/peru-image/2024/08/13/04/1723497771524/6ddb4622ebc8_480_270.png"/>
+  </channel>
+  <channel id="americatv.com.pe">
+    <display-name>America TV</display-name>
+    <icon src="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735835681860/c6e8bd31225d_480_270.png"/>
+  </channel>
+  <channel id="tvperu.gob.pe">
+    <display-name>TV Perú</display-name>
+    <icon src="https://img-evg3.tv360.bitel.com.pe/peru-image/2025/01/02/23/1735836160517/87e21cb164e6_480_270.png"/>
+  </channel>
+  <!-- Agregar todos los demás canales de la lista M3U aquí -->
 
-<!-- ======== CANALES ======== -->
-CHANNELS_PLACEHOLDER
-
-<!-- ======== PROGRAMACIÓN ======== -->
-PROGRAMS_PLACEHOLDER
-
+  <!-- Programación ejemplo (bloques de 1 hora, GMT-5) -->
+  <programme start="20251122060000 -0500" stop="20251122070000 -0500" channel="latina.pe">
+    <title>Latina Noticias</title>
+    <desc>Noticias nacionales y programas de actualidad.</desc>
+  </programme>
+  <programme start="20251122070000 -0500" stop="20251122080000 -0500" channel="latina.pe">
+    <title>Latina Entretenimiento</title>
+    <desc>Shows y programas de variedades.</desc>
+  </programme>
+  <programme start="20251122060000 -0500" stop="20251122070000 -0500" channel="atv.pe">
+    <title>ATV Noticias</title>
+    <desc>Noticias del día y actualidad nacional.</desc>
+  </programme>
+  <programme start="20251122070000 -0500" stop="20251122080000 -0500" channel="atv.pe">
+    <title>ATV Entretenimiento</title>
+    <desc>Programas de entretenimiento y shows en vivo.</desc>
+  </programme>
+  <programme start="20251122060000 -0500" stop="20251122070000 -0500" channel="americatv.com.pe">
+    <title>America Noticias</title>
+    <desc>Noticias locales y nacionales.</desc>
+  </programme>
+  <programme start="20251122070000 -0500" stop="20251122080000 -0500" channel="americatv.com.pe">
+    <title>America Entretenimiento</title>
+    <desc>Shows y programas de variedades.</desc>
+  </programme>
+  <programme start="20251122060000 -0500" stop="20251122070000 -0500" channel="tvperu.gob.pe">
+    <title>TV Perú Noticias</title>
+    <desc>Programas de información y actualidad.</desc>
+  </programme>
+  <programme start="20251122070000 -0500" stop="20251122080000 -0500" channel="tvperu.gob.pe">
+    <title>TV Perú Cultura</title>
+    <desc>Programas culturales y educativos.</desc>
+  </programme>
+  <!-- Repetir bloques de 1 hora para todos los canales -->
 </tv>
