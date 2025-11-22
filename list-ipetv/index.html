@@ -1,1 +1,176 @@
-.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>IPTV Panel</title>
+
+    <!-- Bootstrap 5 desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #sidebar {
+            background: #111;
+            height: 100vh;
+            width: 240px;
+            padding-top: 20px;
+        }
+        #channelList {
+            height: 75vh;
+            overflow-y: auto;
+        }
+        #epgGrid {
+            height: 60vh;
+            overflow-y: auto;
+        }
+        .channel-item:hover {
+            background: #333;
+            cursor: pointer;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            background: black;
+        }
+    </style>
+</head>
+
+<body>
+<div class="d-flex">
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="p-3">
+        <h4 class="text-primary">tv</h4>
+        <hr class="border-secondary">
+
+        <h6>Playlist 1</h6>
+        <div class="mt-3">
+            <p class="text-secondary">All channels</p>
+            <ul id="channelList" class="list-group bg-dark"></ul>
+        </div>
+    </div>
+
+    <!-- Panel Principal -->
+    <div class="flex-grow-1 p-3">
+
+        <!-- Vista previa -->
+        <div>
+            <video id="videoPlayer" controls></video>
+        </div>
+
+        <!-- Info del canal -->
+        <div class="mt-3">
+            <h4 id="channelName">Selecciona un canal</h4>
+            <p id="channelDescription" class="text-secondary"></p>
+        </div>
+
+        <hr>
+
+        <!-- EPG simple (placeholder) -->
+        <h5>Programación</h5>
+        <div id="epgGrid" class="text-secondary">
+            <p>La guía EPG puede integrarse si tienes XMLTV. Por ahora muestra datos del M3U.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- hls.js para IPTV streaming -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+/* ===========================
+   LEER ARCHIVO M3U
+=========================== */
+async function loadM3U() {
+    const response = await fetch("playlist.m3u");
+    const text = await response.text();
+    parseM3U(text);
+}
+
+let channels = [];
+
+/* ===========================
+   PARSEADOR DE M3U
+=========================== */
+function parseM3U(m3u) {
+    const lines = m3u.split("\n");
+    let temp = {};
+
+    lines.forEach(line => {
+        line = line.trim();
+
+        if (line.startsWith("#EXTINF")) {
+            temp = {};
+            const nameMatch = line.match(/,(.*)$/);
+            const logoMatch = line.match(/tvg-logo="(.*?)"/);
+            const groupMatch = line.match(/group-title="(.*?)"/);
+
+            temp.name = nameMatch ? nameMatch[1] : "Canal";
+            temp.logo = logoMatch ? logoMatch[1] : "";
+            temp.group = groupMatch ? groupMatch[1] : "General";
+            temp.description = "Contenido de " + temp.name;
+        } 
+        else if (line.startsWith("http")) {
+            temp.url = line;
+            channels.push(temp);
+        }
+    });
+
+    renderChannelList();
+}
+
+/* ===========================
+   MOSTRAR LISTA DE CANALES
+=========================== */
+function renderChannelList() {
+    const list = document.getElementById("channelList");
+    channels.forEach((ch, index) => {
+        const li = document.createElement("li");
+        li.className = "list-group-item bg-dark text-white channel-item";
+        li.innerHTML = `
+            <div class="d-flex align-items-center">
+                <img src="${ch.logo}" onerror="this.src=''" 
+                     style="width:30px;height:30px;object-fit:contain;margin-right:10px;">
+                <span>${ch.name}</span>
+            </div>
+        `;
+        li.onclick = () => playChannel(index);
+        list.appendChild(li);
+    });
+}
+
+/* ===========================
+   REPRODUCTOR IPTV
+=========================== */
+function playChannel(index) {
+    const ch = channels[index];
+
+    document.getElementById("channelName").textContent = ch.name;
+    document.getElementById("channelDescription").textContent = ch.description;
+
+    const video = document.getElementById("videoPlayer");
+
+    if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(ch.url);
+        hls.attachMedia(video);
+    } else {
+        video.src = ch.url;
+    }
+
+    video.play();
+}
+
+/* =========================== */
+loadM3U();
+</script>
+
+</body>
+</html>
